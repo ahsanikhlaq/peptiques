@@ -1,0 +1,1230 @@
+{%- comment -%}
+  DropMagic Utility Functions
+  This file contains various utility functions for styling and layout.
+  
+  Usage:
+  - For media: {% render 'dm_classname_utils', type: 'media', media_style: 'default' %}
+  - For button: {% render 'dm_classname_utils', type: 'button', button_style: 'default' %}
+  - For card: {% render 'dm_classname_utils', type: 'card', card_style: 'default' %}
+  - For accordion: {% render 'dm_classname_utils', type: 'accordion', accordion_style: 'default' %}
+  - For variant_button: {% render 'dm_classname_utils', type: 'variant_button', variant_button_style: 'default' %}
+{%- endcomment -%}
+
+{%- if type == 'media' -%}
+  {%- liquid
+    assign media_style = media_style | default: 'none'
+    assign media_variant_key = media_style
+  -%}
+
+  {%- capture media_class -%}
+  {%- case media_variant_key -%}
+    {%- when 'none' -%}
+      rounded-md
+    {%- when 'brick' -%}
+      rounded-md border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)]
+    {%- when 'light' -%}
+      rounded-md border border-gray-200
+    {%- when 'solid' -%}
+      rounded-md border-2 border-black
+    {%- when 'polaroid' -%}
+      rounded-sm border-[12px] border-white !border-b-[1.5rem] shadow-md bg-white relative
+    {%- when 'shadow' -%}
+      rounded-md shadow-md
+  {%- endcase -%}
+  {%- endcapture -%}
+  {{ media_class }}
+  
+{%- elsif type == 'button' -%}
+  {%- liquid
+    assign button_size = button_size | default: 'xs'
+    assign button_width = button_width | default: 'full'
+    assign button_variant = button_variant | default: 'primary'
+    assign button_style = button_style | default: 'classic'
+    assign button_variant_key = button_size | append: '_' | append: button_width | append: '_' | append: button_variant | append: '_' | append: button_style
+  -%}
+
+  {%- capture button_class -%}
+  {%- case button_variant_key -%}
+    {%- when 'xs_full_primary_classic' -%}
+      h-9 px-3  w-full bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'xs_full_primary_brick' -%}
+      h-9 px-3  w-full border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_full_primary_bubble' -%}
+      h-9 px-3  w-full border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'xs_full_primary_gradient' -%}
+      h-9 px-3  w-full bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'xs_full_primary_soft' -%}
+      h-9 px-3  w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_full_primary_ghost' -%}
+      h-9 px-3  w-full border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'xs_full_primary_solid' -%}
+      h-9 px-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_full_secondary_classic' -%}
+      h-9 px-3  w-full bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'xs_full_secondary_brick' -%}
+      h-9 px-3  w-full border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_full_secondary_bubble' -%}
+      h-9 px-3  w-full border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'xs_full_secondary_gradient' -%}
+      h-9 px-3  w-full bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'xs_full_secondary_soft' -%}
+      h-9 px-3  w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_full_secondary_ghost' -%}
+      h-9 px-3  w-full border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'xs_full_secondary_solid' -%}
+      h-9 px-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_full_accent_classic' -%}
+      h-9 px-3  w-full bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'xs_full_accent_brick' -%}
+      h-9 px-3  w-full border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_full_accent_bubble' -%}
+      h-9 px-3  w-full border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'xs_full_accent_gradient' -%}
+      h-9 px-3  w-full bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'xs_full_accent_soft' -%}
+      h-9 px-3  w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_full_accent_ghost' -%}
+      h-9 px-3  w-full border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'xs_full_accent_solid' -%}
+      h-9 px-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_full_outline_classic' -%}
+      h-9 px-3  w-full border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_full_outline_brick' -%}
+      h-9 px-3  w-full border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_full_outline_bubble' -%}
+      h-9 px-3  w-full border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_full_outline_gradient' -%}
+      h-9 px-3  w-full border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_full_outline_soft' -%}
+      h-9 px-3  w-full bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_full_outline_ghost' -%}
+      h-9 px-3  w-full border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_full_outline_solid' -%}
+      h-9 px-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_full_black_classic' -%}
+      h-9 px-3  w-full !bg-black text-white
+    {%- when 'xs_full_black_brick' -%}
+      h-9 px-3  w-full !bg-black text-white border-[3px] border-solid
+    {%- when 'xs_full_black_bubble' -%}
+      h-9 px-3  w-full !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'xs_full_black_gradient' -%}
+      h-9 px-3  w-full !bg-black text-white
+    {%- when 'xs_full_black_soft' -%}
+      h-9 px-3  w-full !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'xs_full_black_ghost' -%}
+      h-9 px-3  w-full !bg-black text-white border-2 border-solid
+    {%- when 'xs_full_black_solid' -%}
+      h-9 px-3  w-full !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_fit_primary_classic' -%}
+      h-9 px-3  w-fit bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'xs_fit_primary_brick' -%}
+      h-9 px-3  w-fit border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_fit_primary_bubble' -%}
+      h-9 px-3  w-fit border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'xs_fit_primary_gradient' -%}
+      h-9 px-3  w-fit bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'xs_fit_primary_soft' -%}
+      h-9 px-3  w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_fit_primary_ghost' -%}
+      h-9 px-3  w-fit border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'xs_fit_primary_solid' -%}
+      h-9 px-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_fit_secondary_classic' -%}
+      h-9 px-3  w-fit bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'xs_fit_secondary_brick' -%}
+      h-9 px-3  w-fit border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_fit_secondary_bubble' -%}
+      h-9 px-3  w-fit border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'xs_fit_secondary_gradient' -%}
+      h-9 px-3  w-fit bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'xs_fit_secondary_soft' -%}
+      h-9 px-3  w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_fit_secondary_ghost' -%}
+      h-9 px-3  w-fit border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'xs_fit_secondary_solid' -%}
+      h-9 px-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_fit_accent_classic' -%}
+      h-9 px-3  w-fit bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'xs_fit_accent_brick' -%}
+      h-9 px-3  w-fit border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_fit_accent_bubble' -%}
+      h-9 px-3  w-fit border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'xs_fit_accent_gradient' -%}
+      h-9 px-3  w-fit bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'xs_fit_accent_soft' -%}
+      h-9 px-3  w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_fit_accent_ghost' -%}
+      h-9 px-3  w-fit border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'xs_fit_accent_solid' -%}
+      h-9 px-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_fit_outline_classic' -%}
+      h-9 px-3  w-fit border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_fit_outline_brick' -%}
+      h-9 px-3  w-fit border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_fit_outline_bubble' -%}
+      h-9 px-3  w-fit border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_fit_outline_gradient' -%}
+      h-9 px-3  w-fit border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_fit_outline_soft' -%}
+      h-9 px-3  w-fit bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_fit_outline_ghost' -%}
+      h-9 px-3  w-fit border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_fit_outline_solid' -%}
+      h-9 px-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_fit_black_classic' -%}
+      h-9 px-3  w-fit !bg-black text-white
+    {%- when 'xs_fit_black_brick' -%}
+      h-9 px-3  w-fit !bg-black text-white border-[3px] border-solid
+    {%- when 'xs_fit_black_bubble' -%}
+      h-9 px-3  w-fit !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'xs_fit_black_gradient' -%}
+      h-9 px-3  w-fit !bg-black text-white
+    {%- when 'xs_fit_black_soft' -%}
+      h-9 px-3  w-fit !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'xs_fit_black_ghost' -%}
+      h-9 px-3  w-fit !bg-black text-white border-2 border-solid
+    {%- when 'xs_fit_black_solid' -%}
+      h-9 px-3  w-fit !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_full_primary_classic' -%}
+      h-10 px-4 py-2 w-full bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'sm_full_primary_brick' -%}
+      h-10 px-4 py-2 w-full border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_full_primary_bubble' -%}
+      h-10 px-4 py-2 w-full border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'sm_full_primary_gradient' -%}
+      h-10 px-4 py-2 w-full bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'sm_full_primary_soft' -%}
+      h-10 px-4 py-2 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_full_primary_ghost' -%}
+      h-10 px-4 py-2 w-full border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'sm_full_primary_solid' -%}
+      h-10 px-4 py-2 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_full_secondary_classic' -%}
+      h-10 px-4 py-2 w-full bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'sm_full_secondary_brick' -%}
+      h-10 px-4 py-2 w-full border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_full_secondary_bubble' -%}
+      h-10 px-4 py-2 w-full border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'sm_full_secondary_gradient' -%}
+      h-10 px-4 py-2 w-full bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'sm_full_secondary_soft' -%}
+      h-10 px-4 py-2 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_full_secondary_ghost' -%}
+      h-10 px-4 py-2 w-full border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'sm_full_secondary_solid' -%}
+      h-10 px-4 py-2 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_full_accent_classic' -%}
+      h-10 px-4 py-2 w-full bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'sm_full_accent_brick' -%}
+      h-10 px-4 py-2 w-full border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_full_accent_bubble' -%}
+      h-10 px-4 py-2 w-full border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'sm_full_accent_gradient' -%}
+      h-10 px-4 py-2 w-full bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'sm_full_accent_soft' -%}
+      h-10 px-4 py-2 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_full_accent_ghost' -%}
+      h-10 px-4 py-2 w-full border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'sm_full_accent_solid' -%}
+      h-10 px-4 py-2 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_full_outline_classic' -%}
+      h-10 px-4 py-2 w-full border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_full_outline_brick' -%}
+      h-10 px-4 py-2 w-full border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_full_outline_bubble' -%}
+      h-10 px-4 py-2 w-full border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_full_outline_gradient' -%}
+      h-10 px-4 py-2 w-full border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_full_outline_soft' -%}
+      h-10 px-4 py-2 w-full bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_full_outline_ghost' -%}
+      h-10 px-4 py-2 w-full border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_full_outline_solid' -%}
+      h-10 px-4 py-2 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_full_black_classic' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white
+    {%- when 'sm_full_black_brick' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white border-[3px] border-solid
+    {%- when 'sm_full_black_bubble' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'sm_full_black_gradient' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white
+    {%- when 'sm_full_black_soft' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'sm_full_black_ghost' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white border-2 border-solid
+    {%- when 'sm_full_black_solid' -%}
+      h-10 px-4 py-2 w-full !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_fit_primary_classic' -%}
+      h-10 px-4 py-2 w-fit bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'sm_fit_primary_brick' -%}
+      h-10 px-4 py-2 w-fit border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_fit_primary_bubble' -%}
+      h-10 px-4 py-2 w-fit border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'sm_fit_primary_gradient' -%}
+      h-10 px-4 py-2 w-fit bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'sm_fit_primary_soft' -%}
+      h-10 px-4 py-2 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_fit_primary_ghost' -%}
+      h-10 px-4 py-2 w-fit border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'sm_fit_primary_solid' -%}
+      h-10 px-4 py-2 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_fit_secondary_classic' -%}
+      h-10 px-4 py-2 w-fit bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'sm_fit_secondary_brick' -%}
+      h-10 px-4 py-2 w-fit border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_fit_secondary_bubble' -%}
+      h-10 px-4 py-2 w-fit border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'sm_fit_secondary_gradient' -%}
+      h-10 px-4 py-2 w-fit bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'sm_fit_secondary_soft' -%}
+      h-10 px-4 py-2 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_fit_secondary_ghost' -%}
+      h-10 px-4 py-2 w-fit border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'sm_fit_secondary_solid' -%}
+      h-10 px-4 py-2 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_fit_accent_classic' -%}
+      h-10 px-4 py-2 w-fit bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'sm_fit_accent_brick' -%}
+      h-10 px-4 py-2 w-fit border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_fit_accent_bubble' -%}
+      h-10 px-4 py-2 w-fit border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'sm_fit_accent_gradient' -%}
+      h-10 px-4 py-2 w-fit bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'sm_fit_accent_soft' -%}
+      h-10 px-4 py-2 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_fit_accent_ghost' -%}
+      h-10 px-4 py-2 w-fit border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'sm_fit_accent_solid' -%}
+      h-10 px-4 py-2 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_fit_outline_classic' -%}
+      h-10 px-4 py-2 w-fit border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_fit_outline_brick' -%}
+      h-10 px-4 py-2 w-fit border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_fit_outline_bubble' -%}
+      h-10 px-4 py-2 w-fit border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_fit_outline_gradient' -%}
+      h-10 px-4 py-2 w-fit border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_fit_outline_soft' -%}
+      h-10 px-4 py-2 w-fit bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_fit_outline_ghost' -%}
+      h-10 px-4 py-2 w-fit border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_fit_outline_solid' -%}
+      h-10 px-4 py-2 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_fit_black_classic' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white
+    {%- when 'sm_fit_black_brick' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white border-[3px] border-solid
+    {%- when 'sm_fit_black_bubble' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'sm_fit_black_gradient' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white
+    {%- when 'sm_fit_black_soft' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'sm_fit_black_ghost' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white border-2 border-solid
+    {%- when 'sm_fit_black_solid' -%}
+      h-10 px-4 py-2 w-fit !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_full_primary_classic' -%}
+      h-13 px-6 py-3  w-full bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'md_full_primary_brick' -%}
+      h-13 px-6 py-3  w-full border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_full_primary_bubble' -%}
+      h-13 px-6 py-3  w-full border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'md_full_primary_gradient' -%}
+      h-13 px-6 py-3  w-full bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'md_full_primary_soft' -%}
+      h-13 px-6 py-3  w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_full_primary_ghost' -%}
+      h-13 px-6 py-3  w-full border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'md_full_primary_solid' -%}
+      h-13 px-6 py-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_full_secondary_classic' -%}
+      h-13 px-6 py-3  w-full bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'md_full_secondary_brick' -%}
+      h-13 px-6 py-3  w-full border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_full_secondary_bubble' -%}
+      h-13 px-6 py-3  w-full border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'md_full_secondary_gradient' -%}
+      h-13 px-6 py-3  w-full bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'md_full_secondary_soft' -%}
+      h-13 px-6 py-3  w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_full_secondary_ghost' -%}
+      h-13 px-6 py-3  w-full border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'md_full_secondary_solid' -%}
+      h-13 px-6 py-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_full_accent_classic' -%}
+      h-13 px-6 py-3  w-full bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'md_full_accent_brick' -%}
+      h-13 px-6 py-3  w-full border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_full_accent_bubble' -%}
+      h-13 px-6 py-3  w-full border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'md_full_accent_gradient' -%}
+      h-13 px-6 py-3  w-full bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'md_full_accent_soft' -%}
+      h-13 px-6 py-3  w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_full_accent_ghost' -%}
+      h-13 px-6 py-3  w-full border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'md_full_accent_solid' -%}
+      h-13 px-6 py-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_full_outline_classic' -%}
+      h-13 px-6 py-3  w-full border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_full_outline_brick' -%}
+      h-13 px-6 py-3  w-full border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_full_outline_bubble' -%}
+      h-13 px-6 py-3  w-full border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_full_outline_gradient' -%}
+      h-13 px-6 py-3  w-full border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_full_outline_soft' -%}
+      h-13 px-6 py-3  w-full bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_full_outline_ghost' -%}
+      h-13 px-6 py-3  w-full border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_full_outline_solid' -%}
+      h-13 px-6 py-3  w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_full_black_classic' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white
+    {%- when 'md_full_black_brick' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white border-[3px] border-solid
+    {%- when 'md_full_black_bubble' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'md_full_black_gradient' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white
+    {%- when 'md_full_black_soft' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'md_full_black_ghost' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white border-2 border-solid
+    {%- when 'md_full_black_solid' -%}
+      h-13 px-6 py-3  w-full !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_fit_primary_classic' -%}
+      h-13 px-6 py-3  w-fit bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'md_fit_primary_brick' -%}
+      h-13 px-6 py-3  w-fit border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_fit_primary_bubble' -%}
+      h-13 px-6 py-3  w-fit border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'md_fit_primary_gradient' -%}
+      h-13 px-6 py-3  w-fit bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'md_fit_primary_soft' -%}
+      h-13 px-6 py-3  w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_fit_primary_ghost' -%}
+      h-13 px-6 py-3  w-fit border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'md_fit_primary_solid' -%}
+      h-13 px-6 py-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_fit_secondary_classic' -%}
+      h-13 px-6 py-3  w-fit bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'md_fit_secondary_brick' -%}
+      h-13 px-6 py-3  w-fit border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_fit_secondary_bubble' -%}
+      h-13 px-6 py-3  w-fit border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'md_fit_secondary_gradient' -%}
+      h-13 px-6 py-3  w-fit bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'md_fit_secondary_soft' -%}
+      h-13 px-6 py-3  w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_fit_secondary_ghost' -%}
+      h-13 px-6 py-3  w-fit border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'md_fit_secondary_solid' -%}
+      h-13 px-6 py-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_fit_accent_classic' -%}
+      h-13 px-6 py-3  w-fit bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'md_fit_accent_brick' -%}
+      h-13 px-6 py-3  w-fit border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_fit_accent_bubble' -%}
+      h-13 px-6 py-3  w-fit border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'md_fit_accent_gradient' -%}
+      h-13 px-6 py-3  w-fit bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'md_fit_accent_soft' -%}
+      h-13 px-6 py-3  w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_fit_accent_ghost' -%}
+      h-13 px-6 py-3  w-fit border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'md_fit_accent_solid' -%}
+      h-13 px-6 py-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_fit_outline_classic' -%}
+      h-13 px-6 py-3  w-fit border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_fit_outline_brick' -%}
+      h-13 px-6 py-3  w-fit border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_fit_outline_bubble' -%}
+      h-13 px-6 py-3  w-fit border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_fit_outline_gradient' -%}
+      h-13 px-6 py-3  w-fit border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_fit_outline_soft' -%}
+      h-13 px-6 py-3  w-fit bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_fit_outline_ghost' -%}
+      h-13 px-6 py-3  w-fit border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_fit_outline_solid' -%}
+      h-13 px-6 py-3  w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_fit_black_classic' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white
+    {%- when 'md_fit_black_brick' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white border-[3px] border-solid
+    {%- when 'md_fit_black_bubble' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'md_fit_black_gradient' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white
+    {%- when 'md_fit_black_soft' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'md_fit_black_ghost' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white border-2 border-solid
+    {%- when 'md_fit_black_solid' -%}
+      h-13 px-6 py-3  w-fit !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_full_primary_classic' -%}
+      h-16 px-12 py-4 w-full bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'lg_full_primary_brick' -%}
+      h-16 px-12 py-4 w-full border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_full_primary_bubble' -%}
+      h-16 px-12 py-4 w-full border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'lg_full_primary_gradient' -%}
+      h-16 px-12 py-4 w-full bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'lg_full_primary_soft' -%}
+      h-16 px-12 py-4 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_full_primary_ghost' -%}
+      h-16 px-12 py-4 w-full border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'lg_full_primary_solid' -%}
+      h-16 px-12 py-4 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_full_secondary_classic' -%}
+      h-16 px-12 py-4 w-full bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'lg_full_secondary_brick' -%}
+      h-16 px-12 py-4 w-full border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_full_secondary_bubble' -%}
+      h-16 px-12 py-4 w-full border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'lg_full_secondary_gradient' -%}
+      h-16 px-12 py-4 w-full bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'lg_full_secondary_soft' -%}
+      h-16 px-12 py-4 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_full_secondary_ghost' -%}
+      h-16 px-12 py-4 w-full border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'lg_full_secondary_solid' -%}
+      h-16 px-12 py-4 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_full_accent_classic' -%}
+      h-16 px-12 py-4 w-full bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'lg_full_accent_brick' -%}
+      h-16 px-12 py-4 w-full border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_full_accent_bubble' -%}
+      h-16 px-12 py-4 w-full border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'lg_full_accent_gradient' -%}
+      h-16 px-12 py-4 w-full bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'lg_full_accent_soft' -%}
+      h-16 px-12 py-4 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_full_accent_ghost' -%}
+      h-16 px-12 py-4 w-full border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'lg_full_accent_solid' -%}
+      h-16 px-12 py-4 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_full_outline_classic' -%}
+      h-16 px-12 py-4 w-full border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_full_outline_brick' -%}
+      h-16 px-12 py-4 w-full border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_full_outline_bubble' -%}
+      h-16 px-12 py-4 w-full border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_full_outline_gradient' -%}
+      h-16 px-12 py-4 w-full border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_full_outline_soft' -%}
+      h-16 px-12 py-4 w-full bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_full_outline_ghost' -%}
+      h-16 px-12 py-4 w-full border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_full_outline_solid' -%}
+      h-16 px-12 py-4 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_full_black_classic' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white
+    {%- when 'lg_full_black_brick' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white border-[3px] border-solid
+    {%- when 'lg_full_black_bubble' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'lg_full_black_gradient' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white
+    {%- when 'lg_full_black_soft' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'lg_full_black_ghost' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white border-2 border-solid
+    {%- when 'lg_full_black_solid' -%}
+      h-16 px-12 py-4 w-full !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_fit_primary_classic' -%}
+      h-16 px-12 py-4 w-fit bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'lg_fit_primary_brick' -%}
+      h-16 px-12 py-4 w-fit border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_fit_primary_bubble' -%}
+      h-16 px-12 py-4 w-fit border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'lg_fit_primary_gradient' -%}
+      h-16 px-12 py-4 w-fit bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'lg_fit_primary_soft' -%}
+      h-16 px-12 py-4 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_fit_primary_ghost' -%}
+      h-16 px-12 py-4 w-fit border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'lg_fit_primary_solid' -%}
+      h-16 px-12 py-4 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_fit_secondary_classic' -%}
+      h-16 px-12 py-4 w-fit bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'lg_fit_secondary_brick' -%}
+      h-16 px-12 py-4 w-fit border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_fit_secondary_bubble' -%}
+      h-16 px-12 py-4 w-fit border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'lg_fit_secondary_gradient' -%}
+      h-16 px-12 py-4 w-fit bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'lg_fit_secondary_soft' -%}
+      h-16 px-12 py-4 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_fit_secondary_ghost' -%}
+      h-16 px-12 py-4 w-fit border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'lg_fit_secondary_solid' -%}
+      h-16 px-12 py-4 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_fit_accent_classic' -%}
+      h-16 px-12 py-4 w-fit bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'lg_fit_accent_brick' -%}
+      h-16 px-12 py-4 w-fit border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_fit_accent_bubble' -%}
+      h-16 px-12 py-4 w-fit border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'lg_fit_accent_gradient' -%}
+      h-16 px-12 py-4 w-fit bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'lg_fit_accent_soft' -%}
+      h-16 px-12 py-4 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_fit_accent_ghost' -%}
+      h-16 px-12 py-4 w-fit border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'lg_fit_accent_solid' -%}
+      h-16 px-12 py-4 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_fit_outline_classic' -%}
+      h-16 px-12 py-4 w-fit border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_fit_outline_brick' -%}
+      h-16 px-12 py-4 w-fit border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_fit_outline_bubble' -%}
+      h-16 px-12 py-4 w-fit border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_fit_outline_gradient' -%}
+      h-16 px-12 py-4 w-fit border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_fit_outline_soft' -%}
+      h-16 px-12 py-4 w-fit bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_fit_outline_ghost' -%}
+      h-16 px-12 py-4 w-fit border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_fit_outline_solid' -%}
+      h-16 px-12 py-4 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_fit_black_classic' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white
+    {%- when 'lg_fit_black_brick' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white border-[3px] border-solid
+    {%- when 'lg_fit_black_bubble' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'lg_fit_black_gradient' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white
+    {%- when 'lg_fit_black_soft' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'lg_fit_black_ghost' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white border-2 border-solid
+    {%- when 'lg_fit_black_solid' -%}
+      h-16 px-12 py-4 w-fit !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_full_primary_classic' -%}
+      h-13 px-10 py-5 w-full bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'xl_full_primary_brick' -%}
+      h-13 px-10 py-5 w-full border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_full_primary_bubble' -%}
+      h-13 px-10 py-5 w-full border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'xl_full_primary_gradient' -%}
+      h-13 px-10 py-5 w-full bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'xl_full_primary_soft' -%}
+      h-13 px-10 py-5 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_full_primary_ghost' -%}
+      h-13 px-10 py-5 w-full border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'xl_full_primary_solid' -%}
+      h-13 px-10 py-5 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_full_secondary_classic' -%}
+      h-13 px-10 py-5 w-full bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'xl_full_secondary_brick' -%}
+      h-13 px-10 py-5 w-full border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_full_secondary_bubble' -%}
+      h-13 px-10 py-5 w-full border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'xl_full_secondary_gradient' -%}
+      h-13 px-10 py-5 w-full bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'xl_full_secondary_soft' -%}
+      h-13 px-10 py-5 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_full_secondary_ghost' -%}
+      h-13 px-10 py-5 w-full border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'xl_full_secondary_solid' -%}
+      h-13 px-10 py-5 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_full_accent_classic' -%}
+      h-13 px-10 py-5 w-full bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'xl_full_accent_brick' -%}
+      h-13 px-10 py-5 w-full border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_full_accent_bubble' -%}
+      h-13 px-10 py-5 w-full border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'xl_full_accent_gradient' -%}
+      h-13 px-10 py-5 w-full bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'xl_full_accent_soft' -%}
+      h-13 px-10 py-5 w-full bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_full_accent_ghost' -%}
+      h-13 px-10 py-5 w-full border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'xl_full_accent_solid' -%}
+      h-13 px-10 py-5 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_full_outline_classic' -%}
+      h-13 px-10 py-5 w-full border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_full_outline_brick' -%}
+      h-13 px-10 py-5 w-full border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_full_outline_bubble' -%}
+      h-13 px-10 py-5 w-full border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_full_outline_gradient' -%}
+      h-13 px-10 py-5 w-full border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_full_outline_soft' -%}
+      h-13 px-10 py-5 w-full bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_full_outline_ghost' -%}
+      h-13 px-10 py-5 w-full border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_full_outline_solid' -%}
+      h-13 px-10 py-5 w-full border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_full_black_classic' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white
+    {%- when 'xl_full_black_brick' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white border-[3px] border-solid
+    {%- when 'xl_full_black_bubble' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'xl_full_black_gradient' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white
+    {%- when 'xl_full_black_soft' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'xl_full_black_ghost' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white border-2 border-solid
+    {%- when 'xl_full_black_solid' -%}
+      h-13 px-10 py-5 w-full !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_fit_primary_classic' -%}
+      h-13 px-10 py-5 w-fit bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'xl_fit_primary_brick' -%}
+      h-13 px-10 py-5 w-fit border-[3px] border-solid bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[4px_4px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_fit_primary_bubble' -%}
+      h-13 px-10 py-5 w-fit border-2 border-neutral-1000 border-solid bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'xl_fit_primary_gradient' -%}
+      h-13 px-10 py-5 w-fit bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'xl_fit_primary_soft' -%}
+      h-13 px-10 py-5 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_fit_primary_ghost' -%}
+      h-13 px-10 py-5 w-fit border-2 border-solid bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'xl_fit_primary_solid' -%}
+      h-13 px-10 py-5 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_fit_secondary_classic' -%}
+      h-13 px-10 py-5 w-fit bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'xl_fit_secondary_brick' -%}
+      h-13 px-10 py-5 w-fit border-[3px] border-solid bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_fit_secondary_bubble' -%}
+      h-13 px-10 py-5 w-fit border-2 border-neutral-1000 border-solid bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'xl_fit_secondary_gradient' -%}
+      h-13 px-10 py-5 w-fit bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'xl_fit_secondary_soft' -%}
+      h-13 px-10 py-5 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_fit_secondary_ghost' -%}
+      h-13 px-10 py-5 w-fit border-2 border-solid bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'xl_fit_secondary_solid' -%}
+      h-13 px-10 py-5 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_fit_accent_classic' -%}
+      h-13 px-10 py-5 w-fit bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'xl_fit_accent_brick' -%}
+      h-13 px-10 py-5 w-fit border-[3px] border-solid bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[2px_2px_0px_0px_theme(colors.accent.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_fit_accent_bubble' -%}
+      h-13 px-10 py-5 w-fit border-2 border-neutral-1000 border-solid bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'xl_fit_accent_gradient' -%}
+      h-13 px-10 py-5 w-fit bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'xl_fit_accent_soft' -%}
+      h-13 px-10 py-5 w-fit bg-neutral-0 border-[3px] border-solid bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[2px_2px_0px_0px_theme(colors.accent.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_fit_accent_ghost' -%}
+      h-13 px-10 py-5 w-fit border-2 border-solid bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'xl_fit_accent_solid' -%}
+      h-13 px-10 py-5 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_fit_outline_classic' -%}
+      h-13 px-10 py-5 w-fit border-2 border-neutral-900 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_fit_outline_brick' -%}
+      h-13 px-10 py-5 w-fit border-[3px] border-solid border-neutral-500 text-neutral-700 shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_fit_outline_bubble' -%}
+      h-13 px-10 py-5 w-fit border-2 border-neutral-1000 border-solid border-neutral-500 text-neutral-700 shadow-[inset_0px_-3px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_fit_outline_gradient' -%}
+      h-13 px-10 py-5 w-fit border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_fit_outline_soft' -%}
+      h-13 px-10 py-5 w-fit bg-neutral-0 border-[3px] border-solid text-neutral-700 border-neutral-500 shadow-[2px_2px_0px_0px_theme(colors.neutral.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.neutral.500)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_fit_outline_ghost' -%}
+      h-13 px-10 py-5 w-fit border-2 border-solid border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_fit_outline_solid' -%}
+      h-13 px-10 py-5 w-fit border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_fit_black_classic' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white
+    {%- when 'xl_fit_black_brick' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white border-[3px] border-solid
+    {%- when 'xl_fit_black_bubble' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white border-2 border-neutral-1000 border-solid
+    {%- when 'xl_fit_black_gradient' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white
+    {%- when 'xl_fit_black_soft' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white bg-neutral-0 border-[3px] border-solid
+    {%- when 'xl_fit_black_ghost' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white border-2 border-solid
+    {%- when 'xl_fit_black_solid' -%}
+      h-13 px-10 py-5 w-fit !bg-black text-white border-2 border-black border-solid shadow-sm hover:shadow-md transition-all duration-200
+  {%- endcase -%}
+  {%- endcapture -%}
+  {{ button_class }}
+  
+{%- elsif type == 'card' -%}
+  {%- liquid
+    assign card_variant = card_variant | default: 'default'
+    assign card_size = card_size | default: 'none'
+    assign card_variant_key = card_variant | append: '_' | append: card_size
+  -%}
+
+  {%- capture card_class -%}
+  {%- case card_variant_key -%}
+    {%- when 'default_none' -%}
+      border rounded-md p-0
+    {%- when 'default_xs' -%}
+      border rounded-md p-2 px-3
+    {%- when 'default_sm' -%}
+      border rounded-md p-4 px-5
+    {%- when 'default_md' -%}
+      border rounded-md p-6 px-7
+    {%- when 'default_lg' -%}
+      border rounded-md p-8 px-10
+    {%- when 'default_xl' -%}
+      border rounded-md p-10 px-12
+    {%- when 'brick_none' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-md p-0
+    {%- when 'brick_xs' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-md p-2 px-3
+    {%- when 'brick_sm' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-md p-4 px-5
+    {%- when 'brick_md' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-md p-6 px-7
+    {%- when 'brick_lg' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-md p-8 px-10
+    {%- when 'brick_xl' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-md p-10 px-12
+    {%- when 'solid_none' -%}
+      border-2 !border-black rounded-md p-0
+    {%- when 'solid_xs' -%}
+      border-2 !border-black rounded-md p-2 px-3
+    {%- when 'solid_sm' -%}
+      border-2 !border-black rounded-md p-4 px-5
+    {%- when 'solid_md' -%}
+      border-2 !border-black rounded-md p-6 px-7
+    {%- when 'solid_lg' -%}
+      border-2 !border-black rounded-md p-8 px-10
+    {%- when 'solid_xl' -%}
+      border-2 !border-black rounded-md p-10 px-12
+    {%- when 'shadow_none' -%}
+      border shadow-md rounded-md  p-0
+    {%- when 'shadow_xs' -%}
+      border shadow-md rounded-md  p-2 px-3
+    {%- when 'shadow_sm' -%}
+      border shadow-md rounded-md  p-4 px-5
+    {%- when 'shadow_md' -%}
+      border shadow-md rounded-md  p-6 px-7
+    {%- when 'shadow_lg' -%}
+      border shadow-md rounded-md  p-8 px-10
+    {%- when 'shadow_xl' -%}
+      border shadow-md rounded-md  p-10 px-12
+  {%- endcase -%}
+  {%- endcapture -%}
+  {{ card_class }}
+  
+{%- elsif type == 'accordion' -%}
+  {%- liquid
+    assign accordion_variant = accordion_variant | default: 'default'
+    assign accordion_size = accordion_size | default: 'xs'
+    assign accordion_variant_key = accordion_variant | append: '_' | append: accordion_size
+  -%}
+
+  {%- capture accordion_class -%}
+  {%- case accordion_variant_key -%}
+    {%- when 'default_xs' -%}
+      border rounded-sm py-2 px-3 [&>#accordion-content]:pt-2
+    {%- when 'default_sm' -%}
+      border rounded-sm py-3 px-3 [&>#accordion-content]:pt-2
+    {%- when 'default_md' -%}
+      border rounded-sm py-4 px-5 [&>#accordion-content]:pt-2
+    {%- when 'default_lg' -%}
+      border rounded-sm py-5 px-5 [&>#accordion-content]:pt-2
+    {%- when 'default_xl' -%}
+      border rounded-sm py-6 px-5 [&>#accordion-content]:pt-2
+    {%- when 'brick_xs' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-sm py-2 px-3 [&>#accordion-content]:pt-2
+    {%- when 'brick_sm' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-sm py-3 px-3 [&>#accordion-content]:pt-2
+    {%- when 'brick_md' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-sm py-4 px-5 [&>#accordion-content]:pt-2
+    {%- when 'brick_lg' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-sm py-5 px-5 [&>#accordion-content]:pt-2
+    {%- when 'brick_xl' -%}
+      border-2 !border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] rounded-sm py-6 px-5 [&>#accordion-content]:pt-2
+    {%- when 'solid_xs' -%}
+      border-2 !border-black rounded-sm py-2 px-3 [&>#accordion-content]:pt-2
+    {%- when 'solid_sm' -%}
+      border-2 !border-black rounded-sm py-3 px-3 [&>#accordion-content]:pt-2
+    {%- when 'solid_md' -%}
+      border-2 !border-black rounded-sm py-4 px-5 [&>#accordion-content]:pt-2
+    {%- when 'solid_lg' -%}
+      border-2 !border-black rounded-sm py-5 px-5 [&>#accordion-content]:pt-2
+    {%- when 'solid_xl' -%}
+      border-2 !border-black rounded-sm py-6 px-5 [&>#accordion-content]:pt-2
+    {%- when 'shadow_xs' -%}
+      shadow-md rounded-sm py-2 px-3 [&>#accordion-content]:pt-2
+    {%- when 'shadow_sm' -%}
+      shadow-md rounded-sm py-3 px-3 [&>#accordion-content]:pt-2
+    {%- when 'shadow_md' -%}
+      shadow-md rounded-sm py-4 px-5 [&>#accordion-content]:pt-2
+    {%- when 'shadow_lg' -%}
+      shadow-md rounded-sm py-5 px-5 [&>#accordion-content]:pt-2
+    {%- when 'shadow_xl' -%}
+      shadow-md rounded-sm py-6 px-5 [&>#accordion-content]:pt-2
+  {%- endcase -%}
+  {%- endcapture -%}
+  {{ accordion_class }}
+  
+{%- elsif type == 'variant_button' -%}
+  {%- liquid
+    assign variant_button_size = variant_button_size | default: 'xs'
+    assign variant_button_variant = variant_button_variant | default: 'primary'
+    assign variant_button_style = variant_button_style | default: 'classic'
+    assign variant_button_variant_key = variant_button_size | append: '_' | append: variant_button_variant | append: '_' | append: variant_button_style
+  -%}
+
+  {%- capture variant_button_class -%}
+  {%- case variant_button_variant_key -%}
+    {%- when 'xs_primary_classic' -%}
+      h-9 px-3  bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'xs_primary_brick' -%}
+      h-9 px-3  border-2 bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[2px_2px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_primary_bubble' -%}
+      h-9 px-3  border-2 border-neutral-1000 bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'xs_primary_gradient' -%}
+      h-9 px-3  bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'xs_primary_soft' -%}
+      h-9 px-3  bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_primary_ghost' -%}
+      h-9 px-3  border-2 bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'xs_primary_solid' -%}
+      h-9 px-3  border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_secondary_classic' -%}
+      h-9 px-3  bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'xs_secondary_brick' -%}
+      h-9 px-3  border-2 bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[4px_4px_0px_0px_theme(colors.secondary.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_secondary_bubble' -%}
+      h-9 px-3  border-2 border-neutral-1000 bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'xs_secondary_gradient' -%}
+      h-9 px-3  bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'xs_secondary_soft' -%}
+      h-9 px-3  bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[4px_4px_0px_0px_theme(colors.secondary.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_secondary_ghost' -%}
+      h-9 px-3  border-2 bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'xs_secondary_solid' -%}
+      h-9 px-3  border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_accent_classic' -%}
+      h-9 px-3  bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'xs_accent_brick' -%}
+      h-9 px-3  border-2 bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[4px_4px_0px_0px_theme(colors.accent.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_accent_bubble' -%}
+      h-9 px-3  border-2 border-neutral-1000 bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'xs_accent_gradient' -%}
+      h-9 px-3  bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'xs_accent_soft' -%}
+      h-9 px-3  bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[4px_4px_0px_0px_theme(colors.accent.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xs_accent_ghost' -%}
+      h-9 px-3  border-2 bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'xs_accent_solid' -%}
+      h-9 px-3  border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xs_outline_classic' -%}
+      h-9 px-3  bg-transparent bg-neutral-0 border border-neutral-500 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_outline_brick' -%}
+      h-9 px-3  bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xs_outline_bubble' -%}
+      h-9 px-3  bg-transparent border-2 border-neutral-1000 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_outline_gradient' -%}
+      h-9 px-3  bg-transparent bg-neutral-0 border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_outline_soft' -%}
+      h-9 px-3  bg-transparent bg-neutral-0 border-2 text-neutral-700 border-neutral-500 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_outline_ghost' -%}
+      h-9 px-3  bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_outline_solid' -%}
+      h-9 px-3  bg-transparent border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xs_black_classic' -%}
+      h-9 px-3  bg-black text-white
+    {%- when 'xs_black_brick' -%}
+      h-9 px-3  bg-black text-white border-2
+    {%- when 'xs_black_bubble' -%}
+      h-9 px-3  bg-black text-white border-2 border-neutral-1000
+    {%- when 'xs_black_gradient' -%}
+      h-9 px-3  bg-black text-white
+    {%- when 'xs_black_soft' -%}
+      h-9 px-3  bg-black text-white bg-neutral-0 border-2
+    {%- when 'xs_black_ghost' -%}
+      h-9 px-3  bg-black text-white border-2
+    {%- when 'xs_black_solid' -%}
+      h-9 px-3  bg-black text-white border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_primary_classic' -%}
+      h-10 px-4 py-2 bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'sm_primary_brick' -%}
+      h-10 px-4 py-2 border-2 bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[2px_2px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_primary_bubble' -%}
+      h-10 px-4 py-2 border-2 border-neutral-1000 bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'sm_primary_gradient' -%}
+      h-10 px-4 py-2 bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'sm_primary_soft' -%}
+      h-10 px-4 py-2 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_primary_ghost' -%}
+      h-10 px-4 py-2 border-2 bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'sm_primary_solid' -%}
+      h-10 px-4 py-2 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_secondary_classic' -%}
+      h-10 px-4 py-2 bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'sm_secondary_brick' -%}
+      h-10 px-4 py-2 border-2 bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[4px_4px_0px_0px_theme(colors.secondary.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_secondary_bubble' -%}
+      h-10 px-4 py-2 border-2 border-neutral-1000 bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'sm_secondary_gradient' -%}
+      h-10 px-4 py-2 bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'sm_secondary_soft' -%}
+      h-10 px-4 py-2 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[4px_4px_0px_0px_theme(colors.secondary.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_secondary_ghost' -%}
+      h-10 px-4 py-2 border-2 bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'sm_secondary_solid' -%}
+      h-10 px-4 py-2 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_accent_classic' -%}
+      h-10 px-4 py-2 bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'sm_accent_brick' -%}
+      h-10 px-4 py-2 border-2 bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[4px_4px_0px_0px_theme(colors.accent.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_accent_bubble' -%}
+      h-10 px-4 py-2 border-2 border-neutral-1000 bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'sm_accent_gradient' -%}
+      h-10 px-4 py-2 bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'sm_accent_soft' -%}
+      h-10 px-4 py-2 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[4px_4px_0px_0px_theme(colors.accent.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'sm_accent_ghost' -%}
+      h-10 px-4 py-2 border-2 bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'sm_accent_solid' -%}
+      h-10 px-4 py-2 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'sm_outline_classic' -%}
+      h-10 px-4 py-2 bg-transparent bg-neutral-0 border border-neutral-500 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_outline_brick' -%}
+      h-10 px-4 py-2 bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'sm_outline_bubble' -%}
+      h-10 px-4 py-2 bg-transparent border-2 border-neutral-1000 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_outline_gradient' -%}
+      h-10 px-4 py-2 bg-transparent bg-neutral-0 border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_outline_soft' -%}
+      h-10 px-4 py-2 bg-transparent bg-neutral-0 border-2 text-neutral-700 border-neutral-500 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_outline_ghost' -%}
+      h-10 px-4 py-2 bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_outline_solid' -%}
+      h-10 px-4 py-2 bg-transparent border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'sm_black_classic' -%}
+      h-10 px-4 py-2 bg-black text-white
+    {%- when 'sm_black_brick' -%}
+      h-10 px-4 py-2 bg-black text-white border-2
+    {%- when 'sm_black_bubble' -%}
+      h-10 px-4 py-2 bg-black text-white border-2 border-neutral-1000
+    {%- when 'sm_black_gradient' -%}
+      h-10 px-4 py-2 bg-black text-white
+    {%- when 'sm_black_soft' -%}
+      h-10 px-4 py-2 bg-black text-white bg-neutral-0 border-2
+    {%- when 'sm_black_ghost' -%}
+      h-10 px-4 py-2 bg-black text-white border-2
+    {%- when 'sm_black_solid' -%}
+      h-10 px-4 py-2 bg-black text-white border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_primary_classic' -%}
+      h-13 px-6 py-3  bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'md_primary_brick' -%}
+      h-13 px-6 py-3  border-2 bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[2px_2px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_primary_bubble' -%}
+      h-13 px-6 py-3  border-2 border-neutral-1000 bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'md_primary_gradient' -%}
+      h-13 px-6 py-3  bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'md_primary_soft' -%}
+      h-13 px-6 py-3  bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_primary_ghost' -%}
+      h-13 px-6 py-3  border-2 bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'md_primary_solid' -%}
+      h-13 px-6 py-3  border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_secondary_classic' -%}
+      h-13 px-6 py-3  bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'md_secondary_brick' -%}
+      h-13 px-6 py-3  border-2 bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[4px_4px_0px_0px_theme(colors.secondary.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_secondary_bubble' -%}
+      h-13 px-6 py-3  border-2 border-neutral-1000 bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'md_secondary_gradient' -%}
+      h-13 px-6 py-3  bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'md_secondary_soft' -%}
+      h-13 px-6 py-3  bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[4px_4px_0px_0px_theme(colors.secondary.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_secondary_ghost' -%}
+      h-13 px-6 py-3  border-2 bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'md_secondary_solid' -%}
+      h-13 px-6 py-3  border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_accent_classic' -%}
+      h-13 px-6 py-3  bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'md_accent_brick' -%}
+      h-13 px-6 py-3  border-2 bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[4px_4px_0px_0px_theme(colors.accent.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_accent_bubble' -%}
+      h-13 px-6 py-3  border-2 border-neutral-1000 bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'md_accent_gradient' -%}
+      h-13 px-6 py-3  bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'md_accent_soft' -%}
+      h-13 px-6 py-3  bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[4px_4px_0px_0px_theme(colors.accent.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'md_accent_ghost' -%}
+      h-13 px-6 py-3  border-2 bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'md_accent_solid' -%}
+      h-13 px-6 py-3  border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'md_outline_classic' -%}
+      h-13 px-6 py-3  bg-transparent bg-neutral-0 border border-neutral-500 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_outline_brick' -%}
+      h-13 px-6 py-3  bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'md_outline_bubble' -%}
+      h-13 px-6 py-3  bg-transparent border-2 border-neutral-1000 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_outline_gradient' -%}
+      h-13 px-6 py-3  bg-transparent bg-neutral-0 border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_outline_soft' -%}
+      h-13 px-6 py-3  bg-transparent bg-neutral-0 border-2 text-neutral-700 border-neutral-500 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_outline_ghost' -%}
+      h-13 px-6 py-3  bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_outline_solid' -%}
+      h-13 px-6 py-3  bg-transparent border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'md_black_classic' -%}
+      h-13 px-6 py-3  bg-black text-white
+    {%- when 'md_black_brick' -%}
+      h-13 px-6 py-3  bg-black text-white border-2
+    {%- when 'md_black_bubble' -%}
+      h-13 px-6 py-3  bg-black text-white border-2 border-neutral-1000
+    {%- when 'md_black_gradient' -%}
+      h-13 px-6 py-3  bg-black text-white
+    {%- when 'md_black_soft' -%}
+      h-13 px-6 py-3  bg-black text-white bg-neutral-0 border-2
+    {%- when 'md_black_ghost' -%}
+      h-13 px-6 py-3  bg-black text-white border-2
+    {%- when 'md_black_solid' -%}
+      h-13 px-6 py-3  bg-black text-white border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_primary_classic' -%}
+      h-16 px-8 py-4 bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'lg_primary_brick' -%}
+      h-16 px-8 py-4 border-2 bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[2px_2px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_primary_bubble' -%}
+      h-16 px-8 py-4 border-2 border-neutral-1000 bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'lg_primary_gradient' -%}
+      h-16 px-8 py-4 bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'lg_primary_soft' -%}
+      h-16 px-8 py-4 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_primary_ghost' -%}
+      h-16 px-8 py-4 border-2 bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'lg_primary_solid' -%}
+      h-16 px-8 py-4 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_secondary_classic' -%}
+      h-16 px-8 py-4 bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'lg_secondary_brick' -%}
+      h-16 px-8 py-4 border-2 bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[4px_4px_0px_0px_theme(colors.secondary.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_secondary_bubble' -%}
+      h-16 px-8 py-4 border-2 border-neutral-1000 bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'lg_secondary_gradient' -%}
+      h-16 px-8 py-4 bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'lg_secondary_soft' -%}
+      h-16 px-8 py-4 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[4px_4px_0px_0px_theme(colors.secondary.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_secondary_ghost' -%}
+      h-16 px-8 py-4 border-2 bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'lg_secondary_solid' -%}
+      h-16 px-8 py-4 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_accent_classic' -%}
+      h-16 px-8 py-4 bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'lg_accent_brick' -%}
+      h-16 px-8 py-4 border-2 bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[4px_4px_0px_0px_theme(colors.accent.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_accent_bubble' -%}
+      h-16 px-8 py-4 border-2 border-neutral-1000 bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'lg_accent_gradient' -%}
+      h-16 px-8 py-4 bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'lg_accent_soft' -%}
+      h-16 px-8 py-4 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[4px_4px_0px_0px_theme(colors.accent.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'lg_accent_ghost' -%}
+      h-16 px-8 py-4 border-2 bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'lg_accent_solid' -%}
+      h-16 px-8 py-4 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'lg_outline_classic' -%}
+      h-16 px-8 py-4 bg-transparent bg-neutral-0 border border-neutral-500 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_outline_brick' -%}
+      h-16 px-8 py-4 bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'lg_outline_bubble' -%}
+      h-16 px-8 py-4 bg-transparent border-2 border-neutral-1000 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_outline_gradient' -%}
+      h-16 px-8 py-4 bg-transparent bg-neutral-0 border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_outline_soft' -%}
+      h-16 px-8 py-4 bg-transparent bg-neutral-0 border-2 text-neutral-700 border-neutral-500 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_outline_ghost' -%}
+      h-16 px-8 py-4 bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_outline_solid' -%}
+      h-16 px-8 py-4 bg-transparent border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'lg_black_classic' -%}
+      h-16 px-8 py-4 bg-black text-white
+    {%- when 'lg_black_brick' -%}
+      h-16 px-8 py-4 bg-black text-white border-2
+    {%- when 'lg_black_bubble' -%}
+      h-16 px-8 py-4 bg-black text-white border-2 border-neutral-1000
+    {%- when 'lg_black_gradient' -%}
+      h-16 px-8 py-4 bg-black text-white
+    {%- when 'lg_black_soft' -%}
+      h-16 px-8 py-4 bg-black text-white bg-neutral-0 border-2
+    {%- when 'lg_black_ghost' -%}
+      h-16 px-8 py-4 bg-black text-white border-2
+    {%- when 'lg_black_solid' -%}
+      h-16 px-8 py-4 bg-black text-white border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_primary_classic' -%}
+      h-13 px-10 py-5 bg-primary-500 [color:var(--btn-primary-classic-text)] hover:bg-primary-400
+    {%- when 'xl_primary_brick' -%}
+      h-13 px-10 py-5 border-2 bg-primary-500 [color:var(--btn-primary-brick-text)] border-primary-700 shadow-[2px_2px_0px_0px_theme(colors.primary.700)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.700)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_primary_bubble' -%}
+      h-13 px-10 py-5 border-2 border-neutral-1000 bg-primary-200 [color:var(--btn-primary-bubble-text)] shadow-[inset_0px_-4px_0px_0px_theme(colors.primary.500)] hover:bg-primary-300
+    {%- when 'xl_primary_gradient' -%}
+      h-13 px-10 py-5 bg-gradient-to-l from-primary-200 to-primary-500 [color:var(--btn-primary-gradient-text)] hover:opacity-90
+    {%- when 'xl_primary_soft' -%}
+      h-13 px-10 py-5 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-primary-soft-text)] border-primary-500 shadow-[2px_2px_0px_0px_theme(colors.primary.500)] hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[1px_1px_0px_0px_theme(colors.primary.500)] active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_primary_ghost' -%}
+      h-13 px-10 py-5 border-2 bg-primary-100 [color:var(--btn-primary-ghost-text)] border-primary-500 hover:bg-primary-100
+    {%- when 'xl_primary_solid' -%}
+      h-13 px-10 py-5 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-primary-500 [color:var(--btn-primary-solid-text)] hover:bg-primary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_secondary_classic' -%}
+      h-13 px-10 py-5 bg-secondary-500 [color:var(--btn-secondary-classic-text)] hover:bg-secondary-400
+    {%- when 'xl_secondary_brick' -%}
+      h-13 px-10 py-5 border-2 bg-secondary-500 [color:var(--btn-secondary-brick-text)] border-secondary-700 shadow-[4px_4px_0px_0px_theme(colors.secondary.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_secondary_bubble' -%}
+      h-13 px-10 py-5 border-2 border-neutral-1000 bg-secondary-200 [color:var(--btn-secondary-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.secondary.700)] hover:bg-secondary-300
+    {%- when 'xl_secondary_gradient' -%}
+      h-13 px-10 py-5 bg-gradient-to-l from-secondary-200 to-secondary-500 [color:var(--btn-secondary-gradient-text)] hover:opacity-90
+    {%- when 'xl_secondary_soft' -%}
+      h-13 px-10 py-5 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-secondary-soft-text)] border-secondary-500 shadow-[4px_4px_0px_0px_theme(colors.secondary.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.secondary.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_secondary_ghost' -%}
+      h-13 px-10 py-5 border-2 bg-secondary-100 [color:var(--btn-secondary-ghost-text)] border-secondary-500 hover:bg-secondary-100
+    {%- when 'xl_secondary_solid' -%}
+      h-13 px-10 py-5 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-secondary-500 [color:var(--btn-secondary-solid-text)] hover:bg-secondary-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_accent_classic' -%}
+      h-13 px-10 py-5 bg-accent-500 [color:var(--btn-accent-classic-text)] hover:bg-accent-400
+    {%- when 'xl_accent_brick' -%}
+      h-13 px-10 py-5 border-2 bg-accent-500 [color:var(--btn-accent-brick-text)] border-accent-700 shadow-[4px_4px_0px_0px_theme(colors.accent.700)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.700)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_accent_bubble' -%}
+      h-13 px-10 py-5 border-2 border-neutral-1000 bg-accent-200 [color:var(--btn-accent-bubble-text)] shadow-[inset_0px_-3px_0px_0px_theme(colors.accent.700)] hover:bg-accent-300
+    {%- when 'xl_accent_gradient' -%}
+      h-13 px-10 py-5 bg-gradient-to-l from-accent-200 to-accent-500 [color:var(--btn-accent-gradient-text)] hover:opacity-90
+    {%- when 'xl_accent_soft' -%}
+      h-13 px-10 py-5 bg-neutral-0 border-2 bg-neutral-0 [color:var(--btn-accent-soft-text)] border-accent-500 shadow-[4px_4px_0px_0px_theme(colors.accent.500)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[2px_2px_0px_0px_theme(colors.accent.500)] active:shadow-none active:translate-x-2 active:translate-y-2
+    {%- when 'xl_accent_ghost' -%}
+      h-13 px-10 py-5 border-2 bg-accent-100 [color:var(--btn-accent-ghost-text)] border-accent-500 hover:bg-accent-100
+    {%- when 'xl_accent_solid' -%}
+      h-13 px-10 py-5 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-accent-500 [color:var(--btn-accent-solid-text)] hover:bg-accent-400 border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+    {%- when 'xl_outline_classic' -%}
+      h-13 px-10 py-5 bg-transparent bg-neutral-0 border border-neutral-500 text-neutral-900 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_outline_brick' -%}
+      h-13 px-10 py-5 bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-[2px_2px_0px_0px_theme(colors.neutral.700)] hover:border-neutral-700 hover:text-neutral-900 active:shadow-none active:translate-x-1 active:translate-y-1
+    {%- when 'xl_outline_bubble' -%}
+      h-13 px-10 py-5 bg-transparent border-2 border-neutral-1000 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_outline_gradient' -%}
+      h-13 px-10 py-5 bg-transparent bg-neutral-0 border-2 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_outline_soft' -%}
+      h-13 px-10 py-5 bg-transparent bg-neutral-0 border-2 text-neutral-700 border-neutral-500 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_outline_ghost' -%}
+      h-13 px-10 py-5 bg-transparent border-2 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_outline_solid' -%}
+      h-13 px-10 py-5 bg-transparent border-2 border-black shadow-sm hover:shadow-md transition-all duration-200 bg-neutral-0 border-neutral-500 text-neutral-700 hover:border-neutral-700 hover:text-neutral-900
+    {%- when 'xl_black_classic' -%}
+      h-13 px-10 py-5 bg-black text-white
+    {%- when 'xl_black_brick' -%}
+      h-13 px-10 py-5 bg-black text-white border-2
+    {%- when 'xl_black_bubble' -%}
+      h-13 px-10 py-5 bg-black text-white border-2 border-neutral-1000
+    {%- when 'xl_black_gradient' -%}
+      h-13 px-10 py-5 bg-black text-white
+    {%- when 'xl_black_soft' -%}
+      h-13 px-10 py-5 bg-black text-white bg-neutral-0 border-2
+    {%- when 'xl_black_ghost' -%}
+      h-13 px-10 py-5 bg-black text-white border-2
+    {%- when 'xl_black_solid' -%}
+      h-13 px-10 py-5 bg-black text-white border-2 border-black shadow-sm hover:shadow-md transition-all duration-200
+  {%- endcase -%}
+  {%- endcapture -%}
+  {{ variant_button_class }}
+  
+{%- endif -%}

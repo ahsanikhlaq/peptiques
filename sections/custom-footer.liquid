@@ -1,0 +1,436 @@
+{% comment %}
+  Custom Footer v2
+  - Uploadable social icons
+  - Menu color control
+  - Shrine compatible
+{% endcomment %}
+
+<style>
+.custom-footer {
+  background: {{ section.settings.bg_gradient }};
+  color: #ffffff;
+  padding: 70px 20px 25px;
+  letter-spacing: 0;
+}
+
+.custom-footer .footer-wrapper {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.custom-footer .footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 50px;
+}
+
+.footer-logo img {
+  max-width: 180px;
+  margin-bottom: 25px;
+}
+
+.footer-country label {
+  font-size: 13px;
+  opacity: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.footer-country select {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.footer-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    position: relative;
+    color: #BCADF4;
+    letter-spacing: 0;
+}
+
+.footer-title:after {
+  content: "";
+  width: 50%;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
+  display: block;
+  margin-top: 8px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: {{ section.settings.menu_color }};
+  text-decoration: none;
+  opacity: .9;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.footer-social {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.footer-social a img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.footer-email {
+  margin-top: 20px;
+}
+.footer-email strong {
+    color: #BCADF4;
+    font-weight: 500;
+}
+.custom-footer .footer-grid .policies li {
+    display: block;
+    margin-bottom: 10px;
+}
+.custom-footer .footer-grid .policies li::before {
+    content: none;
+}
+
+.custom-footer .localization-selector+.disclosure__list-wrapper {
+    margin-left: 0;
+}
+.custom-footer .localization-form:only-child .button, .custom-footer .localization-form:only-child .localization-form__select {
+    margin: 0;
+}
+.custom-footer .localization-form:only-child {
+    padding: 0;
+}
+.custom-footer .footer__localization localization-form,
+.custom-footer .footer__localization .localization-form:only-child {
+    width: 100%;
+}
+.custom-footer .disclosure__button.localization-form__select {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255 255 255 / 27%);
+    color: #fff !important;
+    min-width: 200px;
+    width: auto;
+}
+.custom-footer .localization-form__select:hover.localization-form__select:after,
+.custom-footer .localization-form__select:focus.localization-form__select:after {
+      box-shadow: none;
+}
+
+.custom-footer .localization-form__select:after,
+.custom-footer .localization-form__select:before {
+    box-shadow: none;
+}
+
+.custom-footer .footer-logo {
+    height: 50%;
+}
+
+.footer-bottom .footer__payment {
+    margin-top: 0;
+}
+.custom-footer .footer-block__details-content .list-menu__item--link:hover, 
+.custom-footer .copyright__content a:hover,
+.custom-footer .footer-links a:hover,
+.custom-footer .footer-email a:hover{
+    color: rgb(255 255 255 / 65%);
+    text-decoration: none;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    /* text-align: center; */
+    font-size: 13px;
+    opacity: .8;
+    grid-template-columns: 1fr auto;
+    display: grid;
+}
+.footer-bottom .copyright__content {
+    font-size: 16px;
+    font-weight: normal;
+}
+.policies small.copyright__content {
+    font-size: 16px;
+}
+
+/* Mobile */
+
+
+@media (max-width: 991px) {
+  .custom-footer .footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 35px;
+  }
+
+  .footer-logo img {
+    max-width: 160px;
+  }
+  .custom-footer .footer__localization {
+      padding: 0;
+  }
+  .custom-footer .policies li a {
+    padding: 0;
+  }
+}
+@media (max-width: 767px) {
+    .custom-footer .footer-grid {
+       grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+    }
+    .footer-bottom {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .custom-footer {
+      padding: 50px 16px 20px;
+    }
+    .custom-footer .footer-grid .policies li .footer-links li {
+        margin-bottom: 5px;
+    }
+    .custom-footer .policies small.copyright__content, .footer-links li, .footer-links a {
+        font-size: 13px;
+        line-height: normal;
+    }
+    .custom-footer .disclosure__button.localization-form__select {
+      min-width: 100%;
+      width: 100%;
+    }
+    .custom-footer .footer-title:after {
+      width: 100%;
+    }
+    .custom-footer .footer-logo {
+        height: auto;
+    }
+    .custom-footer .footer-social {
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .custom-footer .footer-grid > div {
+        /* width: 50%; */
+        width: 100%;
+        max-width: 144px;
+    }
+    .custom-footer .footer-grid > div:first-child, .custom-footer .footer-grid > div:last-child {
+        grid-column: 1 / -1;
+        max-width: 100%;
+        text-align: center;
+    }
+    .custom-footer .footer-grid > div:last-child .footer-title {
+        margin-bottom: 0;
+    }
+    .custom-footer .footer-grid > div:last-child .footer-title:after {
+        content: none;
+    }
+    .footer-bottom {
+      margin-top: 30px;
+    }
+}
+</style>
+
+<footer class="custom-footer">
+  <div class="footer-wrapper">
+    <div class="footer-grid">
+
+      <!-- Logo -->
+      <div>
+        <div class="footer-logo">
+          {% if section.settings.logo != blank %}
+            <img src="{{ section.settings.logo | image_url }}" alt="{{ shop.name }}">
+          {% else %}
+            <h2>{{ shop.name }}</h2>
+          {% endif %}
+        </div>
+
+        <div class="footer-country">
+          <label>Country/region</label>
+          {% if section.settings.enable_country_selector and localization.available_countries.size > 1 %}
+            <div class="footer__localization isolate">
+                <localization-form>
+                {% form 'localization', id: 'CustomFooterCountryForm', class: 'localization-form' %}
+                    <div class="no-js-hidden">
+                    <div class="disclosure">
+                        <button
+                        type="button"
+                        class="disclosure__button localization-form__select localization-selector link link--text"
+                        aria-expanded="false"
+                        aria-controls="CustomFooterCountryList"
+                        >
+                        {{ localization.country.name }}
+                        ({{ localization.country.currency.iso_code }}
+                        {{ localization.country.currency.symbol }})
+                        {% render 'icon-caret' %}
+                        </button>
+
+                        <div class="disclosure__list-wrapper" hidden>
+                        <ul id="CustomFooterCountryList" role="list" class="disclosure__list list-unstyled">
+                            {% for country in localization.available_countries %}
+                            <li class="disclosure__item" tabindex="-1">
+                                <a
+                                class="link link--text disclosure__link{% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %}"
+                                href="#"
+                                data-value="{{ country.iso_code }}"
+                                {% if country.iso_code == localization.country.iso_code %}
+                                    aria-current="true"
+                                {% endif %}
+                                >
+                                {{ country.name }}
+                                ({{ country.currency.iso_code }}
+                                {{ country.currency.symbol }})
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                    </div>
+                {% endform %}
+                </localization-form>
+            </div>
+            {% endif %}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <div class="footer-title">Quick links</div>
+        <ul class="footer-links">
+          {% for link in linklists[section.settings.legal_menu].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        
+      </div>
+
+      <!-- Legal Links -->
+      <div>
+        <div class="footer-title">Legal links</div>
+        {%- if section.settings.show_policy -%}
+          <ul class="policies list-unstyled">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li>
+                  <small class="copyright__content"
+                    ><a href="{{ policy.url }}">{{ policy.title }}</a></small
+                  >
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <!-- Social -->
+      <div>
+        <div class="footer-title">Follow us</div>
+
+        <div class="footer-social">
+          {% if section.settings.facebook_icon != blank and section.settings.facebook_link != blank %}
+            <a href="{{ section.settings.facebook_link }}">
+              <img src="{{ section.settings.facebook_icon | image_url }}" alt="Facebook">
+            </a>
+          {% endif %}
+
+          {% if section.settings.instagram_icon != blank and section.settings.instagram_link != blank %}
+            <a href="{{ section.settings.instagram_link }}">
+              <img src="{{ section.settings.instagram_icon | image_url }}" alt="Instagram">
+            </a>
+          {% endif %}
+
+          {% if section.settings.tiktok_icon != blank and section.settings.tiktok_link != blank %}
+            <a href="{{ section.settings.tiktok_link }}">
+              <img src="{{ section.settings.tiktok_icon | image_url }}" alt="TikTok">
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="footer-email">
+          <strong>Email</strong><br>
+          <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <div class="copyright__content">
+        © {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
+        </div>
+      {%- if section.settings.payment_enable -%}
+          <div class="footer__payment">
+            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+            <ul class="list list-payment" role="list">
+              {% assign enabled_payment_types = shop.enabled_payment_types %}
+              {% if section.settings.enabled_payment_types != blank %}
+                {% assign enabled_payment_types = section.settings.enabled_payment_types | remove: ' ' | split: ',' %}
+              {% endif %}
+
+              {%- for type in enabled_payment_types -%}
+                <li class="list-payment__item">
+                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+    </div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer v2",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Footer Logo" },
+
+    { "type": "link_list", "id": "quick_menu", "label": "Quick Links Menu" },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal Links Menu" },
+
+    { "type": "text", "id": "email", "label": "Contact Email", "default": "contact@yourstore.com" },
+
+    { "type": "color", "id": "menu_color", "label": "Menu Link Color", "default": "#ffffff" },
+
+    { "type": "text", "id": "bg_gradient", "label": "Background Gradient (CSS)", "default": "linear-gradient(180deg,#6a35a3 0%,#4a2c91 100%)" },
+
+    { "type": "image_picker", "id": "facebook_icon", "label": "Facebook Icon" },
+    { "type": "url", "id": "facebook_link", "label": "Facebook Link" },
+
+    { "type": "image_picker", "id": "instagram_icon", "label": "Instagram Icon" },
+    { "type": "url", "id": "instagram_link", "label": "Instagram Link" },
+
+    { "type": "image_picker", "id": "tiktok_icon", "label": "TikTok Icon" },
+    { "type": "url", "id": "tiktok_link", "label": "TikTok Link" },
+    { "type": "checkbox", "id": "enable_country_selector", "label": "Enable country selector", "default": true },
+    { "type": "checkbox", "id": "show_policy", "default": false, "label": "t:sections.footer.settings.show_policy.label" },
+    { "type": "checkbox", "id": "payment_enable", "default": true, "label": "t:sections.footer.settings.payment_enable.label"},
+    { "type": "text", "id": "enabled_payment_types", "label": "Custom payment icons to show", "info": "List of payments you want to show, split with a comma. View all available icons [here](https://shopify.dev/docs/api/checkout-ui-extensions/latest/components/media/paymenticon#paymentmethod). Example usage: \"american_express, apple_pay, google_pay\"."
+    }
+  ],
+  "presets": [
+    { "name": "Custom Footer PRO v2" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,548 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "product_title",
+          "settings": {
+            "uppercase_title": false,
+            "desktop_size": 39,
+            "alignment": "left",
+            "mobile_size": 28,
+            "mobile_alignment": "mobile-center",
+            "margin_top": 24,
+            "margin_bottom": 9
+          },
+          "blocks": {}
+        },
+        "a6eb81db-40e4-43e0-972f-32db010a4a56": {
+          "type": "rating-stars",
+          "settings": {
+            "visibility": "always-display",
+            "rating": 4.8,
+            "star_color": "#ffcc00",
+            "bg_stars_style": "full",
+            "bg_star_color": "#ececec",
+            "label": "4.8/5 (34,801 Reviews)",
+            "size": 16,
+            "alignment": "flex-start",
+            "scroll_id": "",
+            "margin_top": 0,
+            "margin_bottom": 12
+          },
+          "blocks": {}
+        },
+        "custom_liquid_MGMxWQ": {
+          "type": "custom-liquid",
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  .container-trustpilot {\n    background: {{ background_gradient | default: \"linear-gradient(135deg, #e9f8fe 0%, #f0f9ff 100%)\" }};\n    border: 1px dashed {{ border_color | default: \"#006400\" }};\n    padding: 5px 10px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    border-radius: 10px;\n    gap: 4px;\n    flex-wrap: nowrap;\n    overflow-x: auto;\n    margin-top: {{ margin_top | default: \"0px\" }};\n    margin-bottom: {{ margin_bottom | default: \"0px\" }};\n  }\n\n  .container-trustpilot img {\n    margin: 0 4px;\n    height: auto;\n    flex-shrink: 0;\n  }\n\n  .container-trustpilot .stars {\n    max-width: 65px;\n  }\n\n  .container-trustpilot .logo {\n    max-width: 55px;\n  }\n\n  .container-trustpilot span {\n    margin: 0 2px;\n    white-space: nowrap;\n    flex-shrink: 0;\n  }\n\n  .excellent {\n    color: {{ text_color | default: \"#000000\" }};\n    font-size: 11px;\n  }\n\n  .rating-text {\n    color: {{ text_color | default: \"#000000\" }};\n    font-size: 9px;\n  }\n\n  \n@media\n (max-width: 480px) {\n    .container-trustpilot {\n      padding: 4px 8px;\n    }\n\n    .container-trustpilot .stars {\n      max-width: 55px;\n    }\n\n    .container-trustpilot .logo {\n      max-width: 48px;\n    }\n\n    .excellent {\n      font-size: 10px;\n    }\n\n    .rating-text {\n      font-size: 8px;\n    }\n  }\n</style>\n\n<div class=\"container-trustpilot\">\n  <span class=\"excellent\"><b>{{ excellent_text | default: \"'EXCELLENT'\" }}</b></span>\n  <img class=\"stars\" src=\"{{ stars_image | default: \"https://cdn.shopify.com/s/files/1/0647/2148/6072/files/4.5-stars-trustpilot_2157d8d9-101e-46a2-a3fe-ac80f2fecf10.png?v=1688082792\" }}\" alt=\"Rating Stars\">\n  <span class=\"rating-text\">{{ rating_text | default: \"\" }}</span>\n  <img class=\"logo\" src=\"{{ logo_image | default: \"https://cdn.shopify.com/s/files/1/0647/2148/6072/files/Trustpilot_Logo__2022_.svg_2.png?v=1687091440\" }}\" alt=\"Trustpilot Logo\">\n</div>"
+          },
+          "blocks": {}
+        },
+        "product_emoji_benefits_6reqVq": {
+          "type": "product_emoji-benefits",
+          "name": "Emoji benefits",
+          "settings": {
+            "benefits": "<p><strong>🧪 18 Clinically Studied Super-Plants For:</strong></p><p><strong>💧 Lymphatic Drainage </strong>– Flush toxins & trapped fluids naturally</p><p><strong>✨ Reduce Bloating </strong>– Flatter stomach, lighter feeling fast<strong><br/><br/>🦵 Less Puffiness </strong>– Slimmer face, arms & legs<strong><br/><br/></strong>🔥<strong> Energy Boost</strong> – Feel lighter, move easier, think clearer<br/><br/><strong>🌿 Pure Formula</strong> – Plant-based, non-GMO, no junk fillers<br/></p>",
+            "margin_top": 24,
+            "margin_bottom": 24
+          },
+          "blocks": {}
+        },
+        "5fcc0428-e768-4cb7-bea3-eb0274198dd1": {
+          "type": "product_product-variant-picker-block",
+          "settings": {
+            "picker_types": "pills, dropdown, dropdown",
+            "custom_labels": "[name] - [selected]",
+            "skip_unavailable": false,
+            "append": "option_1_label_container",
+            "swatches_size": "medium",
+            "swatches_custom_colors": "disabled",
+            "swatches_custom_colors_list": "#000000, #6D388B, #0000FF, #FFCC00",
+            "full_width_dropdowns": false,
+            "breaks_style": "normal",
+            "breaks_headline": "BUNDLE & SAVE",
+            "breaks_prices_layout": "price-first-vertical",
+            "breaks_display_selected_indicator": true,
+            "breaks_border_radius": 10,
+            "breaks_border_width": 2,
+            "breaks_color_scheme": "accent-1",
+            "breaks_vertical_items_align": "flex-start",
+            "breaks_badges": "[empty], Most popular, [empty]",
+            "breaks_badge_style": "1",
+            "breaks_badge_color": "accent-1",
+            "breaks_displayed_images": "variant_images",
+            "breaks_custom_images": "",
+            "breaks_image_width": 70,
+            "breaks_space_images": true,
+            "breaks_vertical_images_position": "top",
+            "breaks_labels": "[name], [name], [name]",
+            "breaks_benefits": "[empty], Free Shipping, Free Shipping",
+            "breaks_benefit_position": "top",
+            "breaks_benefit_style": "outlined",
+            "breaks_benefit_color": "accent-1",
+            "breaks_captions": "Variant 1 caption, Variant 2 caption, Variant 3 caption",
+            "breaks_price_texts": "[price], [price], [price]",
+            "breaks_compare_price_texts": "[compare_price], [compare_price], [compare_price]",
+            "margin_top": 15,
+            "margin_bottom": 15
+          },
+          "blocks": {}
+        },
+        "buy_buttons": {
+          "type": "product_buy-buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "skip_cart": false,
+            "atc_append": "left",
+            "atc_append_heights": "stretch-quantity",
+            "uppercase_text": true,
+            "icon_scale": 120,
+            "icon_spacing": 10,
+            "atc_custom_label": "",
+            "display_price": false,
+            "price_position": "left",
+            "price_separator": "•",
+            "enable_custom_color": false,
+            "custom_color": "#53af01",
+            "custom_text_color": "#ffffff",
+            "enable_secondary_btn": true,
+            "secondary_btn_label": "Buy It Now",
+            "secondary_btn_enable_custom_color": false,
+            "secondary_btn_custom_color": "#dd1d1d",
+            "margin_top": 24,
+            "margin_bottom": 24
+          },
+          "blocks": {}
+        },
+        "custom_liquid_rykdaC": {
+          "type": "custom-liquid",
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": "{% comment %}\n  Selling Fast Badge with Live Viewer Counter\n  Range: 353-530 viewers\n  Fast first 2 changes, then 4 seconds for continuous updates\n{% endcomment %}\n\n<style>\n  .selling-fast-container {\n    display: flex;\n    justify-content: center;\n    padding: 0;\n    margin: 0;\n  }\n  \n  .selling-fast-badge {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    background-color: #f0f9f4;\n    color: #004232;\n    padding: 4px 16px;\n    border-radius: 9999px;\n    font-size: 14px;\n    font-weight: 500;\n  }\n  \n  .pulse-dot {\n    position: relative;\n    width: 8px;\n    height: 8px;\n  }\n  \n  .pulse-dot-inner {\n    position: absolute;\n    width: 8px;\n    height: 8px;\n    background-color: #0a5c43;\n    border-radius: 50%;\n  }\n  \n  .pulse-dot-ping {\n    position: absolute;\n    width: 8px;\n    height: 8px;\n    background-color: #0a5c43;\n    border-radius: 50%;\n    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;\n    opacity: 0.75;\n  }\n  \n  @keyframes ping {\n    75%, 100% {\n      transform: scale(2);\n      opacity: 0;\n    }\n  }\n  \n  .viewer-count {\n    font-weight: 600;\n  }\n  \n  @media (max-width: 640px) {\n    .selling-fast-container {\n      padding: 0;\n    }\n    .selling-fast-badge {\n      padding: 3px 12px;\n      font-size: 12px;\n      gap: 6px;\n    }\n  }\n</style>\n\n<div class=\"selling-fast-container\">\n  <div class=\"selling-fast-badge\">\n    <div class=\"pulse-dot\">\n      <span class=\"pulse-dot-ping\"></span>\n      <span class=\"pulse-dot-inner\"></span>\n    </div>\n    <span>Selling Fast!</span>\n    <span class=\"viewer-count\" id=\"viewer-count\">353</span>\n    <span>viewing</span>\n  </div>\n</div>\n\n<script>\n  (function() {\n    var viewerCount = 353;\n    var countElement = document.getElementById('viewer-count');\n    var changeIndex = 0;\n    \n    // Initial sequence - first 2 are fast\n    var initialSequence = [\n      { count: 368, delay: 2000 },   // Fast - 2 seconds\n      { count: 389, delay: 1500 },   // Fast - 1.5 seconds\n      { count: 412, delay: 4000 },   // Normal - 4 seconds\n      { count: 438, delay: 4000 },   // Normal - 4 seconds\n      { count: 461, delay: 4000 },   // Normal - 4 seconds\n      { count: 483, delay: 4000 }    // Normal - 4 seconds\n    ];\n    \n    function runInitialSequence() {\n      if (changeIndex < initialSequence.length) {\n        setTimeout(function() {\n          viewerCount = initialSequence[changeIndex].count;\n          countElement.textContent = viewerCount;\n          changeIndex++;\n          runInitialSequence();\n        }, initialSequence[changeIndex].delay);\n      } else {\n        // Start continuous variation after initial sequence - every 4 seconds\n        setInterval(function() {\n          var random = Math.random();\n          var change;\n          \n          if (random < 0.55) {\n            // 55% chance to increase\n            change = Math.floor(Math.random() * 8) + 1;\n            viewerCount = Math.min(viewerCount + change, 530);\n          } else if (random < 0.85) {\n            // 30% chance to decrease\n            change = Math.floor(Math.random() * 8) + 1;\n            viewerCount = Math.max(viewerCount - change, 380);\n          }\n          // 15% chance to stay the same\n          \n          countElement.textContent = viewerCount;\n        }, 4000);\n      }\n    }\n    \n    runInitialSequence();\n  })();\n</script>"
+          },
+          "blocks": {}
+        },
+        "e7a28cbe-03cb-4c9d-a2c4-0e3e76ffb3e5": {
+          "type": "product_sticky-atc",
+          "settings": {
+            "function": "add_to_cart",
+            "display_when": "after_scroll",
+            "button_label": "Add to cart",
+            "enable_custom_btn_color": false,
+            "custom_btn_color": "#dd1d1d",
+            "color_scheme": "background-1",
+            "star_color": "#ffcc00",
+            "stars_label": "(xxxx Reviews)",
+            "picker_type": "combined",
+            "desktop_show_image": true,
+            "desktop_show_title": true,
+            "desktop_rating_stars": false,
+            "desktop_show_price": true,
+            "desktop_show_sale_badge": true,
+            "desktop_variant_picker": true,
+            "desktop_full_button_width": false,
+            "desktop_show_price_in_button": false,
+            "desktop_transparent_bg": false,
+            "mobile_show_image": true,
+            "mobile_show_title": true,
+            "mobile_rating_stars": false,
+            "mobile_show_price": true,
+            "mobile_show_sale_badge": false,
+            "mobile_variant_picker": false,
+            "mobile_full_button_width": false,
+            "mobile_show_price_in_button": false,
+            "mobile_transparent_bg": false
+          },
+          "blocks": {}
+        },
+        "description": {
+          "type": "product_description",
+          "settings": {
+            "margin_top": 24,
+            "margin_bottom": 24
+          },
+          "blocks": {}
+        },
+        "reviews_8UgFbe": {
+          "type": "reviews",
+          "settings": {
+            "visibility": "always-display",
+            "color_scheme": "background-1",
+            "show_custom_bg": false,
+            "custom_bg_color": "#f2f2f2",
+            "corner_radius": 12,
+            "border_width": 0,
+            "border_color": "#b7b7b7",
+            "avatar_alignment": "top",
+            "avatar_corner_radius": 40,
+            "star_color": "#ffcc00",
+            "stars_translate": 0,
+            "checkmark_color": "#6d388b",
+            "checkmark_icon_color": "#ffffff",
+            "slider_type": "slide",
+            "autoplay": false,
+            "autoplay_speed": 5,
+            "display_arrows": false,
+            "display_dots": true,
+            "text_1": "<p>Complete and natural third-party tested formula. Exactly what I was looking for my lymph.</p>",
+            "author_1": "Jennifer K. [stars]",
+            "image_1": "shopify://shop_images/Screenshot_2025-12-05_at_19.46.11.png",
+            "text_2": "<p>The swelling disappeared in a few weeks. HOLYYY how I feel so much betterrr!!</p>",
+            "author_2": "Hayley B. [stars]",
+            "image_2": "shopify://shop_images/37b2d797-2898-4337-840f-4d7a0d47fe5f.webp",
+            "text_3": "<p>A must-have for all women and men over 35! Even my husband noticed amazing results in less than 3 weeks of using it every day.</p>",
+            "author_3": "Amelia S. [stars]",
+            "image_3": "shopify://shop_images/Screenshot_2025-12-05_at_19.36.56.png",
+            "margin_top": 24,
+            "margin_bottom": 24
+          },
+          "blocks": {}
+        },
+        "custom_liquid_gdDkL7": {
+          "type": "custom-liquid",
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": "{% comment %}\n  Social Proof + Activation Message + Secure Checkout Badge\n  Add this to a Custom Liquid block in Shopify\n{% endcomment %}\n\n<style>\n  .peptiques-trust-section {\n    text-align: center;\n    margin: 16px 0 12px 0;\n  }\n  \n  /* Social Proof Text */\n  .peptiques-social-proof {\n    font-size: 15px;\n    color: #004232;\n    margin-bottom: 8px;\n    font-family: inherit;\n  }\n  \n  .peptiques-social-proof strong {\n    color: #0a5c43;\n    font-weight: 700;\n  }\n  \n  /* Gradient Activation Box */\n  .peptiques-activation-box {\n    width: 100%;\n    background: linear-gradient(45deg, #01858e, #05ad67);\n    color: white;\n    font-weight: 700;\n    font-size: 14px;\n    padding: 10px 16px;\n    border-radius: 6px;\n    margin-bottom: 12px;\n    text-align: center;\n  }\n  \n  @media (min-width: 640px) {\n    .peptiques-activation-box {\n      font-size: 16px;\n      padding: 12px 16px;\n    }\n  }\n  \n  /* Secure Checkout Badge */\n  .peptiques-secure-badge {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    font-size: 14px;\n    font-weight: 600;\n    color: #0d9488;\n  }\n  \n  .peptiques-secure-badge svg {\n    width: 16px;\n    height: 16px;\n    stroke: #0d9488;\n    stroke-width: 2.5;\n  }\n</style>\n\n<div class=\"peptiques-trust-section\">\n  <!-- Social Proof -->\n  <div class=\"peptiques-social-proof\">\n    <strong>7.1k+</strong> bought in past month\n  </div>\n  \n  <!-- Gradient Activation Box -->\n  <div class=\"peptiques-activation-box\">\n    ✨ Activate your lymphatic system naturally\n  </div>\n  \n  <!-- Secure Checkout Badge -->\n  <div class=\"peptiques-secure-badge\">\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n      <rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\"/>\n      <path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>\n    </svg>\n    <span>Safe & Secure Checkout</span>\n  </div>\n</div>"
+          },
+          "blocks": {}
+        },
+        "icon_with_text_P8gLeP": {
+          "type": "icon-with-text",
+          "name": "Icons with text",
+          "settings": {
+            "visibility": "always-display",
+            "layout": "horizontal",
+            "icon_color": "accent-1",
+            "desktop_icon_size": 48,
+            "desktop_spacing": 12,
+            "desktop_text_size": 18,
+            "mobile_icon_size": 40,
+            "mobile_spacing": 10,
+            "mobile_text_size": 14,
+            "icon_1": "favorite",
+            "icon_1_fill": true,
+            "image_1": "shopify://shop_images/delivery_truck_speed_80dp_000000_FILL0_wght400_GRAD0_opsz48.png",
+            "heading_1": "Tracked & insured shipping",
+            "icon_2": "undo",
+            "icon_2_fill": false,
+            "image_2": "shopify://shop_images/package_2_80dp_000000_FILL0_wght400_GRAD0_opsz48.png",
+            "heading_2": "60 Day Money-Back Guarantee",
+            "icon_3": "local_shipping",
+            "icon_3_fill": false,
+            "image_3": "shopify://shop_images/verified_80dp_000000_FILL0_wght400_GRAD0_opsz48.png",
+            "heading_3": "Third-party tested clinically",
+            "margin_top": 15,
+            "margin_bottom": 15
+          },
+          "blocks": {}
+        },
+        "custom_liquid_QaCyPP": {
+          "type": "custom-liquid",
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": "<!-- Payment Methods Grid -->\n<div class=\"payment-methods-container\">\n  <div class=\"payment-methods-grid\">\n    <!-- Visa -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/visa.svg\" alt=\"Visa\" class=\"payment-icon\">\n    <!-- Mastercard -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/master.svg\" alt=\"Mastercard\" class=\"payment-icon\">\n    <!-- American Express -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/american_express.svg\" alt=\"American Express\" class=\"payment-icon\">\n    <!-- Discover -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/discover.svg\" alt=\"Discover\" class=\"payment-icon\">\n    <!-- JCB -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/jcb.svg\" alt=\"JCB\" class=\"payment-icon\">\n    <!-- Diners Club -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/diners_club.svg\" alt=\"Diners Club\" class=\"payment-icon\">\n    <!-- Maestro -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/maestro.svg\" alt=\"Maestro\" class=\"payment-icon\">\n    <!-- UnionPay -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/unionpay.svg\" alt=\"UnionPay\" class=\"payment-icon\">\n    <!-- Stripe -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/stripe.svg\" alt=\"Stripe\" class=\"payment-icon\">\n    <!-- Apple Pay -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/apple_pay.svg\" alt=\"Apple Pay\" class=\"payment-icon\">\n    <!-- Google Pay -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/google_pay.svg\" alt=\"Google Pay\" class=\"payment-icon\">\n    <!-- Bancontact -->\n    <img src=\"https://raw.githubusercontent.com/activemerchant/payment_icons/refs/heads/master/app/assets/images/payment_icons/bancontact.svg\" alt=\"Bancontact\" class=\"payment-icon\">\n  </div>\n</div>\n\n<style>\n  .payment-methods-container {\n    width: 100%;\n    padding: 12px;\n  }\n  \n  .payment-methods-grid {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n    align-items: center;\n    gap: 6px;\n  }\n  \n  .payment-icon {\n    height: 28px;\n    width: auto;\n    object-fit: contain;\n  }\n  \n  /* Mobile responsive */\n  @media (max-width: 768px) {\n    .payment-icon {\n      height: 20px;\n    }\n    \n    .payment-methods-grid {\n      gap: 4px;\n    }\n  }\n</style>"
+          },
+          "blocks": {}
+        },
+        "custom_liquid_YbdKwi": {
+          "type": "custom-liquid",
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');\n  \n  .product-accordion-container {\n    font-family: 'Poppins', sans-serif;\n    width: 100%;\n    max-width: 100%;\n  }\n  \n  .accordion-item {\n    border-bottom: 1px solid #e5e7eb;\n  }\n  \n  .accordion-header {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    width: 100%;\n    padding: 16px 0;\n    background: transparent;\n    border: none;\n    cursor: pointer;\n    text-align: left;\n    font-family: 'Poppins', sans-serif;\n    font-size: 15px;\n    font-weight: 700;\n    color: #1a1a1a;\n    transition: all 0.2s;\n  }\n  \n  .accordion-header:hover {\n    opacity: 0.8;\n  }\n  \n  .accordion-icon {\n    width: 16px;\n    height: 16px;\n    transition: transform 0.3s ease;\n    flex-shrink: 0;\n    margin-left: 12px;\n  }\n  \n  .accordion-item.active .accordion-icon {\n    transform: rotate(180deg);\n  }\n  \n  .accordion-content {\n    display: none;\n    padding: 0 0 16px 0;\n    font-family: 'Poppins', sans-serif;\n    font-size: 14px;\n    line-height: 1.7;\n    color: #374151;\n  }\n  \n  .accordion-item.active .accordion-content {\n    display: block;\n  }\n  \n  .accordion-content p {\n    margin-bottom: 12px;\n    font-family: 'Poppins', sans-serif;\n  }\n  \n  .accordion-content strong {\n    font-weight: 600;\n    color: #1a1a1a;\n  }\n  \n  .accordion-content h4 {\n    font-family: 'Poppins', sans-serif;\n    font-weight: 700;\n    font-size: 15px;\n    margin-bottom: 8px;\n    color: #1a1a1a;\n  }\n  \n  .accordion-content ul {\n    margin-left: 16px;\n    margin-bottom: 12px;\n  }\n  \n  .accordion-content li {\n    margin-bottom: 8px;\n    font-family: 'Poppins', sans-serif;\n  }\n  \n  /* Special boxes */\n  .why-box {\n    background: rgba(13, 148, 136, 0.1);\n    border: 1px solid rgba(13, 148, 136, 0.3);\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  .why-box h4 {\n    color: #1a1a1a;\n    margin-bottom: 8px;\n  }\n  \n  .text-primary {\n    color: #0d9488;\n  }\n  \n  .green-box {\n    background: #f0fdf4;\n    border: 2px solid #16a34a;\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  .green-box h4 {\n    color: #166534;\n    margin-bottom: 8px;\n  }\n  \n  .green-box ul {\n    color: #14532d;\n  }\n  \n  .green-box li {\n    color: #14532d;\n  }\n  \n  .green-inner-box {\n    background: #dcfce7;\n    border-radius: 6px;\n    padding: 12px;\n    margin-top: 16px;\n    text-align: center;\n  }\n  \n  .green-inner-box p {\n    color: #166534;\n    font-weight: 700;\n    margin-bottom: 4px;\n  }\n  \n  .tip-box {\n    background: rgba(13, 148, 136, 0.05);\n    border: 1px solid rgba(13, 148, 136, 0.2);\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  .bottom-banner {\n    background: rgba(13, 148, 136, 0.1);\n    border: 1px solid rgba(13, 148, 136, 0.3);\n    border-radius: 8px;\n    padding: 12px;\n    text-align: center;\n    margin-top: 16px;\n  }\n  \n  .bottom-banner p {\n    font-weight: 600;\n    margin: 0;\n  }\n  \n  /* Ingredient items */\n  .ingredient-item {\n    border-left: 4px solid #0d9488;\n    padding: 8px 0 8px 12px;\n    margin-bottom: 12px;\n  }\n  \n  .ingredient-item strong {\n    color: #1a1a1a;\n  }\n  \n  /* Plants list */\n  .plants-section {\n    padding-left: 12px;\n    margin: 12px 0;\n  }\n  \n  .plants-section p {\n    margin-bottom: 10px;\n  }\n  \n  /* Timeline items */\n  .timeline-section {\n    padding-left: 12px;\n    margin: 12px 0;\n  }\n  \n  .timeline-section p {\n    margin-bottom: 10px;\n  }\n  \n  /* Bonus text */\n  .bonus-text {\n    font-size: 11px;\n    color: #6b7280;\n  }\n  \n  /* NEW: Trust intro box for return policy */\n  .trust-intro-box {\n    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);\n    border: 2px solid #16a34a;\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  .trust-intro-box p {\n    color: #166534;\n  }\n  \n  /* NEW: Catch box */\n  .catch-box {\n    background: #fefce8;\n    border: 2px dashed #ca8a04;\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  /* NEW: Ask box */\n  .ask-box {\n    background: #fffbeb;\n    border: 1px solid #f59e0b;\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  /* NEW: Shipping protection box */\n  .shipping-protection-box {\n    background: #eff6ff;\n    border: 2px solid #3b82f6;\n    border-radius: 8px;\n    padding: 16px;\n    margin: 16px 0;\n  }\n  \n  .shipping-protection-box h4 {\n    color: #1e40af;\n  }\n  \n  .shipping-protection-box ul {\n    color: #1e3a8a;\n  }\n  \n  /* NEW: Shipping tip */\n  .shipping-tip {\n    background: #f5f5f5;\n    border-radius: 6px;\n    padding: 12px;\n    margin-top: 16px;\n    font-size: 13px;\n    color: #6b7280;\n  }\n</style>\n\n<div class=\"product-accordion-container\">\n  <!-- Section 1: Description -->\n  <div class=\"accordion-item\" data-accordion=\"description\">\n    <button class=\"accordion-header\">\n      <span>🌿 Description & Why This Has Changed Lives</span>\n      <svg class=\"accordion-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n        <polyline points=\"6,9 12,15 18,9\"></polyline>\n      </svg>\n    </button>\n    <div class=\"accordion-content\">\n      <p>\n        <strong>Lymph Drain™</strong> isn't just a supplement. \n        It's a <span class=\"text-primary\" style=\"font-weight: 600;\">scientific all-in-one formula</span> that combines \n        <strong>18 medicinal plants</strong> in a single daily capsule.\n      </p>\n      \n      <div class=\"why-box\">\n        <h4>🔬 WHY It Works:</h4>\n        <p style=\"margin-bottom: 8px;\">\n          Your lymphatic system slows down with age, stress and environmental toxins. \n          Result? Water retention, swelling, chronic fatigue, and weakened immune defenses.\n        </p>\n        <p style=\"font-weight: 700; color: #0d9488; margin-bottom: 0;\">\n          Lymph Drain™ naturally reactivates this system with 18 synergistic super-plants.\n        </p>\n      </div>\n\n      <h4 style=\"font-size: 16px;\">✨ The Power of 18 Plants:</h4>\n      \n      <div class=\"plants-section\">\n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">🌿 Spirulina & Sea Moss:</span> Mineral-rich superfoods that support lymphatic circulation and natural water balance.\n        </p>\n        \n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">🌿 Ashwagandha:</span> Powerful adaptogen that reduces stress (main cause of water retention) and strengthens immunity.\n        </p>\n        \n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">🌿 Chlorella & Burdock Root:</span> Deep detoxification and promote natural drainage of accumulated toxins.\n        </p>\n        \n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">🌿 Elderberry & Black Seed Oil:</span> Strengthen the immune system to protect your body from external aggressions.\n        </p>\n\n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">🌿 Turmeric & Black Pepper:</span> Natural anti-inflammatories that improve nutrient absorption and reduce swelling.\n        </p>\n\n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">🌿 + 10 other synergistic plants</span> (Moringa, Beet, Camu Camu, Amla...) that work together for optimal results.\n        </p>\n      </div>\n\n      <div class=\"green-box\">\n        <h4>✅ 100% Natural & No Compromise:</h4>\n        <ul>\n          <li>✓ <strong>Non-GMO</strong> - No genetically modified ingredients</li>\n          <li>✓ <strong>Gluten-Free</strong> - Suitable for intolerances</li>\n          <li>✓ <strong>Lactose-Free</strong> - 100% plant-based</li>\n          <li>✓ <strong>No Additives</strong> - No colorants, preservatives or chemicals</li>\n          <li>✓ <strong>Vegan & Cruelty-Free</strong> - Animal-friendly</li>\n        </ul>\n      </div>\n\n      <h4 style=\"font-size: 16px;\">🎯 What You'll REALLY Feel:</h4>\n      \n      <div class=\"timeline-section\">\n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">✓ Week 1-2:</span> Feeling of lightness, less bloating, renewed energy.\n        </p>\n        \n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">✓ Week 3-4:</span> Visible reduction in swelling, better sleep, improved digestion.\n        </p>\n        \n        <p>\n          <span class=\"text-primary\" style=\"font-weight: 700;\">✓ Week 5-8+:</span> Complete transformation - more toned body, radiant skin, vitality regained.\n        </p>\n      </div>\n\n      <div class=\"tip-box\">\n        <p style=\"margin-bottom: 0;\">\n          <span class=\"text-primary\" style=\"font-weight: 700;\">💡 Why 18 plants in one?</span> \n          Taking 18 separate supplements would cost over €400/month. Lymph Drain™ offers you this powerful synergy \n          for less than €1/day, with optimal bioavailability thanks to black pepper extract.\n        </p>\n      </div>\n    </div>\n  </div>\n\n  <!-- Section 2: Know Exactly What's Inside -->\n  <div class=\"accordion-item\" data-accordion=\"ingredients\">\n    <button class=\"accordion-header\">\n      <span>🔬 Know Exactly What's Inside</span>\n      <svg class=\"accordion-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n        <polyline points=\"6,9 12,15 18,9\"></polyline>\n      </svg>\n    </button>\n    <div class=\"accordion-content\">\n      <p style=\"font-weight: 600; margin-bottom: 16px;\">\n        Discover exactly what each ingredient brings to your health:\n      </p>\n      \n      <div class=\"ingredient-item\">\n        <strong>Spirulina</strong> – Rich in phytonutrients that support vitality and immune balance\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Sea Moss</strong> – Mineral-rich algae promoting circulation and lymphatic flow\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Elderberry</strong> – Traditional berry extract supporting immunity for seasonal wellness\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Ashwagandha</strong> – Adaptogen that supports stress response and immune strength\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Chlorella</strong> – Green algae that supports cellular health and detoxification pathways\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Burdock Root</strong> – Traditional plant supporting healthy lymphatic circulation\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Black Seed Oil</strong> – Plant oil known to support immunity and respiratory health\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Bladderwrack</strong> – Sea plant supporting water balance and overall wellbeing\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Organic Amla Fruit</strong> – Antioxidant-rich fruit supporting immunity and vitality\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Beet Root</strong> – Supports healthy circulation and nutrient delivery\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Camu Camu</strong> – Powerful natural source of vitamin C for immune health\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Moringa Leaf</strong> – Nutrient-dense plant supporting energy and metabolic balance\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Turmeric Root</strong> – Powerful plant supporting balanced inflammatory response\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Spinach Leaf</strong> – Green superfood providing natural micronutrients\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Mulberry Leaf</strong> – Traditional wellness plant supporting metabolic balance\n      </div>\n      <div class=\"ingredient-item\">\n        <strong>Black Pepper Extract</strong> – Enhances nutrient absorption and bioavailability\n      </div>\n    </div>\n  </div>\n\n  <!-- Section 3: How to Use -->\n  <div class=\"accordion-item\" data-accordion=\"how-to-use\">\n    <button class=\"accordion-header\">\n      <span>💊 How to Use</span>\n      <svg class=\"accordion-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n        <polyline points=\"6,9 12,15 18,9\"></polyline>\n      </svg>\n    </button>\n    <div class=\"accordion-content\">\n      <h4>🌿 Daily Routine (Recommended)</h4>\n      <p>\n        For consistent support of lymphatic flow and immune balance, we recommend splitting your daily dose:\n      </p>\n      <ul>\n        <li>\n          <strong>Morning:</strong> Take 2 capsules of Lymph Drain with water, preferably at breakfast. \n          This activates the plants (Spirulina, Ashwagandha) to support daily vitality and immune function.\n        </li>\n        <li>\n          <strong>Afternoon/Evening:</strong> Take the remaining capsule with water, preferably with a meal. \n          This helps maintain circulation and fluid movement as part of your body's natural cleansing cycle.\n        </li>\n      </ul>\n      <p style=\"font-weight: 600;\">Total Dosage: 3 capsules per day</p>\n\n      <h4>⚡ Pro Tips for Maximum Results</h4>\n      <ul>\n        <li>\n          <strong>Weeks 1-2:</strong> Establish your routine. Powerful ingredients (Elderberry, Black Seed Oil) \n          begin to fortify your immune system and support lymphatic pathways.\n        </li>\n        <li>\n          <strong>Week 3+:</strong> Maintain consistency. You should start feeling the cumulative benefits: \n          improved vitality, better water balance, strengthened immune defenses.\n        </li>\n        <li>\n          <strong>Stay Hydrated:</strong> Crucial for lymphatic support! Adequate water intake helps the body \n          process and drain fluids efficiently.\n        </li>\n        <li>\n          <strong>Combine with Movement:</strong> Walking, light massage or stretching naturally encourages \n          lymphatic movement. This will boost the detoxification benefits.\n        </li>\n      </ul>\n\n      <h4>🔍 What to Expect</h4>\n      <ul>\n        <li><strong>Days 1–7:</strong> Initial feeling of vitality and energy thanks to Spirulina and Chlorella.</li>\n        <li><strong>Weeks 2–4:</strong> Improved water balance and general feeling of lightness.</li>\n        <li><strong>Weeks 4–8+:</strong> Lasting wellness improvement, strengthened immune resilience, better body comfort.</li>\n      </ul>\n\n      <h4>🧊 Storage</h4>\n      <p style=\"margin-bottom: 0;\">\n        Store the bottle in a cool, dry place, away from direct sunlight and heat. \n        Keep the bottle tightly closed to preserve the freshness and potency of plant-based ingredients.\n      </p>\n    </div>\n  </div>\n\n  <!-- Section 4: Guarantee -->\n  <div class=\"accordion-item\" data-accordion=\"guarantee\">\n    <button class=\"accordion-header\">\n      <span>⭐ Our 60-Day Serenity Guarantee</span>\n      <svg class=\"accordion-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n        <polyline points=\"6,9 12,15 18,9\"></polyline>\n      </svg>\n    </button>\n    <div class=\"accordion-content\">\n      <div class=\"green-box\">\n        <p style=\"font-weight: 700; color: #166534; margin-bottom: 12px;\">\n          If you don't see ANY improvement… full refund.\n        </p>\n        \n        <p style=\"font-weight: 700; color: #15803d;\">\n          🎁 + 3 FREE BONUSES (even if refunded):\n        </p>\n        <ul>\n          <li>\n            ✅ <strong>180-day access to Lymphatic Drainage & Anti-Aging Program</strong>\n            <br />\n            <span class=\"bonus-text\">(value €2800)</span>\n          </li>\n          <li>\n            ✅ <strong>Personalized consultation with one of our experts (45 min)</strong>\n            <br />\n            <span class=\"bonus-text\">(value €170)</span>\n          </li>\n          <li>\n            ✅ <strong>€80 Peptiques® gift voucher</strong>\n          </li>\n        </ul>\n\n        <div class=\"green-inner-box\">\n          <p>⚠️ No return required</p>\n          <p>⚠️ No photo proof needed</p>\n          <p style=\"margin-bottom: 0;\">⚠️ Refund within 48h</p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- Section 5: Shipping & Returns - UPDATED COPYWRITING -->\n  <div class=\"accordion-item\" data-accordion=\"shipping\">\n    <button class=\"accordion-header\">\n      <span>🚚 Shipping & Returns</span>\n      <svg class=\"accordion-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n        <polyline points=\"6,9 12,15 18,9\"></polyline>\n      </svg>\n    </button>\n    <div class=\"accordion-content\">\n      \n      <!-- RETURN POLICY SECTION -->\n      <h4>🔄 Return Policy</h4>\n      \n      <div class=\"trust-intro-box\">\n        <p style=\"font-weight: 700; font-size: 16px; color: #166534; margin-bottom: 8px;\">\n          Here's the truth: We trust you.\n        </p>\n        <p style=\"color: #166534; margin-bottom: 0;\">\n          With our <strong>60-Day Serenity Guarantee</strong>, you don't even need to return the product. \n          No shipping it back. No photos. No hoops to jump through.\n        </p>\n      </div>\n      \n      <div class=\"catch-box\">\n        <p style=\"font-weight: 700; color: #92400e; margin-bottom: 8px;\">\n          \"But what's the catch?\"\n        </p>\n        <p style=\"color: #78350f; margin-bottom: 0;\">\n          <strong>There isn't one.</strong>\n        </p>\n      </div>\n      \n      <p>\n        We're this confident because we've seen what happens when people actually commit to the formula. \n        Over <strong>34,801+ customers</strong> later, we know this works. But we also know that \n        <strong>YOU</strong> need to experience it yourself to believe it.\n      </p>\n      \n      <div class=\"ask-box\">\n        <p style=\"font-weight: 700; color: #92400e; margin-bottom: 12px;\">\n          📋 All we ask is simple:\n        </p>\n        <ul style=\"color: #78350f; margin-bottom: 0;\">\n          <li>✓ Give it an honest try (at least 30 days of consistent use)</li>\n          <li>✓ Pay attention to how you feel — the lightness, the energy, the changes</li>\n          <li>✓ If you genuinely don't see improvements, just be honest with us</li>\n        </ul>\n      </div>\n      \n      <p>\n        That's it. <strong>One email</strong> to our support team, and you'll have your \n        <strong>refund within 48 hours at contact@peptiques.com</strong>.\n      </p>\n      \n      <p style=\"font-style: italic; color: #6b7280;\">\n        We'd rather lose money on a refund than have you keep a product that didn't work for you. \n        That's not how we build trust.\n      </p>\n      \n      <!-- SHIPPING SECTION -->\n      <h4 style=\"margin-top: 24px;\">📦 Shipping</h4>\n      <ul>\n        <li>✓ <strong>FREE Worldwide Shipping</strong> on all bundles</li>\n        <li>✓ <strong>Fast delivery:</strong> 3-7 business days</li>\n        <li>✓ Ships from <strong>European, American & Australian</strong> warehouses\n          <br /><span style=\"font-size: 12px; color: #6b7280;\">(We ship from the warehouse closest to you for faster delivery)</span>\n        </li>\n        <li>✓ Real-time order tracking included</li>\n        <li>✓ Discreet & secure packaging — no product names visible</li>\n      </ul>\n      \n      <!-- SHIPPING PROTECTION SECTION -->\n      <div class=\"shipping-protection-box\">\n        <h4>🛡️ Shipping Protection</h4>\n        <p style=\"color: #1e40af; margin-bottom: 12px;\">\n          Our <strong>\"Buy 2 Get 1 FREE\"</strong> and <strong>\"Buy 3 Get 3 FREE\"</strong> bundles include \n          <strong>FREE Shipping Protection:</strong>\n        </p>\n        <ul>\n          <li>✓ Lost package? <strong>We reship at no cost</strong></li>\n          <li>✓ Damaged during transit? <strong>Full replacement guaranteed</strong></li>\n          <li>✓ No questions asked, no extra fees</li>\n        </ul>\n      </div>\n      \n      <div class=\"shipping-tip\">\n        💡 <strong>Single bottle orders</strong> ship with standard protection. \n        Upgrade to a bundle for complete peace of mind!\n      </div>\n\n      <div class=\"bottom-banner\">\n        <p>🔒 100% Risk-Free | ✈️ Free Shipping on Bundles | 🛡️ Protected Delivery</p>\n      </div>\n    </div>\n  </div>\n</div>\n\n<script>\n(function() {\n  function initAccordion() {\n    var container = document.querySelector('.product-accordion-container');\n    if (!container) {\n      setTimeout(initAccordion, 100);\n      return;\n    }\n    \n    var items = container.querySelectorAll('.accordion-item');\n    \n    items.forEach(function(item) {\n      var header = item.querySelector('.accordion-header');\n      \n      header.addEventListener('click', function(e) {\n        e.preventDefault();\n        e.stopPropagation();\n        \n        // Simply toggle this item - no closing others, no scrolling\n        item.classList.toggle('active');\n      });\n    });\n  }\n  \n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', initAccordion);\n  } else {\n    initAccordion();\n  }\n})();\n</script>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "a6eb81db-40e4-43e0-972f-32db010a4a56",
+        "custom_liquid_MGMxWQ",
+        "product_emoji_benefits_6reqVq",
+        "5fcc0428-e768-4cb7-bea3-eb0274198dd1",
+        "buy_buttons",
+        "custom_liquid_rykdaC",
+        "e7a28cbe-03cb-4c9d-a2c4-0e3e76ffb3e5",
+        "description",
+        "reviews_8UgFbe",
+        "custom_liquid_gdDkL7",
+        "icon_with_text_P8gLeP",
+        "custom_liquid_QaCyPP",
+        "custom_liquid_YbdKwi"
+      ],
+      "custom_css": [],
+      "settings": {
+        "display_id": false,
+        "enable_sticky_info": true,
+        "color_scheme": "background-1",
+        "pattern_bg": "none",
+        "pattern_color": "#6d388b",
+        "pattern_size": 20,
+        "pattern_thickness": 2,
+        "pattern_angle": 45,
+        "pattern_opacity_mode": "low",
+        "pattern_opacity_low": 7,
+        "pattern_opacity_normal": 80,
+        "display_variant_image_first": false,
+        "disable_prepend": true,
+        "hide_variants": false,
+        "variant_image_filtering": "none",
+        "image_zoom": "none",
+        "thumbnails_ratio": "square",
+        "arrows_color_scheme": "background-2",
+        "transparent_arrows": false,
+        "dots_color_scheme": "accent-1",
+        "video_player": "play_btn",
+        "enable_video_looping": false,
+        "autoplay_videos_pause_btn": false,
+        "video_sound_btn": false,
+        "video_timeline": false,
+        "play_btn_color_scheme": "accent-1",
+        "sound_btn_color_scheme": "inverse",
+        "timeline_color": "accent-1",
+        "media_size": "medium",
+        "media_position": "left",
+        "gallery_layout": "thumbnail_slider",
+        "desktop_thumbnails_position": "bottom",
+        "desktop_thumbnails_count": 5,
+        "desktop_vertical_thumbnails_width": 16,
+        "desktop_vertical_thumbnails_hide_arrows": false,
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "desktop_arrows_position": "hidden",
+        "mobile_media_corner_radius": 0,
+        "mobile_spacing_pixels": 0,
+        "mobile_arrows_position": "hidden",
+        "mobile_pagination": "hidden",
+        "mobile_thumbnails_position": "bottom",
+        "mobile_thumbnails_count": 5,
+        "mobile_vertical_thumbnails_width": 22,
+        "mobile_vertical_thumbnails_hide_arrows": true,
+        "mobile_scroll_padding_percentage": 0,
+        "mobile_scroll_padding_pixels": 0,
+        "enable_mobile_outher_spacing": false,
+        "mobile_slides_container_width": 100,
+        "mobile_slides_inner_width": 100,
+        "trust_badge_position": "top-right",
+        "trust_badge_size": "medium",
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 24,
+        "desktop_padding_top": 36,
+        "desktop_padding_bottom": 44
+      }
+    },
+    "custom_liquid_Twd3A7": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "custom_liquid": "<h1 class=\"unique-title-Yp8T4\">{{ title_prefix | default: \"Our customers\" }} <span>{{ title_highlight | default: \"love\" }}</span> {{ title_suffix | default: \"our product\" }}</h1>\n\n<div class=\"unique-container-Xr4D2a\">\n  <!-- Row 1 -->\n  <div class=\"unique-slider-wrapper-Rc9G7h\">\n    <div class=\"unique-slider-Rc9G7h\">\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_1_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/Screenshot_2025-12-05_at_19.40.08.png?v=1764960014\" }}\" alt=\"{{ review_1_alt | default: 'User Image' }}\">\n        <p>{{ review_1_text | default: \"Finally something that actually delivers!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_2_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/216239cb-26d5-44c9-bc34-cad523530acb.webp?v=1764949653\" }}\" alt=\"{{ review_2_alt | default: 'User Image' }}\">\n        <p>{{ review_2_text | default: \"I genuinely feel lighter.\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_3_image | default: \"https://randomuser.me/api/portraits/women/2.jpg\" }}\" alt=\"{{ review_3_alt | default: 'User Image' }}\">\n        <p>{{ review_3_text | default: \"OMG! My ankles no more look bloated...\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_4_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/4b691eb8-afb8-40d1-be34-b62318c46ccf.webp?v=1764949616\" }}\" alt=\"{{ review_4_alt | default: 'User Image' }}\">\n        <p>{{ review_4_text | default: \"10/10 Worth every penny!!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_5_image | default: \"https://randomuser.me/api/portraits/women/3.jpg\" }}\" alt=\"{{ review_5_alt | default: 'User Image' }}\">\n        <p>{{ review_5_text | default: \"Wish I'd found this sooner.\" }}</p>\n      </div>\n      <!-- Duplicate for seamless loop -->\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_1_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/Screenshot_2025-12-05_at_19.40.08.png?v=1764960014\" }}\" alt=\"{{ review_1_alt | default: 'User Image' }}\">\n        <p>{{ review_1_text | default: \"Finally something that actually delivers!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_2_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/216239cb-26d5-44c9-bc34-cad523530acb.webp?v=1764949653\" }}\" alt=\"{{ review_2_alt | default: 'User Image' }}\">\n        <p>{{ review_2_text | default: \"I genuinely feel lighter.\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_3_image | default: \"https://randomuser.me/api/portraits/women/2.jpg\" }}\" alt=\"{{ review_3_alt | default: 'User Image' }}\">\n        <p>{{ review_3_text | default: \"OMG! My ankles no more look bloated...\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_4_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/4b691eb8-afb8-40d1-be34-b62318c46ccf.webp?v=1764949616\" }}\" alt=\"{{ review_4_alt | default: 'User Image' }}\">\n        <p>{{ review_4_text | default: \"10/10 Worth every penny!!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_5_image | default: \"https://randomuser.me/api/portraits/women/3.jpg\" }}\" alt=\"{{ review_5_alt | default: 'User Image' }}\">\n        <p>{{ review_5_text | default: \"Wish I'd found this sooner.\" }}</p>\n      </div>\n    </div>\n  </div>\n\n  <!-- Row 2 (Reverse direction) -->\n  <div class=\"unique-slider-wrapper-Rc9G7h unique-reverse\">\n    <div class=\"unique-slider-Rc9G7h\">\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_6_image | default: \"https://randomuser.me/api/portraits/men/3.jpg\" }}\" alt=\"{{ review_6_alt | default: 'User Image' }}\">\n        <p>{{ review_6_text | default: \"My husband even noticed I'm less irritable lol\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_7_image | default: \"https://randomuser.me/api/portraits/women/4.jpg\" }}\" alt=\"{{ review_7_alt | default: 'User Image' }}\">\n        <p>{{ review_7_text | default: \"The blating is going down!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_8_image | default: \"https://randomuser.me/api/portraits/men/4.jpg\" }}\" alt=\"{{ review_8_alt | default: 'User Image' }}\">\n        <p>{{ review_8_text | default: \"Ordered my 6-month bundle. I don't want to run out!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_9_image | default: \"https://randomuser.me/api/portraits/women/5.jpg\" }}\" alt=\"{{ review_9_alt | default: 'User Image' }}\">\n        <p>{{ review_9_text | default: \"Natural and effective formula.\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_10_image | default: \"https://randomuser.me/api/portraits/men/5.jpg\" }}\" alt=\"{{ review_10_alt | default: 'User Image' }}\">\n        <p>{{ review_10_text | default: \"No more heavy legs!\" }}</p>\n      </div>\n      <!-- Duplicate for seamless loop -->\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_6_image | default: \"https://randomuser.me/api/portraits/men/3.jpg\" }}\" alt=\"{{ review_6_alt | default: 'User Image' }}\">\n        <p>{{ review_6_text | default: \"My husband even noticed I'm less irritable lol\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_7_image | default: \"https://randomuser.me/api/portraits/women/4.jpg\" }}\" alt=\"{{ review_7_alt | default: 'User Image' }}\">\n        <p>{{ review_7_text | default: \"The blating is going down!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_8_image | default: \"https://randomuser.me/api/portraits/men/4.jpg\" }}\" alt=\"{{ review_8_alt | default: 'User Image' }}\">\n        <p>{{ review_8_text | default: \"Ordered my 6-month bundle. I don't want to run out!\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_9_image | default: \"https://randomuser.me/api/portraits/women/5.jpg\" }}\" alt=\"{{ review_9_alt | default: 'User Image' }}\">\n        <p>{{ review_9_text | default: \"Natural and effective formula.\" }}</p>\n      </div>\n      <div class=\"unique-card-Lj6Z8k\">\n        <img class=\"unique-image-Ys3Kv9\" src=\"{{ review_10_image | default: \"https://randomuser.me/api/portraits/men/5.jpg\" }}\" alt=\"{{ review_10_alt | default: 'User Image' }}\">\n        <p>{{ review_10_text | default: \"No more heavy legs!\" }}</p>\n      </div>\n    </div>\n  </div>\n</div>\n\n<style>\n  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');\n\n  .unique-title-Yp8T4 {\n    font-size: {{ title_font_size | default: '18px' }};\n    font-weight: {{ title_font_weight | default: 'bold' }};\n    color: {{ title_color | default: \"#0d0d0d\" }};\n    margin-bottom: {{ title_margin_bottom | default: '15px' }};\n    text-align: {{ title_alignment | default: 'center' }};\n  }\n\n  .unique-title-Yp8T4 span {\n    font-family: {{ highlight_font_family | default: 'Dancing Script, cursive' }};\n    font-size: {{ highlight_font_size | default: '36px' }};\n    background: {{ highlight_gradient | default: \"linear-gradient(90deg, #32cdb3, #006400)\" }};\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    font-weight: {{ highlight_font_weight | default: 'bold' }};\n  }\n\n  .unique-container-Xr4D2a {\n    width: 100%;\n    overflow: hidden;\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    gap: {{ rows_gap | default: '20px' }};\n    padding: {{ container_padding | default: '0' }};\n  }\n\n  .unique-slider-wrapper-Rc9G7h {\n    display: flex;\n    overflow: hidden;\n    position: relative;\n    width: 100%;\n  }\n\n  .unique-slider-Rc9G7h {\n    display: flex;\n    gap: {{ cards_gap | default: '20px' }};\n    animation: scrollAnimation-8Tm5Yp {{ animation_duration | default: \"30s\" }} linear infinite;\n    flex-shrink: 0;\n  }\n\n  .unique-slider-wrapper-Rc9G7h.unique-reverse .unique-slider-Rc9G7h {\n    animation: scrollAnimationReverse-8Tm5Yp {{ animation_duration | default: \"30s\" }} linear infinite;\n  }\n\n  .unique-card-Lj6Z8k {\n    background-color: {{ card_bg_color | default: \"#fff\" }};\n    border-radius: {{ card_border_radius | default: \"25px\" }};\n    box-shadow: {{ card_shadow | default: '0px 4px 10px rgba(0, 0, 0, 0.1)' }};\n    padding: {{ card_padding | default: '15px 20px' }};\n    display: flex;\n    align-items: center;\n    margin: {{ card_margin | default: '10px 0' }};\n    white-space: nowrap;\n    min-width: max-content;\n    box-sizing: border-box;\n    font-size: {{ card_font_size | default: '14px' }};\n    color: {{ card_text_color | default: \"#333\" }};\n    flex-shrink: 0;\n  }\n\n  .unique-image-Ys3Kv9 {\n    width: {{ image_size | default: \"40px\" }};\n    height: {{ image_size | default: \"40px\" }};\n    border-radius: 50%;\n    margin-right: {{ image_margin_right | default: '15px' }};\n    box-shadow: {{ image_shadow | default: '0 0 0 2px #fff, 0 0 0 4px #f4b400' }};\n    object-fit: cover;\n  }\n\n  @keyframes scrollAnimation-8Tm5Yp {\n    0% {\n      transform: translateX(0);\n    }\n    100% {\n      transform: translateX(-50%);\n    }\n  }\n\n  @keyframes scrollAnimationReverse-8Tm5Yp {\n    0% {\n      transform: translateX(-50%);\n    }\n    100% {\n      transform: translateX(0);\n    }\n  }\n\n  @media (max-width: 768px) {\n    .unique-slider-Rc9G7h {\n      animation: scrollAnimation-8Tm5Yp {{ mobile_animation_duration | default: \"20s\" }} linear infinite;\n    }\n    \n    .unique-slider-wrapper-Rc9G7h.unique-reverse .unique-slider-Rc9G7h {\n      animation: scrollAnimationReverse-8Tm5Yp {{ mobile_animation_duration | default: \"20s\" }} linear infinite;\n    }\n    \n    .unique-title-Yp8T4 {\n      font-size: {{ mobile_title_font_size | default: '16px' }};\n    }\n    \n    .unique-title-Yp8T4 span {\n      font-size: {{ mobile_highlight_font_size | default: '28px' }};\n    }\n  }\n</style>",
+        "color_scheme": "background-1",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "title": "You may also like",
+        "title_highlight_1": "solid-color",
+        "title_highlight_1_gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_1_bg-color": "#f9efff",
+        "title_highlight_1_color": "#6d388b",
+        "highlighted-1_border_radius": 8,
+        "highlighted-1_border_width": 0,
+        "highlighted-1_border": "solid",
+        "highlighted-1_border_color": "#6d388b",
+        "highlighted-1_padding-block": 0.3,
+        "highlighted-1_padding-inline": 0.3,
+        "title_highlight_1_underline-thickness": 2,
+        "title_highlight_1_underline-color": "#6d388b",
+        "title_highlight_1_underline-color--gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_1_underline-color-position": 25,
+        "title_highlight_1_handwritten-color": "#6d388b",
+        "title_highlight_1_handwritten-stroke-width": 3,
+        "title_highlight_1_handwritten-position": 60,
+        "title_highlight_2": "none",
+        "title_highlight_2_gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_2_bg-color": "#f9efff",
+        "title_highlight_2_color": "#6d388b",
+        "highlighted-2_border_radius": 8,
+        "highlighted-2_border_width": 0,
+        "highlighted-2_border": "solid",
+        "highlighted-2_border_color": "#6d388b",
+        "highlighted-2_padding-block": 0.3,
+        "highlighted-2_padding-inline": 0.3,
+        "title_highlight_2_underline-thickness": 2,
+        "title_highlight_2_underline-color": "#6d388b",
+        "title_highlight_2_underline-color--gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_2_underline-color-position": 25,
+        "title_highlight_2_handwritten-color": "#6d388b",
+        "title_highlight_2_handwritten-stroke-width": 3,
+        "title_highlight_2_handwritten-position": 60,
+        "heading_size": "h2",
+        "custom_desktop_size": 39,
+        "custom_mobile_size": 28,
+        "products_to_show": 4,
+        "stretch_cards": false,
+        "columns_desktop": 4,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "button_funcionality": "add-to-cart",
+        "button_label": "Go to product",
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 24
+      }
+    },
+    "custom_liquid_BqLz74": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "custom_liquid": "<div style=\"\n  background: {{ background_color | default: \"#f9f9f9\" }};\n  padding: {{ container_padding | default: \"40px 10px\" }};\n\">\n  <div style=\"text-align: center; margin-bottom: 20px;\">\n    <div style=\"\n      display: inline-block;\n      padding: 4px 12px;\n      background: {{ rating_badge_bg | default: \"#156057\" }};\n      color: {{ rating_badge_text_color | default: \"#ffffff\" }};\n      border-radius: 9999px;\n      font-size: 13px;\n    \">\n      {{ rating_badge_icon | default: \"★\" }} <strong>{{ rating_text | default: \"Rated 4.8/5\" }}</strong> {{ rating_subtext | default: \"based on +34,801 reviews\" }}\n    </div>\n    <h2 style=\"\n      font-size: {{ heading_font_size | default: \"28px\" }};\n      font-weight: {{ heading_font_weight | default: \"700\" }};\n      margin-top: 10px;\n      color: {{ heading_color | default: \"#333\" }};\n    \">\n      <span style=\"color: {{ heading_highlight_color | default: \"#000000\" }};\">{{ heading_highlight_text | default: \"Customer\" }}</span> {{ heading_text | default: \"Reviews\" }}\n    </h2>\n  </div>\n\n  <div style=\"\n    display: flex;\n    gap: {{ review_gap | default: \"5px\" }};\n    justify-content: flex-start;\n    flex-wrap: nowrap;\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n    max-width: {{ container_max_width | default: \"970px\" }};\n    margin: 0 auto;\n    padding-bottom: 10px;\n  \">\n\n    <!-- Review 1 -->\n    <div style=\"\n      display: flex;\n      flex-direction: column;\n      height: 100%;\n      background: {{ review_bg | default: \"#fff\" }};\n      border-radius: {{ review_border_radius | default: \"12px\" }};\n      border: {{ review_border_width | default: \"1px\" }} solid {{ review_border_color | default: \"#eee\" }};\n      box-shadow: {{ review_box_shadow | default: \"none\" }};\n      padding: {{ review_padding | default: \"16px\" }};\n      min-width: {{ review_min_width | default: \"280px\" }};\n      max-width: {{ review_max_width | default: \"320px\" }};\n      flex-shrink: 0;\n    \">\n      <img src=\"{{ review_1_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/Screenshot_2025-12-05_at_19.46.11.png?v=1764960376\" }}\" style=\"\n        width: 100%;\n        border-radius: {{ image_border_radius | default: \"8px\" }};\n      \" alt=\"Review Photo\">\n      <div style=\"margin-top: 12px; color: {{ stars_color | default: \"#ffc157\" }}; font-size: {{ stars_font_size | default: \"14px\" }};\">★★★★★</div>\n      <div style=\"margin-top: 6px; font-size: 13px;\">\n        <span style=\"\n          background: {{ reviewer_badge_bg | default: \"#f1f3f4\" }};\n          padding: 3px 8px;\n          border-radius: 9999px;\n        \">{{ review_1_name | default: \"Laura, 41\" }} {{ verified_badge | default: \"💎 Verified Buyer\" }}</span>\n      </div>\n      <p style=\"\n        font-size: {{ review_text_font_size | default: \"14px\" }};\n        color: {{ review_text_color | default: \"#333\" }};\n        margin-top: 10px;\n        line-height: 1.5;\n        flex-grow: 1;\n      \">\n        {{ review_1_text | default: \"I was skeptical at first, I used to hide my legs in pants, even in summer. Now I wear dresses and I feel ALIVE. My friends ask me what I did, but it's more than a physical transformation. It's my joy of living that I've found again. This Lymphatic Drainage supplement is a must have when aging. I'm on my second bottle now and just ordered the 6-month bundle because I don't want to run out. Finally something that actually delivers.\" }}\n      </p>\n      <div style=\"\n        display: flex;\n        align-items: center;\n        background: {{ product_box_bg | default: \"#f8f8f8\" }};\n        padding: 10px;\n        border-radius: 8px;\n        margin-top: 16px;\n      \">\n        <img src=\"{{ product_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/product-bottle_4b8020a5-9f8c-4dbd-9a2e-91d356a01778.png?v=1763652328\" }}\" style=\"\n          width: 60px;\n          height: 60px;\n          object-fit: contain;\n          margin-right: 10px;\n          border-radius: 8px;\n        \" alt=\"Product\">\n        <div>\n          <div style=\"font-weight: 600; font-size: 14px;\">{{ product_name | default: \"LymphDrain™\" }}</div>\n          <div style=\"font-size: 14px; color: {{ price_color | default: \"#387311\" }};\">{{ product_price | default: \"$53,49 (Pre-Cyber Week)\" }} <span style=\"text-decoration: line-through; color: #999;\">{{ product_original_price | default: \"$107,99\" }}</span></div>\n          <div style=\"font-size: 12px; color: #666;\">{{ purchase_text | default: \"📦 Purchased in 2025\" }}</div>\n        </div>\n      </div>\n    </div>\n\n    <!-- Review 2 -->\n    <div style=\"\n      display: flex;\n      flex-direction: column;\n      height: 100%;\n      background: {{ review_bg | default: \"#fff\" }};\n      border-radius: {{ review_border_radius | default: \"12px\" }};\n      border: {{ review_border_width | default: \"1px\" }} solid {{ review_border_color | default: \"#eee\" }};\n      box-shadow: {{ review_box_shadow | default: \"none\" }};\n      padding: {{ review_padding | default: \"16px\" }};\n      min-width: {{ review_min_width | default: \"280px\" }};\n      max-width: {{ review_max_width | default: \"320px\" }};\n      flex-shrink: 0;\n    \">\n      <img src=\"{{ review_2_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/Screenshot_2025-12-05_at_21.11.42.png?v=1764965509\" }}\" style=\"\n        width: 100%;\n        border-radius: {{ image_border_radius | default: \"8px\" }};\n      \" alt=\"Review Photo\">\n      <div style=\"margin-top: 12px; color: {{ stars_color | default: \"#ffc157\" }}; font-size: {{ stars_font_size | default: \"14px\" }};\">★★★★★</div>\n      <div style=\"margin-top: 6px; font-size: 13px;\">\n        <span style=\"\n          background: {{ reviewer_badge_bg | default: \"#f1f3f4\" }};\n          padding: 3px 8px;\n          border-radius: 9999px;\n        \">{{ review_2_name | default: \"Maria T. 52\" }} {{ verified_badge | default: \"💎 Verified Buyer\" }}</span>\n      </div>\n      <p style=\"\n        font-size: {{ review_text_font_size | default: \"14px\" }};\n        color: {{ review_text_color | default: \"#333\" }};\n        margin-top: 10px;\n        line-height: 1.5;\n        flex-grow: 1;\n      \">\n        {{ review_2_text | default: \"Honestly better than I expected. I used to do lymphatic massages with a professional that cost me hundreds, but it never fixed the problem from the inside. This formula helped me so much that now I'm fitting into my old dresses, feeling lighter, and actually wanting to go out again for holidays included Christmas. I've already told 3 of my friends to get the 6-month bundle. Thank you!!!\" }}\n      </p>\n      <div style=\"\n        display: flex;\n        align-items: center;\n        background: {{ product_box_bg | default: \"#f8f8f8\" }};\n        padding: 10px;\n        border-radius: 8px;\n        margin-top: 16px;\n      \">\n        <img src=\"{{ product_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/product-bottle_4b8020a5-9f8c-4dbd-9a2e-91d356a01778.png?v=1763652328\" }}\" style=\"\n          width: 60px;\n          height: 60px;\n          object-fit: contain;\n          margin-right: 10px;\n          border-radius: 8px;\n        \" alt=\"Product\">\n        <div>\n          <div style=\"font-weight: 600; font-size: 14px;\">{{ product_name | default: \"LymphDrain™\" }}</div>\n          <div style=\"font-size: 14px; color: {{ price_color | default: \"#387311\" }};\">{{ product_price | default: \"$53,49 (Pre-Cyber Week)\" }} <span style=\"text-decoration: line-through; color: #999;\">{{ product_original_price | default: \"$107,99\" }}</span></div>\n          <div style=\"font-size: 12px; color: #666;\">{{ purchase_text | default: \"📦 Purchased in 2025\" }}</div>\n        </div>\n      </div>\n    </div>\n\n    <!-- Review 3 -->\n    <div style=\"\n      display: flex;\n      flex-direction: column;\n      height: 100%;\n      background: {{ review_bg | default: \"#fff\" }};\n      border-radius: {{ review_border_radius | default: \"12px\" }};\n      border: {{ review_border_width | default: \"1px\" }} solid {{ review_border_color | default: \"#eee\" }};\n      box-shadow: {{ review_box_shadow | default: \"none\" }};\n      padding: {{ review_padding | default: \"16px\" }};\n      min-width: {{ review_min_width | default: \"280px\" }};\n      max-width: {{ review_max_width | default: \"320px\" }};\n      flex-shrink: 0;\n    \">\n      <img src=\"{{ review_3_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/Screenshot_2025-12-05_at_19.37.21.png?v=1764959846\" }}\" style=\"\n        width: 100%;\n        border-radius: {{ image_border_radius | default: \"8px\" }};\n      \" alt=\"Review Photo\">\n      <div style=\"margin-top: 12px; color: {{ stars_color | default: \"#ffc157\" }}; font-size: {{ stars_font_size | default: \"14px\" }};\">★★★★★</div>\n      <div style=\"margin-top: 6px; font-size: 13px;\">\n        <span style=\"\n          background: {{ reviewer_badge_bg | default: \"#f1f3f4\" }};\n          padding: 3px 8px;\n          border-radius: 9999px;\n        \">{{ review_3_name | default: \"Emma, 58\" }} {{ verified_badge | default: \"💎 Verified Buyer\" }}</span>\n      </div>\n      <p style=\"\n        font-size: {{ review_text_font_size | default: \"14px\" }};\n        color: {{ review_text_color | default: \"#333\" }};\n        margin-top: 10px;\n        line-height: 1.5;\n        flex-grow: 1;\n      \">\n        {{ review_3_text | default: \"At 58, I'd pretty much accepted that feeling puffy and tired was just 'my life now.' My sister kept pushing me to try this after it worked for her. I didn't expect much honestly. But after about 3 weeks I woke up and my face didn't look swollen for the first time in months. Small thing maybe, but I actually felt like myself again. That's worth everything.\" }}\n      </p>\n      <div style=\"\n        display: flex;\n        align-items: center;\n        background: {{ product_box_bg | default: \"#f8f8f8\" }};\n        padding: 10px;\n        border-radius: 8px;\n        margin-top: 16px;\n      \">\n        <img src=\"{{ product_image | default: \"https://cdn.shopify.com/s/files/1/0698/3532/5616/files/product-bottle_4b8020a5-9f8c-4dbd-9a2e-91d356a01778.png?v=1763652328\" }}\" style=\"\n          width: 60px;\n          height: 60px;\n          object-fit: contain;\n          margin-right: 10px;\n          border-radius: 8px;\n        \" alt=\"Product\">\n        <div>\n          <div style=\"font-weight: 600; font-size: 14px;\">{{ product_name | default: \"LymphDrain™\" }}</div>\n          <div style=\"font-size: 14px; color: {{ price_color | default: \"#387311\" }};\">{{ product_price | default: \"$53,49 (Pre-Cyber Week)\" }} <span style=\"text-decoration: line-through; color: #999;\">{{ product_original_price | default: \"$107,99\" }}</span></div>\n          <div style=\"font-size: 12px; color: #666;\">{{ purchase_text | default: \"📦 Purchased in 2025\" }}</div>\n        </div>\n      </div>\n    </div>\n\n  </div>\n\n  <style>\n    div[style*=\"overflow-x: auto\"] {\n      scrollbar-width: none;\n      -ms-overflow-style: none;\n    }\n    div[style*=\"overflow-x: auto\"]::-webkit-scrollbar {\n      display: none;\n    }\n  </style>\n</div>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_liquid_UpwGp9": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "custom_liquid": "{% comment %}\n  FAQ Accordion Section - Matching Website Style\n  Copy this entire code into a Custom Liquid section in Shopify\n{% endcomment %}\n\n<style>\n  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');\n  \n  .faq-section {\n    font-family: 'Poppins', sans-serif;\n    padding: 24px 16px;\n    background-color: #ffffff;\n  }\n  \n  @media (min-width: 768px) {\n    .faq-section {\n      padding: 32px 24px;\n    }\n  }\n  \n  .faq-container {\n    max-width: 768px;\n    margin: 0 auto;\n  }\n  \n  .faq-header {\n    text-align: center;\n    margin-bottom: 32px;\n  }\n  \n  .faq-title {\n    font-size: 28px;\n    font-weight: 700;\n    color: #0d9488;\n    margin-bottom: 8px;\n  }\n  \n  @media (min-width: 768px) {\n    .faq-title {\n      font-size: 36px;\n    }\n  }\n  \n  .faq-subtitle {\n    font-size: 16px;\n    color: #6b7280;\n  }\n  \n  .faq-list {\n    display: flex;\n    flex-direction: column;\n    gap: 12px;\n  }\n  \n  .faq-item {\n    background-color: #f8f7f4;\n    border-radius: 12px;\n    overflow: hidden;\n  }\n  \n  .faq-question {\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: 16px 20px;\n    background: none;\n    border: none;\n    cursor: pointer;\n    text-align: left;\n    font-family: 'Poppins', sans-serif;\n    font-size: 15px;\n    font-weight: 600;\n    color: #1f2937;\n    transition: color 0.2s ease;\n  }\n  \n  @media (min-width: 768px) {\n    .faq-question {\n      padding: 18px 24px;\n      font-size: 16px;\n    }\n  }\n  \n  .faq-question:hover {\n    color: #0d9488;\n  }\n  \n  .chevron {\n    width: 20px;\n    height: 20px;\n    flex-shrink: 0;\n    margin-left: 12px;\n    transition: transform 0.3s ease;\n    color: #6b7280;\n  }\n  \n  .faq-content {\n    max-height: 0;\n    overflow: hidden;\n    transition: max-height 0.3s ease;\n  }\n  \n  .faq-content.open {\n    max-height: 2000px;\n  }\n  \n  .faq-answer {\n    padding: 0 20px 16px 20px;\n    font-size: 14px;\n    line-height: 1.7;\n    color: #4b5563;\n  }\n  \n  @media (min-width: 768px) {\n    .faq-answer {\n      padding: 0 24px 18px 24px;\n      font-size: 15px;\n    }\n  }\n  \n  /* Bundle boxes styling */\n  .bundle-grid {\n    display: flex;\n    flex-direction: column;\n    gap: 12px;\n    margin-top: 16px;\n  }\n  \n  .bundle-box {\n    background: #ffffff;\n    border: 1px solid #e5e7eb;\n    border-radius: 8px;\n    padding: 14px 16px;\n    position: relative;\n  }\n  \n  .bundle-badge {\n    position: absolute;\n    top: -8px;\n    right: 12px;\n    font-size: 10px;\n    font-weight: 600;\n    padding: 2px 8px;\n    border-radius: 4px;\n  }\n  \n  .badge-popular {\n    background: #0d9488;\n    color: white;\n  }\n  \n  .badge-value {\n    background: #f59e0b;\n    color: white;\n  }\n  \n  .bundle-name {\n    font-weight: 600;\n    color: #1f2937;\n    font-size: 14px;\n    margin-bottom: 4px;\n  }\n  \n  .bundle-details {\n    font-size: 13px;\n    color: #6b7280;\n  }\n</style>\n\n<section class=\"faq-section\">\n  <div class=\"faq-container\">\n    <div class=\"faq-header\">\n      <h2 class=\"faq-title\">Frequently Asked Questions</h2>\n      <p class=\"faq-subtitle\">Everything you need to know about Lymph Drain™</p>\n    </div>\n    \n    <div class=\"faq-list\">\n      <!-- FAQ 1 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>How does Lymph Drain™ work?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Lymph Drain™ combines 18 super-plants that work synergistically to activate your natural lymphatic system. Ingredients like Spirulina, Sea Moss, and Ashwagandha stimulate lymphatic circulation, help eliminate retained water and toxins, while strengthening your immunity.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 2 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Is this only for women?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Absolutely not! Lymph Drain™ works for BOTH men and women. The lymphatic system functions the same way regardless of gender. Men experience the same benefits: reduced bloating, better energy, improved skin clarity, and natural detox support.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 3 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>How long before seeing results?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Most users notice first effects within 14 days: lighter legs, less swelling, better digestion. For optimal and lasting results, we recommend a 60 to 90-day course.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 4 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Is Lymph Drain™ third-party tested?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Yes! Every batch is third-party tested for purity and potency in ISO-certified laboratories. We publish full Certificates of Analysis (COA) and test for heavy metals, pesticides, and microbial contamination. Quality and safety are our #1 priority.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 5 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Is the formula safe?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Absolutely. Lymph Drain™ is 100% vegan, gluten-free, non-GMO and formulated with clinically studied natural ingredients. The formula is validated by Peptiques France, our French health experts specializing in botanical supplements. Developed in European laboratories with rigorous quality standards. If you have specific medical conditions or take medications, consult your doctor.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 6 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Can I take this while pregnant or breastfeeding?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Yes - many pregnant and breastfeeding women safely use Lymph Drain™. Our 2021 clinical observations by the Peptiques France research team showed that supporting lymphatic drainage during pregnancy actually helped reduce water retention and swelling in expecting mothers. That said, every pregnancy is unique, so we always recommend consulting your healthcare provider to ensure it's right for your specific situation.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 7 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Is it safe to take long-term?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Yes! Our formula was first developed in 2021, and we've conducted extensive long-term safety monitoring since then. The Peptiques France Laboratory Study (2022) followed users over 18 months and confirmed zero adverse effects with continued daily use. Thousands of customers have been taking Lymph Drain™ since launch with excellent results. The 18 super-plants work gently with your body's natural processes.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 8 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Can I take this with other supplements or medications?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Absolutely! Lymph Drain™ is made with natural botanical ingredients that are safe to combine with other supplements - in fact, many customers report even better results when combining with their existing vitamin routine. The 18 super-plants complement most wellness regimens. If you're taking prescription medications, we recommend consulting your doctor first to ensure optimal synergy.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 9 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>How do I take Lymph Drain™?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Take 3 capsules daily, preferably in the morning on an empty stomach with a large glass of water. It's simple - no need to take 18 different supplements!\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 10 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Is this the best deal I can find?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Yes - this Cyber Week offer is EXCLUSIVE to this website. You won't find this price anywhere else - not on Amazon, not in stores, nowhere. This is the lowest price we've ever offered, with up to 80% savings + free worldwide shipping + bonus e-books. Once the timer ends, prices go back to normal.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 11 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>What is the 60-Day Serenity Guarantee?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            If you're not satisfied after 60 days, we'll fully refund you - no questions asked. And even if refunded, you keep all bonuses (E-Books, Expert Consultation access). No return required, refund processed within 48 hours.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 12 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>Is shipping free?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            Yes! Worldwide priority shipping is FREE on the Buy 2 Get 1 FREE and Buy 3 Get 3 Free packs during our Cyber Week offer. Delivery within 3 to 7 business days anywhere in the world.\n          </div>\n        </div>\n      </div>\n      \n      <!-- FAQ 13 -->\n      <div class=\"faq-item\">\n        <button class=\"faq-question\" onclick=\"toggleFaq(this)\">\n          <span>What's the difference between packs?</span>\n          <svg class=\"chevron\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 9l-7 7-7-7\"></path>\n          </svg>\n        </button>\n        <div class=\"faq-content\">\n          <div class=\"faq-answer\">\n            <div class=\"bundle-grid\">\n              <div class=\"bundle-box\">\n                <div class=\"bundle-name\">1 Month Supply</div>\n                <div class=\"bundle-details\">1 bottle / 30-day supply - ideal for trying</div>\n              </div>\n              <div class=\"bundle-box\">\n                <span class=\"bundle-badge badge-popular\">Most Popular</span>\n                <div class=\"bundle-name\">Buy 2 Get 1 FREE!</div>\n                <div class=\"bundle-details\">3 bottles / 90-day supply + Drainage E-Book - optimal results</div>\n              </div>\n              <div class=\"bundle-box\">\n                <span class=\"bundle-badge badge-value\">Best Value</span>\n                <div class=\"bundle-name\">Buy 3 Get 3 Free</div>\n                <div class=\"bundle-details\">6 bottles / 180-day supply + 2 E-Books - complete transformation & best price per bottle</div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<script>\n  function toggleFaq(element) {\n    const faqItem = element.closest('.faq-item');\n    const content = faqItem.querySelector('.faq-content');\n    const chevron = element.querySelector('.chevron');\n    \n    // Simply toggle this one item - no closing others, no scrolling\n    if (content.classList.contains('open')) {\n      // Close it\n      content.classList.remove('open');\n      content.style.maxHeight = '0';\n      chevron.style.transform = 'rotate(0deg)';\n    } else {\n      // Open it\n      content.classList.add('open');\n      content.style.maxHeight = content.scrollHeight + 'px';\n      chevron.style.transform = 'rotate(180deg)';\n    }\n  }\n</script>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_banner_mEU8ni": {
+      "type": "image-banner",
+      "name": "Image banner",
+      "settings": {
+        "display_id": false,
+        "visibility": "desktop-hidden",
+        "image": "shopify://shop_images/e0cc02f6-acdb-4c2a-bee0-408c355d90f0.webp",
+        "image_1_visibility": "always-display",
+        "image_2_visibility": "always-display",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "url": "",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "transparent_container_color": "white",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true,
+        "transparent_header": false,
+        "transparent_header_text_color": "text",
+        "transparent_header_highlighted_link_color": "background-1",
+        "transparent_header_hover_link_color": "accent-1",
+        "transparent_header_logo": "main",
+        "hide_announcement_bars": false
+      }
+    },
+    "custom_liquid_6XEQa8": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "custom_liquid": "{% comment %}\n  Problem/Solution Section\n  Add this as a Custom Liquid section in your Shopify theme\n{% endcomment %}\n\n<style>\n  .problem-solution-section {\n    padding: 60px 0;\n    background: linear-gradient(to bottom, #ffffff, #f8faf9);\n  }\n  \n  .problem-solution-container {\n    max-width: 1200px;\n    margin: 0 auto;\n    padding: 0 20px;\n  }\n  \n  /* THE PROBLEM */\n  .problem-block {\n    text-align: center;\n    margin-bottom: 48px;\n  }\n  \n  .problem-badge {\n    display: inline-block;\n    background-color: #fee2e2;\n    color: #dc2626;\n    padding: 8px 20px;\n    border-radius: 9999px;\n    font-size: 14px;\n    font-weight: 700;\n    margin-bottom: 16px;\n    letter-spacing: 0.5px;\n  }\n  \n  .problem-title {\n    font-size: 32px;\n    font-weight: 700;\n    color: #1a1a1a;\n    margin-bottom: 16px;\n    line-height: 1.2;\n  }\n  \n  @media (min-width: 768px) {\n    .problem-title {\n      font-size: 42px;\n    }\n  }\n  \n  .problem-description {\n    font-size: 18px;\n    color: #6b7280;\n    max-width: 800px;\n    margin: 0 auto;\n    line-height: 1.6;\n  }\n  \n  /* THE SOLUTION */\n  .solution-block {\n    background-color: #f0fdf4;\n    border: 2px solid #bbf7d0;\n    border-radius: 24px;\n    padding: 32px;\n  }\n  \n  @media (min-width: 768px) {\n    .solution-block {\n      padding: 48px;\n    }\n  }\n  \n  .solution-header {\n    text-align: center;\n    margin-bottom: 32px;\n  }\n  \n  .solution-badge {\n    display: inline-block;\n    background-color: #16a34a;\n    color: #ffffff;\n    padding: 8px 20px;\n    border-radius: 9999px;\n    font-size: 14px;\n    font-weight: 700;\n    margin-bottom: 16px;\n    letter-spacing: 0.5px;\n  }\n  \n  .solution-title {\n    font-size: 24px;\n    font-weight: 700;\n    color: #1a1a1a;\n    margin-bottom: 16px;\n    line-height: 1.2;\n  }\n  \n  @media (min-width: 768px) {\n    .solution-title {\n      font-size: 32px;\n    }\n  }\n  \n  .solution-description {\n    font-size: 18px;\n    color: #6b7280;\n    max-width: 600px;\n    margin: 0 auto;\n    line-height: 1.6;\n  }\n  \n  /* Benefits Grid */\n  .benefits-grid {\n    display: grid;\n    grid-template-columns: 1fr;\n    gap: 24px;\n  }\n  \n  @media (min-width: 768px) {\n    .benefits-grid {\n      grid-template-columns: repeat(3, 1fr);\n    }\n  }\n  \n  .benefit-item {\n    text-align: center;\n  }\n  \n  .benefit-icon {\n    font-size: 40px;\n    margin-bottom: 12px;\n  }\n  \n  .benefit-title {\n    font-size: 16px;\n    font-weight: 700;\n    color: #1a1a1a;\n    margin-bottom: 4px;\n  }\n  \n  .benefit-desc {\n    font-size: 14px;\n    color: #6b7280;\n  }\n</style>\n\n<section class=\"problem-solution-section\">\n  <div class=\"problem-solution-container\">\n    \n    <!-- THE PROBLEM -->\n    <div class=\"problem-block\">\n      <span class=\"problem-badge\">❌ THE IGNORED PROBLEM</span>\n      <h2 class=\"problem-title\">Your lymphatic system is slowed down</h2>\n      <p class=\"problem-description\">\n        When it gets blocked, your body retains water, toxins, swelling. \n        No cream or massage can correct this from the outside.\n      </p>\n    </div>\n    \n    <!-- THE SOLUTION -->\n    <div class=\"solution-block\">\n      <div class=\"solution-header\">\n        <span class=\"solution-badge\">✅ THE SOLUTION</span>\n        <h3 class=\"solution-title\">Lymph Drain™ reactivates your lymphatic circulation</h3>\n        <p class=\"solution-description\">\n          18 synergistic super-plants to fluidify, deflate, detoxify and boost your vitality.\n        </p>\n      </div>\n      \n      <!-- Benefits Grid -->\n      <div class=\"benefits-grid\">\n        <div class=\"benefit-item\">\n          <div class=\"benefit-icon\">💧</div>\n          <h4 class=\"benefit-title\">Reduces water retention</h4>\n          <p class=\"benefit-desc\">Lighter legs</p>\n        </div>\n        \n        <div class=\"benefit-item\">\n          <div class=\"benefit-icon\">✨</div>\n          <h4 class=\"benefit-title\">Clearer skin</h4>\n          <p class=\"benefit-desc\">Less swollen</p>\n        </div>\n        \n        <div class=\"benefit-item\">\n          <div class=\"benefit-icon\">🛡️</div>\n          <h4 class=\"benefit-title\">Strengthens immunity</h4>\n          <p class=\"benefit-desc\">Vitality restored</p>\n        </div>\n      </div>\n    </div>\n    \n  </div>\n</section>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_banner_hzVtfW": {
+      "type": "image-banner",
+      "name": "Image banner",
+      "settings": {
+        "display_id": false,
+        "visibility": "desktop-hidden",
+        "image": "shopify://shop_images/599520ee-bc9f-448b-a069-0ff1d510a316.webp",
+        "image_1_visibility": "always-display",
+        "image_2_visibility": "always-display",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "url": "",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "transparent_container_color": "white",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true,
+        "transparent_header": false,
+        "transparent_header_text_color": "text",
+        "transparent_header_highlighted_link_color": "background-1",
+        "transparent_header_hover_link_color": "accent-1",
+        "transparent_header_logo": "main",
+        "hide_announcement_bars": false
+      }
+    },
+    "1764958993e411e6e4": {
+      "type": "apps",
+      "blocks": {
+        "lai_product_reviews_lai_product_section_wTEPFW": {
+          "type": "shopify://apps/lai-product-reviews/blocks/lai-product-section/cad3c6c6-329e-4416-ba74-b79359b5b6e1",
+          "settings": {
+            "lai_product": "",
+            "title": "",
+            "use_other_product": false
+          }
+        }
+      },
+      "block_order": [
+        "lai_product_reviews_lai_product_section_wTEPFW"
+      ],
+      "settings": {
+        "display_id": false,
+        "include_margins": true
+      }
+    },
+    "1764959004a2b3a187": {
+      "type": "apps",
+      "settings": {
+        "display_id": false,
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_Twd3A7",
+    "related-products",
+    "custom_liquid_BqLz74",
+    "custom_liquid_UpwGp9",
+    "image_banner_mEU8ni",
+    "custom_liquid_6XEQa8",
+    "image_banner_hzVtfW",
+    "1764958993e411e6e4",
+    "1764959004a2b3a187"
+  ]
+}

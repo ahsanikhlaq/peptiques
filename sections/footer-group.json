@@ -1,0 +1,202 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "custom_footer_DdGfdD": {
+      "type": "custom-footer",
+      "name": "Custom Footer PRO v2",
+      "settings": {
+        "logo": "shopify://shop_images/hf_20260326_143728_b8b5b90d-07c2-4451-8f18-9da8ffa3bab5_1_1.png",
+        "quick_menu": "",
+        "legal_menu": "menu",
+        "email": "contact@peptiques.com",
+        "menu_color": "#ffffff",
+        "bg_gradient": "linear-gradient(45deg, rgba(70, 47, 158, 1) 11%, rgba(115, 53, 151, 1) 84%)",
+        "facebook_icon": "shopify://shop_images/facebook.svg",
+        "facebook_link": "https://www.facebook.com/profile.php?id=61584904350525",
+        "instagram_icon": "shopify://shop_images/instagram.svg",
+        "instagram_link": "https://www.instagram.com/yogi.wisdom/",
+        "tiktok_icon": "shopify://shop_images/TiktokLogo.svg",
+        "tiktok_link": "https://www.tiktok.com/@yogi.wisdom",
+        "enable_country_selector": true,
+        "show_policy": true,
+        "payment_enable": true,
+        "enabled_payment_types": ""
+      }
+    },
+    "section_divider_eVcPCA": {
+      "type": "section-divider",
+      "disabled": true,
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "waves_3",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "background-1",
+        "custom_background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "image_t79PYn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ALOGOGOGO.png",
+            "image_width": 250,
+            "alignment": "",
+            "url": "shopify://collections/frontpage",
+            "width_desktop": 3,
+            "width_mobile": "2"
+          }
+        },
+        "link_list_Nwpq3Y": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "block_headings_font_size": 1,
+            "menu": "menu",
+            "font_size": 14,
+            "menu_items_font": "body",
+            "width_desktop": 3,
+            "width_mobile": "2"
+          }
+        },
+        "link_list_Xt9HYh": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Legal links",
+            "block_headings_font_size": 1,
+            "menu": "customer-account-main-menu",
+            "font_size": 14,
+            "menu_items_font": "body",
+            "width_desktop": 3,
+            "width_mobile": "2"
+          }
+        },
+        "brand_information_78nWyL": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true,
+            "width_desktop": 3,
+            "width_mobile": "2"
+          }
+        },
+        "text_tJzAdY": {
+          "type": "text",
+          "settings": {
+            "heading": "",
+            "block_headings_font_size": 0.5,
+            "subtext": "<p>Email us at: contact@peptiques.com</p>",
+            "width_desktop": 3,
+            "width_mobile": "2"
+          }
+        }
+      },
+      "block_order": [
+        "image_t79PYn",
+        "link_list_Nwpq3Y",
+        "link_list_Xt9HYh",
+        "brand_information_78nWyL",
+        "text_tJzAdY"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "custom",
+        "custom_colors_background": "#1a1a1a",
+        "custom_gradient_background": "linear-gradient(45deg, rgba(70, 47, 158, 1) 11%, rgba(115, 53, 151, 1) 84%)",
+        "custom_colors_text": "#ffffff",
+        "custom_colors_solid_button_background": "#ffffff",
+        "custom_colors_solid_button_text": "#1a1a1a",
+        "custom_colors_outline_button": "#ffffff",
+        "pattern_bg": "none",
+        "pattern_color": "#6d388b",
+        "pattern_size": 20,
+        "pattern_thickness": 2,
+        "pattern_angle": 45,
+        "pattern_opacity_mode": "low",
+        "pattern_opacity_low": 7,
+        "pattern_opacity_normal": 80,
+        "enable_follow_on_shop": false,
+        "show_social": false,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "enabled_payment_types": "",
+        "show_policy": true,
+        "branding_text": "All rights reserved.",
+        "top_page_width": "desktop-full-page",
+        "bottom_page_width": "desktop-full-page",
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "bRar1CMj3": {
+      "type": "dm-footer-2",
+      "disabled": true,
+      "settings": {
+        "sectionBackground_color": "#FAFAFA",
+        "sectionPaddingTop_responsive_range_desktop": 20,
+        "sectionPaddingTop_responsive_range_mobile": 20,
+        "sectionPaddingBottom_responsive_range_desktop": 20,
+        "sectionPaddingBottom_responsive_range_mobile": 20,
+        "sectionPaddingLeft_responsive_range_desktop": 64,
+        "sectionPaddingLeft_responsive_range_mobile": 18,
+        "sectionPaddingRight_responsive_range_desktop": 64,
+        "sectionPaddingRight_responsive_range_mobile": 18,
+        "sectionMaxWidth_number": 1400,
+        "bottom_mask": "",
+        "separatorColor_color": "#D9D9D9",
+        "paymentBadgeDirection_responsive_select_desktop": "center",
+        "paymentBadgeDirection_responsive_select_mobile": "center",
+        "paymentBadgeHide_checkbox": false,
+        "paymentBadgeBadgeWidth_responsive_range_desktop": 40,
+        "paymentBadgeBadgeWidth_responsive_range_mobile": 40,
+        "description_text": "Unlock your inner vision. Explore deeper consciousness.",
+        "descriptionTextColor_color": "#737373",
+        "descriptionTextStyle_font_desktop": "content-md-regular",
+        "descriptionTextStyle_font_mobile": "content-md-regular",
+        "descriptionTextAlign_text_alignment_desktop": "left",
+        "descriptionTextAlign_text_alignment_mobile": "left",
+        "copyright_text": "© 2024 Haritaki First Eye. All rights reserved.",
+        "copyrightTextColor_color": "#262626",
+        "copyrightTextStyle_font_desktop": "content-sm-regular",
+        "copyrightTextStyle_font_mobile": "content-sm-regular",
+        "copyrightTextAlign_text_alignment_desktop": "left",
+        "copyrightTextAlign_text_alignment_mobile": "left",
+        "logo_media": "shopify://shop_images/ALOGOGOGO.png",
+        "logo_media_video": "",
+        "logoLink_link": "/",
+        "logoLogoSize_responsive_range_desktop": 44,
+        "logoLogoSize_responsive_range_mobile": 40,
+        "menu_menu": "footer",
+        "navMenuTextTextColor_color": "#262626",
+        "navMenuTextTextStyle_font_desktop": "content-md-semibold",
+        "navMenuTextTextStyle_font_mobile": "content-md-semibold",
+        "navMenuTextTextAlign_text_alignment_desktop": "left",
+        "navMenuTextTextAlign_text_alignment_mobile": "left"
+      }
+    }
+  },
+  "order": [
+    "custom_footer_DdGfdD",
+    "section_divider_eVcPCA",
+    "footer",
+    "bRar1CMj3"
+  ]
+}

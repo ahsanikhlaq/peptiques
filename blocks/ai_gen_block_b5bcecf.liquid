@@ -1,0 +1,318 @@
+{% doc %}
+  @prompt
+    Create a custom liquid section called "header-custom" that acts as a secondary menu bar. The section should have:
+    
+    1. Full-width background that extends edge-to-edge
+    2. A customizable background color setting in the theme editor
+    3. Menu items displayed horizontally and centered within a container (max-width container)
+    4. A menu picker setting so merchants can select which menu to display
+    5. Responsive design that works on mobile and desktop
+    6. Clean, modern styling with proper spacing and hover effects
+    7. The container should keep content aligned with the rest of the page while the background extends full-width
+    
+    The section should be flexible and easy to customize through the theme editor settings.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-secondary-menu-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    display: block;
+  }
+
+  .ai-secondary-menu__container-{{ ai_gen_id }} {
+    max-width: {{ settings.page_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+  }
+
+  .ai-secondary-menu__nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: {{ block.settings.menu_spacing }}px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-secondary-menu__item-{{ ai_gen_id }} {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-secondary-menu__link-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    padding: {{ block.settings.link_padding_vertical }}px {{ block.settings.link_padding_horizontal }}px;
+    display: block;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: {{ block.settings.link_border_radius }}px;
+  }
+
+  .ai-secondary-menu__link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.text_hover_color }};
+    background-color: {{ block.settings.link_hover_background }};
+  }
+
+  .ai-secondary-menu__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 20px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-secondary-menu__container-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_vertical_padding }}px {{ block.settings.mobile_horizontal_padding }}px;
+    }
+
+    .ai-secondary-menu__nav-{{ ai_gen_id }} {
+      gap: {{ block.settings.mobile_menu_spacing }}px;
+    }
+
+    .ai-secondary-menu__link-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_font_size }}px;
+      padding: {{ block.settings.mobile_link_padding_vertical }}px {{ block.settings.mobile_link_padding_horizontal }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-secondary-menu-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-secondary-menu__container-{{ ai_gen_id }}">
+    {% if block.settings.menu != blank %}
+      <nav role="navigation">
+        <ul class="ai-secondary-menu__nav-{{ ai_gen_id }}">
+          {% for link in linklists[block.settings.menu].links %}
+            <li class="ai-secondary-menu__item-{{ ai_gen_id }}">
+              <a 
+                href="{{ link.url }}" 
+                class="ai-secondary-menu__link-{{ ai_gen_id }}"
+                {% if link.current %}aria-current="page"{% endif %}
+              >
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% else %}
+      <div class="ai-secondary-menu__empty-state-{{ ai_gen_id }}">
+        Select a menu in the block settings
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Secondary menu bar",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#2E2A39"
+    },
+    {
+      "type": "color",
+      "id": "text_hover_color",
+      "label": "Text hover",
+      "default": "#dd1d1d"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_background",
+      "label": "Link hover background",
+      "default": "rgba(0, 0, 0, 0.05)"
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Top and bottom padding",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Side padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "menu_spacing",
+      "label": "Space between items",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "link_padding_vertical",
+      "label": "Link top and bottom padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "link_padding_horizontal",
+      "label": "Link side padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "link_border_radius",
+      "label": "Link corner radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "mobile_vertical_padding",
+      "label": "Top and bottom padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "label": "Side padding",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_menu_spacing",
+      "label": "Space between items",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_link_padding_vertical",
+      "label": "Link top and bottom padding",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "mobile_link_padding_horizontal",
+      "label": "Link side padding",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Secondary menu bar"
+    }
+  ]
+}
+{% endschema %}
