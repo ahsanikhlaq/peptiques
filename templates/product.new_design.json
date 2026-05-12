@@ -648,6 +648,103 @@
         "image_alt_text": "Stack of Haritaki capsules"
       }
     },
+    "ugc_video_reviews_C6CRXF": {
+      "type": "ugc-video-reviews",
+      "blocks": {
+        "video_LXYebg": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/UGC 2.mov",
+            "reviewer_name": "Ana Williams",
+            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
+        },
+        "video_4fgpFx": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/UGC 1.mov",
+            "reviewer_name": "Marcus Chen",
+            "review_quote": "Three weeks in and my sleep is deeper than it's been in years.",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
+        },
+        "video_CB6G4a": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/UGC 3 Fix .mov",
+            "reviewer_name": "Priya Sharma",
+            "review_quote": "My dreams are so much more vivid. I feel sharper through the day.",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
+        },
+        "video_rGUiWR": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/CANCELLATION VIDEO_d157d67f-b772-4b8c-abab-412071f7aa55.mp4",
+            "reviewer_name": "Sofia Martinez",
+            "review_quote": "Genuinely the only supplement that's made a noticeable difference.",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_LXYebg",
+        "video_4fgpFx",
+        "video_CB6G4a",
+        "video_rGUiWR"
+      ],
+      "name": "UGC Video Reviews",
+      "settings": {
+        "sectionPaddingTop_responsive_range_desktop": 100,
+        "sectionPaddingBottom_responsive_range_desktop": 100,
+        "sectionPaddingLeft_responsive_range_desktop": 50,
+        "sectionPaddingRight_responsive_range_desktop": 50,
+        "sectionPaddingTop_responsive_range_mobile": 48,
+        "sectionPaddingBottom_responsive_range_mobile": 48,
+        "sectionPaddingLeft_responsive_range_mobile": 16,
+        "sectionPaddingRight_responsive_range_mobile": 16,
+        "sectionBackground_color": "#fbf5ff",
+        "sectionGradientFrom_color": "#f7eefe",
+        "sectionGradientTo_color": "#ece1f8",
+        "sectionBackgroundPosition_text": "center center",
+        "headingFontFamily_text": "Georgia, \"Times New Roman\", serif",
+        "bodyFontFamily_text": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "headingSize_desktop_number": 40,
+        "headingTextColor_color": "#1d1027",
+        "eyebrowTextColor_color": "#1d1027",
+        "starsColor_color": "#f5b301",
+        "show_stars_checkbox": true,
+        "eyebrow_text": "10,500+ 5-Star Reviews",
+        "eyebrow_link": "",
+        "heading_text": "Wellness creators, mindful users,",
+        "containerMaxWidth_number": 1340,
+        "cardGap_number": 16,
+        "cardRadius_number": 16,
+        "show_stats_checkbox": true,
+        "statsBackground_color": "#3f1c5c",
+        "statsRadius_number": 14,
+        "statsMarginTop_number": 40,
+        "stat1_value": "22,926+",
+        "stat1_label": "Verified Reviews",
+        "stat2_value": "4.8/5",
+        "stat2_label": "Average Rating",
+        "stat3_value": "90 days",
+        "stat3_label": "Money-Back Guarantee"
+      }
+    },
     "related-products": {
       "type": "related-products",
       "disabled": true,
@@ -1543,6 +1640,7 @@
   "order": [
     "main",
     "haritaki_supplement_7iKdDi",
+    "ugc_video_reviews_C6CRXF",
     "related-products",
     "custom_columns_new_dBCjfR",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
