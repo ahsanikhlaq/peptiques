@@ -56,19 +56,43 @@
     color: #fff;
     overflow: hidden;
     background-color: var(--hs-grad-via);
-    {%- if s.cardBackgroundImage_picker != blank -%}
+    background-size: cover;
+    background-position: {{ s.cardBackgroundPosition_text | default: 'center center' }};
+    background-repeat: no-repeat;
+  }
+
+  {%- assign hs_overlay = s.cardBackgroundOverlay_color | default: '#2a1442' -%}
+  {%- assign hs_desktop_bg = s.cardBackgroundImage_desktop_picker | default: s.cardBackgroundImage_picker -%}
+  {%- assign hs_mobile_bg  = s.cardBackgroundImage_mobile_picker  | default: hs_desktop_bg -%}
+
+  /* Mobile (and default) card background */
+  #shopify-section-{{ section_id }} .hs-card{
+    {%- if hs_mobile_bg != blank -%}
       background-image:
-        linear-gradient({{ s.cardBackgroundOverlay_color | default: 'rgba(42,20,66,0.55)' }}, {{ s.cardBackgroundOverlay_color | default: 'rgba(42,20,66,0.55)' }}),
-        url({{ s.cardBackgroundImage_picker | image_url: width: 1600 }});
-      background-size: cover;
-      background-position: {{ s.cardBackgroundPosition_text | default: 'center center' }};
-      background-repeat: no-repeat;
+        linear-gradient({{ hs_overlay }}, {{ hs_overlay }}),
+        url({{ hs_mobile_bg | image_url: width: 900 }});
     {%- else -%}
       background-image:
         radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
         radial-gradient(ellipse 70% 50% at 10% 85%, rgba(255,255,255,0.06), transparent 65%),
         linear-gradient(135deg, var(--hs-grad-from) 0%, var(--hs-grad-via) 55%, var(--hs-grad-to) 100%);
     {%- endif -%}
+  }
+
+  /* Desktop override */
+  @media (min-width: 1024px){
+    #shopify-section-{{ section_id }} .hs-card{
+      {%- if hs_desktop_bg != blank -%}
+        background-image:
+          linear-gradient({{ hs_overlay }}, {{ hs_overlay }}),
+          url({{ hs_desktop_bg | image_url: width: 1800 }});
+      {%- else -%}
+        background-image:
+          radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
+          radial-gradient(ellipse 70% 50% at 10% 85%, rgba(255,255,255,0.06), transparent 65%),
+          linear-gradient(135deg, var(--hs-grad-from) 0%, var(--hs-grad-via) 55%, var(--hs-grad-to) 100%);
+      {%- endif -%}
+    }
   }
 
   #shopify-section-{{ section_id }} .hs-grid{
@@ -386,9 +410,11 @@
     { "type": "range", "id": "imageMaxHeight_number","label": "Image max height","min": 240, "max": 800, "step": 10, "unit": "px", "default": 560 },
 
     { "type": "header", "content": "Card background image (optional — overrides gradient)" },
-    { "type": "image_picker", "id": "cardBackgroundImage_picker", "label": "Card background image", "info": "When set, this image replaces the gradient. Use a JPG/WebP at ≥ 1600px wide for sharp rendering." },
-    { "type": "color",        "id": "cardBackgroundOverlay_color","label": "Overlay color (over image)", "default": "#2a1442", "info": "A translucent overlay used over the background image for text contrast. Use an rgba()-style color via the Theme color editor if you need transparency." },
-    { "type": "text",         "id": "cardBackgroundPosition_text","label": "Background position",   "default": "center center", "info": "CSS background-position, e.g. \"center center\", \"top right\"." },
+    { "type": "image_picker", "id": "cardBackgroundImage_desktop_picker", "label": "Card background image — Desktop", "info": "Used at ≥ 1024px. Recommend a JPG/WebP at ≥ 1800px wide." },
+    { "type": "image_picker", "id": "cardBackgroundImage_mobile_picker",  "label": "Card background image — Mobile",  "info": "Used under 1024px. Recommend a JPG/WebP at ≥ 900px wide. Falls back to the desktop image if blank." },
+    { "type": "image_picker", "id": "cardBackgroundImage_picker",         "label": "Card background image — Shared (fallback)", "info": "Used when neither desktop nor mobile is set." },
+    { "type": "color",        "id": "cardBackgroundOverlay_color",        "label": "Overlay color (over image)", "default": "#2a1442", "info": "Solid color overlay rendered on top of the background image. Adjust with the gradient settings if you want translucency via the radial accents." },
+    { "type": "text",         "id": "cardBackgroundPosition_text",        "label": "Background position",   "default": "center center", "info": "CSS background-position, e.g. \"center center\", \"top right\"." },
 
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "outerBackground_color",   "label": "Outer page background", "default": "#ffffff" },

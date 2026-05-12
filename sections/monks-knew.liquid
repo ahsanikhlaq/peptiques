@@ -10,15 +10,31 @@
   assign s            = section.settings
 
   assign embed_url = ''
+  assign mp4_url = ''
   if s.video_url contains 'youtube.com' or s.video_url contains 'youtu.be'
     assign yt_id = s.video_url | split: 'v=' | last | split: '&' | first
     if s.video_url contains 'youtu.be/'
       assign yt_id = s.video_url | split: 'youtu.be/' | last | split: '?' | first
     endif
-    assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0'
+    assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0&playsinline=1'
   elsif s.video_url contains 'vimeo.com'
     assign vid = s.video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first
     assign embed_url = 'https://player.vimeo.com/video/' | append: vid | append: '?autoplay=1'
+  endif
+  if s.video_file != blank
+    for src in s.video_file.sources
+      if src.format == 'mp4'
+        assign mp4_url = src.url
+      endif
+    endfor
+  endif
+  assign poster_img = s.poster_image
+  if poster_img == blank and s.video_file != blank
+    assign poster_img = s.video_file.preview_image
+  endif
+  assign has_video = false
+  if embed_url != '' or mp4_url != ''
+    assign has_video = true
   endif
 
   assign badge_count = 0
@@ -251,15 +267,15 @@
 
 <section class="mk-section" role="region" aria-labelledby="mk-heading-{{ sid }}" {{ section.shopify_attributes }}>
   <div class="mk-container">
-    <div class="mk-media" data-mk-media data-embed="{{ embed_url }}" data-mp4="{{ s.video_file.src | default: '' }}">
-      {%- if s.poster_image != blank -%}
-        {{ s.poster_image | image_url: width: 1200 | image_tag:
+    <div class="mk-media" data-mk-media data-embed="{{ embed_url }}" data-mp4="{{ mp4_url }}">
+      {%- if poster_img != blank -%}
+        {{ poster_img | image_url: width: 1200 | image_tag:
              loading: 'lazy',
              widths: '480,640,900,1200',
              sizes: '(min-width: 1024px) 50vw, 100vw',
              alt: s.poster_alt_text | default: 'Haritaki video' }}
       {%- endif -%}
-      {%- if embed_url != '' or s.video_file != blank -%}
+      {%- if has_video -%}
         <button type="button" class="mk-play" data-mk-play aria-label="{{ s.video_aria_label_text | default: 'Play video' }}">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8V4z"/></svg>
         </button>
@@ -320,7 +336,7 @@
     </div>
   </div>
 
-  {%- if embed_url != '' or s.video_file != blank -%}
+  {%- if has_video -%}
     <div class="mk-player" data-mk-modal aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video player">
       <div class="mk-player-inner" data-mk-modal-inner></div>
       <button type="button" class="mk-player-close" data-mk-modal-close aria-label="Close video">
@@ -403,12 +419,12 @@
     { "type": "color", "id": "subheadingTextColor_color", "label": "Subheading color",   "default": "#5b4f6b" },
     { "type": "color", "id": "badgeIconColor_color",      "label": "Badge icon color",   "default": "#5a2a78" },
     { "type": "color", "id": "badgeLabelColor_color",     "label": "Badge label color",  "default": "#1d1027" },
-    { "type": "color", "id": "badgeDividerColor_color",   "label": "Badge divider color","default": "#1d10271f" },
+    { "type": "color", "id": "badgeDividerColor_color",   "label": "Badge divider color","default": "#e0d7ea" },
     { "type": "color", "id": "ctaBackground_color",       "label": "CTA background",     "default": "#3f1c5c" },
     { "type": "color", "id": "ctaTextColor_color",        "label": "CTA text",           "default": "#ffffff" },
     { "type": "color", "id": "ctaHoverBackground_color",  "label": "CTA hover bg",       "default": "#5a2a78" },
     { "type": "color", "id": "footerTextColor_color",     "label": "Footer text",        "default": "#5b4f6b" },
-    { "type": "color", "id": "footerDividerColor_color",  "label": "Footer divider",     "default": "#1d10273d" },
+    { "type": "color", "id": "footerDividerColor_color",  "label": "Footer divider",     "default": "#c9bfd5" },
 
     { "type": "header", "content": "Layout" },
     { "type": "range", "id": "containerMaxWidth_number", "label": "Container max width", "min": 800, "max": 1600, "step": 20, "unit": "px", "default": 1340 },
