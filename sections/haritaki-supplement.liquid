@@ -9,6 +9,20 @@
   assign body_font      = section.settings.bodyFontFamily_text      | default: '"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   assign section_id     = section.id
   assign s              = section.settings
+
+  assign hs_overlay = s.cardBackgroundOverlay_color | default: '#2a1442'
+  assign hs_desktop_bg = nil
+  if s.cardBackgroundImage_desktop_picker != blank
+    assign hs_desktop_bg = s.cardBackgroundImage_desktop_picker
+  elsif s.cardBackgroundImage_picker != blank
+    assign hs_desktop_bg = s.cardBackgroundImage_picker
+  endif
+  assign hs_mobile_bg = nil
+  if s.cardBackgroundImage_mobile_picker != blank
+    assign hs_mobile_bg = s.cardBackgroundImage_mobile_picker
+  elsif hs_desktop_bg != blank
+    assign hs_mobile_bg = hs_desktop_bg
+  endif
 -%}
 
 <style>
@@ -61,10 +75,6 @@
     background-position: {{ s.cardBackgroundPosition_text | default: 'center center' }};
     background-repeat: no-repeat;
   }
-
-  {%- assign hs_overlay = s.cardBackgroundOverlay_color | default: '#2a1442' -%}
-  {%- assign hs_desktop_bg = s.cardBackgroundImage_desktop_picker | default: s.cardBackgroundImage_picker -%}
-  {%- assign hs_mobile_bg  = s.cardBackgroundImage_mobile_picker  | default: hs_desktop_bg -%}
 
   /* Mobile (and default) card background */
   #shopify-section-{{ section_id }} .hs-card{
