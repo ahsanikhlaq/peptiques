@@ -316,25 +316,37 @@
             {%- liquid
               assign b = block.settings
               assign embed_url = ''
+              assign mp4_url = ''
               if b.video_url contains 'youtube.com' or b.video_url contains 'youtu.be'
                 assign yt_id = b.video_url | split: 'v=' | last | split: '&' | first
                 if b.video_url contains 'youtu.be/'
                   assign yt_id = b.video_url | split: 'youtu.be/' | last | split: '?' | first
                 endif
-                assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0'
+                assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0&playsinline=1'
               elsif b.video_url contains 'vimeo.com'
                 assign vid = b.video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first
                 assign embed_url = 'https://player.vimeo.com/video/' | append: vid | append: '?autoplay=1'
+              endif
+              if b.video_file != blank
+                for src in b.video_file.sources
+                  if src.format == 'mp4'
+                    assign mp4_url = src.url
+                  endif
+                endfor
+              endif
+              assign thumb_img = b.thumbnail_image
+              if thumb_img == blank and b.video_file != blank
+                assign thumb_img = b.video_file.preview_image
               endif
             -%}
             <li class="uv-card" {{ block.shopify_attributes }}
                 itemscope itemtype="https://schema.org/VideoObject"
                 data-uv-card
                 data-embed="{{ embed_url }}"
-                data-mp4="{{ b.video_file.src | default: '' }}"
+                data-mp4="{{ mp4_url }}"
             >
-              {%- if b.thumbnail_image != blank -%}
-                {{ b.thumbnail_image
+              {%- if thumb_img != blank -%}
+                {{ thumb_img
                   | image_url: width: 640
                   | image_tag:
                     class: 'uv-card-media',
@@ -344,7 +356,7 @@
                     sizes: '(min-width: 768px) 25vw, 80vw',
                     alt: b.reviewer_name | default: 'Customer video review'
                 }}
-                <meta itemprop="thumbnailUrl" content="{{ b.thumbnail_image | image_url: width: 640 }}">
+                <meta itemprop="thumbnailUrl" content="{{ thumb_img | image_url: width: 640 }}">
               {%- else -%}
                 <div class="uv-card-media" style="background:#1d1027;"></div>
               {%- endif -%}
@@ -569,9 +581,9 @@
       "type": "video",
       "name": "Video review",
       "settings": [
-        { "type": "image_picker", "id": "thumbnail_image", "label": "Thumbnail image" },
+        { "type": "image_picker", "id": "thumbnail_image", "label": "Thumbnail image", "info": "Optional. If you upload a video below, its first frame is used as the thumbnail automatically." },
         { "type": "url",          "id": "video_url",       "label": "Video URL (YouTube / Vimeo)" },
-        { "type": "video",        "id": "video_file",      "label": "Or upload a video (Shopify-hosted)" },
+        { "type": "video",        "id": "video_file",      "label": "Or upload a video (Shopify-hosted)", "info": "If both this and a video URL are set, the YouTube / Vimeo URL takes priority." },
         { "type": "text",         "id": "reviewer_name",   "label": "Reviewer name",     "default": "Ana Williams" },
         { "type": "textarea",     "id": "review_quote",    "label": "Review quote",      "default": "Quick delivery! Taking it every morning and evening with tea. Thanks!" },
         { "type": "checkbox",     "id": "verified_checkbox","label": "Show verified badge","default": true },
