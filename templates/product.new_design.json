@@ -1014,6 +1014,7 @@
         "column_dUhDPe",
         "column_wd6fqB"
       ],
+      "disabled": true,
       "name": "Custom Columns V2",
       "settings": {
         "display_id": false,
@@ -1093,6 +1094,7 @@
         "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-3",
         "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-4"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
@@ -1240,6 +1242,7 @@
         "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-text-1",
         "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-button-1"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
@@ -1309,6 +1312,7 @@
         "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-2",
         "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-3"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
