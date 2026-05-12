@@ -534,6 +534,120 @@
         "desktop_padding_bottom": 36
       }
     },
+    "haritaki_supplement_7iKdDi": {
+      "type": "haritaki-supplement",
+      "blocks": {
+        "benefit_Gkef3F": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Pineal Gland Cleansing",
+            "subtitle_text": "Supports natural detox and inner clarity.",
+            "body_richtext": "",
+            "icon_svg": "",
+            "open_checkbox": false
+          }
+        },
+        "benefit_NV6y9B": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Third Eye Activation",
+            "subtitle_text": "Supports vivid dreams, and deeper connection.",
+            "body_richtext": "",
+            "icon_svg": "",
+            "open_checkbox": false
+          }
+        },
+        "benefit_N36DRE": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Mental Clarity & Focus",
+            "subtitle_text": "Helps clear brain fog and sharpen awareness.",
+            "body_richtext": "",
+            "icon_svg": "",
+            "open_checkbox": false
+          }
+        },
+        "benefit_QCkKMf": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Gut-Brain Connection",
+            "subtitle_text": "Helps improve clarity and concentration.",
+            "body_richtext": "",
+            "icon_svg": "",
+            "open_checkbox": false
+          }
+        },
+        "benefit_zyCLe3": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Sustained Natural Energy",
+            "subtitle_text": "Helps improve clarity and concentration.",
+            "body_richtext": "",
+            "icon_svg": "",
+            "open_checkbox": false
+          }
+        },
+        "benefit_kM9ygr": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Deeper, More Restorative Sleep",
+            "subtitle_text": "Supports deeper sleep and more vivid dreams.",
+            "body_richtext": "",
+            "icon_svg": "",
+            "open_checkbox": false
+          }
+        }
+      },
+      "block_order": [
+        "benefit_Gkef3F",
+        "benefit_NV6y9B",
+        "benefit_N36DRE",
+        "benefit_QCkKMf",
+        "benefit_zyCLe3",
+        "benefit_kM9ygr"
+      ],
+      "name": "Haritaki Benefits",
+      "settings": {
+        "sectionPaddingTop_responsive_range_desktop": 80,
+        "sectionPaddingBottom_responsive_range_desktop": 80,
+        "sectionPaddingLeft_responsive_range_desktop": 50,
+        "sectionPaddingRight_responsive_range_desktop": 50,
+        "innerPaddingTop_responsive_range_desktop": 80,
+        "innerPaddingBottom_responsive_range_desktop": 80,
+        "innerPaddingX_responsive_range_desktop": 60,
+        "sectionPaddingTop_responsive_range_mobile": 32,
+        "sectionPaddingBottom_responsive_range_mobile": 32,
+        "sectionPaddingLeft_responsive_range_mobile": 16,
+        "sectionPaddingRight_responsive_range_mobile": 16,
+        "innerPaddingTop_responsive_range_mobile": 32,
+        "innerPaddingBottom_responsive_range_mobile": 32,
+        "innerPaddingX_responsive_range_mobile": 20,
+        "cardMaxWidth_number": 1340,
+        "cardRadius_number": 24,
+        "imageMaxWidth_number": 520,
+        "imageMaxHeight_number": 560,
+        "outerBackground_color": "#ffffff",
+        "gradientFrom_color": "#5a2a78",
+        "gradientVia_color": "#3f1c5c",
+        "gradientTo_color": "#2a1442",
+        "headingTextColor_color": "#ffffff",
+        "descriptionTextColor_color": "#e8dcef",
+        "itemBackground_color": "#ffffff",
+        "iconBackground_color": "#f3eaf9",
+        "iconColor_color": "#5a2a78",
+        "headingFontFamily_text": "Georgia, \"Times New Roman\", serif",
+        "bodyFontFamily_text": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "headingSize_desktop_number": 46,
+        "descriptionSize_desktop_number": 15,
+        "heading_text": "Haritaki™ isn’t just a supplement",
+        "description_richtext": "",
+        "description_text": "It’s the ancient Ayurvedic secret called “The King of Medicines” — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye.",
+        "itemGap_number": 10,
+        "itemRadius_number": 14,
+        "image_picker": "shopify://shop_images/Mask_group_1_jpg.png",
+        "image_alt_text": "Stack of Haritaki capsules"
+      }
+    },
     "related-products": {
       "type": "related-products",
       "disabled": true,
@@ -1428,6 +1542,7 @@
   },
   "order": [
     "main",
+    "haritaki_supplement_7iKdDi",
     "related-products",
     "custom_columns_new_dBCjfR",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
