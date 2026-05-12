@@ -1635,12 +1635,143 @@
         "display_id": false,
         "include_margins": true
       }
+    },
+    "ingredients_just_do_more_NEW01": {
+      "type": "ingredients-just-do-more",
+      "blocks": {
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "title_text": "Haritaki (Terminalia chebula)",
+            "body_text": "The primary active ingredient, sourced from organic farms. Known as 'The King of Medicines' in Ayurveda for its ability to support all three doshas and cleanse the entire system."
+          }
+        },
+        "ing_2": {
+          "type": "ingredient",
+          "settings": {
+            "title_text": "Vegetable Cellulose Capsule — No Vegetable Oil",
+            "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine."
+          }
+        },
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Non-GMO"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Gluten-Free"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "label_text": "No Additives"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "label_text": "No Fillers"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Vegan"
+          }
+        },
+        "badge_6": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Third-Party Tested"
+          }
+        },
+        "bar_1": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Supports Natural Detox",
+            "fill_range": 100,
+            "striped_checkbox": false
+          }
+        },
+        "bar_2": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Sharpens Mental Focus",
+            "fill_range": 35,
+            "striped_checkbox": true
+          }
+        }
+      },
+      "block_order": [
+        "ing_1",
+        "ing_2",
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5",
+        "badge_6",
+        "bar_1",
+        "bar_2"
+      ],
+      "settings": {}
+    },
+    "monks_knew_NEW02": {
+      "type": "monks-knew",
+      "blocks": {
+        "tb_1": {
+          "type": "trust_badge",
+          "settings": {
+            "label_text": "Manufactured in a GMP-Certified Facility"
+          }
+        },
+        "tb_2": {
+          "type": "trust_badge",
+          "settings": {
+            "label_text": "NSF / GMP Certified Facility"
+          }
+        },
+        "tb_3": {
+          "type": "trust_badge",
+          "settings": {
+            "label_text": "FDA-Registered Facility"
+          }
+        },
+        "fi_1": {
+          "type": "footer_item",
+          "settings": {
+            "label_text": "Stop or Cancel Anytime",
+            "icon_svg": "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' aria-hidden='true' class='mk-footer-icon'><rect x='6' y='5' width='4' height='14' rx='1'/><rect x='14' y='5' width='4' height='14' rx='1'/></svg>"
+          }
+        },
+        "fi_2": {
+          "type": "footer_item",
+          "settings": {
+            "label_text": "Refills Ship Every 90 days",
+            "icon_svg": "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' class='mk-footer-icon'><polyline points='23 4 23 10 17 10'/><polyline points='1 20 1 14 7 14'/><path d='M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15'/></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "tb_1",
+        "tb_2",
+        "tb_3",
+        "fi_1",
+        "fi_2"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
     "haritaki_supplement_7iKdDi",
     "ugc_video_reviews_C6CRXF",
+    "ingredients_just_do_more_NEW01",
+    "monks_knew_NEW02",
     "related-products",
     "custom_columns_new_dBCjfR",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
