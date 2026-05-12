@@ -8,6 +8,18 @@
   assign body_font    = section.settings.bodyFontFamily_text    | default: '"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   assign sid          = section.id
   assign s            = section.settings
+
+  assign video_count = 0
+  for block in section.blocks
+    if block.type == 'video'
+      assign video_count = video_count | plus: 1
+    endif
+  endfor
+  assign per_view_desktop = 4
+  assign show_nav = false
+  if video_count > per_view_desktop
+    assign show_nav = true
+  endif
 -%}
 
 <style>
@@ -78,19 +90,28 @@
   #shopify-section-{{ sid }} .uv-carousel{
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(260px, 1fr);
+    grid-auto-columns: 82%;
     gap: {{ s.cardGap_number | default: 16 }}px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--uv-{{ sid }}-pl);
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
+    /* Bleed to the section edges on mobile so cards peek from screen edges. */
+    margin-left: calc(var(--uv-{{ sid }}-pl) * -1);
+    margin-right: calc(var(--uv-{{ sid }}-pr) * -1);
+    padding-left: var(--uv-{{ sid }}-pl);
+    padding-right: var(--uv-{{ sid }}-pr);
   }
   #shopify-section-{{ sid }} .uv-carousel::-webkit-scrollbar{ display: none; }
 
   @media (min-width: 768px){
     #shopify-section-{{ sid }} .uv-carousel{
       grid-auto-columns: calc((100% - ({{ s.cardGap_number | default: 16 }}px * 3)) / 4);
+      margin-left: 0; margin-right: 0;
+      padding-left: 0; padding-right: 0;
+      scroll-padding-inline: 0;
     }
   }
 
@@ -282,10 +303,12 @@
       {{- s.heading_text | default: 'Wellness creators, mindful users,' -}}
     </h2>
 
-    <div class="uv-carousel-wrap" data-uv-root>
-      <button type="button" class="uv-nav uv-nav--prev" data-uv-prev aria-label="Previous video">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
+    <div class="uv-carousel-wrap" data-uv-root data-uv-show-nav="{{ show_nav }}">
+      {%- if show_nav -%}
+        <button type="button" class="uv-nav uv-nav--prev" data-uv-prev aria-label="Previous video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      {%- endif -%}
 
       <ul class="uv-carousel" role="list" data-uv-track>
         {%- for block in section.blocks -%}
@@ -356,9 +379,11 @@
         {%- endfor -%}
       </ul>
 
-      <button type="button" class="uv-nav uv-nav--next" data-uv-next aria-label="Next video">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+      {%- if show_nav -%}
+        <button type="button" class="uv-nav uv-nav--next" data-uv-next aria-label="Next video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      {%- endif -%}
     </div>
 
     {%- if s.show_stats_checkbox -%}
