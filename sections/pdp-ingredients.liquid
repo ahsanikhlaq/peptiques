@@ -1,0 +1,414 @@
+{% comment %}
+  Ingredients That Just Do More — PDP section.
+  Defensive pattern: all Liquid in the top {%- liquid -%} block, only
+  6-digit hex defaults, no chained `default:` on image_picker.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign bg_image = nil
+  if s.bg_image_desktop != blank
+    assign bg_image = s.bg_image_desktop
+  endif
+  assign mobile_bg_image = nil
+  if s.bg_image_mobile != blank
+    assign mobile_bg_image = s.bg_image_mobile
+  elsif bg_image != blank
+    assign mobile_bg_image = bg_image
+  endif
+
+  assign ingredient_count = 0
+  assign badge_count = 0
+  assign stat_count = 0
+  for block in section.blocks
+    case block.type
+      when 'ingredient'
+        assign ingredient_count = ingredient_count | plus: 1
+      when 'badge'
+        assign badge_count = badge_count | plus: 1
+      when 'stat_bar'
+        assign stat_count = stat_count | plus: 1
+    endcase
+  endfor
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pi-section{
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    color: {{ s.heading_color | default: '#ffffff' }};
+    background-color: {{ s.card_background | default: '#3f1c5c' }};
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    {% if mobile_bg_image != blank %}
+      background-image:
+        linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
+        url({{ mobile_bg_image | image_url: width: 1200 }});
+    {% else %}
+      background-image:
+        radial-gradient(ellipse 60% 50% at 20% 0%,  rgba(255,255,255,0.08), transparent 60%),
+        radial-gradient(ellipse 50% 60% at 100% 100%, rgba(255,255,255,0.06), transparent 65%),
+        linear-gradient(160deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
+    {% endif %}
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pi-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+      {% if bg_image != blank %}
+        background-image:
+          linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
+          url({{ bg_image | image_url: width: 2000 }});
+      {% endif %}
+    }
+  }
+
+  #shopify-section-{{ sid }} .pi-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+  }
+
+  #shopify-section-{{ sid }} .pi-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    text-align: center;
+    margin: 0 0 10px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 2vw + 1rem, 40px);
+  }
+  #shopify-section-{{ sid }} .pi-sub{
+    color: {{ s.subheading_color | default: '#e8dcef' }};
+    text-align: center;
+    max-width: 60ch;
+    margin: 0 auto 40px;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ sid }} .pi-cards{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pi-cards{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pi-card{
+    background: {{ s.card_color | default: '#ffffff' }};
+    color: #1d1027;
+    border-radius: 14px;
+    padding: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 130px;
+    gap: 14px;
+    align-items: stretch;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pi-card{
+      grid-template-columns: minmax(0, 1fr) 170px;
+      padding: 28px;
+      gap: 20px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pi-card-title{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    color: inherit;
+  }
+  #shopify-section-{{ sid }} .pi-card-body{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4d3f59;
+    margin: 0;
+  }
+  #shopify-section-{{ sid }} .pi-card-image{
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f3eaf9;
+    min-height: 120px;
+    display: flex;
+  }
+  #shopify-section-{{ sid }} .pi-card-image img{
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+
+  #shopify-section-{{ sid }} .pi-badges{
+    background: {{ s.badges_background | default: '#ffffff' }};
+    border-radius: 999px;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 14px;
+    margin-bottom: 32px;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pi-badges{
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      padding: 16px 28px;
+      gap: 0;
+    }
+  }
+  #shopify-section-{{ sid }} .pi-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: {{ s.badge_text_color | default: '#1d1027' }};
+    font-size: 13px;
+    font-weight: 500;
+  }
+  #shopify-section-{{ sid }} .pi-badge-x{
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: {{ s.badge_x_color | default: '#d23a3a' }};
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  #shopify-section-{{ sid }} .pi-badge-x svg{ width: 10px; height: 10px; }
+  #shopify-section-{{ sid }} .pi-badge-label{
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+  }
+
+  #shopify-section-{{ sid }} .pi-footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pi-footer{
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
+      gap: 40px;
+    }
+  }
+  #shopify-section-{{ sid }} .pi-stat-figure{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    font-size: clamp(5rem, 8vw + 2rem, 11rem);
+    line-height: 1;
+    font-weight: 400;
+    color: inherit;
+    letter-spacing: -0.04em;
+    margin: 0;
+  }
+  #shopify-section-{{ sid }} .pi-stat-label{
+    color: {{ s.subheading_color | default: '#e8dcef' }};
+    margin: 8px 0 0;
+    max-width: 30ch;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ sid }} .pi-bars{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  #shopify-section-{{ sid }} .pi-bar{
+    border-left: 1px dashed rgba(255,255,255,0.35);
+    border-right: 1px dashed rgba(255,255,255,0.35);
+    padding: 14px 16px;
+  }
+  #shopify-section-{{ sid }} .pi-bar-label{
+    color: #ffffff;
+    font-size: 15px;
+    margin: 0 0 8px;
+  }
+  #shopify-section-{{ sid }} .pi-bar-track{
+    position: relative;
+    height: 22px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.12);
+  }
+  #shopify-section-{{ sid }} .pi-bar-fill{
+    position: absolute;
+    inset: 0 auto 0 0;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 3px;
+  }
+  #shopify-section-{{ sid }} .pi-bar-fill--striped{
+    background-image: repeating-linear-gradient(135deg,
+      rgba(255,255,255,0.95) 0,
+      rgba(255,255,255,0.95) 4px,
+      transparent 4px,
+      transparent 9px);
+    background-color: transparent;
+  }
+</style>
+
+<section class="pi-section" {{ section.shopify_attributes }}>
+  <div class="pi-wrap">
+    <h2 class="pi-heading">{{ s.heading_text | default: 'Ingredients That Just Do More' }}</h2>
+    {% if s.subheading_text != blank %}
+      <p class="pi-sub">{{ s.subheading_text }}</p>
+    {% endif %}
+
+    {% if ingredient_count > 0 %}
+      <div class="pi-cards">
+        {% for block in section.blocks %}
+          {% if block.type == 'ingredient' %}
+            <article class="pi-card" {{ block.shopify_attributes }}>
+              <div>
+                <h3 class="pi-card-title">{{ block.settings.title_text }}</h3>
+                <p class="pi-card-body">{{ block.settings.body_text }}</p>
+              </div>
+              <div class="pi-card-image">
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 400 | image_tag:
+                       loading: 'lazy',
+                       widths: '200,280,400',
+                       sizes: '(min-width: 1024px) 170px, 130px',
+                       alt: block.settings.title_text }}
+                {% endif %}
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if badge_count > 0 %}
+      <div class="pi-badges" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'badge' %}
+            <span class="pi-badge" role="listitem" {{ block.shopify_attributes }}>
+              <span class="pi-badge-x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </span>
+              <span class="pi-badge-label">{{ block.settings.label_text }}</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if s.stat_figure != blank or stat_count > 0 %}
+      <div class="pi-footer">
+        <div>
+          <p class="pi-stat-figure">{{ s.stat_figure | default: '2x' }}</p>
+          {% if s.stat_label != blank %}
+            <p class="pi-stat-label">{{ s.stat_label }}</p>
+          {% endif %}
+        </div>
+        {% if stat_count > 0 %}
+          <div class="pi-bars">
+            {% for block in section.blocks %}
+              {% if block.type == 'stat_bar' %}
+                <div class="pi-bar" {{ block.shopify_attributes }}>
+                  <p class="pi-bar-label">{{ block.settings.label_text }}</p>
+                  <div class="pi-bar-track">
+                    <div class="pi-bar-fill {% if block.settings.striped %}pi-bar-fill--striped{% endif %}" style="width: {{ block.settings.fill_percent | default: 100 }}%;"></div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients",
+  "tag": "section",
+  "class": "pi-ingredients",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Background image" },
+    { "type": "image_picker", "id": "bg_image_desktop", "label": "Background image — Desktop" },
+    { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
+    { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)", "default": "#2a1442" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "card_background",   "label": "Section background",     "default": "#3f1c5c" },
+    { "type": "color", "id": "gradient_from",     "label": "Gradient start",         "default": "#5a2a78" },
+    { "type": "color", "id": "gradient_to",       "label": "Gradient end",           "default": "#2a1442" },
+    { "type": "color", "id": "heading_color",     "label": "Heading color",          "default": "#ffffff" },
+    { "type": "color", "id": "subheading_color",  "label": "Subheading color",       "default": "#e8dcef" },
+    { "type": "color", "id": "card_color",        "label": "Ingredient card bg",     "default": "#ffffff" },
+    { "type": "color", "id": "badges_background", "label": "Badges row background",  "default": "#ffffff" },
+    { "type": "color", "id": "badge_text_color",  "label": "Badge text color",       "default": "#1d1027" },
+    { "type": "color", "id": "badge_x_color",     "label": "Badge X icon color",     "default": "#d23a3a" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text",     "id": "heading_text",        "label": "Heading",        "default": "Ingredients That Just Do More" },
+    { "type": "textarea", "id": "subheading_text",     "label": "Subheading",     "default": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:" },
+    { "type": "text",     "id": "stat_figure",         "label": "Stat figure",    "default": "2x" },
+    { "type": "textarea", "id": "stat_label",          "label": "Stat label",     "default": "Detox support for a lighter, cleaner daily routine" },
+    { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",         "label": "Padding top (Mobile)",    "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",      "label": "Padding bottom (Mobile)", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",           "label": "Padding sides (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop", "label": "Padding top (Desktop)",   "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",   "label": "Padding sides (Desktop)", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient card",
+      "settings": [
+        { "type": "text",         "id": "title_text", "label": "Title" },
+        { "type": "textarea",     "id": "body_text",  "label": "Body" },
+        { "type": "image_picker", "id": "image",      "label": "Image" }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Free-from badge",
+      "settings": [
+        { "type": "text", "id": "label_text", "label": "Label", "default": "Non-GMO" }
+      ]
+    },
+    {
+      "type": "stat_bar",
+      "name": "Stat progress bar",
+      "settings": [
+        { "type": "text",     "id": "label_text",   "label": "Label", "default": "Supports Natural Detox" },
+        { "type": "range",    "id": "fill_percent", "label": "Fill %", "min": 0, "max": 100, "step": 5, "default": 100, "unit": "%" },
+        { "type": "checkbox", "id": "striped",      "label": "Striped fill", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Ingredients",
+      "category": "Custom",
+      "blocks": [
+        { "type": "ingredient", "settings": { "title_text": "Haritaki (Terminalia chebula)",          "body_text": "The primary active ingredient, sourced from organic farms. Known as 'The King of Medicines' in Ayurveda for its ability to support all three doshas and cleanse the entire system." } },
+        { "type": "ingredient", "settings": { "title_text": "Vegetable Cellulose Capsule",            "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine." } },
+        { "type": "badge", "settings": { "label_text": "Non-GMO" } },
+        { "type": "badge", "settings": { "label_text": "Gluten-Free" } },
+        { "type": "badge", "settings": { "label_text": "No Additives" } },
+        { "type": "badge", "settings": { "label_text": "No Fillers" } },
+        { "type": "badge", "settings": { "label_text": "Vegan" } },
+        { "type": "badge", "settings": { "label_text": "Third-Party Tested" } },
+        { "type": "stat_bar", "settings": { "label_text": "Supports Natural Detox", "fill_percent": 100, "striped": false } },
+        { "type": "stat_bar", "settings": { "label_text": "Sharpens Mental Focus",  "fill_percent": 35,  "striped": true  } }
+      ]
+    }
+  ]
+}
+{% endschema %}
