@@ -27,12 +27,12 @@
 
 <style>
   #shopify-section-{{ sid }} .pb-section{
-    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 0 }}px {{ s.section_padding_bottom | default: 48 }}px;
     background: {{ s.outer_background | default: '#ffffff' }};
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pb-section{
-      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 0 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
     }
   }
 
