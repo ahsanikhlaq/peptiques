@@ -40,7 +40,7 @@
     max-width: 100%;
     margin-inline: auto;
     border-radius: {{ s.card_radius | default: 0 }}px;
-    padding: 40px 24px;
+    padding: 40px 16px;
     color: {{ s.heading_color | default: '#ffffff' }};
     overflow: hidden;
     background-color: {{ s.card_background | default: '#3f1c5c' }};
@@ -74,6 +74,20 @@
     gap: 32px;
     align-items: center;
   }
+  #shopify-section-{{ sid }} .pb-heading{
+font-size: 30px;
+letter-spacing: -1.2px;
+margin: 0 0 10px;
+
+  }
+  #shopify-section-{{ sid }} .pb-desc{
+        font-size: 14.4px;
+        line-height: 18.8px; /* 128.767% */
+letter-spacing: -0.438px;
+margin-bottom: 24px;
+  }
+
+
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pb-grid{
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -111,6 +125,7 @@ margin: 0 0 20px;
     letter-spacing: -0.48px;
     max-width: 600px;
     width: 100%;
+    margin: 0;
     margin-bottom: 42px;
   }
 
@@ -134,9 +149,9 @@ margin: 0 0 20px;
   #shopify-section-{{ sid }} .pb-summary{
     display: grid;
     grid-template-columns: auto 1fr auto;
-    align-items: center;
+    align-items: start;
     gap: 14px;
-    padding: 14px 18px;
+    padding: 12px;
     cursor: pointer;
     list-style: none;
   }
@@ -193,7 +208,7 @@ margin: 0;
   #shopify-section-{{ sid }} .pb-toggle svg{ width: 20px; height: 20px; }
 
   #shopify-section-{{ sid }} .pb-body{
-    padding: 0 18px 16px 68px;
+    padding: 0 18px 12px 68px;
    color: #000;
     font-family: "DM Sans";
     font-size: 16px;
