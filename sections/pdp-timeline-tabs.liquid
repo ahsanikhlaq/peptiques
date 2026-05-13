@@ -1,0 +1,370 @@
+{% comment %}
+  Ancient Wisdom / Modern Strength — tabbed timeline section.
+  Each card is a block with a phase_label setting. Tabs are derived
+  from unique phase_labels (in first-occurrence order). Clicking a
+  tab hides all cards that don't share its phase_label.
+
+  Defensive pattern: all Liquid in top {%- liquid -%} block, 6-digit
+  hex defaults only, no chained `default:` on image_picker.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign bg_image = nil
+  if s.bg_image_desktop != blank
+    assign bg_image = s.bg_image_desktop
+  endif
+  assign mobile_bg = nil
+  if s.bg_image_mobile != blank
+    assign mobile_bg = s.bg_image_mobile
+  elsif bg_image != blank
+    assign mobile_bg = bg_image
+  endif
+
+  assign phases = section.blocks | map: 'settings' | map: 'phase_label' | uniq
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pt-section{
+    position: relative;
+    padding: {{ s.section_padding_top | default: 40 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 40 }}px;
+    background-color: {{ s.section_background | default: '#1d1027' }};
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: {{ s.heading_color | default: '#ffffff' }};
+    overflow: hidden;
+    {% if mobile_bg != blank %}
+      background-image:
+        linear-gradient({{ s.overlay_color | default: '#1d1027' }}66, {{ s.overlay_color | default: '#1d1027' }}66),
+        url({{ mobile_bg | image_url: width: 1200 }});
+    {% endif %}
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+      {% if bg_image != blank %}
+        background-image:
+          linear-gradient({{ s.overlay_color | default: '#1d1027' }}66, {{ s.overlay_color | default: '#1d1027' }}66),
+          url({{ bg_image | image_url: width: 2000 }});
+      {% endif %}
+    }
+  }
+
+  #shopify-section-{{ sid }} .pt-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ sid }} .pt-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 18ch;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 2.4vw + 1rem, 46px);
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-heading{
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pt-tabs-shell{
+    background: {{ s.tab_strip_background | default: '#1d1027' }}cc;
+    border-radius: {{ s.tab_strip_radius | default: 16 }}px;
+    padding: 12px 8px 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-tabs-shell{
+      padding: 18px 24px 24px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pt-tabs{
+    display: flex;
+    gap: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    margin-bottom: 14px;
+  }
+  #shopify-section-{{ sid }} .pt-tabs::-webkit-scrollbar{ display: none; }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-tabs{ justify-content: center; gap: 32px; }
+  }
+
+  #shopify-section-{{ sid }} .pt-tab{
+    flex: 0 0 auto;
+    background: transparent;
+    border: 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 14px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+  }
+  #shopify-section-{{ sid }} .pt-tab[aria-selected="true"]{
+    color: #ffffff;
+  }
+  #shopify-section-{{ sid }} .pt-tab[aria-selected="true"]::after{
+    content: '';
+    position: absolute;
+    left: 14px; right: 14px; bottom: -1px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+  }
+
+  #shopify-section-{{ sid }} .pt-panels{
+    position: relative;
+  }
+  #shopify-section-{{ sid }} .pt-panel{
+    display: none;
+  }
+  #shopify-section-{{ sid }} .pt-panel[data-pt-active="true"]{
+    display: block;
+  }
+
+  #shopify-section-{{ sid }} .pt-cards{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 86%;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  #shopify-section-{{ sid }} .pt-cards::-webkit-scrollbar{ display: none; }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-cards{
+      grid-auto-flow: row;
+      grid-template-columns: repeat({{ s.cards_per_row_desktop | default: 3 }}, minmax(0, 1fr));
+      grid-auto-columns: auto;
+      overflow-x: visible;
+      gap: 16px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pt-card{
+    scroll-snap-align: start;
+    background: {{ s.card_background | default: '#ffffff' }};
+    color: #1d1027;
+    border-radius: 14px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: stretch;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-card{
+      grid-template-columns: 140px minmax(0, 1fr);
+    }
+  }
+
+  #shopify-section-{{ sid }} .pt-card-image{
+    background: #f3eaf9;
+    display: flex;
+    aspect-ratio: 1 / 1;
+  }
+  #shopify-section-{{ sid }} .pt-card-image img{
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+
+  #shopify-section-{{ sid }} .pt-card-text{
+    padding: 16px 16px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-card-text{ padding: 20px 22px; }
+  }
+  #shopify-section-{{ sid }} .pt-card-title{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    color: #1d1027;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pt-card-title{ font-size: 22px; }
+  }
+  #shopify-section-{{ sid }} .pt-card-body{
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4d3f59;
+  }
+</style>
+
+<section class="pt-section" {{ section.shopify_attributes }}>
+  <div class="pt-wrap">
+    <h2 class="pt-heading">{{ s.heading_text | default: 'Ancient Wisdom. Modern Strength' }}</h2>
+
+    {% if phases.size > 0 %}
+      <div class="pt-tabs-shell">
+        <div class="pt-tabs" role="tablist" data-pt-tabs>
+          {% for phase in phases %}
+            <button type="button"
+                    class="pt-tab"
+                    role="tab"
+                    data-pt-tab="{{ phase | handle }}"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{ phase }}
+            </button>
+          {% endfor %}
+        </div>
+
+        <div class="pt-panels">
+          {% for phase in phases %}
+            <div class="pt-panel" role="tabpanel" data-pt-panel="{{ phase | handle }}" data-pt-active="{% if forloop.first %}true{% else %}false{% endif %}">
+              <div class="pt-cards">
+                {% for block in section.blocks %}
+                  {% if block.settings.phase_label == phase %}
+                    <article class="pt-card" {{ block.shopify_attributes }}>
+                      <div class="pt-card-image">
+                        {% if block.settings.image != blank %}
+                          {{ block.settings.image | image_url: width: 400 | image_tag:
+                               loading: 'lazy',
+                               widths: '160,240,320,400',
+                               sizes: '(min-width: 1024px) 140px, 120px',
+                               alt: block.settings.title_text }}
+                        {% endif %}
+                      </div>
+                      <div class="pt-card-text">
+                        <h3 class="pt-card-title">{{ block.settings.title_text }}</h3>
+                        {% if block.settings.body_text != blank %}
+                          <p class="pt-card-body">{{ block.settings.body_text }}</p>
+                        {% endif %}
+                      </div>
+                    </article>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function(){
+    var root = document.getElementById('shopify-section-{{ sid }}');
+    if (!root) return;
+    var tabs   = root.querySelectorAll('[data-pt-tab]');
+    var panels = root.querySelectorAll('[data-pt-panel]');
+    if (!tabs.length || !panels.length) return;
+
+    function activate(id){
+      tabs.forEach(function(t){
+        t.setAttribute('aria-selected', t.getAttribute('data-pt-tab') === id ? 'true' : 'false');
+      });
+      panels.forEach(function(p){
+        p.setAttribute('data-pt-active', p.getAttribute('data-pt-panel') === id ? 'true' : 'false');
+      });
+    }
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){ activate(t.getAttribute('data-pt-tab')); });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Timeline Tabs",
+  "tag": "section",
+  "class": "pt-timeline-tabs",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "bg_image_desktop", "label": "Background image — Desktop" },
+    { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
+    { "type": "color",        "id": "section_background","label": "Background color (fallback)", "default": "#1d1027" },
+    { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)",  "default": "#1d1027" },
+
+    { "type": "header", "content": "Tab strip" },
+    { "type": "color", "id": "tab_strip_background", "label": "Tab strip background", "default": "#1d1027" },
+    { "type": "range", "id": "tab_strip_radius",     "label": "Tab strip radius",     "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+
+    { "type": "header", "content": "Cards" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color",   "label": "Heading color",   "default": "#ffffff" },
+    { "type": "range", "id": "cards_per_row_desktop", "label": "Cards per row (Desktop)", "min": 1, "max": 4, "step": 1, "default": 3 },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text",     "id": "heading_text", "label": "Heading", "default": "Ancient Wisdom. Modern Strength" },
+    { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Timeline card",
+      "settings": [
+        { "type": "text",         "id": "phase_label", "label": "Phase / tab label", "info": "Cards with the same label group under the same tab.", "default": "1-2 Weeks" },
+        { "type": "text",         "id": "title_text",  "label": "Card title" },
+        { "type": "textarea",     "id": "body_text",   "label": "Card body" },
+        { "type": "image_picker", "id": "image",       "label": "Card image" }
+      ]
+    }
+  ],
+  "max_blocks": 30,
+  "presets": [
+    {
+      "name": "Timeline Tabs",
+      "category": "Custom",
+      "blocks": [
+        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Cellular Rejuvenation Deepens", "body_text": "Full cellular rejuvenation. Notice radiant skin and a profound shift in spiritual awareness." } },
+        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "The First Signs Begin",          "body_text": "Feel the initial awakening. Gentle detox and sharper morning focus begin to take hold." } },
+        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Gut-Brain Alignment Starts",      "body_text": "Gut-brain alignment begins. Enjoy deeper sleep cycles and sustained natural energy." } },
+
+        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Cellular Reset",                  "body_text": "Cellular renewal accelerates. Skin tone evens out and energy holds steady through the afternoon." } },
+        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Mental Clarity Returns",          "body_text": "Brain fog lifts. Focused work feels lighter and dreams become more vivid." } },
+        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Digestive Rhythm Locks In",       "body_text": "Daily digestion regulates. Bloating fades and morning routines feel effortless." } },
+
+        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Sustained Energy Flow",           "body_text": "Energy plateaus stabilize. You feel a quiet, even-keeled stamina across the whole day." } },
+        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Inflammation Eases",              "body_text": "Joint stiffness and low-grade soreness step back. Mornings feel lighter on the body." } },
+        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Pineal Awakening",                "body_text": "Pineal cleansing deepens. Meditative states arrive faster and feel more grounded." } },
+
+        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Resilience Compounds",            "body_text": "Stress recovery is faster. Sleep is deeper and emotional baseline lifts." } },
+        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Skin & Vitality Visible",          "body_text": "Friends start to notice. Skin has a clearer tone and your presence carries more ease." } },
+        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Third Eye Activated",              "body_text": "Inner vision sharpens. Decisions feel more intuitive and creative output grows." } },
+
+        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Full System Rebalance",            "body_text": "Mind, gut, and spirit operate in sync. Daily routines feel naturally aligned." } },
+        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Aging Slows",                       "body_text": "Markers of biological aging trend down. Energy and recovery match a younger you." } },
+        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Mastery Mode",                      "body_text": "You hold a steady, expansive presence. Stress, sleep, and focus settle into mastery." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

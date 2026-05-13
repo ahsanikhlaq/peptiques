@@ -1771,6 +1771,149 @@
         "section_padding_bottom_desktop": 80,
         "section_padding_x_desktop": 50
       }
+    },
+    "pdp_timeline_FIGMA": {
+      "type": "pdp-timeline-tabs",
+      "blocks": {
+        "tl_card_1": {
+          "type": "card",
+          "settings": {
+            "phase_label": "1-2 Weeks",
+            "title_text": "Cellular Rejuvenation Deepens",
+            "body_text": "Full cellular rejuvenation. Notice radiant skin and a profound shift in spiritual awareness."
+          }
+        },
+        "tl_card_2": {
+          "type": "card",
+          "settings": {
+            "phase_label": "1-2 Weeks",
+            "title_text": "The First Signs Begin",
+            "body_text": "Feel the initial awakening. Gentle detox and sharper morning focus begin to take hold."
+          }
+        },
+        "tl_card_3": {
+          "type": "card",
+          "settings": {
+            "phase_label": "1-2 Weeks",
+            "title_text": "Gut-Brain Alignment Starts",
+            "body_text": "Gut-brain alignment begins. Enjoy deeper sleep cycles and sustained natural energy."
+          }
+        },
+        "tl_card_4": {
+          "type": "card",
+          "settings": {
+            "phase_label": "1 Month",
+            "title_text": "Cellular Reset",
+            "body_text": "Cellular renewal accelerates. Skin tone evens out and energy holds steady through the afternoon."
+          }
+        },
+        "tl_card_5": {
+          "type": "card",
+          "settings": {
+            "phase_label": "1 Month",
+            "title_text": "Mental Clarity Returns",
+            "body_text": "Brain fog lifts. Focused work feels lighter and dreams become more vivid."
+          }
+        },
+        "tl_card_6": {
+          "type": "card",
+          "settings": {
+            "phase_label": "1 Month",
+            "title_text": "Digestive Rhythm Locks In",
+            "body_text": "Daily digestion regulates. Bloating fades and morning routines feel effortless."
+          }
+        },
+        "tl_card_7": {
+          "type": "card",
+          "settings": {
+            "phase_label": "2 Months",
+            "title_text": "Sustained Energy Flow",
+            "body_text": "Energy plateaus stabilize. You feel a quiet, even-keeled stamina across the whole day."
+          }
+        },
+        "tl_card_8": {
+          "type": "card",
+          "settings": {
+            "phase_label": "2 Months",
+            "title_text": "Inflammation Eases",
+            "body_text": "Joint stiffness and low-grade soreness step back. Mornings feel lighter on the body."
+          }
+        },
+        "tl_card_9": {
+          "type": "card",
+          "settings": {
+            "phase_label": "2 Months",
+            "title_text": "Pineal Awakening",
+            "body_text": "Pineal cleansing deepens. Meditative states arrive faster and feel more grounded."
+          }
+        },
+        "tl_card_10": {
+          "type": "card",
+          "settings": {
+            "phase_label": "4 Months",
+            "title_text": "Resilience Compounds",
+            "body_text": "Stress recovery is faster. Sleep is deeper and emotional baseline lifts."
+          }
+        },
+        "tl_card_11": {
+          "type": "card",
+          "settings": {
+            "phase_label": "4 Months",
+            "title_text": "Skin & Vitality Visible",
+            "body_text": "Friends start to notice. Skin has a clearer tone and your presence carries more ease."
+          }
+        },
+        "tl_card_12": {
+          "type": "card",
+          "settings": {
+            "phase_label": "4 Months",
+            "title_text": "Third Eye Activated",
+            "body_text": "Inner vision sharpens. Decisions feel more intuitive and creative output grows."
+          }
+        },
+        "tl_card_13": {
+          "type": "card",
+          "settings": {
+            "phase_label": "6 Months",
+            "title_text": "Full System Rebalance",
+            "body_text": "Mind, gut, and spirit operate in sync. Daily routines feel naturally aligned."
+          }
+        },
+        "tl_card_14": {
+          "type": "card",
+          "settings": {
+            "phase_label": "6 Months",
+            "title_text": "Aging Slows",
+            "body_text": "Markers of biological aging trend down. Energy and recovery match a younger you."
+          }
+        },
+        "tl_card_15": {
+          "type": "card",
+          "settings": {
+            "phase_label": "6 Months",
+            "title_text": "Mastery Mode",
+            "body_text": "You hold a steady, expansive presence. Stress, sleep, and focus settle into mastery."
+          }
+        }
+      },
+      "block_order": [
+        "tl_card_1",
+        "tl_card_2",
+        "tl_card_3",
+        "tl_card_4",
+        "tl_card_5",
+        "tl_card_6",
+        "tl_card_7",
+        "tl_card_8",
+        "tl_card_9",
+        "tl_card_10",
+        "tl_card_11",
+        "tl_card_12",
+        "tl_card_13",
+        "tl_card_14",
+        "tl_card_15"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1784,6 +1927,7 @@
     "17649589874dea57af",
     "ugc_video_reviews_C9BRLi",
     "pdp_ingredients_KDmWRL",
-    "pdp_monks_knew_FIGMA"
+    "pdp_monks_knew_FIGMA",
+    "pdp_timeline_FIGMA"
   ]
 }
