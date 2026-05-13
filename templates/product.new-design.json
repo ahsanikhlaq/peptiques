@@ -1420,10 +1420,67 @@
         "display_id": false,
         "include_margins": true
       }
+    },
+    "pdp_benefits_FIGMA": {
+      "type": "pdp-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Pineal Gland Cleansing",
+            "subtitle_text": "Supports natural detox and inner clarity."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Third Eye Activation",
+            "subtitle_text": "Supports vivid dreams and deeper connection."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Mental Clarity & Focus",
+            "subtitle_text": "Helps clear brain fog and sharpen awareness."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Gut-Brain Connection",
+            "subtitle_text": "Helps improve clarity and concentration."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Sustained Natural Energy",
+            "subtitle_text": "All-day clean energy without the crash."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Deeper, More Restorative Sleep",
+            "subtitle_text": "Supports deeper sleep and more vivid dreams."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
+    "pdp_benefits_FIGMA",
     "related-products",
     "custom_columns_new_dBCjfR",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",

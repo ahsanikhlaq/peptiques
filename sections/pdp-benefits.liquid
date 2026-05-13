@@ -1,0 +1,329 @@
+{% comment %}
+  Benefits — PDP benefits section (Haritaki accordion + image).
+  Built from Figma. Keep this section minimal and resilient — schema
+  uses only standard types, all Liquid logic stays in the top liquid
+  block, no fancy filter chains.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign bg_image = nil
+  if s.bg_image_desktop != blank
+    assign bg_image = s.bg_image_desktop
+  endif
+
+  assign mobile_bg_image = nil
+  if s.bg_image_mobile != blank
+    assign mobile_bg_image = s.bg_image_mobile
+  elsif bg_image != blank
+    assign mobile_bg_image = bg_image
+  endif
+
+  assign heading_text  = s.heading_text     | default: 'Haritaki™ isn’t just a supplement'
+  assign description   = s.description_text | default: 'It’s the ancient Ayurvedic secret called “The King of Medicines” — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye.'
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pb-section{
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    background: {{ s.outer_background | default: '#ffffff' }};
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pb-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pb-card{
+    max-width: 1340px;
+    margin-inline: auto;
+    border-radius: {{ s.card_radius | default: 24 }}px;
+    padding: 40px 24px;
+    color: {{ s.heading_color | default: '#ffffff' }};
+    overflow: hidden;
+    background-color: {{ s.card_background | default: '#3f1c5c' }};
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    {% if mobile_bg_image != blank %}
+      background-image:
+        linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
+        url({{ mobile_bg_image | image_url: width: 900 }});
+    {% else %}
+      background-image:
+        radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
+        radial-gradient(ellipse 70% 50% at 10% 85%, rgba(255,255,255,0.06), transparent 65%),
+        linear-gradient(135deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
+    {% endif %}
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pb-card{
+      padding: 80px 60px;
+      {% if bg_image != blank %}
+        background-image:
+          linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
+          url({{ bg_image | image_url: width: 1800 }});
+      {% endif %}
+    }
+  }
+
+  #shopify-section-{{ sid }} .pb-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pb-grid{
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 48px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pb-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
+  }
+
+  #shopify-section-{{ sid }} .pb-desc{
+    color: {{ s.description_color | default: '#e8dcef' }};
+    font-weight: 400;
+    line-height: 1.45;
+    margin: 0 0 24px;
+    max-width: 56ch;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ sid }} .pb-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ sid }} .pb-item{
+    background: #ffffff;
+    color: #1d1027;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ sid }} .pb-summary{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    cursor: pointer;
+    list-style: none;
+  }
+  #shopify-section-{{ sid }} .pb-summary::-webkit-details-marker{ display: none; }
+
+  #shopify-section-{{ sid }} .pb-icon{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: {{ s.icon_background | default: '#f3eaf9' }};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ s.icon_color | default: '#5a2a78' }};
+    flex-shrink: 0;
+  }
+  #shopify-section-{{ sid }} .pb-icon svg{ width: 20px; height: 20px; }
+
+  #shopify-section-{{ sid }} .pb-title{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 0;
+    color: #1d1027;
+  }
+  #shopify-section-{{ sid }} .pb-subtitle{
+    font-size: 13px;
+    line-height: 1.4;
+    color: #6b5b78;
+    margin: 2px 0 0;
+  }
+
+  #shopify-section-{{ sid }} .pb-toggle{
+    width: 28px;
+    height: 28px;
+    color: #6b5b78;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 200ms ease;
+  }
+  #shopify-section-{{ sid }} .pb-item details[open] .pb-toggle{ transform: rotate(45deg); }
+  #shopify-section-{{ sid }} .pb-toggle svg{ width: 14px; height: 14px; }
+
+  #shopify-section-{{ sid }} .pb-body{
+    padding: 0 18px 16px 68px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4d3f59;
+  }
+
+  #shopify-section-{{ sid }} .pb-media{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: -1;
+  }
+  {% if s.hide_image_on_mobile %}
+    @media (max-width: 1023.98px){
+      #shopify-section-{{ sid }} .pb-media{ display: none; }
+    }
+  {% endif %}
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pb-media{ order: 0; }
+  }
+  #shopify-section-{{ sid }} .pb-media img{
+    width: 100%;
+    height: auto;
+    max-width: 520px;
+    max-height: 560px;
+    object-fit: contain;
+    display: block;
+  }
+</style>
+
+<div class="pb-section" {{ section.shopify_attributes }}>
+  <div class="pb-card">
+    <div class="pb-grid">
+      <div class="pb-content">
+        <h2 class="pb-heading">{{ heading_text }}</h2>
+        {% if description != blank %}
+          <p class="pb-desc">{{ description }}</p>
+        {% endif %}
+
+        <ul class="pb-list" role="list">
+          {% for block in section.blocks %}
+            {% if block.type == 'benefit' %}
+              <li class="pb-item" {{ block.shopify_attributes }}>
+                <details {% if block.settings.open_by_default %}open{% endif %}>
+                  <summary class="pb-summary">
+                    <span class="pb-icon" aria-hidden="true">
+                      {% if block.settings.icon_image != blank %}
+                        {{ block.settings.icon_image | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', alt: '' }}
+                      {% else %}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+                      {% endif %}
+                    </span>
+                    <span class="pb-text">
+                      <span class="pb-title">{{ block.settings.title_text }}</span>
+                      {% if block.settings.subtitle_text != blank %}
+                        <span class="pb-subtitle">{{ block.settings.subtitle_text }}</span>
+                      {% endif %}
+                    </span>
+                    <span class="pb-toggle" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </span>
+                  </summary>
+                  {% if block.settings.body_text != blank %}
+                    <div class="pb-body">{{ block.settings.body_text }}</div>
+                  {% endif %}
+                </details>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="pb-media">
+        {% if s.image != blank %}
+          {{ s.image | image_url: width: 1040 | image_tag:
+              loading: 'lazy',
+              widths: '320,480,640,820,1040',
+              sizes: '(min-width: 1024px) 480px, 90vw',
+              alt: s.image_alt | default: 'Haritaki capsules' }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Benefits",
+  "tag": "section",
+  "class": "pb-benefits",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Background image" },
+    { "type": "image_picker", "id": "bg_image_desktop", "label": "Background image — Desktop" },
+    { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
+    { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)", "default": "#2a1442" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "outer_background", "label": "Outer background",   "default": "#ffffff" },
+    { "type": "color", "id": "card_background",  "label": "Card background",    "default": "#3f1c5c" },
+    { "type": "color", "id": "gradient_from",    "label": "Gradient start",     "default": "#5a2a78" },
+    { "type": "color", "id": "gradient_to",      "label": "Gradient end",       "default": "#2a1442" },
+    { "type": "color", "id": "heading_color",    "label": "Heading color",      "default": "#ffffff" },
+    { "type": "color", "id": "description_color","label": "Description color",  "default": "#e8dcef" },
+    { "type": "color", "id": "icon_color",       "label": "Icon color",         "default": "#5a2a78" },
+    { "type": "color", "id": "icon_background",  "label": "Icon background",    "default": "#f3eaf9" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text",     "id": "heading_text",     "label": "Heading",           "default": "Haritaki™ isn’t just a supplement" },
+    { "type": "textarea", "id": "description_text", "label": "Description",       "default": "It’s the ancient Ayurvedic secret called “The King of Medicines” — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye." },
+    { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image",     "label": "Capsules image" },
+    { "type": "text",         "id": "image_alt", "label": "Image alt text", "default": "Haritaki capsules" },
+    { "type": "checkbox",     "id": "hide_image_on_mobile", "label": "Hide image on mobile", "default": true },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",         "label": "Padding top (Mobile)",    "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",      "label": "Padding bottom (Mobile)", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",           "label": "Padding sides (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop", "label": "Padding top (Desktop)",   "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",   "label": "Padding sides (Desktop)", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 },
+    { "type": "range", "id": "card_radius",                 "label": "Card radius",             "min": 0, "max": 40,  "step": 2, "unit": "px", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text",         "id": "title_text",      "label": "Title" },
+        { "type": "text",         "id": "subtitle_text",   "label": "Subtitle" },
+        { "type": "textarea",     "id": "body_text",       "label": "Expanded body (optional)" },
+        { "type": "image_picker", "id": "icon_image",      "label": "Icon (optional)" },
+        { "type": "checkbox",     "id": "open_by_default", "label": "Open by default", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Benefits",
+      "category": "Custom",
+      "blocks": [
+        { "type": "benefit", "settings": { "title_text": "Pineal Gland Cleansing",        "subtitle_text": "Supports natural detox and inner clarity." } },
+        { "type": "benefit", "settings": { "title_text": "Third Eye Activation",           "subtitle_text": "Supports vivid dreams and deeper connection." } },
+        { "type": "benefit", "settings": { "title_text": "Mental Clarity & Focus",         "subtitle_text": "Helps clear brain fog and sharpen awareness." } },
+        { "type": "benefit", "settings": { "title_text": "Gut-Brain Connection",           "subtitle_text": "Helps improve clarity and concentration." } },
+        { "type": "benefit", "settings": { "title_text": "Sustained Natural Energy",       "subtitle_text": "All-day clean energy without the crash." } },
+        { "type": "benefit", "settings": { "title_text": "Deeper, More Restorative Sleep", "subtitle_text": "Supports deeper sleep and more vivid dreams." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
