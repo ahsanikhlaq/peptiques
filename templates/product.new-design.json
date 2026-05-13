@@ -543,6 +543,7 @@
             "title_text": "Pineal Gland Cleansing",
             "subtitle_text": "Supports natural detox and inner clarity.",
             "body_text": "",
+            "icon_image": "shopify://shop_images/Component_323_2.png",
             "open_by_default": false
           }
         },
@@ -552,6 +553,7 @@
             "title_text": "Third Eye Activation",
             "subtitle_text": "Supports vivid dreams and deeper connection.",
             "body_text": "",
+            "icon_image": "shopify://shop_images/Component_323_5.png",
             "open_by_default": false
           }
         },
@@ -561,6 +563,7 @@
             "title_text": "Mental Clarity & Focus",
             "subtitle_text": "Helps clear brain fog and sharpen awareness.",
             "body_text": "",
+            "icon_image": "shopify://shop_images/Component_323_1.png",
             "open_by_default": false
           }
         },
@@ -570,6 +573,7 @@
             "title_text": "Gut-Brain Connection",
             "subtitle_text": "Helps improve clarity and concentration.",
             "body_text": "",
+            "icon_image": "shopify://shop_images/Component_323_3.png",
             "open_by_default": false
           }
         },
@@ -579,6 +583,7 @@
             "title_text": "Sustained Natural Energy",
             "subtitle_text": "All-day clean energy without the crash.",
             "body_text": "",
+            "icon_image": "shopify://shop_images/Component_323_4.png",
             "open_by_default": false
           }
         },
@@ -588,6 +593,7 @@
             "title_text": "Deeper, More Restorative Sleep",
             "subtitle_text": "Supports deeper sleep and more vivid dreams.",
             "body_text": "",
+            "icon_image": "shopify://shop_images/Component_323_5.png",
             "open_by_default": false
           }
         }
