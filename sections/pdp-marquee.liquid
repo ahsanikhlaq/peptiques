@@ -1,0 +1,167 @@
+{% comment %}
+  Marquee — horizontal running text bar.
+  Glitch-free: the track contains the items twice. The keyframe
+  translates by exactly -50% so item N+1 lands where item 1 started,
+  producing a seamless loop with no jump.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign item_count = 0
+  for block in section.blocks
+    if block.type == 'item'
+      assign item_count = item_count | plus: 1
+    endif
+  endfor
+
+  assign ls_value = s.letter_spacing | default: 6
+  assign ls_em = ls_value | divided_by: 100.0
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pm-bar{
+    width: 100%;
+    background: {{ s.background_color | default: '#3f1c5c' }};
+    color: {{ s.text_color | default: '#ffffff' }};
+    overflow: hidden;
+    /* Min-height keeps the bar stable while the track animates. */
+    min-height: {{ s.bar_height | default: 56 }}px;
+    display: flex;
+    align-items: center;
+  }
+  #shopify-section-{{ sid }} .pm-track{
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    /* will-change reduces sub-pixel jitter during transform. */
+    will-change: transform;
+    animation: pm-marquee-{{ sid }} {{ s.duration_seconds | default: 30 }}s linear infinite;
+  }
+  #shopify-section-{{ sid }} .pm-bar:hover .pm-track{
+    {% if s.pause_on_hover %}animation-play-state: paused;{% endif %}
+  }
+  @media (prefers-reduced-motion: reduce){
+    #shopify-section-{{ sid }} .pm-track{ animation: none; }
+  }
+  @keyframes pm-marquee-{{ sid }}{
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  #shopify-section-{{ sid }} .pm-item{
+    flex: 0 0 auto;
+    padding: 0 {{ s.item_gap | default: 40 }}px;
+    font-family: {{ s.font_family | default: 'inherit' }};
+    font-size: {{ s.font_size | default: 14 }}px;
+    font-weight: {{ s.font_weight | default: 600 }};
+    letter-spacing: {{ ls_em }}em;
+    text-transform: {{ s.text_transform | default: 'uppercase' }};
+    white-space: nowrap;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  #shopify-section-{{ sid }} .pm-item-icon{
+    width: {{ s.icon_size | default: 18 }}px;
+    height: {{ s.icon_size | default: 18 }}px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ s.icon_color | default: '#ffffff' }};
+  }
+  #shopify-section-{{ sid }} .pm-item-icon svg{ width: 100%; height: 100%; }
+  #shopify-section-{{ sid }} .pm-item-icon img{ width: 100%; height: 100%; object-fit: contain; display: block; }
+</style>
+
+<div class="pm-bar" role="region" aria-label="{{ s.aria_label | default: 'Promotional bar' }}" {{ section.shopify_attributes }}>
+  <div class="pm-track">
+    {% for pass in (1..2) %}
+      {% for block in section.blocks %}
+        {% if block.type == 'item' %}
+          <span class="pm-item" {% if pass == 1 %}{{ block.shopify_attributes }}{% else %}aria-hidden="true"{% endif %}>
+            {% if block.settings.icon_image != blank %}
+              <span class="pm-item-icon">
+                {{ block.settings.icon_image | image_url: width: 80 | image_tag: loading: 'lazy', widths: '36,72', alt: '' }}
+              </span>
+            {% elsif block.settings.icon_svg != blank %}
+              <span class="pm-item-icon">{{ block.settings.icon_svg }}</span>
+            {% endif %}
+            <span>{{ block.settings.label }}</span>
+          </span>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "section",
+  "class": "pm-marquee",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#3f1c5c" },
+    { "type": "color", "id": "text_color",       "label": "Text color", "default": "#ffffff" },
+    { "type": "color", "id": "icon_color",       "label": "Icon color (for SVG icons)", "default": "#ffffff" },
+
+    { "type": "header", "content": "Animation" },
+    { "type": "range",    "id": "duration_seconds", "label": "Loop duration (full pass)", "min": 5, "max": 120, "step": 5, "unit": "s", "default": 30 },
+    { "type": "checkbox", "id": "pause_on_hover",   "label": "Pause on hover", "default": true },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "text",  "id": "font_family",     "label": "Font-family", "default": "inherit" },
+    { "type": "range", "id": "font_size",       "label": "Font size",   "min": 10, "max": 28, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "font_weight",     "label": "Font weight", "min": 300, "max": 900, "step": 100, "default": 600 },
+    { "type": "range", "id": "letter_spacing",  "label": "Letter spacing", "min": 0,  "max": 20, "step": 1, "unit": "%", "default": 6, "info": "Stored as 0.0X em" },
+    { "type": "select","id": "text_transform",  "label": "Text transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "none",      "label": "Normal" },
+        { "value": "capitalize","label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "bar_height", "label": "Bar height",   "min": 32, "max": 120, "step": 2, "unit": "px", "default": 56 },
+    { "type": "range", "id": "item_gap",   "label": "Item gap (padding around each item)", "min": 8, "max": 120, "step": 2, "unit": "px", "default": 40 },
+    { "type": "range", "id": "icon_size",  "label": "Icon size", "min": 10, "max": 40, "step": 1, "unit": "px", "default": 18 },
+
+    { "type": "header", "content": "Accessibility" },
+    { "type": "text", "id": "aria_label", "label": "ARIA label", "default": "Free from" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text",         "id": "label",      "label": "Label", "default": "NO SOY" },
+        { "type": "image_picker", "id": "icon_image", "label": "Icon (image, optional)" },
+        { "type": "html",         "id": "icon_svg",   "label": "Icon (inline SVG, optional)" }
+      ]
+    }
+  ],
+  "max_blocks": 30,
+  "presets": [
+    {
+      "name": "Marquee",
+      "category": "Custom",
+      "blocks": [
+        { "type": "item", "settings": { "label": "NO SOY" } },
+        { "type": "item", "settings": { "label": "NO FAT" } },
+        { "type": "item", "settings": { "label": "NO CASEIN" } },
+        { "type": "item", "settings": { "label": "NO ARTIFICIAL ADDITIVES" } },
+        { "type": "item", "settings": { "label": "NO SUGAR" } },
+        { "type": "item", "settings": { "label": "NO GLUTEN" } },
+        { "type": "item", "settings": { "label": "NO GMOS" } },
+        { "type": "item", "settings": { "label": "NO GLYPHOSATE" } },
+        { "type": "item", "settings": { "label": "NO HORMONES" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

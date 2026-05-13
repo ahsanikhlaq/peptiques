@@ -1914,6 +1914,181 @@
         "tl_card_15"
       ],
       "settings": {}
+    },
+    "pdp_social_proof_FIGMA": {
+      "type": "pdp-social-proof",
+      "blocks": {
+        "photo_1": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 1"
+          }
+        },
+        "photo_2": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 2"
+          }
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 3"
+          }
+        },
+        "photo_4": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 4"
+          }
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 5"
+          }
+        },
+        "photo_6": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 6"
+          }
+        },
+        "photo_7": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 7"
+          }
+        },
+        "photo_8": {
+          "type": "photo",
+          "settings": {
+            "alt_text": "Customer photo 8"
+          }
+        },
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote_text": "My clarity came back.",
+            "body_text": "My gut felt off, my sleep was broken, and my mind felt foggy. Haritaki helped me feel lighter, clearer, and more like myself again.",
+            "author_label": "Verified Review",
+            "stars": 5
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote_text": "My mind feels clear again.",
+            "body_text": "Cleaner digestion, steadier energy, and a noticeably sharper sense of focus throughout the day.",
+            "author_label": "Verified Review",
+            "stars": 5
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote_text": "Simple, powerful, and easy to trust.",
+            "body_text": "I love that it's just one ingredient, but the impact feels bigger across energy, clarity, and balance.",
+            "author_label": "Verified Review",
+            "stars": 5
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "quote_text": "It helped me feel aligned again.",
+            "body_text": "Less fog, better rhythm, and a more connected feeling from morning to night.",
+            "author_label": "Verified Review",
+            "stars": 5
+          }
+        }
+      },
+      "block_order": [
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6",
+        "photo_7",
+        "photo_8",
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ],
+      "settings": {}
+    },
+    "pdp_marquee_FIGMA": {
+      "type": "pdp-marquee",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "label": "NO SOY"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "label": "NO FAT"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "label": "NO CASEIN"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "label": "NO ARTIFICIAL ADDITIVES"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "label": "NO SUGAR"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "label": "NO GLUTEN"
+          }
+        },
+        "item_7": {
+          "type": "item",
+          "settings": {
+            "label": "NO GMOS"
+          }
+        },
+        "item_8": {
+          "type": "item",
+          "settings": {
+            "label": "NO GLYPHOSATE"
+          }
+        },
+        "item_9": {
+          "type": "item",
+          "settings": {
+            "label": "NO HORMONES"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6",
+        "item_7",
+        "item_8",
+        "item_9"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1928,6 +2103,8 @@
     "ugc_video_reviews_C9BRLi",
     "pdp_ingredients_KDmWRL",
     "pdp_monks_knew_FIGMA",
-    "pdp_timeline_FIGMA"
+    "pdp_timeline_FIGMA",
+    "pdp_social_proof_FIGMA",
+    "pdp_marquee_FIGMA"
   ]
 }
