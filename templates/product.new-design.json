@@ -1913,7 +1913,23 @@
         "tl_card_14",
         "tl_card_15"
       ],
-      "settings": {}
+      "settings": {
+        "section_background": "#1d1027",
+        "overlay_color": "#1d1027",
+        "tab_strip_background": "#1d1027",
+        "tab_strip_radius": 16,
+        "card_background": "#ffffff",
+        "heading_color": "#ffffff",
+        "cards_per_row_desktop": 3,
+        "heading_text": "Ancient Wisdom. Modern Strength",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 40,
+        "section_padding_bottom": 40,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
     },
     "pdp_social_proof_FIGMA": {
       "type": "pdp-social-proof",
@@ -2017,7 +2033,33 @@
         "review_3",
         "review_4"
       ],
-      "settings": {}
+      "settings": {
+        "section_background": "#f6efff",
+        "text_color": "#1d1027",
+        "sub_color": "#5b4f6b",
+        "stars_color": "#f5b301",
+        "nav_prev_background": "#bba0d4",
+        "nav_next_background": "#3f1c5c",
+        "heading_text": "Ingredients That Just Do More",
+        "subheading_text": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "photo_speed_seconds": 40,
+        "photo_gap": 12,
+        "photo_width_mobile": 130,
+        "photo_width_desktop": 160,
+        "photos_margin_top": 24,
+        "photos_margin_bottom": 32,
+        "photos_aria_label": "Customer photos",
+        "reviews_per_view": 4,
+        "review_gap": 16,
+        "head_margin_bottom": 32,
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
     },
     "pdp_marquee_FIGMA": {
       "type": "pdp-marquee",
@@ -2025,55 +2067,64 @@
         "item_1": {
           "type": "item",
           "settings": {
-            "label": "NO SOY"
+            "label": "NO SOY",
+            "icon_svg": ""
           }
         },
         "item_2": {
           "type": "item",
           "settings": {
-            "label": "NO FAT"
+            "label": "NO FAT",
+            "icon_svg": ""
           }
         },
         "item_3": {
           "type": "item",
           "settings": {
-            "label": "NO CASEIN"
+            "label": "NO CASEIN",
+            "icon_svg": ""
           }
         },
         "item_4": {
           "type": "item",
           "settings": {
-            "label": "NO ARTIFICIAL ADDITIVES"
+            "label": "NO ARTIFICIAL ADDITIVES",
+            "icon_svg": ""
           }
         },
         "item_5": {
           "type": "item",
           "settings": {
-            "label": "NO SUGAR"
+            "label": "NO SUGAR",
+            "icon_svg": ""
           }
         },
         "item_6": {
           "type": "item",
           "settings": {
-            "label": "NO GLUTEN"
+            "label": "NO GLUTEN",
+            "icon_svg": ""
           }
         },
         "item_7": {
           "type": "item",
           "settings": {
-            "label": "NO GMOS"
+            "label": "NO GMOS",
+            "icon_svg": ""
           }
         },
         "item_8": {
           "type": "item",
           "settings": {
-            "label": "NO GLYPHOSATE"
+            "label": "NO GLYPHOSATE",
+            "icon_svg": ""
           }
         },
         "item_9": {
           "type": "item",
           "settings": {
-            "label": "NO HORMONES"
+            "label": "NO HORMONES",
+            "icon_svg": ""
           }
         }
       },
@@ -2088,313 +2139,106 @@
         "item_8",
         "item_9"
       ],
-      "settings": {}
+      "settings": {
+        "background_color": "#3f1c5c",
+        "text_color": "#ffffff",
+        "icon_color": "#ffffff",
+        "duration_seconds": 30,
+        "pause_on_hover": true,
+        "font_family": "inherit",
+        "font_size": 14,
+        "font_weight": 600,
+        "letter_spacing": 6,
+        "text_transform": "uppercase",
+        "bar_height": 56,
+        "item_gap": 40,
+        "icon_size": 18,
+        "aria_label": "Free from"
+      }
     },
-    "pdp_daily_experience_FIGMA": {
-      "type": "pdp-daily-experience",
-      "blocks": {
-        "morning": {
-          "type": "phase",
-          "settings": {
-            "tab_label": "Morning",
-            "icon_color": "#f5b301",
-            "bg_color": "#fff8d6",
-            "pill_bg": "#fff2a0",
-            "tab_active_bg": "#fff2a0",
-            "tab_active_border": "#f5d04a",
-            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
-            "stat_figure_text": "97%",
-            "stat_caption": "Of people Like You",
-            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
-          }
-        },
-        "evening": {
-          "type": "phase",
-          "settings": {
-            "tab_label": "Evening",
-            "icon_color": "#5a2a78",
-            "bg_color": "#ece1f8",
-            "pill_bg": "#e0d0f6",
-            "tab_active_bg": "#e0d0f6",
-            "tab_active_border": "#bba0d4",
-            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
-            "stat_figure_text": "93%",
-            "stat_caption": "Of people Like You",
-            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
-          }
-        }
-      },
-      "block_order": [
-        "morning",
-        "evening"
-      ],
-      "settings": {}
-    },
-    "pdp_comparison_FIGMA": {
-      "type": "pdp-comparison",
-      "blocks": {
-        "cmp_1": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Digestive Support",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "cmp_2": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Mental Clarity & Focus",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "cmp_3": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Supports Calm & Awareness",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "cmp_4": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Easy Daily Use",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "cmp_5": {
-          "type": "row",
-          "settings": {
-            "feature_text": "No Bitter Taste or Prep",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "cmp_6": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Consistent Daily Dosage",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "cmp_7": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Lab-Tested for Quality",
-            "our_check": true,
-            "them_check": false
-          }
-        }
-      },
-      "block_order": [
-        "cmp_1",
-        "cmp_2",
-        "cmp_3",
-        "cmp_4",
-        "cmp_5",
-        "cmp_6",
-        "cmp_7"
-      ],
-      "settings": {}
-    },
-    "pdp_only_nature_FIGMA": {
-      "type": "pdp-only-nature",
-      "blocks": {
-        "badge_1": {
-          "type": "badge",
-          "settings": {
-            "label": "Plastic Free"
-          }
-        },
-        "badge_2": {
-          "type": "badge",
-          "settings": {
-            "label": "Plastic Free"
-          }
-        },
-        "badge_3": {
-          "type": "badge",
-          "settings": {
-            "label": "No Synthetic"
-          }
-        },
-        "badge_4": {
-          "type": "badge",
-          "settings": {
-            "label": "Non Gmo"
-          }
-        },
-        "badge_5": {
-          "type": "badge",
-          "settings": {
-            "label": "Sugar Free"
-          }
-        },
-        "badge_6": {
-          "type": "badge",
-          "settings": {
-            "label": "Gluten Free"
-          }
-        },
-        "ing_1": {
-          "type": "ingredient",
-          "settings": {
-            "name": "Haritaki fruit powder",
-            "subtitle": "Terminalia chebula",
-            "amount": "500 mg",
-            "dv": "**"
-          }
-        }
-      },
-      "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4",
-        "badge_5",
-        "badge_6",
-        "ing_1"
-      ],
-      "settings": {}
-    },
-    "pdp_faqs_FIGMA": {
-      "type": "pdp-faqs",
-      "blocks": {
-        "faq_1": {
-          "type": "faq",
-          "settings": {
-            "question": "Can I take this with other supplements or medications?"
-          }
-        },
-        "faq_2": {
-          "type": "faq",
-          "settings": {
-            "question": "Is this vegan?"
-          }
-        },
-        "faq_3": {
-          "type": "faq",
-          "settings": {
-            "question": "Can this help with vivid dreams or deeper sleep?"
-          }
-        },
-        "faq_4": {
-          "type": "faq",
-          "settings": {
-            "question": "What does Haritaki actually do in the body?"
-          }
-        },
-        "faq_5": {
-          "type": "faq",
-          "settings": {
-            "question": "Is this safe to use long-term?"
-          }
-        },
-        "faq_6": {
-          "type": "faq",
-          "settings": {
-            "question": "How is this different from Haritaki powder?"
-          }
-        },
-        "faq_7": {
-          "type": "faq",
-          "settings": {
-            "question": "Can I take it if I'm sensitive to detox effects?"
-          }
-        },
-        "faq_8": {
-          "type": "faq",
-          "settings": {
-            "question": "Do I need to change my diet while using it?"
-          }
-        },
-        "faq_9": {
-          "type": "faq",
-          "settings": {
-            "question": "Will this help clear mental fog or improve focus?"
-          }
-        },
-        "faq_10": {
-          "type": "faq",
-          "settings": {
-            "question": "How long until I see results?"
-          }
-        },
-        "faq_11": {
-          "type": "faq",
-          "settings": {
-            "question": "How does it actually decalcify the pineal gland?"
-          }
-        }
-      },
-      "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4",
-        "faq_5",
-        "faq_6",
-        "faq_7",
-        "faq_8",
-        "faq_9",
-        "faq_10",
-        "faq_11"
-      ],
-      "settings": {}
-    },
-    "pdp_footer_FIGMA": {
+    "pdp_footer_Ax4c4P": {
       "type": "pdp-footer",
       "blocks": {
-        "col_explore": {
+        "link_column_4NEBRF": {
           "type": "link_column",
           "settings": {
             "title": "EXPLORE",
             "links_text": "Shop | /collections/all\nQuiz | /pages/quiz\nScience | /pages/science\nBlog | /blogs/news"
           }
         },
-        "col_company": {
+        "link_column_WGaFYM": {
           "type": "link_column",
           "settings": {
             "title": "COMPANY",
             "links_text": "Contact Us | /pages/contact-us\nAffiliates | /pages/affiliates\nReviews | /pages/reviews"
           }
         },
-        "col_support": {
+        "link_column_cFkmfN": {
           "type": "link_column",
           "settings": {
             "title": "SUPPORT",
             "links_text": "Terms & Conditions | /policies/terms-of-service\nPrivacy Policy | /policies/privacy-policy\nRefund Policy | /policies/refund-policy"
           }
         },
-        "soc_fb": {
+        "social_link_zG9cWq": {
           "type": "social_link",
           "settings": {
             "label": "Facebook",
             "url": "https://facebook.com/",
-            "icon_svg": "<svg viewBox='0 0 24 24' fill='currentColor' aria-hidden='true'><path d='M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z'/></svg>"
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z\"></path></svg>"
           }
         },
-        "soc_tt": {
+        "social_link_HxWer8": {
           "type": "social_link",
           "settings": {
             "label": "Tik Tok",
             "url": "https://www.tiktok.com/",
-            "icon_svg": "<svg viewBox='0 0 24 24' fill='currentColor' aria-hidden='true'><path d='M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.65a8.16 8.16 0 0 0 4.77 1.52V6.7a4.85 4.85 0 0 1-1.84-.01z'/></svg>"
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.65a8.16 8.16 0 0 0 4.77 1.52V6.7a4.85 4.85 0 0 1-1.84-.01z\"></path></svg>"
           }
         }
       },
       "block_order": [
-        "col_explore",
-        "col_company",
-        "col_support",
-        "soc_fb",
-        "soc_tt"
+        "link_column_4NEBRF",
+        "link_column_WGaFYM",
+        "link_column_cFkmfN",
+        "social_link_zG9cWq",
+        "social_link_HxWer8"
       ],
-      "settings": {}
+      "name": "Footer (Figma)",
+      "settings": {
+        "background_color": "#3f1c5c",
+        "overlay_color": "#3f1c5c",
+        "text_color": "#ffffff",
+        "sub_color": "#cdb6e6",
+        "divider_color": "#5a2a78",
+        "col_title_color": "#ffffff",
+        "input_border_color": "#9b87b3",
+        "input_focus_border_color": "#ffffff",
+        "input_placeholder_color": "#bba0d4",
+        "submit_background": "#ffffff",
+        "submit_color": "#3f1c5c",
+        "success_color": "#cdb6e6",
+        "error_color": "#ffb3b3",
+        "social_border_color": "#9b87b3",
+        "news_heading": "Sign Up For Our Newsletter",
+        "news_subtext": "Exclusive deals for subscribers if you register from this website",
+        "input_placeholder": "Enter Your Email",
+        "input_aria_label": "Email address",
+        "submit_aria_label": "Subscribe",
+        "success_message": "Thanks for subscribing!",
+        "logo_text": "PEPTIQUES",
+        "logo_mark": "®",
+        "disclaimer_text": "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease.",
+        "social_label": "Check our Social Media",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 48,
+        "section_padding_bottom": 32,
+        "section_padding_x": 24,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 40,
+        "section_padding_x_desktop": 60,
+        "row_padding_y": 28
+      }
     }
   },
   "order": [
@@ -2412,10 +2256,6 @@
     "pdp_timeline_FIGMA",
     "pdp_social_proof_FIGMA",
     "pdp_marquee_FIGMA",
-    "pdp_daily_experience_FIGMA",
-    "pdp_comparison_FIGMA",
-    "pdp_only_nature_FIGMA",
-    "pdp_faqs_FIGMA",
-    "pdp_footer_FIGMA"
+    "pdp_footer_Ax4c4P"
   ]
 }
