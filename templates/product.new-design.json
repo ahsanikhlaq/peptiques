@@ -1693,7 +1693,7 @@
       ],
       "name": "Ingredients",
       "settings": {
-        "overlay_color": "#2a1442",
+        "overlay_color": "#ffffff",
         "card_background": "#3f1c5c",
         "gradient_from": "#5a2a78",
         "gradient_to": "#2a1442",
@@ -1743,7 +1743,34 @@
         "tb_2",
         "tb_3"
       ],
-      "settings": {}
+      "settings": {
+        "section_background": "#ffffff",
+        "content_background": "#f6efff",
+        "media_background": "#cdb6e6",
+        "heading_color": "#1d1027",
+        "subheading_color": "#5b4f6b",
+        "badge_icon_color": "#5a2a78",
+        "badge_label_color": "#1d1027",
+        "divider_color": "#e0d7ea",
+        "cta_background": "#3f1c5c",
+        "cta_text_color": "#ffffff",
+        "cta_hover_background": "#5a2a78",
+        "footer_color": "#5b4f6b",
+        "heading_text": "Monks knew 5,000 years ago, now you do too",
+        "subheading_text": "What monks understood thousands of years ago can now support your daily routine.",
+        "poster_alt": "Haritaki video",
+        "video_url": "",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "cta_text": "UNLOCK YOUR TRUE POWER",
+        "cta_url": "",
+        "footer_text": "Stop or Cancel Anytime | Refills Ship Every 90 days",
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
     }
   },
   "order": [
