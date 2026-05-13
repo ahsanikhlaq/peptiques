@@ -534,6 +534,96 @@
         "desktop_padding_bottom": 36
       }
     },
+    "pdp_benefits_FIGMA": {
+      "type": "pdp-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Pineal Gland Cleansing",
+            "subtitle_text": "Supports natural detox and inner clarity.",
+            "body_text": "",
+            "open_by_default": false
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Third Eye Activation",
+            "subtitle_text": "Supports vivid dreams and deeper connection.",
+            "body_text": "",
+            "open_by_default": false
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Mental Clarity & Focus",
+            "subtitle_text": "Helps clear brain fog and sharpen awareness.",
+            "body_text": "",
+            "open_by_default": false
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Gut-Brain Connection",
+            "subtitle_text": "Helps improve clarity and concentration.",
+            "body_text": "",
+            "open_by_default": false
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Sustained Natural Energy",
+            "subtitle_text": "All-day clean energy without the crash.",
+            "body_text": "",
+            "open_by_default": false
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "title_text": "Deeper, More Restorative Sleep",
+            "subtitle_text": "Supports deeper sleep and more vivid dreams.",
+            "body_text": "",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "overlay_color": "#2a1442",
+        "outer_background": "#ffffff",
+        "card_background": "#3f1c5c",
+        "gradient_from": "#5a2a78",
+        "gradient_to": "#2a1442",
+        "heading_color": "#ffffff",
+        "description_color": "#e8dcef",
+        "icon_color": "#5a2a78",
+        "icon_background": "#f3eaf9",
+        "heading_text": "Haritaki™ isn’t just a supplement",
+        "description_text": "It’s the ancient Ayurvedic secret called “The King of Medicines” — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye.",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "image_alt": "Haritaki capsules",
+        "hide_image_on_mobile": true,
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50,
+        "card_radius": 24
+      }
+    },
     "related-products": {
       "type": "related-products",
       "disabled": true,
@@ -1014,6 +1104,7 @@
         "column_dUhDPe",
         "column_wd6fqB"
       ],
+      "disabled": true,
       "name": "Custom Columns V2",
       "settings": {
         "display_id": false,
@@ -1093,6 +1184,7 @@
         "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-3",
         "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-4"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
@@ -1240,6 +1332,7 @@
         "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-text-1",
         "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-button-1"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
@@ -1309,6 +1402,7 @@
         "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-2",
         "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-3"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
@@ -1416,66 +1510,104 @@
       "block_order": [
         "lai_product_reviews_lai_product_section_Fx3Rdf"
       ],
+      "disabled": true,
       "settings": {
         "display_id": false,
         "include_margins": true
       }
     },
-    "pdp_benefits_FIGMA": {
-      "type": "pdp-benefits",
+    "ugc_video_reviews_C9BRLi": {
+      "type": "ugc-video-reviews",
       "blocks": {
-        "benefit_1": {
-          "type": "benefit",
+        "video_xxcQkq": {
+          "type": "video",
           "settings": {
-            "title_text": "Pineal Gland Cleansing",
-            "subtitle_text": "Supports natural detox and inner clarity."
+            "video_url": "",
+            "reviewer_name": "Ana Williams",
+            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
           }
         },
-        "benefit_2": {
-          "type": "benefit",
+        "video_iBqxqq": {
+          "type": "video",
           "settings": {
-            "title_text": "Third Eye Activation",
-            "subtitle_text": "Supports vivid dreams and deeper connection."
+            "video_url": "",
+            "reviewer_name": "Marcus Chen",
+            "review_quote": "Three weeks in and my sleep is deeper than it's been in years.",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
           }
         },
-        "benefit_3": {
-          "type": "benefit",
+        "video_gyQcXt": {
+          "type": "video",
           "settings": {
-            "title_text": "Mental Clarity & Focus",
-            "subtitle_text": "Helps clear brain fog and sharpen awareness."
+            "video_url": "",
+            "reviewer_name": "Priya Sharma",
+            "review_quote": "My dreams are so much more vivid. I feel sharper through the day.",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
           }
         },
-        "benefit_4": {
-          "type": "benefit",
+        "video_yYPm3P": {
+          "type": "video",
           "settings": {
-            "title_text": "Gut-Brain Connection",
-            "subtitle_text": "Helps improve clarity and concentration."
-          }
-        },
-        "benefit_5": {
-          "type": "benefit",
-          "settings": {
-            "title_text": "Sustained Natural Energy",
-            "subtitle_text": "All-day clean energy without the crash."
-          }
-        },
-        "benefit_6": {
-          "type": "benefit",
-          "settings": {
-            "title_text": "Deeper, More Restorative Sleep",
-            "subtitle_text": "Supports deeper sleep and more vivid dreams."
+            "video_url": "",
+            "reviewer_name": "Sofia Martinez",
+            "review_quote": "Genuinely the only supplement that's made a noticeable difference.",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
           }
         }
       },
       "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4",
-        "benefit_5",
-        "benefit_6"
+        "video_xxcQkq",
+        "video_iBqxqq",
+        "video_gyQcXt",
+        "video_yYPm3P"
       ],
-      "settings": {}
+      "name": "UGC Video Reviews",
+      "settings": {
+        "sectionPaddingTop_responsive_range_desktop": 100,
+        "sectionPaddingBottom_responsive_range_desktop": 100,
+        "sectionPaddingLeft_responsive_range_desktop": 50,
+        "sectionPaddingRight_responsive_range_desktop": 50,
+        "sectionPaddingTop_responsive_range_mobile": 48,
+        "sectionPaddingBottom_responsive_range_mobile": 48,
+        "sectionPaddingLeft_responsive_range_mobile": 16,
+        "sectionPaddingRight_responsive_range_mobile": 16,
+        "sectionBackground_color": "#fbf5ff",
+        "sectionGradientFrom_color": "#f7eefe",
+        "sectionGradientTo_color": "#ece1f8",
+        "sectionBackgroundPosition_text": "center center",
+        "headingFontFamily_text": "Georgia, \"Times New Roman\", serif",
+        "bodyFontFamily_text": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "headingSize_desktop_number": 40,
+        "headingTextColor_color": "#1d1027",
+        "eyebrowTextColor_color": "#1d1027",
+        "starsColor_color": "#f5b301",
+        "show_stars_checkbox": true,
+        "eyebrow_text": "10,500+ 5-Star Reviews",
+        "eyebrow_link": "",
+        "heading_text": "Wellness creators, mindful users,",
+        "containerMaxWidth_number": 1340,
+        "cardGap_number": 16,
+        "cardRadius_number": 16,
+        "show_stats_checkbox": true,
+        "statsBackground_color": "#3f1c5c",
+        "statsRadius_number": 14,
+        "statsMarginTop_number": 40,
+        "stat1_value": "22,926+",
+        "stat1_label": "Verified Reviews",
+        "stat2_value": "4.8/5",
+        "stat2_label": "Average Rating",
+        "stat3_value": "90 days",
+        "stat3_label": "Money-Back Guarantee"
+      }
     }
   },
   "order": [
@@ -1486,6 +1618,7 @@
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
     "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a",
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f",
-    "17649589874dea57af"
+    "17649589874dea57af",
+    "ugc_video_reviews_C9BRLi"
   ]
 }
