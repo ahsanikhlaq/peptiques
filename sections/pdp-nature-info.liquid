@@ -9,47 +9,59 @@
 <style>
   #shopify-section-{{ section.id }} .ni-section {
     padding: 48px 16px;
-    background: #f5f0fc;
+    background: #ffffff;
   }
   @media (min-width: 1024px) {
-    #shopify-section-{{ section.id }} .ni-section { padding: 80px 50px; }
+    #shopify-section-{{ section.id }} .ni-section { padding: 88px 50px; }
   }
   #shopify-section-{{ section.id }} .ni-wrap {
     max-width: 1340px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 24px;
   }
   @media (min-width: 1024px) {
-    #shopify-section-{{ section.id }} .ni-wrap { grid-template-columns: 1fr 1fr; gap: 24px; }
+    #shopify-section-{{ section.id }} .ni-wrap { grid-template-columns: 1fr 1fr; gap: 40px; }
   }
   #shopify-section-{{ section.id }} .ni-card {
-    border-radius: 20px;
+    border-radius: 16px;
     padding: 28px 24px;
   }
   @media (min-width: 1024px) {
-    #shopify-section-{{ section.id }} .ni-card { padding: 48px; }
+    #shopify-section-{{ section.id }} .ni-card { padding: 40px; }
   }
   #shopify-section-{{ section.id }} .ni-left {
-    background: #f5edff;
-    color: #1d1027;
+    background:
+      linear-gradient(to right,
+        #f5e1ff 0%,
+        #ffffff 50%,
+        #f5e1ff 100%);
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
   }
   #shopify-section-{{ section.id }} .ni-right {
-    background: #3f1c5c;
+    background: #47184d;
     color: #ffffff;
+    border: 1px solid #e1dcf4;
+    border-radius: 20px;
   }
   #shopify-section-{{ section.id }} .ni-h2 {
     font-family: Georgia, "Times New Roman", serif;
-    margin: 0 0 12px;
+    margin: 0 0 16px;
     font-weight: 400;
-    line-height: 1.1;
-    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-size: 46px;
   }
   #shopify-section-{{ section.id }} .ni-sub {
-    color: #5b4f6b;
-    font-size: 14px;
-    line-height: 1.5;
+    color: #000000;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
     margin: 0 0 24px;
   }
   #shopify-section-{{ section.id }} .ni-badges {
@@ -59,83 +71,121 @@
     margin: 0 0 24px;
   }
   @media (min-width: 540px) {
-    #shopify-section-{{ section.id }} .ni-badges { grid-template-columns: repeat(4, 1fr); }
+    #shopify-section-{{ section.id }} .ni-badges { grid-template-columns: repeat(4, 1fr); gap: 0; }
   }
   #shopify-section-{{ section.id }} .ni-badge {
     text-align: center;
-    font-size: 12px;
-    color: #1d1027;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #47184d;
+    text-transform: capitalize;
+    padding: 0 18px;
+    width: 100px;
+    margin-inline: auto;
+  }
+  @media (min-width: 540px) {
+    #shopify-section-{{ section.id }} .ni-badge + .ni-badge {
+      border-left: 1px solid rgba(0,0,0,0.24);
+    }
   }
   #shopify-section-{{ section.id }} .ni-badge-icon {
-    width: 56px;
-    height: 56px;
+    width: 66px;
+    height: 66px;
     border-radius: 50%;
-    border: 1px solid #5a2a78;
-    color: #5a2a78;
-    margin: 0 auto 8px;
+    border: 1.5px solid #47184d;
+    color: #47184d;
+    margin: 0 auto 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 3px;
+    box-sizing: border-box;
   }
   #shopify-section-{{ section.id }} .ni-cta {
     display: block;
     text-align: center;
-    background: #3f1c5c;
+    background: #47184d;
     color: #ffffff;
+    border: 1px solid #ffffff;
     text-decoration: none;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
     text-transform: uppercase;
-    font-size: 13px;
-    border-radius: 999px;
-    padding: 16px 24px;
+    font-size: 14px;
+    border-radius: 100px;
+    padding: 20px 24px;
   }
   #shopify-section-{{ section.id }} .ni-footer {
-    margin-top: 12px;
+    margin-top: 16px;
     text-align: center;
-    color: #5b4f6b;
-    font-size: 13px;
+    color: #000000;
+    font-size: 14.2px;
+    letter-spacing: -0.03em;
+    line-height: 17px;
   }
   #shopify-section-{{ section.id }} .ni-rh {
     font-family: Georgia, "Times New Roman", serif;
-    margin: 0 0 8px;
+    margin: 0 0 12px;
     font-weight: 400;
-    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    font-size: 30px;
     color: inherit;
   }
   #shopify-section-{{ section.id }} .ni-rintro {
-    color: rgba(255,255,255,0.85);
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0 0 20px;
+    color: #ffffff;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 0 32px;
   }
   #shopify-section-{{ section.id }} .ni-rlabel {
-    font-weight: 600;
-    font-size: 14px;
-    margin: 0 0 8px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 20px;
+    margin: 0 0 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e1dcf4;
   }
   #shopify-section-{{ section.id }} .ni-table {
-    background: rgba(255,255,255,0.08);
+    background: #ffffff;
+    border: 1px solid #e1dcf4;
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 24px;
     margin: 0 0 16px;
-    font-size: 14px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #47184d;
+    line-height: 1.2;
   }
   #shopify-section-{{ section.id }} .ni-trow {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 4px 0;
   }
-  #shopify-section-{{ section.id }} .ni-trow + .ni-trow {
-    border-top: 1px solid rgba(255,255,255,0.12);
+  #shopify-section-{{ section.id }} .ni-trow em {
+    display: block;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #000000;
+    line-height: 20px;
+    margin-top: 4px;
   }
   #shopify-section-{{ section.id }} .ni-disc {
-    background: rgba(255,255,255,0.08);
+    background: #ffffff;
+    border: 1px solid #e1dcf4;
     border-radius: 12px;
-    padding: 14px 16px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: rgba(255,255,255,0.85);
+    padding: 25px;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    color: #000000;
   }
 </style>
 

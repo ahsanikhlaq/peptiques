@@ -104,7 +104,7 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background_color", "label": "Background", "default": "#3f1c5c" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#47184d" },
     { "type": "color", "id": "text_color",       "label": "Text color", "default": "#ffffff" },
     { "type": "color", "id": "icon_color",       "label": "Icon color (for SVG icons)", "default": "#ffffff" },
 
@@ -114,9 +114,9 @@
 
     { "type": "header", "content": "Typography" },
     { "type": "text",  "id": "font_family",     "label": "Font-family", "default": "inherit" },
-    { "type": "range", "id": "font_size",       "label": "Font size",   "min": 10, "max": 28, "step": 1, "unit": "px", "default": 14 },
-    { "type": "range", "id": "font_weight",     "label": "Font weight", "min": 300, "max": 900, "step": 100, "default": 600 },
-    { "type": "range", "id": "letter_spacing",  "label": "Letter spacing", "min": 0,  "max": 20, "step": 1, "unit": "%", "default": 6, "info": "Stored as 0.0X em" },
+    { "type": "range", "id": "font_size",       "label": "Font size",   "min": 10, "max": 28, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "font_weight",     "label": "Font weight", "min": 300, "max": 900, "step": 100, "default": 500 },
+    { "type": "range", "id": "letter_spacing",  "label": "Letter spacing", "min": 0,  "max": 20, "step": 1, "unit": "%", "default": 0, "info": "Stored as 0.0X em" },
     { "type": "select","id": "text_transform",  "label": "Text transform",
       "options": [
         { "value": "uppercase", "label": "UPPERCASE" },
@@ -127,8 +127,8 @@
     },
 
     { "type": "header", "content": "Layout" },
-    { "type": "range", "id": "bar_height", "label": "Bar height",   "min": 32, "max": 120, "step": 2, "unit": "px", "default": 56 },
-    { "type": "range", "id": "item_gap",   "label": "Item gap (padding around each item)", "min": 8, "max": 120, "step": 2, "unit": "px", "default": 40 },
+    { "type": "range", "id": "bar_height", "label": "Bar height",   "min": 32, "max": 120, "step": 2, "unit": "px", "default": 64 },
+    { "type": "range", "id": "item_gap",   "label": "Item gap (padding around each item)", "min": 8, "max": 120, "step": 2, "unit": "px", "default": 60 },
     { "type": "range", "id": "icon_size",  "label": "Icon size", "min": 10, "max": 40, "step": 1, "unit": "px", "default": 18 },
 
     { "type": "header", "content": "Accessibility" },
@@ -159,7 +159,8 @@
         { "type": "item", "settings": { "label": "NO GLUTEN" } },
         { "type": "item", "settings": { "label": "NO GMOS" } },
         { "type": "item", "settings": { "label": "NO GLYPHOSATE" } },
-        { "type": "item", "settings": { "label": "NO HORMONES" } }
+        { "type": "item", "settings": { "label": "NO HORMONES" } },
+        { "type": "item", "settings": { "label": "NO ANTIBIOTICS" } }
       ]
     }
   ]

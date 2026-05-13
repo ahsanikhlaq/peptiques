@@ -21,9 +21,13 @@
      when the merchant clicks a tab. We default it to the first
      phase's bg via inline style on the root. */
   #shopify-section-{{ sid }} .pe-section{
-    background: var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#fff8d6' }});
+    background:
+      linear-gradient(to right,
+        var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#ffffe1' }}) 0%,
+        #ffffff 50%,
+        var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#ffffe1' }}) 100%);
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
-    color: {{ s.text_color | default: '#1d1027' }};
+    color: {{ s.text_color | default: '#000000' }};
     transition: background 400ms ease;
   }
   @media (min-width: 1024px){
@@ -43,16 +47,19 @@
 
   #shopify-section-{{ sid }} .pe-heading{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
-    color: inherit;
+    color: #000000;
     text-align: center;
     margin: 0 auto;
     font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.5rem, 2.4vw + 1rem, 42px);
+    line-height: 54.4px;
+    letter-spacing: -0.03em;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 48px);
     max-width: 22ch;
   }
-  #shopify-section-{{ sid }} .pe-heading em{ font-style: italic; }
+  #shopify-section-{{ sid }} .pe-heading em{
+    font-style: italic;
+    color: #47184d;
+  }
 
   #shopify-section-{{ sid }} .pe-tabs{
     display: flex;
@@ -61,23 +68,29 @@
     margin: 8px 0;
   }
   #shopify-section-{{ sid }} .pe-tab{
-    background: transparent;
-    color: inherit;
-    border: 1px solid {{ s.tab_border | default: '#e0d7ea' }};
-    border-radius: 10px;
-    padding: 10px 18px;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid {{ s.tab_border | default: '#e1dcf4' }};
+    border-radius: 0;
+    padding: 16px 20px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
-    font-size: 16px;
+    font-size: 24px;
     font-style: italic;
+    line-height: 1.2;
+    letter-spacing: -0.024em;
     transition: background 200ms ease, border-color 200ms ease;
   }
   #shopify-section-{{ sid }} .pe-tab[aria-selected="true"]{
-    background: var(--pe-tab-bg-{{ sid }}, #fff2a0);
-    border-color: var(--pe-tab-border-{{ sid }}, #f5d04a);
+    background:
+      linear-gradient(to right,
+        var(--pe-tab-bg-{{ sid }}, #ffffe1) 0%,
+        #ffffff 50%,
+        var(--pe-tab-bg-{{ sid }}, #ffffe1) 100%);
+    border-color: var(--pe-tab-border-{{ sid }}, #ffce2f);
   }
   #shopify-section-{{ sid }} .pe-tab-icon{
     width: 18px; height: 18px;
@@ -86,11 +99,18 @@
   #shopify-section-{{ sid }} .pe-tab-icon svg{ width: 100%; height: 100%; }
 
   #shopify-section-{{ sid }} .pe-pill{
-    background: var(--pe-pill-bg-{{ sid }}, #fff2a0);
-    color: inherit;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 14px;
+    background:
+      linear-gradient(to right,
+        var(--pe-pill-bg-{{ sid }}, #ffffe1) 0%,
+        #ffffff 50%,
+        var(--pe-pill-bg-{{ sid }}, #ffffe1) 100%);
+    color: #000000;
+    border-radius: 0;
+    padding: 6px 12px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 22.4px;
+    letter-spacing: -0.03em;
     margin-top: 4px;
     text-align: center;
     max-width: 90%;
@@ -135,11 +155,12 @@
     margin: 18% auto 0;
   }
   #shopify-section-{{ sid }} .pe-stat-figure{
-    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
-    color: {{ s.stat_figure_color | default: '#3f1c5c' }};
-    font-size: 36px;
-    line-height: 1;
-    font-weight: 700;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: {{ s.stat_figure_color | default: '#47184d' }};
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+    font-weight: 900;
     margin: 0;
   }
   #shopify-section-{{ sid }} .pe-stat-avatars{
@@ -286,11 +307,11 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "fallback_background", "label": "Fallback background", "default": "#fff8d6" },
-    { "type": "color", "id": "text_color",          "label": "Text color",          "default": "#1d1027" },
-    { "type": "color", "id": "tab_border",          "label": "Tab inactive border", "default": "#e0d7ea" },
+    { "type": "color", "id": "fallback_background", "label": "Fallback background (gradient edges)", "default": "#ffffe1" },
+    { "type": "color", "id": "text_color",          "label": "Text color",          "default": "#000000" },
+    { "type": "color", "id": "tab_border",          "label": "Tab inactive border", "default": "#e1dcf4" },
     { "type": "color", "id": "stat_card_background","label": "Stat card background","default": "#ffffff" },
-    { "type": "color", "id": "stat_figure_color",   "label": "Stat figure color",   "default": "#3f1c5c" },
+    { "type": "color", "id": "stat_figure_color",   "label": "Stat figure color",   "default": "#47184d" },
 
     { "type": "header", "content": "Heading" },
     { "type": "text", "id": "heading_italic_text", "label": "Heading — italic part",  "default": "Compact visual" },
@@ -339,11 +360,11 @@
           "type": "phase",
           "settings": {
             "tab_label": "Morning",
-            "icon_color": "#f5b301",
-            "bg_color": "#fff8d6",
-            "pill_bg": "#fff2a0",
-            "tab_active_bg": "#fff2a0",
-            "tab_active_border": "#f5d04a",
+            "icon_color": "#ffce2f",
+            "bg_color": "#ffffe1",
+            "pill_bg": "#ffffe1",
+            "tab_active_bg": "#ffffe1",
+            "tab_active_border": "#ffce2f",
             "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
             "stat_figure_text": "97%",
             "stat_caption": "Of people Like You",

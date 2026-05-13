@@ -13,7 +13,7 @@
   #shopify-section-{{ sid }} .pc-section{
     position: relative;
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
-    background-color: {{ s.section_background | default: '#1d1027' }};
+    background-color: {{ s.section_background | default: '#47184d' }};
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -21,7 +21,7 @@
     overflow: hidden;
     {% if s.background_image != blank %}
       background-image:
-        linear-gradient({{ s.overlay_color | default: '#1d1027' }}80, {{ s.overlay_color | default: '#1d1027' }}80),
+        linear-gradient({{ s.overlay_color | default: '#47184d' }}66, {{ s.overlay_color | default: '#47184d' }}66),
         url({{ s.background_image | image_url: width: 2000 }});
     {% endif %}
   }
@@ -41,9 +41,10 @@
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pc-wrap{
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
-      gap: 48px;
-      align-items: center;
+      grid-template-columns: 600px minmax(0, 1fr);
+      gap: 80px;
+      align-items: stretch;
+      justify-content: center;
     }
   }
 
@@ -52,24 +53,30 @@
     color: inherit;
     margin: 0 0 16px;
     font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.75rem, 2.4vw + 1rem, 48px);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
+    max-width: 344px;
   }
   #shopify-section-{{ sid }} .pc-desc{
-    color: {{ s.desc_color | default: 'rgba(255,255,255,0.78)' }};
-    font-size: 14px;
-    line-height: 1.6;
+    color: {{ s.desc_color | default: '#ffffff' }};
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
     margin: 0;
-    max-width: 56ch;
+    max-width: 612px;
   }
 
   /* Table */
   #shopify-section-{{ sid }} .pc-table{
-    background: {{ s.table_background | default: '#f6efff' }};
+    background:
+      linear-gradient(to right,
+        {{ s.table_background | default: '#f5e1ff' }} 0%,
+        #ffffff 50%,
+        {{ s.table_background | default: '#f5e1ff' }} 100%);
     border-radius: {{ s.table_radius | default: 16 }}px;
     overflow: hidden;
-    color: #1d1027;
+    color: #000000;
     width: 100%;
   }
   #shopify-section-{{ sid }} .pc-table table{
@@ -78,31 +85,29 @@
   }
   #shopify-section-{{ sid }} .pc-table th,
   #shopify-section-{{ sid }} .pc-table td{
-    padding: 14px 16px;
+    padding: 16px 20px;
+    height: 67px;
     text-align: left;
     vertical-align: middle;
-    font-size: 14px;
-  }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pc-table th,
-    #shopify-section-{{ sid }} .pc-table td{
-      padding: 18px 22px;
-      font-size: 15px;
-    }
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
   }
   #shopify-section-{{ sid }} .pc-table thead th{
     font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 1.2;
     text-transform: uppercase;
-    background: {{ s.table_head_background | default: '#f6efff' }};
+    background: transparent;
   }
   #shopify-section-{{ sid }} .pc-row-feature{
     font-weight: 500;
-    color: {{ s.feature_color | default: '#1d1027' }};
+    color: {{ s.feature_color | default: '#000000' }};
   }
   #shopify-section-{{ sid }} .pc-col-us{
-    background: {{ s.our_column_background | default: '#3f1c5c' }};
+    background: {{ s.our_column_background | default: '#47184d' }};
     color: {{ s.our_column_color | default: '#ffffff' }};
     text-align: center;
     width: 100px;
@@ -113,7 +118,7 @@
   #shopify-section-{{ sid }} .pc-col-them{
     text-align: center;
     width: 90px;
-    color: {{ s.them_column_color | default: '#5b4f6b' }};
+    color: {{ s.them_column_color | default: '#000000' }};
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pc-col-them{ width: 120px; }
@@ -209,31 +214,31 @@
   "settings": [
     { "type": "header", "content": "Background" },
     { "type": "image_picker", "id": "background_image",   "label": "Background image (cosmic)" },
-    { "type": "color",        "id": "section_background", "label": "Background color (fallback)", "default": "#1d1027" },
-    { "type": "color",        "id": "overlay_color",      "label": "Overlay color (over image)",  "default": "#1d1027" },
+    { "type": "color",        "id": "section_background", "label": "Background color (fallback)", "default": "#47184d" },
+    { "type": "color",        "id": "overlay_color",      "label": "Overlay color (over image)",  "default": "#47184d" },
 
     { "type": "header", "content": "Left column" },
     { "type": "text",     "id": "heading_text",        "label": "Heading",     "default": "Why Trypeptiques Is Different" },
     { "type": "textarea", "id": "description_text",    "label": "Description", "default": "Trypeptiques provides safe, effective, and responsible weight-loss solutions with full transparency, clinical oversight, and personalized care offering more than just weight loss, but sustainable, real results." },
     { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
     { "type": "color",    "id": "text_color",          "label": "Heading color",       "default": "#ffffff" },
-    { "type": "color",    "id": "desc_color",          "label": "Description color",   "default": "#e8dcef" },
+    { "type": "color",    "id": "desc_color",          "label": "Description color",   "default": "#ffffff" },
 
     { "type": "header", "content": "Table" },
     { "type": "text",  "id": "features_column_label",     "label": "Features column label",     "default": "FEATURES" },
     { "type": "text",  "id": "our_column_label",          "label": "Our brand column label",    "default": "PEPTIQUES®" },
     { "type": "text",  "id": "them_column_label",         "label": "Others column label",       "default": "OTHERS" },
     { "type": "text",  "id": "table_aria_label",          "label": "Table aria-label",          "default": "Comparison table" },
-    { "type": "color", "id": "table_background",          "label": "Table background",          "default": "#f6efff" },
-    { "type": "color", "id": "table_head_background",     "label": "Table head background",     "default": "#f6efff" },
-    { "type": "color", "id": "feature_color",             "label": "Feature label color",       "default": "#1d1027" },
-    { "type": "color", "id": "our_column_background",     "label": "Our column background",     "default": "#3f1c5c" },
+    { "type": "color", "id": "table_background",          "label": "Table background (gradient edges)", "default": "#f5e1ff" },
+    { "type": "color", "id": "table_head_background",     "label": "Table head background",     "default": "#ffffff" },
+    { "type": "color", "id": "feature_color",             "label": "Feature label color",       "default": "#000000" },
+    { "type": "color", "id": "our_column_background",     "label": "Our column background",     "default": "#47184d" },
     { "type": "color", "id": "our_column_color",          "label": "Our column text color",     "default": "#ffffff" },
-    { "type": "color", "id": "them_column_color",         "label": "Others column text color",  "default": "#5b4f6b" },
+    { "type": "color", "id": "them_column_color",         "label": "Others column text color",  "default": "#000000" },
     { "type": "color", "id": "check_circle_background",   "label": "Check circle background",   "default": "#ffffff" },
-    { "type": "color", "id": "cross_color",               "label": "Thumbs-down color",         "default": "#5b4f6b" },
-    { "type": "color", "id": "row_divider_color",         "label": "Row divider color",         "default": "#e0d7ea" },
-    { "type": "color", "id": "our_row_divider_color",     "label": "Our column row divider",    "default": "#5a2a78" },
+    { "type": "color", "id": "cross_color",               "label": "Thumbs-down color",         "default": "#000000" },
+    { "type": "color", "id": "row_divider_color",         "label": "Row divider color",         "default": "#a2a0a0" },
+    { "type": "color", "id": "our_row_divider_color",     "label": "Our column row divider",    "default": "#ffffff" },
     { "type": "range", "id": "table_radius",              "label": "Table radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
 
     { "type": "header", "content": "Spacing (px)" },

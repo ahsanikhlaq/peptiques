@@ -23,8 +23,12 @@
 <style>
   #shopify-section-{{ sid }} .ps-section{
     padding: {{ s.section_padding_top | default: 48 }}px 0 {{ s.section_padding_bottom | default: 48 }}px;
-    background: {{ s.section_background | default: '#f6efff' }};
-    color: {{ s.text_color | default: '#1d1027' }};
+    background:
+      linear-gradient(to right,
+        {{ s.section_background | default: '#f5e1ff' }} 0%,
+        #ffffff 50%,
+        {{ s.section_background_end | default: '#f5e1ff' }} 100%);
+    color: {{ s.text_color | default: '#000000' }};
     overflow: hidden;
   }
   @media (min-width: 1024px){
@@ -45,18 +49,19 @@
   #shopify-section-{{ sid }} .ps-heading{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: inherit;
-    margin: 0 0 10px;
+    margin: 0 0 16px;
     font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.5rem, 2.4vw + 1rem, 40px);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
   }
   #shopify-section-{{ sid }} .ps-sub{
-    color: {{ s.sub_color | default: '#5b4f6b' }};
+    color: {{ s.sub_color | default: '#000000' }};
     margin: 0 auto;
-    max-width: 60ch;
-    line-height: 1.5;
-    font-size: 15px;
+    max-width: 602px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    font-size: 16px;
   }
 
   /* Photo strip — auto-scrolling marquee.
@@ -84,15 +89,15 @@
   }
   #shopify-section-{{ sid }} .ps-photo{
     flex: 0 0 auto;
-    width: {{ s.photo_width_mobile | default: 130 }}px;
-    aspect-ratio: 3 / 4;
-    border-radius: 16px;
+    width: {{ s.photo_width_mobile | default: 150 }}px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
     overflow: hidden;
     background: #e8dcef;
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .ps-photo{
-      width: {{ s.photo_width_desktop | default: 160 }}px;
+      width: {{ s.photo_width_desktop | default: 200 }}px;
     }
   }
   #shopify-section-{{ sid }} .ps-photo img{
@@ -134,23 +139,26 @@
   #shopify-section-{{ sid }} .ps-review-quote{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     font-weight: 400;
-    font-size: clamp(1.15rem, 0.6vw + 1rem, 1.5rem);
-    line-height: 1.2;
-    margin: 0 0 12px;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    margin: 0 0 16px;
     color: inherit;
   }
   #shopify-section-{{ sid }} .ps-review-body{
-    color: {{ s.sub_color | default: '#5b4f6b' }};
-    font-size: 14px;
-    line-height: 1.5;
+    color: #000000;
+    font-size: 14.6px;
+    line-height: 18.8px;
+    letter-spacing: -0.03em;
     margin: 0 auto 16px;
-    max-width: 36ch;
   }
   #shopify-section-{{ sid }} .ps-review-meta{
-    color: {{ s.sub_color | default: '#5b4f6b' }};
-    font-size: 12px;
+    color: #000000;
+    font-size: 14px;
+    line-height: 20.3px;
+    letter-spacing: -0.03em;
     font-weight: 500;
-    margin: 0 0 4px;
+    margin: 0 0 8px;
   }
   #shopify-section-{{ sid }} .ps-stars{
     display: inline-flex;
