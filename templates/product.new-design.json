@@ -1716,111 +1716,34 @@
         "section_padding_x_desktop": 50
       }
     },
-    "pdp_ingredients_FIGMA": {
-      "type": "pdp-ingredients",
+    "pdp_monks_knew_FIGMA": {
+      "type": "pdp-monks-knew",
       "blocks": {
-        "ing_1": {
-          "type": "ingredient",
+        "tb_1": {
+          "type": "trust_badge",
           "settings": {
-            "title_text": "Haritaki (Terminalia chebula)",
-            "body_text": "The primary active ingredient, sourced from organic farms. Known as 'The King of Medicines' in Ayurveda for its ability to support all three doshas and cleanse the entire system."
+            "label_text": "Manufactured in a GMP-Certified Facility"
           }
         },
-        "ing_2": {
-          "type": "ingredient",
+        "tb_2": {
+          "type": "trust_badge",
           "settings": {
-            "title_text": "Vegetable Cellulose Capsule",
-            "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine."
+            "label_text": "NSF / GMP Certified Facility"
           }
         },
-        "badge_1": {
-          "type": "badge",
+        "tb_3": {
+          "type": "trust_badge",
           "settings": {
-            "label_text": "Non-GMO"
-          }
-        },
-        "badge_2": {
-          "type": "badge",
-          "settings": {
-            "label_text": "Gluten-Free"
-          }
-        },
-        "badge_3": {
-          "type": "badge",
-          "settings": {
-            "label_text": "No Additives"
-          }
-        },
-        "badge_4": {
-          "type": "badge",
-          "settings": {
-            "label_text": "No Fillers"
-          }
-        },
-        "badge_5": {
-          "type": "badge",
-          "settings": {
-            "label_text": "Vegan"
-          }
-        },
-        "badge_6": {
-          "type": "badge",
-          "settings": {
-            "label_text": "Third-Party Tested"
-          }
-        },
-        "bar_1": {
-          "type": "stat_bar",
-          "settings": {
-            "label_text": "Supports Natural Detox",
-            "fill_percent": 100,
-            "striped": false
-          }
-        },
-        "bar_2": {
-          "type": "stat_bar",
-          "settings": {
-            "label_text": "Sharpens Mental Focus",
-            "fill_percent": 35,
-            "striped": true
+            "label_text": "FDA-Registered Facility"
           }
         }
       },
       "block_order": [
-        "ing_1",
-        "ing_2",
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4",
-        "badge_5",
-        "badge_6",
-        "bar_1",
-        "bar_2"
+        "tb_1",
+        "tb_2",
+        "tb_3"
       ],
-      "settings": {
-        "overlay_color": "#2a1442",
-        "card_background": "#3f1c5c",
-        "gradient_from": "#5a2a78",
-        "gradient_to": "#2a1442",
-        "heading_color": "#ffffff",
-        "subheading_color": "#e8dcef",
-        "card_color": "#ffffff",
-        "badges_background": "#ffffff",
-        "badge_text_color": "#1d1027",
-        "badge_x_color": "#d23a3a",
-        "heading_text": "Ingredients That Just Do More",
-        "subheading_text": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:",
-        "stat_figure": "2x",
-        "stat_label": "Detox support for a lighter, cleaner daily routine",
-        "heading_font_family": "Georgia, \"Times New Roman\", serif",
-        "section_padding_top": 48,
-        "section_padding_bottom": 48,
-        "section_padding_x": 16,
-        "section_padding_top_desktop": 80,
-        "section_padding_bottom_desktop": 80,
-        "section_padding_x_desktop": 50
-      }
+      "settings": {}
     }
   },
   "order": [
@@ -1834,6 +1757,6 @@
     "17649589874dea57af",
     "ugc_video_reviews_C9BRLi",
     "pdp_ingredients_KDmWRL",
-    "pdp_ingredients_FIGMA"
+    "pdp_monks_knew_FIGMA"
   ]
 }

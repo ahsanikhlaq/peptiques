@@ -1,0 +1,429 @@
+{% comment %}
+  Monks Knew 5,000 Years Ago — PDP section.
+  Defensive pattern: all Liquid in the top {%- liquid -%} block, only
+  6-digit hex defaults, no chained `default:` on image_picker.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign embed_url = ''
+  assign mp4_url = ''
+  if s.video_url contains 'youtube.com' or s.video_url contains 'youtu.be'
+    assign yt_id = s.video_url | split: 'v=' | last | split: '&' | first
+    if s.video_url contains 'youtu.be/'
+      assign yt_id = s.video_url | split: 'youtu.be/' | last | split: '?' | first
+    endif
+    assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0&playsinline=1'
+  elsif s.video_url contains 'vimeo.com'
+    assign vid = s.video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first
+    assign embed_url = 'https://player.vimeo.com/video/' | append: vid | append: '?autoplay=1'
+  endif
+
+  if s.video_file != blank
+    for src in s.video_file.sources
+      if src.format == 'mp4'
+        assign mp4_url = src.url
+      endif
+    endfor
+  endif
+
+  assign poster_img = nil
+  if s.poster_image != blank
+    assign poster_img = s.poster_image
+  elsif s.video_file != blank
+    assign poster_img = s.video_file.preview_image
+  endif
+
+  assign has_video = false
+  if embed_url != '' or mp4_url != ''
+    assign has_video = true
+  endif
+
+  assign badge_count = 0
+  for block in section.blocks
+    if block.type == 'trust_badge'
+      assign badge_count = badge_count | plus: 1
+    endif
+  endfor
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pm-section{
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    background: {{ s.section_background | default: '#f3e8ff' }};
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pm-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pm-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pm-wrap{
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 32px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pm-media{
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: {{ s.media_background | default: '#cdb6e6' }};
+    aspect-ratio: 1 / 1;
+  }
+  #shopify-section-{{ sid }} .pm-media img,
+  #shopify-section-{{ sid }} .pm-media iframe,
+  #shopify-section-{{ sid }} .pm-media video{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 0;
+  }
+  #shopify-section-{{ sid }} .pm-play{
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  #shopify-section-{{ sid }} .pm-play svg{ width: 24px; height: 24px; color: #1d1027; margin-left: 3px; }
+
+  #shopify-section-{{ sid }} .pm-content{
+    background: {{ s.content_background | default: '#f6efff' }};
+    border-radius: 20px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pm-content{ padding: 48px 56px; }
+  }
+
+  #shopify-section-{{ sid }} .pm-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: {{ s.heading_color | default: '#1d1027' }};
+    text-align: center;
+    margin: 0 0 12px;
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 2vw + 1rem, 42px);
+  }
+  #shopify-section-{{ sid }} .pm-sub{
+    color: {{ s.subheading_color | default: '#5b4f6b' }};
+    text-align: center;
+    margin: 0 auto 32px;
+    line-height: 1.5;
+    max-width: 42ch;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ sid }} .pm-badges{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin: 0 0 28px;
+  }
+  #shopify-section-{{ sid }} .pm-badge{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4px 10px;
+    gap: 10px;
+  }
+  #shopify-section-{{ sid }} .pm-badge + .pm-badge{
+    border-left: 1px solid {{ s.divider_color | default: '#e0d7ea' }};
+  }
+  #shopify-section-{{ sid }} .pm-badge-icon{
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ s.badge_icon_color | default: '#5a2a78' }};
+    overflow: hidden;
+  }
+  #shopify-section-{{ sid }} .pm-badge-icon img{
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  #shopify-section-{{ sid }} .pm-badge-label{
+    color: {{ s.badge_label_color | default: '#1d1027' }};
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 500;
+    max-width: 14ch;
+    margin: 0;
+  }
+
+  #shopify-section-{{ sid }} .pm-cta{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ s.cta_background | default: '#3f1c5c' }};
+    color: {{ s.cta_text_color | default: '#ffffff' }};
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-radius: 999px;
+    padding: 16px 24px;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 8px 22px rgba(63,28,92,0.22);
+  }
+  #shopify-section-{{ sid }} .pm-cta:hover{ background: {{ s.cta_hover_background | default: '#5a2a78' }}; }
+
+  #shopify-section-{{ sid }} .pm-footer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    color: {{ s.footer_color | default: '#5b4f6b' }};
+    font-size: 13px;
+  }
+
+  #shopify-section-{{ sid }} .pm-player{
+    position: fixed; inset: 0;
+    background: rgba(8,2,14,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+  }
+  #shopify-section-{{ sid }} .pm-player[aria-hidden="false"]{ display: flex; }
+  #shopify-section-{{ sid }} .pm-player-inner{
+    position: relative;
+    width: min(100%, 960px);
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  #shopify-section-{{ sid }} .pm-player-inner > iframe,
+  #shopify-section-{{ sid }} .pm-player-inner > video{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  #shopify-section-{{ sid }} .pm-player-close{
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: 0;
+    cursor: pointer;
+    z-index: 2;
+  }
+  #shopify-section-{{ sid }} .pm-player-close svg{ width: 16px; height: 16px; color: #1d1027; }
+</style>
+
+<section class="pm-section" {{ section.shopify_attributes }}>
+  <div class="pm-wrap">
+    <div class="pm-media" data-pm-media data-embed="{{ embed_url }}" data-mp4="{{ mp4_url }}">
+      {% if poster_img != blank %}
+        {{ poster_img | image_url: width: 1200 | image_tag:
+             loading: 'lazy',
+             widths: '480,640,900,1200',
+             sizes: '(min-width: 1024px) 50vw, 100vw',
+             alt: s.poster_alt | default: 'Haritaki video' }}
+      {% endif %}
+      {% if has_video %}
+        <button type="button" class="pm-play" data-pm-play aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8V4z"/></svg>
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="pm-content">
+      <h2 class="pm-heading">{{ s.heading_text | default: 'Monks knew 5,000 years ago, now you do too' }}</h2>
+      {% if s.subheading_text != blank %}
+        <p class="pm-sub">{{ s.subheading_text }}</p>
+      {% endif %}
+
+      {% if badge_count > 0 %}
+        <div class="pm-badges">
+          {% for block in section.blocks %}
+            {% if block.type == 'trust_badge' %}
+              <div class="pm-badge" {{ block.shopify_attributes }}>
+                <div class="pm-badge-icon">
+                  {% if block.settings.icon_image != blank %}
+                    {{ block.settings.icon_image | image_url: width: 120 | image_tag:
+                         loading: 'lazy',
+                         widths: '44,88,120',
+                         alt: block.settings.label_text }}
+                  {% else %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  {% endif %}
+                </div>
+                <p class="pm-badge-label">{{ block.settings.label_text }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if s.cta_text != blank %}
+        <a href="{{ s.cta_url | default: '#' }}" class="pm-cta">{{ s.cta_text }}</a>
+      {% endif %}
+
+      {% if s.footer_text != blank %}
+        <div class="pm-footer">{{ s.footer_text }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if has_video %}
+    <div class="pm-player" data-pm-modal aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video player">
+      <div class="pm-player-inner" data-pm-modal-inner></div>
+      <button type="button" class="pm-player-close" data-pm-modal-close aria-label="Close video">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  {% endif %}
+</section>
+
+<script>
+  (function(){
+    var root = document.getElementById('shopify-section-{{ sid }}');
+    if (!root) return;
+    var media = root.querySelector('[data-pm-media]');
+    var play  = root.querySelector('[data-pm-play]');
+    var modal = root.querySelector('[data-pm-modal]');
+    var inner = root.querySelector('[data-pm-modal-inner]');
+    var close = root.querySelector('[data-pm-modal-close]');
+    if (!media || !modal) return;
+
+    function open(){
+      var embed = media.getAttribute('data-embed');
+      var mp4   = media.getAttribute('data-mp4');
+      inner.innerHTML = '';
+      if (embed){
+        var f = document.createElement('iframe');
+        f.src = embed;
+        f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+        f.allowFullscreen = true;
+        f.loading = 'lazy';
+        inner.appendChild(f);
+      } else if (mp4){
+        var v = document.createElement('video');
+        v.src = mp4; v.controls = true; v.autoplay = true; v.playsInline = true;
+        inner.appendChild(v);
+      } else {
+        return;
+      }
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function shut(){
+      inner.innerHTML = '';
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+    }
+    play && play.addEventListener('click', open);
+    close && close.addEventListener('click', shut);
+    modal.addEventListener('click', function(e){ if (e.target === modal) shut(); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') shut();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Monks Knew",
+  "tag": "section",
+  "class": "pm-monks-knew",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_background",   "label": "Section background",     "default": "#f3e8ff" },
+    { "type": "color", "id": "content_background",   "label": "Content card bg",        "default": "#f6efff" },
+    { "type": "color", "id": "media_background",     "label": "Video card bg",          "default": "#cdb6e6" },
+    { "type": "color", "id": "heading_color",        "label": "Heading color",          "default": "#1d1027" },
+    { "type": "color", "id": "subheading_color",     "label": "Subheading color",       "default": "#5b4f6b" },
+    { "type": "color", "id": "badge_icon_color",     "label": "Badge icon color",       "default": "#5a2a78" },
+    { "type": "color", "id": "badge_label_color",    "label": "Badge label color",      "default": "#1d1027" },
+    { "type": "color", "id": "divider_color",        "label": "Badge divider color",    "default": "#e0d7ea" },
+    { "type": "color", "id": "cta_background",       "label": "CTA background",         "default": "#3f1c5c" },
+    { "type": "color", "id": "cta_text_color",       "label": "CTA text color",         "default": "#ffffff" },
+    { "type": "color", "id": "cta_hover_background", "label": "CTA hover background",   "default": "#5a2a78" },
+    { "type": "color", "id": "footer_color",         "label": "Footer text color",      "default": "#5b4f6b" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text",         "id": "heading_text",        "label": "Heading",        "default": "Monks knew 5,000 years ago, now you do too" },
+    { "type": "textarea",     "id": "subheading_text",     "label": "Subheading",     "default": "What monks understood thousands of years ago can now support your daily routine." },
+    { "type": "image_picker", "id": "poster_image",        "label": "Video poster (uses video preview if blank)" },
+    { "type": "text",         "id": "poster_alt",          "label": "Poster alt text", "default": "Haritaki video" },
+    { "type": "url",          "id": "video_url",           "label": "Video URL (YouTube / Vimeo)" },
+    { "type": "video",        "id": "video_file",          "label": "Or upload a video (Shopify-hosted)" },
+    { "type": "text",         "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Call to action" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "UNLOCK YOUR TRUE POWER" },
+    { "type": "url",  "id": "cta_url",  "label": "CTA URL" },
+
+    { "type": "header", "content": "Footer line" },
+    { "type": "text", "id": "footer_text", "label": "Footer text", "default": "Stop or Cancel Anytime | Refills Ship Every 90 days" },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",    "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",   "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "image_picker", "id": "icon_image", "label": "Icon (image, optional)" },
+        { "type": "text",         "id": "label_text", "label": "Label",                  "default": "Trust badge" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Monks Knew",
+      "category": "Custom",
+      "blocks": [
+        { "type": "trust_badge", "settings": { "label_text": "Manufactured in a GMP-Certified Facility" } },
+        { "type": "trust_badge", "settings": { "label_text": "NSF / GMP Certified Facility" } },
+        { "type": "trust_badge", "settings": { "label_text": "FDA-Registered Facility" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
