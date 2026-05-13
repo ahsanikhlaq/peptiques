@@ -1609,6 +1609,113 @@
         "stat3_label": "Money-Back Guarantee"
       }
     },
+    "pdp_ingredients_KDmWRL": {
+      "type": "pdp-ingredients",
+      "blocks": {
+        "ingredient_kYzzpY": {
+          "type": "ingredient",
+          "settings": {
+            "title_text": "Haritaki (Terminalia chebula)",
+            "body_text": "The primary active ingredient, sourced from organic farms. Known as 'The King of Medicines' in Ayurveda for its ability to support all three doshas and cleanse the entire system."
+          }
+        },
+        "ingredient_qAi4p6": {
+          "type": "ingredient",
+          "settings": {
+            "title_text": "Vegetable Cellulose Capsule",
+            "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine."
+          }
+        },
+        "badge_iLaNTP": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Non-GMO"
+          }
+        },
+        "badge_UwR9yF": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Gluten-Free"
+          }
+        },
+        "badge_DVHGJE": {
+          "type": "badge",
+          "settings": {
+            "label_text": "No Additives"
+          }
+        },
+        "badge_Mepnaj": {
+          "type": "badge",
+          "settings": {
+            "label_text": "No Fillers"
+          }
+        },
+        "badge_BMxPaz": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Vegan"
+          }
+        },
+        "badge_pyyXhQ": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Third-Party Tested"
+          }
+        },
+        "stat_bar_QLk3dg": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Supports Natural Detox",
+            "fill_percent": 100,
+            "striped": false
+          }
+        },
+        "stat_bar_jVPR8E": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Sharpens Mental Focus",
+            "fill_percent": 35,
+            "striped": true
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_kYzzpY",
+        "ingredient_qAi4p6",
+        "badge_iLaNTP",
+        "badge_UwR9yF",
+        "badge_DVHGJE",
+        "badge_Mepnaj",
+        "badge_BMxPaz",
+        "badge_pyyXhQ",
+        "stat_bar_QLk3dg",
+        "stat_bar_jVPR8E"
+      ],
+      "name": "Ingredients",
+      "settings": {
+        "overlay_color": "#2a1442",
+        "card_background": "#3f1c5c",
+        "gradient_from": "#5a2a78",
+        "gradient_to": "#2a1442",
+        "heading_color": "#ffffff",
+        "subheading_color": "#e8dcef",
+        "card_color": "#ffffff",
+        "badges_background": "#ffffff",
+        "badge_text_color": "#1d1027",
+        "badge_x_color": "#d23a3a",
+        "heading_text": "Ingredients That Just Do More",
+        "subheading_text": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:",
+        "stat_figure": "2x",
+        "stat_label": "Detox support for a lighter, cleaner daily routine",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
+    },
     "pdp_ingredients_FIGMA": {
       "type": "pdp-ingredients",
       "blocks": {
@@ -1624,22 +1731,6 @@
           "settings": {
             "title_text": "Vegetable Cellulose Capsule",
             "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine."
-          }
-        },
-        "bar_1": {
-          "type": "stat_bar",
-          "settings": {
-            "label_text": "Supports Natural Detox",
-            "fill_percent": 100,
-            "striped": false
-          }
-        },
-        "bar_2": {
-          "type": "stat_bar",
-          "settings": {
-            "label_text": "Sharpens Mental Focus",
-            "fill_percent": 35,
-            "striped": true
           }
         },
         "badge_1": {
@@ -1677,6 +1768,22 @@
           "settings": {
             "label_text": "Third-Party Tested"
           }
+        },
+        "bar_1": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Supports Natural Detox",
+            "fill_percent": 100,
+            "striped": false
+          }
+        },
+        "bar_2": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Sharpens Mental Focus",
+            "fill_percent": 35,
+            "striped": true
+          }
         }
       },
       "block_order": [
@@ -1691,7 +1798,29 @@
         "bar_1",
         "bar_2"
       ],
-      "settings": {}
+      "settings": {
+        "overlay_color": "#2a1442",
+        "card_background": "#3f1c5c",
+        "gradient_from": "#5a2a78",
+        "gradient_to": "#2a1442",
+        "heading_color": "#ffffff",
+        "subheading_color": "#e8dcef",
+        "card_color": "#ffffff",
+        "badges_background": "#ffffff",
+        "badge_text_color": "#1d1027",
+        "badge_x_color": "#d23a3a",
+        "heading_text": "Ingredients That Just Do More",
+        "subheading_text": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:",
+        "stat_figure": "2x",
+        "stat_label": "Detox support for a lighter, cleaner daily routine",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
     }
   },
   "order": [
@@ -1704,6 +1833,7 @@
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f",
     "17649589874dea57af",
     "ugc_video_reviews_C9BRLi",
+    "pdp_ingredients_KDmWRL",
     "pdp_ingredients_FIGMA"
   ]
 }
