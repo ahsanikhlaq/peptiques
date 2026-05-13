@@ -626,7 +626,7 @@
         "hide_image_on_mobile": true,
         "section_padding_top": 48,
         "section_padding_bottom": 48,
-        "section_padding_x": 16,
+        "section_padding_x": 0,
         "section_padding_top_desktop": 80,
         "section_padding_bottom_desktop": 80,
         "section_padding_x_desktop": 0,
