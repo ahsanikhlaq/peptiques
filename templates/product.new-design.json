@@ -2240,65 +2240,286 @@
         "row_padding_y": 28
       }
     },
-    "pdp_nature_card_FIGMA": {
-      "type": "pdp-nature-card",
+    "pdp_faqs_xz4dnK": {
+      "type": "pdp-faqs",
       "blocks": {
-        "badge_1": {
-          "type": "badge",
+        "faq_BTTe8c": {
+          "type": "faq",
           "settings": {
-            "label": "Plastic Free"
+            "question": "Can I take this with other supplements or medications?",
+            "answer": "",
+            "open_by_default": false
           }
         },
-        "badge_2": {
-          "type": "badge",
+        "faq_3ccUNX": {
+          "type": "faq",
           "settings": {
-            "label": "Plastic Free"
+            "question": "Is this vegan?",
+            "answer": "",
+            "open_by_default": false
           }
         },
-        "badge_3": {
-          "type": "badge",
+        "faq_jPmL6a": {
+          "type": "faq",
           "settings": {
-            "label": "No Synthetic"
+            "question": "Can this help with vivid dreams or deeper sleep?",
+            "answer": "",
+            "open_by_default": false
           }
         },
-        "badge_4": {
-          "type": "badge",
+        "faq_NDcjDf": {
+          "type": "faq",
           "settings": {
-            "label": "Non Gmo"
+            "question": "What does Haritaki actually do in the body?",
+            "answer": "",
+            "open_by_default": false
           }
         },
-        "badge_5": {
-          "type": "badge",
+        "faq_TbBdP3": {
+          "type": "faq",
           "settings": {
-            "label": "Sugar Free"
+            "question": "Is this safe to use long-term?",
+            "answer": "",
+            "open_by_default": false
           }
         },
-        "badge_6": {
-          "type": "badge",
+        "faq_fwFyhC": {
+          "type": "faq",
           "settings": {
-            "label": "Gluten Free"
+            "question": "How is this different from Haritaki powder?",
+            "answer": "",
+            "open_by_default": false
           }
         },
-        "ing_1": {
-          "type": "ingredient",
+        "faq_4T8MaL": {
+          "type": "faq",
           "settings": {
-            "name": "Haritaki fruit powder",
-            "subtitle": "Terminalia chebula",
-            "amount": "500 mg",
-            "dv": "**"
+            "question": "Can I take it if I'm sensitive to detox effects?",
+            "answer": "",
+            "open_by_default": false
+          }
+        },
+        "faq_e39WLE": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to change my diet while using it?",
+            "answer": "",
+            "open_by_default": false
+          }
+        },
+        "faq_DLq4xx": {
+          "type": "faq",
+          "settings": {
+            "question": "Will this help clear mental fog or improve focus?",
+            "answer": "",
+            "open_by_default": false
+          }
+        },
+        "faq_TYiHRP": {
+          "type": "faq",
+          "settings": {
+            "question": "How long until I see results?",
+            "answer": "",
+            "open_by_default": false
+          }
+        },
+        "faq_hzM6k3": {
+          "type": "faq",
+          "settings": {
+            "question": "How does it actually decalcify the pineal gland?",
+            "answer": "",
+            "open_by_default": false
           }
         }
       },
       "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4",
-        "badge_5",
-        "badge_6",
-        "ing_1"
+        "faq_BTTe8c",
+        "faq_3ccUNX",
+        "faq_jPmL6a",
+        "faq_NDcjDf",
+        "faq_TbBdP3",
+        "faq_fwFyhC",
+        "faq_4T8MaL",
+        "faq_e39WLE",
+        "faq_DLq4xx",
+        "faq_TYiHRP",
+        "faq_hzM6k3"
       ],
-      "settings": {}
+      "name": "FAQs",
+      "settings": {
+        "background": "#ffffff",
+        "text_color": "#1d1027",
+        "sub_color": "#5b4f6b",
+        "answer_color": "#4d3f59",
+        "toggle_color": "#5b4f6b",
+        "divider_color": "#e5dfee",
+        "heading_text": "Frequently Asked Questions",
+        "sub_text": "Got questions? We've got answers. Find everything you need to know below.",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
+    },
+    "pdp_comparison_UraDcL": {
+      "type": "pdp-comparison",
+      "blocks": {
+        "row_jyiqkw": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Digestive Support",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_rND3W9": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Mental Clarity & Focus",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_qizat6": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Supports Calm & Awareness",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_jFYTiy": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Easy Daily Use",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_VzXDBE": {
+          "type": "row",
+          "settings": {
+            "feature_text": "No Bitter Taste or Prep",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_YBghKG": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Consistent Daily Dosage",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_jCPYQB": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Lab-Tested for Quality",
+            "our_check": true,
+            "them_check": false
+          }
+        }
+      },
+      "block_order": [
+        "row_jyiqkw",
+        "row_rND3W9",
+        "row_qizat6",
+        "row_jFYTiy",
+        "row_VzXDBE",
+        "row_YBghKG",
+        "row_jCPYQB"
+      ],
+      "name": "Comparison",
+      "settings": {
+        "section_background": "#1d1027",
+        "overlay_color": "#1d1027",
+        "heading_text": "Why Trypeptiques Is Different",
+        "description_text": "Trypeptiques provides safe, effective, and responsible weight-loss solutions with full transparency, clinical oversight, and personalized care offering more than just weight loss, but sustainable, real results.",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "text_color": "#ffffff",
+        "desc_color": "#e8dcef",
+        "features_column_label": "FEATURES",
+        "our_column_label": "PEPTIQUES®",
+        "them_column_label": "OTHERS",
+        "table_aria_label": "Comparison table",
+        "table_background": "#f6efff",
+        "table_head_background": "#f6efff",
+        "feature_color": "#1d1027",
+        "our_column_background": "#3f1c5c",
+        "our_column_color": "#ffffff",
+        "them_column_color": "#5b4f6b",
+        "check_circle_background": "#ffffff",
+        "cross_color": "#5b4f6b",
+        "row_divider_color": "#e0d7ea",
+        "our_row_divider_color": "#5a2a78",
+        "table_radius": 16,
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
+    },
+    "pdp_daily_experience_m68B3P": {
+      "type": "pdp-daily-experience",
+      "blocks": {
+        "phase_3bdaYT": {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Morning",
+            "icon_color": "#f5b301",
+            "bg_color": "#fff8d6",
+            "pill_bg": "#fff2a0",
+            "tab_active_bg": "#fff2a0",
+            "tab_active_border": "#f5d04a",
+            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
+            "stat_figure_text": "97%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
+          }
+        },
+        "phase_WCTxLE": {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Evening",
+            "icon_color": "#5a2a78",
+            "bg_color": "#ece1f8",
+            "pill_bg": "#e0d0f6",
+            "tab_active_bg": "#e0d0f6",
+            "tab_active_border": "#bba0d4",
+            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
+            "stat_figure_text": "93%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
+          }
+        }
+      },
+      "block_order": [
+        "phase_3bdaYT",
+        "phase_WCTxLE"
+      ],
+      "name": "Daily Experience",
+      "settings": {
+        "fallback_background": "#fff8d6",
+        "text_color": "#1d1027",
+        "tab_border": "#e0d7ea",
+        "stat_card_background": "#ffffff",
+        "stat_figure_color": "#3f1c5c",
+        "heading_italic_text": "Compact visual",
+        "heading_text": "of the daily experience.",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
     }
   },
   "order": [
@@ -2315,8 +2536,10 @@
     "pdp_monks_knew_FIGMA",
     "pdp_timeline_FIGMA",
     "pdp_social_proof_FIGMA",
-    "pdp_nature_card_FIGMA",
     "pdp_marquee_FIGMA",
-    "pdp_footer_Ax4c4P"
+    "pdp_footer_Ax4c4P",
+    "pdp_faqs_xz4dnK",
+    "pdp_comparison_UraDcL",
+    "pdp_daily_experience_m68B3P"
   ]
 }
