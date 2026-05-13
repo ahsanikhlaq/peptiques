@@ -78,26 +78,33 @@
     #shopify-section-{{ sid }} .pb-grid{
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 48px;
+      padding: 0px 50px;
     }
   }
 
   #shopify-section-{{ sid }} .pb-heading{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
-    color: inherit;
-    font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 0 16px;
-    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
+    color: #FFF;
+font-size: 46px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 46px */
+letter-spacing: -3.22px;
+margin: 0 0 20px;
+ max-width: 600px;
+    width: 100%;
   }
 
   #shopify-section-{{ sid }} .pb-desc{
-    color: {{ s.description_color | default: '#e8dcef' }};
+       color: #FFF;
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-style: normal;
     font-weight: 400;
-    line-height: 1.45;
-    margin: 0 0 24px;
-    max-width: 56ch;
-    font-size: 15px;
+    line-height: normal;
+    letter-spacing: -0.48px;
+    max-width: 600px;
+    width: 100%;
   }
 
   #shopify-section-{{ sid }} .pb-list{
