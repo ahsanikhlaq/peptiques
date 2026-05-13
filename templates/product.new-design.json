@@ -2521,8 +2521,8 @@
         "section_padding_x_desktop": 50
       }
     },
-    "pdp_nature_card_LIVE": {
-      "type": "pdp-nature-card",
+    "pdp_nature_info_NEW": {
+      "type": "pdp-nature-info",
       "blocks": {
         "badge_1": {
           "type": "badge",
@@ -2599,7 +2599,7 @@
     "pdp_marquee_FIGMA",
     "pdp_footer_Ax4c4P",
     "pdp_faqs_xz4dnK",
-    "pdp_nature_card_LIVE",
+    "pdp_nature_info_NEW",
     "pdp_comparison_UraDcL",
     "pdp_daily_experience_m68B3P"
   ]
