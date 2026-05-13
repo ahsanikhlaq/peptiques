@@ -1608,6 +1608,90 @@
         "stat3_value": "90 days",
         "stat3_label": "Money-Back Guarantee"
       }
+    },
+    "pdp_ingredients_FIGMA": {
+      "type": "pdp-ingredients",
+      "blocks": {
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "title_text": "Haritaki (Terminalia chebula)",
+            "body_text": "The primary active ingredient, sourced from organic farms. Known as 'The King of Medicines' in Ayurveda for its ability to support all three doshas and cleanse the entire system."
+          }
+        },
+        "ing_2": {
+          "type": "ingredient",
+          "settings": {
+            "title_text": "Vegetable Cellulose Capsule",
+            "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine."
+          }
+        },
+        "bar_1": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Supports Natural Detox",
+            "fill_percent": 100,
+            "striped": false
+          }
+        },
+        "bar_2": {
+          "type": "stat_bar",
+          "settings": {
+            "label_text": "Sharpens Mental Focus",
+            "fill_percent": 35,
+            "striped": true
+          }
+        },
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Non-GMO"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Gluten-Free"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "label_text": "No Additives"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "label_text": "No Fillers"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Vegan"
+          }
+        },
+        "badge_6": {
+          "type": "badge",
+          "settings": {
+            "label_text": "Third-Party Tested"
+          }
+        }
+      },
+      "block_order": [
+        "ing_1",
+        "ing_2",
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5",
+        "badge_6",
+        "bar_1",
+        "bar_2"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1619,6 +1703,7 @@
     "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a",
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f",
     "17649589874dea57af",
-    "ugc_video_reviews_C9BRLi"
+    "ugc_video_reviews_C9BRLi",
+    "pdp_ingredients_FIGMA"
   ]
 }
