@@ -623,8 +623,8 @@
         "section_padding_x": 16,
         "section_padding_top_desktop": 80,
         "section_padding_bottom_desktop": 80,
-        "section_padding_x_desktop": 50,
-        "card_radius": 24
+        "section_padding_x_desktop": 0,
+        "card_radius": 0
       }
     },
     "related-products": {
