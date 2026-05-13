@@ -25,12 +25,12 @@
   #shopify-section-{{ sid }} .pf-section{
     position: relative;
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 24 }}px {{ s.section_padding_bottom | default: 32 }}px;
-    background-color: {{ s.background_color | default: '#3f1c5c' }};
+    background-color: {{ s.background_color | default: '#47184d' }};
     color: {{ s.text_color | default: '#ffffff' }};
     overflow: hidden;
     {% if s.background_image != blank %}
       background-image:
-        linear-gradient({{ s.overlay_color | default: '#3f1c5c' }}cc, {{ s.overlay_color | default: '#3f1c5c' }}cc),
+        linear-gradient({{ s.overlay_color | default: '#47184d' }}cc, {{ s.overlay_color | default: '#47184d' }}cc),
         url({{ s.background_image | image_url: width: 2400 }});
       background-size: cover;
       background-position: center center;
@@ -38,7 +38,7 @@
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pf-section{
-      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 60 }}px {{ s.section_padding_bottom_desktop | default: 40 }}px;
+      padding: {{ s.section_padding_top_desktop | default: 51 }}px {{ s.section_padding_x_desktop | default: 80 }}px {{ s.section_padding_bottom_desktop | default: 51 }}px;
     }
   }
 
@@ -68,16 +68,16 @@
   #shopify-section-{{ sid }} .pf-news-heading{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: inherit;
-    margin: 0 0 6px;
+    margin: 0 0 20px;
     font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.5rem, 1.6vw + 1rem, 30px);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
   }
   #shopify-section-{{ sid }} .pf-news-sub{
-    color: {{ s.sub_color | default: 'rgba(255,255,255,0.78)' }};
-    font-size: 13px;
-    line-height: 1.5;
+    color: {{ s.sub_color | default: '#ffffff' }};
+    font-size: 16px;
+    line-height: 1.4;
     margin: 0;
   }
   #shopify-section-{{ sid }} .pf-news-form{
@@ -89,11 +89,14 @@
   #shopify-section-{{ sid }} .pf-news-input{
     flex: 1 1 auto;
     background: transparent;
-    border: 1px solid {{ s.input_border_color | default: 'rgba(255,255,255,0.6)' }};
+    border: 1px solid {{ s.input_border_color | default: '#bfd2dd' }};
     color: {{ s.text_color | default: '#ffffff' }};
-    font-size: 14px;
-    padding: 14px 56px 14px 20px;
-    border-radius: 999px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    padding: 16px 64px 16px 20px;
+    border-radius: 10px;
     outline: 0;
     min-width: 0;
   }
@@ -172,12 +175,14 @@
     }
   }
   #shopify-section-{{ sid }} .pf-col-title{
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: {{ s.col_title_color | default: '#ffffff' }};
-    margin: 0 0 14px;
+    margin: 0 0 18px;
   }
   #shopify-section-{{ sid }} .pf-col-list{
     list-style: none;
@@ -190,15 +195,21 @@
   #shopify-section-{{ sid }} .pf-col-list a{
     color: inherit;
     text-decoration: none;
-    font-size: 14px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.6px;
+    letter-spacing: -0.02em;
   }
   #shopify-section-{{ sid }} .pf-col-list a:hover{ text-decoration: underline; }
 
   /* Bottom row: disclaimer + social */
   #shopify-section-{{ sid }} .pf-disclaimer{
-    color: {{ s.sub_color | default: 'rgba(255,255,255,0.78)' }};
-    font-size: 13px;
-    line-height: 1.5;
+    color: {{ s.sub_color | default: '#ffffff' }};
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 0.0375em;
     margin: 0;
   }
   #shopify-section-{{ sid }} .pf-social{
@@ -211,8 +222,10 @@
     #shopify-section-{{ sid }} .pf-social{ justify-content: flex-end; }
   }
   #shopify-section-{{ sid }} .pf-social-label{
-    color: {{ s.sub_color | default: 'rgba(255,255,255,0.78)' }};
-    font-size: 13px;
+    color: {{ s.sub_color | default: '#ffffff' }};
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.0375em;
   }
   #shopify-section-{{ sid }} .pf-social-link{
     display: inline-flex;
@@ -351,14 +364,14 @@
   "class": "pf-footer",
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background_color",       "label": "Background color",      "default": "#3f1c5c" },
+    { "type": "color", "id": "background_color",       "label": "Background color",      "default": "#47184d" },
     { "type": "image_picker", "id": "background_image","label": "Background image (optional, with overlay)" },
-    { "type": "color", "id": "overlay_color",          "label": "Overlay color (over image)", "default": "#3f1c5c" },
+    { "type": "color", "id": "overlay_color",          "label": "Overlay color (over image)", "default": "#47184d" },
     { "type": "color", "id": "text_color",             "label": "Text color",            "default": "#ffffff" },
-    { "type": "color", "id": "sub_color",              "label": "Subtle text color",     "default": "#cdb6e6" },
-    { "type": "color", "id": "divider_color",          "label": "Row divider color",     "default": "#5a2a78" },
+    { "type": "color", "id": "sub_color",              "label": "Subtle text color",     "default": "#ffffff" },
+    { "type": "color", "id": "divider_color",          "label": "Row divider color",     "default": "#ffffff" },
     { "type": "color", "id": "col_title_color",        "label": "Column title color",    "default": "#ffffff" },
-    { "type": "color", "id": "input_border_color",     "label": "Input border",          "default": "#9b87b3" },
+    { "type": "color", "id": "input_border_color",     "label": "Input border",          "default": "#bfd2dd" },
     { "type": "color", "id": "input_focus_border_color","label": "Input focus border",   "default": "#ffffff" },
     { "type": "color", "id": "input_placeholder_color","label": "Input placeholder",     "default": "#bba0d4" },
     { "type": "color", "id": "submit_background",      "label": "Submit button bg",      "default": "#ffffff" },

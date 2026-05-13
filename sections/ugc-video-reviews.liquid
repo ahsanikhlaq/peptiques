@@ -42,16 +42,17 @@
   #shopify-section-{{ sid }} .uv-section{
     padding: var(--uv-{{ sid }}-pt) var(--uv-{{ sid }}-pr) var(--uv-{{ sid }}-pb) var(--uv-{{ sid }}-pl);
     {%- if s.sectionBackgroundImage_picker != blank -%}
-      background-color: {{ s.sectionBackground_color | default: '#f7eefe' }};
+      background-color: {{ s.sectionBackground_color | default: '#f5e1ff' }};
       background-image: url({{ s.sectionBackgroundImage_picker | image_url: width: 2000 }});
       background-size: cover;
       background-position: {{ s.sectionBackgroundPosition_text | default: 'center center' }};
       background-repeat: no-repeat;
     {%- else -%}
       background:
-        radial-gradient(ellipse 50% 40% at 20% 0%,  {{ s.sectionGradientFrom_color | default: '#f7eefe' }}, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 100% 100%, {{ s.sectionGradientTo_color | default: '#ece1f8' }}, transparent 75%),
-        {{ s.sectionBackground_color | default: '#fbf5ff' }};
+        linear-gradient(to right,
+          {{ s.sectionGradientFrom_color | default: '#f5e1ff' }} 0%,
+          #ffffff 50%,
+          {{ s.sectionGradientTo_color | default: '#f5e1ff' }} 100%);
     {%- endif -%}
   }
 
@@ -76,14 +77,14 @@
 
   #shopify-section-{{ sid }} .uv-heading{
     font-family: {{ heading_font }};
-    color: {{ s.headingTextColor_color | default: '#1d1027' }};
+    color: {{ s.headingTextColor_color | default: '#000000' }};
     text-align: center;
     margin: 0 auto 40px;
     font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1;
+    letter-spacing: -0.07em;
     max-width: 24ch;
-    font-size: clamp(1.5rem, 2vw + 1rem, {{ s.headingSize_desktop_number | default: 40 }}px);
+    font-size: clamp(1.75rem, 2.4vw + 1rem, {{ s.headingSize_desktop_number | default: 46 }}px);
   }
 
   #shopify-section-{{ sid }} .uv-carousel-wrap{ position: relative; }
@@ -214,28 +215,32 @@
   }
 
   #shopify-section-{{ sid }} .uv-stats{
-    margin: {{ s.statsMarginTop_number | default: 40 }}px auto 0;
-    max-width: 720px;
-    background: {{ s.statsBackground_color | default: '#3f1c5c' }};
+    margin: {{ s.statsMarginTop_number | default: 52 }}px auto 0;
+    max-width: 800px;
+    min-height: 130px;
+    background: {{ s.statsBackground_color | default: '#47184d' }};
     color: #fff;
-    border-radius: {{ s.statsRadius_number | default: 14 }}px;
+    border-radius: {{ s.statsRadius_number | default: 16 }}px;
     padding: 22px 16px;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     text-align: center;
     font-family: {{ body_font }};
+    align-items: center;
   }
   #shopify-section-{{ sid }} .uv-stat-value{
     font-family: {{ heading_font }};
-    font-size: clamp(1.25rem, 1vw + 1rem, 1.75rem);
-    line-height: 1.1;
+    font-size: clamp(1.5rem, 1.5vw + 1rem, 36px);
+    line-height: 1.2;
     font-weight: 400;
   }
   #shopify-section-{{ sid }} .uv-stat-label{
-    font-size: 12px;
-    color: rgba(255,255,255,0.8);
-    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 13px;
+    line-height: 1.2;
   }
   #shopify-section-{{ sid }} .uv-stat + .uv-stat{
     border-left: 1px solid rgba(255,255,255,0.18);
@@ -540,17 +545,17 @@
     { "type": "range", "id": "sectionPaddingRight_responsive_range_mobile",  "label": "Section padding right (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
 
     { "type": "header", "content": "Background" },
-    { "type": "color",        "id": "sectionBackground_color",      "label": "Background color",    "default": "#fbf5ff" },
-    { "type": "color",        "id": "sectionGradientFrom_color",    "label": "Gradient start",      "default": "#f7eefe" },
-    { "type": "color",        "id": "sectionGradientTo_color",      "label": "Gradient end",        "default": "#ece1f8" },
+    { "type": "color",        "id": "sectionBackground_color",      "label": "Background color",    "default": "#ffffff" },
+    { "type": "color",        "id": "sectionGradientFrom_color",    "label": "Gradient edge color (both sides)", "default": "#f5e1ff" },
+    { "type": "color",        "id": "sectionGradientTo_color",      "label": "Gradient end (unused — kept for back-compat)", "default": "#f5e1ff" },
     { "type": "image_picker", "id": "sectionBackgroundImage_picker","label": "Background image (optional)", "info": "When set, replaces the gradient. ≥ 2000px wide recommended." },
     { "type": "text",         "id": "sectionBackgroundPosition_text","label": "Background position","default": "center center" },
 
     { "type": "header", "content": "Typography" },
     { "type": "text",  "id": "headingFontFamily_text", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
     { "type": "text",  "id": "bodyFontFamily_text",    "label": "Body font-family",    "default": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif" },
-    { "type": "range", "id": "headingSize_desktop_number", "label": "Heading size (Desktop, px)", "min": 24, "max": 64, "step": 1, "unit": "px", "default": 40 },
-    { "type": "color", "id": "headingTextColor_color", "label": "Heading color", "default": "#1d1027" },
+    { "type": "range", "id": "headingSize_desktop_number", "label": "Heading size (Desktop, px)", "min": 24, "max": 64, "step": 1, "unit": "px", "default": 46 },
+    { "type": "color", "id": "headingTextColor_color", "label": "Heading color", "default": "#000000" },
     { "type": "color", "id": "eyebrowTextColor_color", "label": "Eyebrow text color", "default": "#1d1027" },
     { "type": "color", "id": "starsColor_color",      "label": "Stars color",         "default": "#f5b301" },
 
@@ -567,9 +572,9 @@
 
     { "type": "header", "content": "Stats bar" },
     { "type": "checkbox", "id": "show_stats_checkbox", "label": "Show stats bar", "default": true },
-    { "type": "color",    "id": "statsBackground_color","label": "Background",   "default": "#3f1c5c" },
-    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius","min": 0, "max": 32, "step": 2, "unit": "px", "default": 14 },
-    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",  "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "color",    "id": "statsBackground_color","label": "Background",   "default": "#47184d" },
+    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius","min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",  "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
     { "type": "text",     "id": "stat1_value", "label": "Stat 1 value", "default": "22,926+" },
     { "type": "text",     "id": "stat1_label", "label": "Stat 1 label", "default": "Verified Reviews" },
     { "type": "text",     "id": "stat2_value", "label": "Stat 2 value", "default": "4.8/5" },

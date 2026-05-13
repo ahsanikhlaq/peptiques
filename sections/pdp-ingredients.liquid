@@ -38,7 +38,7 @@
   #shopify-section-{{ sid }} .pi-section{
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.heading_color | default: '#ffffff' }};
-    background-color: {{ s.card_background | default: '#3f1c5c' }};
+    background-color: {{ s.card_background | default: '#47184d' }};
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -73,19 +73,20 @@
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: inherit;
     text-align: center;
-    margin: 0 0 10px;
+    margin: 0 0 16px;
     font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.5rem, 2vw + 1rem, 40px);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
   }
   #shopify-section-{{ sid }} .pi-sub{
-    color: {{ s.subheading_color | default: '#e8dcef' }};
+    color: {{ s.subheading_color | default: '#ffffff' }};
     text-align: center;
-    max-width: 60ch;
-    margin: 0 auto 40px;
-    line-height: 1.5;
-    font-size: 15px;
+    max-width: 602px;
+    margin: 0 auto 50px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    font-size: 16px;
   }
 
   #shopify-section-{{ sid }} .pi-cards{
@@ -137,15 +138,16 @@
   #shopify-section-{{ sid }} .pi-card-title{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     font-weight: 400;
-    font-size: 20px;
+    font-size: 28px;
     line-height: 1.2;
-    margin: 0 0 10px;
+    margin: 0 0 16px;
     color: inherit;
   }
   #shopify-section-{{ sid }} .pi-card-body{
-    font-size: 14px;
-    line-height: 1.5;
-    color: #4d3f59;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    color: #000000;
     margin: 0;
   }
   #shopify-section-{{ sid }} .pi-card-image{
@@ -170,30 +172,31 @@
 
   #shopify-section-{{ sid }} .pi-badges{
     background: {{ s.badges_background | default: '#ffffff' }};
-    border-radius: 999px;
-    padding: 12px 18px;
+    border-radius: 16px;
+    padding: 16px 24px;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px 14px;
+    gap: 12px 14px;
     margin-bottom: 32px;
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pi-badges{
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      padding: 16px 28px;
+      padding: 24px 40px;
       gap: 0;
     }
   }
   #shopify-section-{{ sid }} .pi-badge{
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    color: {{ s.badge_text_color | default: '#1d1027' }};
-    font-size: 13px;
-    font-weight: 500;
+    gap: 10px;
+    color: {{ s.badge_text_color | default: '#1e0346' }};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
   }
   #shopify-section-{{ sid }} .pi-badge-x{
-    width: 22px; height: 22px;
+    width: 24px; height: 24px;
     border-radius: 50%;
     background: {{ s.badge_x_color | default: '#d23a3a' }};
     color: #ffffff;
@@ -202,7 +205,7 @@
     justify-content: center;
     flex-shrink: 0;
   }
-  #shopify-section-{{ sid }} .pi-badge-x svg{ width: 10px; height: 10px; }
+  #shopify-section-{{ sid }} .pi-badge-x svg{ width: 12px; height: 12px; }
   #shopify-section-{{ sid }} .pi-badge-label{
     text-decoration: line-through;
     text-decoration-thickness: 1.5px;
@@ -230,11 +233,12 @@
     margin: 0;
   }
   #shopify-section-{{ sid }} .pi-stat-label{
-    color: {{ s.subheading_color | default: '#e8dcef' }};
-    margin: 8px 0 0;
-    max-width: 30ch;
-    line-height: 1.5;
-    font-size: 15px;
+    color: #ffffff;
+    margin: 24px 0 0;
+    max-width: 438px;
+    line-height: 1.2;
+    font-weight: 500;
+    font-size: 20px;
   }
 
   #shopify-section-{{ sid }} .pi-bars{
@@ -248,8 +252,10 @@
     padding: 14px 16px;
   }
   #shopify-section-{{ sid }} .pi-bar-label{
-    color: #ffffff;
-    font-size: 15px;
+    color: #e3e3e3;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
     margin: 0 0 8px;
   }
   #shopify-section-{{ sid }} .pi-bar-track{
@@ -362,14 +368,14 @@
     { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)", "default": "#2a1442" },
 
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "card_background",   "label": "Section background",     "default": "#3f1c5c" },
+    { "type": "color", "id": "card_background",   "label": "Section background",     "default": "#47184d" },
     { "type": "color", "id": "gradient_from",     "label": "Gradient start",         "default": "#5a2a78" },
     { "type": "color", "id": "gradient_to",       "label": "Gradient end",           "default": "#2a1442" },
     { "type": "color", "id": "heading_color",     "label": "Heading color",          "default": "#ffffff" },
-    { "type": "color", "id": "subheading_color",  "label": "Subheading color",       "default": "#e8dcef" },
+    { "type": "color", "id": "subheading_color",  "label": "Subheading color",       "default": "#ffffff" },
     { "type": "color", "id": "card_color",        "label": "Ingredient card bg",     "default": "#ffffff" },
     { "type": "color", "id": "badges_background", "label": "Badges row background",  "default": "#ffffff" },
-    { "type": "color", "id": "badge_text_color",  "label": "Badge text color",       "default": "#1d1027" },
+    { "type": "color", "id": "badge_text_color",  "label": "Badge text color",       "default": "#1e0346" },
     { "type": "color", "id": "badge_x_color",     "label": "Badge X icon color",     "default": "#d23a3a" },
 
     { "type": "header", "content": "Content" },

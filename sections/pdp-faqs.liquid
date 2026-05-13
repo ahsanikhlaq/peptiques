@@ -18,12 +18,12 @@
 <style>
   #shopify-section-{{ sid }} .pq-section{
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
-    background: {{ s.background | default: '#ffffff' }};
-    color: {{ s.text_color | default: '#1d1027' }};
+    background: {{ s.background | default: '#fffffc' }};
+    color: {{ s.text_color | default: '#000000' }};
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pq-section{
-      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+      padding: {{ s.section_padding_top_desktop | default: 100 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 100 }}px;
     }
   }
 
@@ -37,8 +37,9 @@
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pq-wrap{
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+      grid-template-columns: minmax(0, 1fr) 700px;
       gap: 48px;
+      justify-content: space-between;
     }
   }
 
@@ -46,17 +47,19 @@
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: inherit;
     font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 0 12px;
-    font-size: clamp(1.75rem, 2.4vw + 1rem, 44px);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    margin: 0 0 14px;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
+    max-width: 440px;
   }
   #shopify-section-{{ sid }} .pq-sub{
-    color: {{ s.sub_color | default: '#5b4f6b' }};
+    color: {{ s.sub_color | default: '#000000' }};
     margin: 0 0 24px;
-    line-height: 1.5;
-    font-size: 14px;
-    max-width: 36ch;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    font-size: 16px;
+    max-width: 441px;
   }
   #shopify-section-{{ sid }} .pq-avatars{
     display: inline-flex;
@@ -76,7 +79,7 @@
     flex-direction: column;
   }
   #shopify-section-{{ sid }} .pq-item{
-    border-bottom: 1px solid {{ s.divider_color | default: '#e5dfee' }};
+    border-bottom: 1px solid {{ s.divider_color | default: '#c8c8c8' }};
   }
   #shopify-section-{{ sid }} .pq-item details{ width: 100%; }
   #shopify-section-{{ sid }} .pq-summary{
@@ -84,11 +87,14 @@
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    padding: 18px 0;
+    padding: 22px 0;
     cursor: pointer;
     list-style: none;
-    font-size: 15px;
-    line-height: 1.4;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.6px;
+    letter-spacing: -0.02em;
     color: inherit;
   }
   #shopify-section-{{ sid }} .pq-summary::-webkit-details-marker{ display: none; }
@@ -187,12 +193,12 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background",     "label": "Section background", "default": "#ffffff" },
-    { "type": "color", "id": "text_color",     "label": "Text color",         "default": "#1d1027" },
-    { "type": "color", "id": "sub_color",      "label": "Subtle text color",  "default": "#5b4f6b" },
+    { "type": "color", "id": "background",     "label": "Section background", "default": "#fffffc" },
+    { "type": "color", "id": "text_color",     "label": "Text color",         "default": "#000000" },
+    { "type": "color", "id": "sub_color",      "label": "Subtle text color",  "default": "#000000" },
     { "type": "color", "id": "answer_color",   "label": "Answer text color",  "default": "#4d3f59" },
-    { "type": "color", "id": "toggle_color",   "label": "Toggle icon color",  "default": "#5b4f6b" },
-    { "type": "color", "id": "divider_color",  "label": "Item divider color", "default": "#e5dfee" },
+    { "type": "color", "id": "toggle_color",   "label": "Toggle icon color",  "default": "#000000" },
+    { "type": "color", "id": "divider_color",  "label": "Item divider color", "default": "#c8c8c8" },
 
     { "type": "header", "content": "Content" },
     { "type": "text",     "id": "heading_text", "label": "Heading", "default": "Frequently Asked Questions" },
