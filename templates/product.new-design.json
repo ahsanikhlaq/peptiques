@@ -2239,6 +2239,66 @@
         "section_padding_x_desktop": 60,
         "row_padding_y": 28
       }
+    },
+    "pdp_nature_card_FIGMA": {
+      "type": "pdp-nature-card",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "label": "Plastic Free"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "label": "Plastic Free"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "label": "No Synthetic"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "label": "Non Gmo"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "label": "Sugar Free"
+          }
+        },
+        "badge_6": {
+          "type": "badge",
+          "settings": {
+            "label": "Gluten Free"
+          }
+        },
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Haritaki fruit powder",
+            "subtitle": "Terminalia chebula",
+            "amount": "500 mg",
+            "dv": "**"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5",
+        "badge_6",
+        "ing_1"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -2255,6 +2315,7 @@
     "pdp_monks_knew_FIGMA",
     "pdp_timeline_FIGMA",
     "pdp_social_proof_FIGMA",
+    "pdp_nature_card_FIGMA",
     "pdp_marquee_FIGMA",
     "pdp_footer_Ax4c4P"
   ]
