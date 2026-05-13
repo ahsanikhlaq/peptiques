@@ -1,0 +1,433 @@
+{% comment %}
+  Footer — newsletter signup, brand mark, link columns, social.
+  Uses Shopify's built-in newsletter form
+  ({% form 'customer' ... %}) so signups land in the Customers list,
+  tagged "newsletter".
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign link_col_count = 0
+  assign social_count   = 0
+  for block in section.blocks
+    case block.type
+      when 'link_column'
+        assign link_col_count = link_col_count | plus: 1
+      when 'social_link'
+        assign social_count = social_count | plus: 1
+    endcase
+  endfor
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pf-section{
+    position: relative;
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 24 }}px {{ s.section_padding_bottom | default: 32 }}px;
+    background-color: {{ s.background_color | default: '#3f1c5c' }};
+    color: {{ s.text_color | default: '#ffffff' }};
+    overflow: hidden;
+    {% if s.background_image != blank %}
+      background-image:
+        linear-gradient({{ s.overlay_color | default: '#3f1c5c' }}cc, {{ s.overlay_color | default: '#3f1c5c' }}cc),
+        url({{ s.background_image | image_url: width: 2400 }});
+      background-size: cover;
+      background-position: center center;
+    {% endif %}
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pf-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 60 }}px {{ s.section_padding_bottom_desktop | default: 40 }}px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pf-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+  }
+
+  #shopify-section-{{ sid }} .pf-row{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: {{ s.row_padding_y | default: 28 }}px 0;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pf-row{
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      align-items: center;
+      gap: 32px;
+    }
+  }
+  #shopify-section-{{ sid }} .pf-row + .pf-row{
+    border-top: 1px solid {{ s.divider_color | default: 'rgba(255,255,255,0.18)' }};
+  }
+
+  /* Newsletter row */
+  #shopify-section-{{ sid }} .pf-news-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    margin: 0 0 6px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 1.6vw + 1rem, 30px);
+  }
+  #shopify-section-{{ sid }} .pf-news-sub{
+    color: {{ s.sub_color | default: 'rgba(255,255,255,0.78)' }};
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  #shopify-section-{{ sid }} .pf-news-form{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  #shopify-section-{{ sid }} .pf-news-input{
+    flex: 1 1 auto;
+    background: transparent;
+    border: 1px solid {{ s.input_border_color | default: 'rgba(255,255,255,0.6)' }};
+    color: {{ s.text_color | default: '#ffffff' }};
+    font-size: 14px;
+    padding: 14px 56px 14px 20px;
+    border-radius: 999px;
+    outline: 0;
+    min-width: 0;
+  }
+  #shopify-section-{{ sid }} .pf-news-input::placeholder{
+    color: {{ s.input_placeholder_color | default: 'rgba(255,255,255,0.65)' }};
+  }
+  #shopify-section-{{ sid }} .pf-news-input:focus{
+    border-color: {{ s.input_focus_border_color | default: '#ffffff' }};
+  }
+  #shopify-section-{{ sid }} .pf-news-submit{
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 0;
+    cursor: pointer;
+    background: {{ s.submit_background | default: '#ffffff' }};
+    color: {{ s.submit_color | default: '#3f1c5c' }};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 160ms ease;
+  }
+  #shopify-section-{{ sid }} .pf-news-submit:active{ transform: translateY(-50%) scale(0.96); }
+  #shopify-section-{{ sid }} .pf-news-submit svg{ width: 16px; height: 16px; }
+  #shopify-section-{{ sid }} .pf-news-message{
+    margin-top: 8px;
+    font-size: 13px;
+    color: {{ s.success_color | default: '#cdb6e6' }};
+  }
+  #shopify-section-{{ sid }} .pf-news-error{
+    margin-top: 8px;
+    font-size: 13px;
+    color: {{ s.error_color | default: '#ffb3b3' }};
+  }
+
+  /* Logo + link columns row */
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pf-row--cols{
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    }
+  }
+  #shopify-section-{{ sid }} .pf-logo{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    font-size: clamp(2.5rem, 4vw + 1rem, 6rem);
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  #shopify-section-{{ sid }} .pf-logo sup{
+    font-size: 0.35em;
+    line-height: 1;
+    margin-left: 0.1em;
+    vertical-align: super;
+  }
+  #shopify-section-{{ sid }} .pf-logo img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  #shopify-section-{{ sid }} .pf-cols{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pf-cols{
+      grid-template-columns: repeat({{ link_col_count | at_least: 1 }}, minmax(0, 1fr));
+    }
+  }
+  #shopify-section-{{ sid }} .pf-col-title{
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: {{ s.col_title_color | default: '#ffffff' }};
+    margin: 0 0 14px;
+  }
+  #shopify-section-{{ sid }} .pf-col-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #shopify-section-{{ sid }} .pf-col-list a{
+    color: inherit;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  #shopify-section-{{ sid }} .pf-col-list a:hover{ text-decoration: underline; }
+
+  /* Bottom row: disclaimer + social */
+  #shopify-section-{{ sid }} .pf-disclaimer{
+    color: {{ s.sub_color | default: 'rgba(255,255,255,0.78)' }};
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  #shopify-section-{{ sid }} .pf-social{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pf-social{ justify-content: flex-end; }
+  }
+  #shopify-section-{{ sid }} .pf-social-label{
+    color: {{ s.sub_color | default: 'rgba(255,255,255,0.78)' }};
+    font-size: 13px;
+  }
+  #shopify-section-{{ sid }} .pf-social-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid {{ s.social_border_color | default: 'rgba(255,255,255,0.4)' }};
+    padding: 6px 10px 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+  #shopify-section-{{ sid }} .pf-social-link:hover{
+    border-color: {{ s.text_color | default: '#ffffff' }};
+  }
+  #shopify-section-{{ sid }} .pf-social-link-icon{
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ sid }} .pf-social-link-icon svg{ width: 12px; height: 12px; color: currentColor; }
+</style>
+
+<section class="pf-section" {{ section.shopify_attributes }}>
+  <div class="pf-wrap">
+
+    {%- comment -%} Newsletter row {%- endcomment -%}
+    <div class="pf-row pf-row--news">
+      <div>
+        {% if s.news_heading != blank %}
+          <h2 class="pf-news-heading">{{ s.news_heading }}</h2>
+        {% endif %}
+        {% if s.news_subtext != blank %}
+          <p class="pf-news-sub">{{ s.news_subtext }}</p>
+        {% endif %}
+      </div>
+      <div>
+        {%- form 'customer', class: 'pf-news-form', id: 'pf-news-form-' | append: sid -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input
+            type="email"
+            name="contact[email]"
+            class="pf-news-input"
+            id="pf-news-email-{{ sid }}"
+            placeholder="{{ s.input_placeholder | default: 'Enter Your Email' }}"
+            autocomplete="email"
+            required
+            aria-label="{{ s.input_aria_label | default: 'Email address' }}">
+          <button type="submit" class="pf-news-submit" aria-label="{{ s.submit_aria_label | default: 'Subscribe' }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+
+          {%- if form.posted_successfully? -%}
+            <p class="pf-news-message">{{ s.success_message | default: "Thanks for subscribing!" }}</p>
+          {%- elsif form.errors -%}
+            <p class="pf-news-error">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+
+    {%- comment -%} Logo + link columns {%- endcomment -%}
+    <div class="pf-row pf-row--cols">
+      <div>
+        {% if s.logo_image != blank %}
+          <a href="{{ routes.root_url }}" class="pf-logo" aria-label="{{ shop.name }}">
+            {{ s.logo_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '200,400,600', alt: shop.name }}
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="pf-logo">
+            {{ s.logo_text | default: 'PEPTIQUES' }}<sup>{{ s.logo_mark | default: '®' }}</sup>
+          </a>
+        {% endif %}
+      </div>
+
+      {% if link_col_count > 0 %}
+        <div class="pf-cols">
+          {% for block in section.blocks %}
+            {% if block.type == 'link_column' %}
+              <div {{ block.shopify_attributes }}>
+                <h3 class="pf-col-title">{{ block.settings.title }}</h3>
+                <ul class="pf-col-list">
+                  {%- assign links = block.settings.links_text | newline_to_br | split: '<br />' -%}
+                  {%- for line in links -%}
+                    {%- assign parts = line | strip | split: '|' -%}
+                    {%- assign label = parts[0] | strip -%}
+                    {%- assign href = parts[1] | strip -%}
+                    {% if label != blank %}
+                      <li><a href="{% if href != blank %}{{ href }}{% else %}#{% endif %}">{{ label }}</a></li>
+                    {% endif %}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {%- comment -%} Bottom row: disclaimer + social {%- endcomment -%}
+    <div class="pf-row pf-row--bottom">
+      <p class="pf-disclaimer">{{ s.disclaimer_text | default: "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease." }}</p>
+      {% if social_count > 0 %}
+        <div class="pf-social">
+          {% if s.social_label != blank %}
+            <span class="pf-social-label">{{ s.social_label }}</span>
+          {% endif %}
+          {% for block in section.blocks %}
+            {% if block.type == 'social_link' %}
+              <a href="{{ block.settings.url | default: '#' }}" class="pf-social-link" rel="noopener" target="_blank" {{ block.shopify_attributes }}>
+                <span>{{ block.settings.label }}</span>
+                <span class="pf-social-link-icon">
+                  {% if block.settings.icon_svg != blank %}
+                    {{ block.settings.icon_svg }}
+                  {% else %}
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"/></svg>
+                  {% endif %}
+                </span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Footer (Figma)",
+  "tag": "section",
+  "class": "pf-footer",
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color",       "label": "Background color",      "default": "#3f1c5c" },
+    { "type": "image_picker", "id": "background_image","label": "Background image (optional, with overlay)" },
+    { "type": "color", "id": "overlay_color",          "label": "Overlay color (over image)", "default": "#3f1c5c" },
+    { "type": "color", "id": "text_color",             "label": "Text color",            "default": "#ffffff" },
+    { "type": "color", "id": "sub_color",              "label": "Subtle text color",     "default": "#cdb6e6" },
+    { "type": "color", "id": "divider_color",          "label": "Row divider color",     "default": "#5a2a78" },
+    { "type": "color", "id": "col_title_color",        "label": "Column title color",    "default": "#ffffff" },
+    { "type": "color", "id": "input_border_color",     "label": "Input border",          "default": "#9b87b3" },
+    { "type": "color", "id": "input_focus_border_color","label": "Input focus border",   "default": "#ffffff" },
+    { "type": "color", "id": "input_placeholder_color","label": "Input placeholder",     "default": "#bba0d4" },
+    { "type": "color", "id": "submit_background",      "label": "Submit button bg",      "default": "#ffffff" },
+    { "type": "color", "id": "submit_color",           "label": "Submit button icon",    "default": "#3f1c5c" },
+    { "type": "color", "id": "success_color",          "label": "Success message color", "default": "#cdb6e6" },
+    { "type": "color", "id": "error_color",            "label": "Error message color",   "default": "#ffb3b3" },
+    { "type": "color", "id": "social_border_color",    "label": "Social link border",    "default": "#9b87b3" },
+
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text",     "id": "news_heading",       "label": "Heading",          "default": "Sign Up For Our Newsletter" },
+    { "type": "textarea", "id": "news_subtext",       "label": "Subtext",          "default": "Exclusive deals for subscribers if you register from this website" },
+    { "type": "text",     "id": "input_placeholder", "label": "Input placeholder","default": "Enter Your Email" },
+    { "type": "text",     "id": "input_aria_label",  "label": "Input aria-label", "default": "Email address" },
+    { "type": "text",     "id": "submit_aria_label", "label": "Submit aria-label","default": "Subscribe" },
+    { "type": "text",     "id": "success_message",   "label": "Success message",  "default": "Thanks for subscribing!" },
+
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo image (overrides text)" },
+    { "type": "text",         "id": "logo_text",  "label": "Logo text",      "default": "PEPTIQUES" },
+    { "type": "text",         "id": "logo_mark",  "label": "Logo trademark", "default": "®" },
+
+    { "type": "header", "content": "Disclaimer & social" },
+    { "type": "textarea", "id": "disclaimer_text", "label": "Disclaimer", "default": "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease." },
+    { "type": "text",     "id": "social_label",    "label": "Social label", "default": "Check our Social Media" },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "text", "id": "heading_font_family", "label": "Heading / logo font-family", "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 60 },
+    { "type": "range", "id": "row_padding_y",                "label": "Vertical padding per row", "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text",     "id": "title",      "label": "Column title", "default": "EXPLORE" },
+        { "type": "textarea", "id": "links_text", "label": "Links — one per line as \"Label | /url\"", "default": "Shop | /collections/all\nQuiz | /pages/quiz\nScience | /pages/science\nBlog | /blogs/news" }
+      ]
+    },
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Facebook" },
+        { "type": "url",  "id": "url",   "label": "URL" },
+        { "type": "html", "id": "icon_svg", "label": "Icon (inline SVG, optional)" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Footer (Figma)",
+      "category": "Custom",
+      "blocks": [
+        { "type": "link_column", "settings": { "title": "EXPLORE", "links_text": "Shop | /collections/all\nQuiz | /pages/quiz\nScience | /pages/science\nBlog | /blogs/news" } },
+        { "type": "link_column", "settings": { "title": "COMPANY", "links_text": "Contact Us | /pages/contact-us\nAffiliates | /pages/affiliates\nReviews | /pages/reviews" } },
+        { "type": "link_column", "settings": { "title": "SUPPORT", "links_text": "Terms & Conditions | /policies/terms-of-service\nPrivacy Policy | /policies/privacy-policy\nRefund Policy | /policies/refund-policy" } },
+        { "type": "social_link", "settings": { "label": "Facebook", "url": "https://facebook.com/", "icon_svg": "<svg viewBox='0 0 24 24' fill='currentColor' aria-hidden='true'><path d='M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z'/></svg>" } },
+        { "type": "social_link", "settings": { "label": "Tik Tok",  "url": "https://www.tiktok.com/", "icon_svg": "<svg viewBox='0 0 24 24' fill='currentColor' aria-hidden='true'><path d='M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.65a8.16 8.16 0 0 0 4.77 1.52V6.7a4.85 4.85 0 0 1-1.84-.01z'/></svg>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
