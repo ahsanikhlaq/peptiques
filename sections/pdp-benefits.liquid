@@ -49,7 +49,6 @@
     background-repeat: no-repeat;
     {% if mobile_bg_image != blank %}
       background-image:
-        linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
         url({{ mobile_bg_image | image_url: width: 900 }});
     {% else %}
       background-image:
