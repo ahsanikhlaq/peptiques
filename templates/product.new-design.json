@@ -2089,6 +2089,262 @@
         "item_9"
       ],
       "settings": {}
+    },
+    "pdp_daily_experience_FIGMA": {
+      "type": "pdp-daily-experience",
+      "blocks": {
+        "morning": {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Morning",
+            "icon_color": "#f5b301",
+            "bg_color": "#fff8d6",
+            "pill_bg": "#fff2a0",
+            "tab_active_bg": "#fff2a0",
+            "tab_active_border": "#f5d04a",
+            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
+            "stat_figure_text": "97%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
+          }
+        },
+        "evening": {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Evening",
+            "icon_color": "#5a2a78",
+            "bg_color": "#ece1f8",
+            "pill_bg": "#e0d0f6",
+            "tab_active_bg": "#e0d0f6",
+            "tab_active_border": "#bba0d4",
+            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
+            "stat_figure_text": "93%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
+          }
+        }
+      },
+      "block_order": [
+        "morning",
+        "evening"
+      ],
+      "settings": {}
+    },
+    "pdp_comparison_FIGMA": {
+      "type": "pdp-comparison",
+      "blocks": {
+        "cmp_1": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Digestive Support",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "cmp_2": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Mental Clarity & Focus",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "cmp_3": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Supports Calm & Awareness",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "cmp_4": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Easy Daily Use",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "cmp_5": {
+          "type": "row",
+          "settings": {
+            "feature_text": "No Bitter Taste or Prep",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "cmp_6": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Consistent Daily Dosage",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "cmp_7": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Lab-Tested for Quality",
+            "our_check": true,
+            "them_check": false
+          }
+        }
+      },
+      "block_order": [
+        "cmp_1",
+        "cmp_2",
+        "cmp_3",
+        "cmp_4",
+        "cmp_5",
+        "cmp_6",
+        "cmp_7"
+      ],
+      "settings": {}
+    },
+    "pdp_only_nature_FIGMA": {
+      "type": "pdp-only-nature",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "label": "Plastic Free"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "label": "Plastic Free"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "label": "No Synthetic"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "label": "Non Gmo"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "label": "Sugar Free"
+          }
+        },
+        "badge_6": {
+          "type": "badge",
+          "settings": {
+            "label": "Gluten Free"
+          }
+        },
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Haritaki fruit powder",
+            "subtitle": "Terminalia chebula",
+            "amount": "500 mg",
+            "dv": "**"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5",
+        "badge_6",
+        "ing_1"
+      ],
+      "settings": {}
+    },
+    "pdp_faqs_FIGMA": {
+      "type": "pdp-faqs",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I take this with other supplements or medications?"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this vegan?"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can this help with vivid dreams or deeper sleep?"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What does Haritaki actually do in the body?"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this safe to use long-term?"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "How is this different from Haritaki powder?"
+          }
+        },
+        "faq_7": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I take it if I'm sensitive to detox effects?"
+          }
+        },
+        "faq_8": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to change my diet while using it?"
+          }
+        },
+        "faq_9": {
+          "type": "faq",
+          "settings": {
+            "question": "Will this help clear mental fog or improve focus?"
+          }
+        },
+        "faq_10": {
+          "type": "faq",
+          "settings": {
+            "question": "How long until I see results?"
+          }
+        },
+        "faq_11": {
+          "type": "faq",
+          "settings": {
+            "question": "How does it actually decalcify the pineal gland?"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9",
+        "faq_10",
+        "faq_11"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -2105,6 +2361,10 @@
     "pdp_monks_knew_FIGMA",
     "pdp_timeline_FIGMA",
     "pdp_social_proof_FIGMA",
-    "pdp_marquee_FIGMA"
+    "pdp_marquee_FIGMA",
+    "pdp_daily_experience_FIGMA",
+    "pdp_comparison_FIGMA",
+    "pdp_only_nature_FIGMA",
+    "pdp_faqs_FIGMA"
   ]
 }

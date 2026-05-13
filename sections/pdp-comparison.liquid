@@ -1,0 +1,275 @@
+{% comment %}
+  Comparison — "Why Trypeptiques Is Different" table.
+  Cosmic purple background, left column = pitch text, right column =
+  features × (us / them) table.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pc-section{
+    position: relative;
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    background-color: {{ s.section_background | default: '#1d1027' }};
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: {{ s.text_color | default: '#ffffff' }};
+    overflow: hidden;
+    {% if s.background_image != blank %}
+      background-image:
+        linear-gradient({{ s.overlay_color | default: '#1d1027' }}80, {{ s.overlay_color | default: '#1d1027' }}80),
+        url({{ s.background_image | image_url: width: 2000 }});
+    {% endif %}
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pc-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pc-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: stretch;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pc-wrap{
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+      gap: 48px;
+      align-items: center;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pc-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    margin: 0 0 16px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 48px);
+  }
+  #shopify-section-{{ sid }} .pc-desc{
+    color: {{ s.desc_color | default: 'rgba(255,255,255,0.78)' }};
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  /* Table */
+  #shopify-section-{{ sid }} .pc-table{
+    background: {{ s.table_background | default: '#f6efff' }};
+    border-radius: {{ s.table_radius | default: 16 }}px;
+    overflow: hidden;
+    color: #1d1027;
+    width: 100%;
+  }
+  #shopify-section-{{ sid }} .pc-table table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #shopify-section-{{ sid }} .pc-table th,
+  #shopify-section-{{ sid }} .pc-table td{
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pc-table th,
+    #shopify-section-{{ sid }} .pc-table td{
+      padding: 18px 22px;
+      font-size: 15px;
+    }
+  }
+  #shopify-section-{{ sid }} .pc-table thead th{
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: {{ s.table_head_background | default: '#f6efff' }};
+  }
+  #shopify-section-{{ sid }} .pc-row-feature{
+    font-weight: 500;
+    color: {{ s.feature_color | default: '#1d1027' }};
+  }
+  #shopify-section-{{ sid }} .pc-col-us{
+    background: {{ s.our_column_background | default: '#3f1c5c' }};
+    color: {{ s.our_column_color | default: '#ffffff' }};
+    text-align: center;
+    width: 100px;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pc-col-us{ width: 140px; }
+  }
+  #shopify-section-{{ sid }} .pc-col-them{
+    text-align: center;
+    width: 90px;
+    color: {{ s.them_column_color | default: '#5b4f6b' }};
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pc-col-them{ width: 120px; }
+  }
+  #shopify-section-{{ sid }} .pc-mark{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+  }
+  #shopify-section-{{ sid }} .pc-mark--check{
+    background: {{ s.check_circle_background | default: '#ffffff' }};
+    color: {{ s.our_column_background | default: '#3f1c5c' }};
+  }
+  #shopify-section-{{ sid }} .pc-mark--cross{
+    background: transparent;
+    color: {{ s.cross_color | default: '#5b4f6b' }};
+  }
+  #shopify-section-{{ sid }} .pc-mark svg{ width: 14px; height: 14px; }
+  #shopify-section-{{ sid }} .pc-mark--cross svg{ width: 18px; height: 18px; }
+
+  /* Subtle row dividers */
+  #shopify-section-{{ sid }} .pc-table tbody tr + tr th,
+  #shopify-section-{{ sid }} .pc-table tbody tr + tr td{
+    border-top: 1px solid {{ s.row_divider_color | default: '#e0d7ea' }};
+  }
+  #shopify-section-{{ sid }} .pc-table tbody tr + tr .pc-col-us{
+    border-top: 1px solid {{ s.our_row_divider_color | default: '#5a2a78' }};
+  }
+</style>
+
+<section class="pc-section" {{ section.shopify_attributes }}>
+  <div class="pc-wrap">
+    <div>
+      <h2 class="pc-heading">{{ s.heading_text | default: 'Why Trypeptiques Is Different' }}</h2>
+      {% if s.description_text != blank %}
+        <p class="pc-desc">{{ s.description_text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="pc-table" role="region" aria-label="{{ s.table_aria_label | default: 'Comparison table' }}">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">{{ s.features_column_label | default: 'FEATURES' }}</th>
+            <th scope="col" class="pc-col-us">{{ s.our_column_label | default: 'PEPTIQUES®' }}</th>
+            <th scope="col" class="pc-col-them">{{ s.them_column_label | default: 'OTHERS' }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for block in section.blocks %}
+            {% if block.type == 'row' %}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row" class="pc-row-feature">{{ block.settings.feature_text }}</th>
+                <td class="pc-col-us">
+                  {% if block.settings.our_check %}
+                    <span class="pc-mark pc-mark--check" aria-label="Yes">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                    </span>
+                  {% else %}
+                    <span class="pc-mark pc-mark--cross" aria-label="No">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 12h5.5a2 2 0 0 1 2 2.26l-1.1 8a2 2 0 0 1-2 1.74H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 .59-1.41L10 9V4a2 2 0 0 1 2-2h0a3 3 0 0 1 3 3z" transform="rotate(180 12 12)"/></svg>
+                    </span>
+                  {% endif %}
+                </td>
+                <td class="pc-col-them">
+                  {% if block.settings.them_check %}
+                    <span class="pc-mark pc-mark--check" aria-label="Yes">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                    </span>
+                  {% else %}
+                    <span class="pc-mark pc-mark--cross" aria-label="No">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 12h5.5a2 2 0 0 1 2 2.26l-1.1 8a2 2 0 0 1-2 1.74H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 .59-1.41L10 9V4a2 2 0 0 1 2-2h0a3 3 0 0 1 3 3z" transform="rotate(180 12 12)"/></svg>
+                    </span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison",
+  "tag": "section",
+  "class": "pc-comparison",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "background_image",   "label": "Background image (cosmic)" },
+    { "type": "color",        "id": "section_background", "label": "Background color (fallback)", "default": "#1d1027" },
+    { "type": "color",        "id": "overlay_color",      "label": "Overlay color (over image)",  "default": "#1d1027" },
+
+    { "type": "header", "content": "Left column" },
+    { "type": "text",     "id": "heading_text",        "label": "Heading",     "default": "Why Trypeptiques Is Different" },
+    { "type": "textarea", "id": "description_text",    "label": "Description", "default": "Trypeptiques provides safe, effective, and responsible weight-loss solutions with full transparency, clinical oversight, and personalized care offering more than just weight loss, but sustainable, real results." },
+    { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+    { "type": "color",    "id": "text_color",          "label": "Heading color",       "default": "#ffffff" },
+    { "type": "color",    "id": "desc_color",          "label": "Description color",   "default": "#e8dcef" },
+
+    { "type": "header", "content": "Table" },
+    { "type": "text",  "id": "features_column_label",     "label": "Features column label",     "default": "FEATURES" },
+    { "type": "text",  "id": "our_column_label",          "label": "Our brand column label",    "default": "PEPTIQUES®" },
+    { "type": "text",  "id": "them_column_label",         "label": "Others column label",       "default": "OTHERS" },
+    { "type": "text",  "id": "table_aria_label",          "label": "Table aria-label",          "default": "Comparison table" },
+    { "type": "color", "id": "table_background",          "label": "Table background",          "default": "#f6efff" },
+    { "type": "color", "id": "table_head_background",     "label": "Table head background",     "default": "#f6efff" },
+    { "type": "color", "id": "feature_color",             "label": "Feature label color",       "default": "#1d1027" },
+    { "type": "color", "id": "our_column_background",     "label": "Our column background",     "default": "#3f1c5c" },
+    { "type": "color", "id": "our_column_color",          "label": "Our column text color",     "default": "#ffffff" },
+    { "type": "color", "id": "them_column_color",         "label": "Others column text color",  "default": "#5b4f6b" },
+    { "type": "color", "id": "check_circle_background",   "label": "Check circle background",   "default": "#ffffff" },
+    { "type": "color", "id": "cross_color",               "label": "Thumbs-down color",         "default": "#5b4f6b" },
+    { "type": "color", "id": "row_divider_color",         "label": "Row divider color",         "default": "#e0d7ea" },
+    { "type": "color", "id": "our_row_divider_color",     "label": "Our column row divider",    "default": "#5a2a78" },
+    { "type": "range", "id": "table_radius",              "label": "Table radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Feature row",
+      "settings": [
+        { "type": "text",     "id": "feature_text", "label": "Feature label", "default": "Digestive Support" },
+        { "type": "checkbox", "id": "our_check",    "label": "Ours has it",   "default": true },
+        { "type": "checkbox", "id": "them_check",   "label": "Theirs has it", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Comparison",
+      "category": "Custom",
+      "blocks": [
+        { "type": "row", "settings": { "feature_text": "Digestive Support" } },
+        { "type": "row", "settings": { "feature_text": "Mental Clarity & Focus" } },
+        { "type": "row", "settings": { "feature_text": "Supports Calm & Awareness" } },
+        { "type": "row", "settings": { "feature_text": "Easy Daily Use" } },
+        { "type": "row", "settings": { "feature_text": "No Bitter Taste or Prep" } },
+        { "type": "row", "settings": { "feature_text": "Consistent Daily Dosage" } },
+        { "type": "row", "settings": { "feature_text": "Lab-Tested for Quality" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

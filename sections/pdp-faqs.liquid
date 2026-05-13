@@ -1,0 +1,245 @@
+{% comment %}
+  Frequently Asked Questions — accordion section.
+  Native <details>/<summary> so a11y + Ctrl-F search work for free.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign faq_count = 0
+  for block in section.blocks
+    if block.type == 'faq'
+      assign faq_count = faq_count | plus: 1
+    endif
+  endfor
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .pq-section{
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    background: {{ s.background | default: '#ffffff' }};
+    color: {{ s.text_color | default: '#1d1027' }};
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pq-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pq-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pq-wrap{
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+      gap: 48px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pq-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 44px);
+  }
+  #shopify-section-{{ sid }} .pq-sub{
+    color: {{ s.sub_color | default: '#5b4f6b' }};
+    margin: 0 0 24px;
+    line-height: 1.5;
+    font-size: 14px;
+    max-width: 36ch;
+  }
+  #shopify-section-{{ sid }} .pq-avatars{
+    display: inline-flex;
+    margin-top: 12px;
+  }
+  #shopify-section-{{ sid }} .pq-avatars img{
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid {{ s.background | default: '#ffffff' }};
+    object-fit: cover;
+    margin-left: -8px;
+  }
+  #shopify-section-{{ sid }} .pq-avatars img:first-child{ margin-left: 0; }
+
+  #shopify-section-{{ sid }} .pq-list{
+    display: flex;
+    flex-direction: column;
+  }
+  #shopify-section-{{ sid }} .pq-item{
+    border-bottom: 1px solid {{ s.divider_color | default: '#e5dfee' }};
+  }
+  #shopify-section-{{ sid }} .pq-item details{ width: 100%; }
+  #shopify-section-{{ sid }} .pq-summary{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 15px;
+    line-height: 1.4;
+    color: inherit;
+  }
+  #shopify-section-{{ sid }} .pq-summary::-webkit-details-marker{ display: none; }
+  #shopify-section-{{ sid }} .pq-toggle{
+    width: 22px; height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ s.toggle_color | default: '#5b4f6b' }};
+    flex-shrink: 0;
+    transition: transform 200ms ease;
+  }
+  #shopify-section-{{ sid }} .pq-item details[open] .pq-toggle{ transform: rotate(45deg); }
+  #shopify-section-{{ sid }} .pq-toggle svg{ width: 14px; height: 14px; }
+
+  #shopify-section-{{ sid }} .pq-answer{
+    padding: 0 0 18px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: {{ s.answer_color | default: '#4d3f59' }};
+    max-width: 70ch;
+  }
+</style>
+
+<section class="pq-section" {{ section.shopify_attributes }}>
+  <div class="pq-wrap">
+    <div>
+      <h2 class="pq-heading">{{ s.heading_text | default: 'Frequently Asked Questions' }}</h2>
+      {% if s.sub_text != blank %}
+        <p class="pq-sub">{{ s.sub_text }}</p>
+      {% endif %}
+      {% if s.avatar_1 != blank or s.avatar_2 != blank or s.avatar_3 != blank %}
+        <span class="pq-avatars" aria-hidden="true">
+          {% if s.avatar_1 != blank %}{{ s.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+          {% if s.avatar_2 != blank %}{{ s.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+          {% if s.avatar_3 != blank %}{{ s.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+        </span>
+      {% endif %}
+    </div>
+
+    {% if faq_count > 0 %}
+      <div class="pq-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'faq' %}
+            <div class="pq-item" {{ block.shopify_attributes }} itemscope itemtype="https://schema.org/Question">
+              <details {% if block.settings.open_by_default %}open{% endif %}>
+                <summary class="pq-summary">
+                  <span itemprop="name">{{ block.settings.question }}</span>
+                  <span class="pq-toggle" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  </span>
+                </summary>
+                <div class="pq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div itemprop="text">{{ block.settings.answer }}</div>
+                </div>
+              </details>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% comment %} FAQPage JSON-LD for SEO {% endcomment %}
+{%- capture jsonld_faqs -%}
+  {%- assign idx = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'faq' -%}
+      {%- assign idx = idx | plus: 1 -%}
+      {
+        "@type": "Question",
+        "name": {{ block.settings.question | json }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ block.settings.answer | strip_html | json }}
+        }
+      }{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{{ jsonld_faqs }}]
+}
+</script>
+
+{% schema %}
+{
+  "name": "FAQs",
+  "tag": "section",
+  "class": "pq-faqs",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background",     "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color",     "label": "Text color",         "default": "#1d1027" },
+    { "type": "color", "id": "sub_color",      "label": "Subtle text color",  "default": "#5b4f6b" },
+    { "type": "color", "id": "answer_color",   "label": "Answer text color",  "default": "#4d3f59" },
+    { "type": "color", "id": "toggle_color",   "label": "Toggle icon color",  "default": "#5b4f6b" },
+    { "type": "color", "id": "divider_color",  "label": "Item divider color", "default": "#e5dfee" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text",     "id": "heading_text", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "textarea", "id": "sub_text",     "label": "Subheading", "default": "Got questions? We've got answers. Find everything you need to know below." },
+    { "type": "image_picker", "id": "avatar_1", "label": "Avatar 1" },
+    { "type": "image_picker", "id": "avatar_2", "label": "Avatar 2" },
+    { "type": "image_picker", "id": "avatar_3", "label": "Avatar 3" },
+    { "type": "text", "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        { "type": "text",     "id": "question",        "label": "Question" },
+        { "type": "richtext", "id": "answer",          "label": "Answer (rich text)" },
+        { "type": "checkbox", "id": "open_by_default", "label": "Open by default", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 30,
+  "presets": [
+    {
+      "name": "FAQs",
+      "category": "Custom",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "Can I take this with other supplements or medications?" } },
+        { "type": "faq", "settings": { "question": "Is this vegan?" } },
+        { "type": "faq", "settings": { "question": "Can this help with vivid dreams or deeper sleep?" } },
+        { "type": "faq", "settings": { "question": "What does Haritaki actually do in the body?" } },
+        { "type": "faq", "settings": { "question": "Is this safe to use long-term?" } },
+        { "type": "faq", "settings": { "question": "How is this different from Haritaki powder?" } },
+        { "type": "faq", "settings": { "question": "Can I take it if I'm sensitive to detox effects?" } },
+        { "type": "faq", "settings": { "question": "Do I need to change my diet while using it?" } },
+        { "type": "faq", "settings": { "question": "Will this help clear mental fog or improve focus?" } },
+        { "type": "faq", "settings": { "question": "How long until I see results?" } },
+        { "type": "faq", "settings": { "question": "How does it actually decalcify the pineal gland?" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

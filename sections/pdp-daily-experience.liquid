@@ -1,0 +1,372 @@
+{% comment %}
+  Daily Experience — Morning / Evening tab section.
+  Each block represents a phase (Morning, Evening, ...). Switching
+  tabs swaps the visible panel AND the section background color.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+
+  assign phase_count = 0
+  for block in section.blocks
+    if block.type == 'phase'
+      assign phase_count = phase_count | plus: 1
+    endif
+  endfor
+-%}
+
+<style>
+  /* The section bg color is driven by a CSS variable that JS swaps
+     when the merchant clicks a tab. We default it to the first
+     phase's bg via inline style on the root. */
+  #shopify-section-{{ sid }} .pe-section{
+    background: var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#fff8d6' }});
+    padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
+    color: {{ s.text_color | default: '#1d1027' }};
+    transition: background 400ms ease;
+  }
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pe-section{
+      padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
+    }
+  }
+
+  #shopify-section-{{ sid }} .pe-wrap{
+    max-width: 1340px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ sid }} .pe-heading{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: inherit;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 2.4vw + 1rem, 42px);
+    max-width: 22ch;
+  }
+  #shopify-section-{{ sid }} .pe-heading em{ font-style: italic; }
+
+  #shopify-section-{{ sid }} .pe-tabs{
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 8px 0;
+  }
+  #shopify-section-{{ sid }} .pe-tab{
+    background: transparent;
+    color: inherit;
+    border: 1px solid {{ s.tab_border | default: '#e0d7ea' }};
+    border-radius: 10px;
+    padding: 10px 18px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    font-size: 16px;
+    font-style: italic;
+    transition: background 200ms ease, border-color 200ms ease;
+  }
+  #shopify-section-{{ sid }} .pe-tab[aria-selected="true"]{
+    background: var(--pe-tab-bg-{{ sid }}, #fff2a0);
+    border-color: var(--pe-tab-border-{{ sid }}, #f5d04a);
+  }
+  #shopify-section-{{ sid }} .pe-tab-icon{
+    width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  #shopify-section-{{ sid }} .pe-tab-icon svg{ width: 100%; height: 100%; }
+
+  #shopify-section-{{ sid }} .pe-pill{
+    background: var(--pe-pill-bg-{{ sid }}, #fff2a0);
+    color: inherit;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: center;
+    max-width: 90%;
+  }
+  #shopify-section-{{ sid }} .pe-pill strong{ font-weight: 700; }
+
+  #shopify-section-{{ sid }} .pe-panel{
+    display: none;
+    width: 100%;
+  }
+  #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  #shopify-section-{{ sid }} .pe-visual{
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+  }
+  #shopify-section-{{ sid }} .pe-visual img{
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  #shopify-section-{{ sid }} .pe-stat{
+    position: relative;
+    z-index: 2;
+    background: {{ s.stat_card_background | default: '#ffffff' }};
+    box-shadow: 0 12px 32px rgba(60,20,90,0.12);
+    border-radius: 12px;
+    padding: 22px 26px;
+    text-align: center;
+    max-width: 280px;
+    margin: 18% auto 0;
+  }
+  #shopify-section-{{ sid }} .pe-stat-figure{
+    font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
+    color: {{ s.stat_figure_color | default: '#3f1c5c' }};
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 700;
+    margin: 0;
+  }
+  #shopify-section-{{ sid }} .pe-stat-avatars{
+    display: inline-flex;
+    margin: 10px 0 4px;
+  }
+  #shopify-section-{{ sid }} .pe-stat-avatars img{
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-left: -6px;
+    object-fit: cover;
+  }
+  #shopify-section-{{ sid }} .pe-stat-avatars img:first-child{ margin-left: 0; }
+  #shopify-section-{{ sid }} .pe-stat-caption{
+    font-size: 12px;
+    color: #4d3f59;
+    margin: 0 0 8px;
+  }
+  #shopify-section-{{ sid }} .pe-stat-body{
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4d3f59;
+    margin: 0;
+  }
+</style>
+
+<section class="pe-section" data-pe-root {{ section.shopify_attributes }}>
+  <div class="pe-wrap">
+    <h2 class="pe-heading">
+      {%- if s.heading_italic_text != blank -%}
+        <em>{{ s.heading_italic_text }}</em>
+      {%- endif -%}
+      {% if s.heading_text != blank %} {{ s.heading_text }}{% endif %}
+    </h2>
+
+    {% if phase_count > 0 %}
+      <div class="pe-tabs" role="tablist">
+        {% for block in section.blocks %}
+          {% if block.type == 'phase' %}
+            <button type="button"
+                    class="pe-tab"
+                    role="tab"
+                    data-pe-tab="{{ forloop.index }}"
+                    data-pe-bg="{{ block.settings.bg_color }}"
+                    data-pe-pill-bg="{{ block.settings.pill_bg }}"
+                    data-pe-tab-bg="{{ block.settings.tab_active_bg }}"
+                    data-pe-tab-border="{{ block.settings.tab_active_border }}"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                    {{ block.shopify_attributes }}>
+              <span class="pe-tab-icon" aria-hidden="true">
+                {% if block.settings.icon_image != blank %}
+                  {{ block.settings.icon_image | image_url: width: 40 | image_tag: loading: 'lazy', widths: '18,36', alt: '' }}
+                {% elsif block.settings.tab_label contains 'Morning' or block.settings.tab_label contains 'morning' %}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: {{ block.settings.icon_color | default: '#f5b301' }};"><circle cx="12" cy="12" r="4" fill="currentColor"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
+                {% else %}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: {{ block.settings.icon_color | default: '#5a2a78' }};"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                {% endif %}
+              </span>
+              <span>{{ block.settings.tab_label }}</span>
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% for block in section.blocks %}
+        {% if block.type == 'phase' %}
+          <div class="pe-panel" role="tabpanel" data-pe-panel="{{ forloop.index }}" data-pe-active="{% if forloop.first %}true{% else %}false{% endif %}">
+            {% if block.settings.pill_text != blank %}
+              <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">{{ block.settings.pill_text }}</div>
+            {% endif %}
+            <div class="pe-visual">
+              {% if block.settings.visual_image != blank %}
+                {{ block.settings.visual_image | image_url: width: 1200 | image_tag:
+                     loading: 'lazy',
+                     widths: '400,600,800,1200',
+                     alt: block.settings.tab_label }}
+              {% endif %}
+              {% if block.settings.stat_figure_text != blank %}
+                <div class="pe-stat">
+                  <p class="pe-stat-figure">{{ block.settings.stat_figure_text }}</p>
+                  {% if block.settings.avatar_1 != blank or block.settings.avatar_2 != blank or block.settings.avatar_3 != blank or block.settings.avatar_4 != blank %}
+                    <span class="pe-stat-avatars" aria-hidden="true">
+                      {% if block.settings.avatar_1 != blank %}{{ block.settings.avatar_1 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                      {% if block.settings.avatar_2 != blank %}{{ block.settings.avatar_2 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                      {% if block.settings.avatar_3 != blank %}{{ block.settings.avatar_3 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                      {% if block.settings.avatar_4 != blank %}{{ block.settings.avatar_4 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                    </span>
+                  {% endif %}
+                  {% if block.settings.stat_caption != blank %}
+                    <p class="pe-stat-caption">{{ block.settings.stat_caption }}</p>
+                  {% endif %}
+                  {% if block.settings.stat_body != blank %}
+                    <p class="pe-stat-body">{{ block.settings.stat_body }}</p>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function(){
+    var root = document.getElementById('shopify-section-{{ sid }}');
+    if (!root) return;
+    var sec   = root.querySelector('[data-pe-root]');
+    var tabs  = root.querySelectorAll('[data-pe-tab]');
+    var panels= root.querySelectorAll('[data-pe-panel]');
+    if (!sec || !tabs.length) return;
+
+    function apply(tab){
+      var idx       = tab.getAttribute('data-pe-tab');
+      var bg        = tab.getAttribute('data-pe-bg');
+      var pillBg    = tab.getAttribute('data-pe-pill-bg');
+      var tabBg     = tab.getAttribute('data-pe-tab-bg');
+      var tabBorder = tab.getAttribute('data-pe-tab-border');
+
+      if (bg)        sec.style.setProperty('--pe-bg-{{ sid }}', bg);
+      if (pillBg)    sec.style.setProperty('--pe-pill-bg-{{ sid }}', pillBg);
+      if (tabBg)     sec.style.setProperty('--pe-tab-bg-{{ sid }}', tabBg);
+      if (tabBorder) sec.style.setProperty('--pe-tab-border-{{ sid }}', tabBorder);
+
+      tabs.forEach(function(t){
+        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+      });
+      panels.forEach(function(p){
+        p.setAttribute('data-pe-active', p.getAttribute('data-pe-panel') === idx ? 'true' : 'false');
+      });
+    }
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ apply(t); }); });
+    if (tabs[0]) apply(tabs[0]);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Daily Experience",
+  "tag": "section",
+  "class": "pe-daily-experience",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "fallback_background", "label": "Fallback background", "default": "#fff8d6" },
+    { "type": "color", "id": "text_color",          "label": "Text color",          "default": "#1d1027" },
+    { "type": "color", "id": "tab_border",          "label": "Tab inactive border", "default": "#e0d7ea" },
+    { "type": "color", "id": "stat_card_background","label": "Stat card background","default": "#ffffff" },
+    { "type": "color", "id": "stat_figure_color",   "label": "Stat figure color",   "default": "#3f1c5c" },
+
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading_italic_text", "label": "Heading — italic part",  "default": "Compact visual" },
+    { "type": "text", "id": "heading_text",        "label": "Heading — regular part", "default": "of the daily experience." },
+    { "type": "text", "id": "heading_font_family", "label": "Heading font-family",     "default": "Georgia, \"Times New Roman\", serif" },
+
+    { "type": "header", "content": "Spacing (px)" },
+    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "phase",
+      "name": "Phase tab",
+      "settings": [
+        { "type": "text",         "id": "tab_label",         "label": "Tab label",          "default": "Morning" },
+        { "type": "image_picker", "id": "icon_image",        "label": "Tab icon (image, optional)" },
+        { "type": "color",        "id": "icon_color",        "label": "Icon color (for default SVG)", "default": "#f5b301" },
+        { "type": "color",        "id": "bg_color",          "label": "Section bg when active", "default": "#fff8d6" },
+        { "type": "color",        "id": "pill_bg",           "label": "Pill bg when active",    "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_bg",     "label": "Active tab bg",          "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_border", "label": "Active tab border",      "default": "#f5d04a" },
+        { "type": "text",         "id": "pill_text",         "label": "Pill text (supports HTML)", "default": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>." },
+        { "type": "image_picker", "id": "visual_image",      "label": "Main visual image (ring of capsules etc.)" },
+        { "type": "text",         "id": "stat_figure_text",  "label": "Stat figure",            "default": "97%" },
+        { "type": "text",         "id": "stat_caption",      "label": "Stat caption",           "default": "Of people Like You" },
+        { "type": "textarea",     "id": "stat_body",         "label": "Stat body",              "default": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't." },
+        { "type": "image_picker", "id": "avatar_1",          "label": "Avatar 1" },
+        { "type": "image_picker", "id": "avatar_2",          "label": "Avatar 2" },
+        { "type": "image_picker", "id": "avatar_3",          "label": "Avatar 3" },
+        { "type": "image_picker", "id": "avatar_4",          "label": "Avatar 4" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Daily Experience",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Morning",
+            "icon_color": "#f5b301",
+            "bg_color": "#fff8d6",
+            "pill_bg": "#fff2a0",
+            "tab_active_bg": "#fff2a0",
+            "tab_active_border": "#f5d04a",
+            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
+            "stat_figure_text": "97%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
+          }
+        },
+        {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Evening",
+            "icon_color": "#5a2a78",
+            "bg_color": "#ece1f8",
+            "pill_bg": "#e0d0f6",
+            "tab_active_bg": "#e0d0f6",
+            "tab_active_border": "#bba0d4",
+            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
+            "stat_figure_text": "93%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
