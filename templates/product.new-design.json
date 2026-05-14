@@ -1651,7 +1651,7 @@
         "sectionBackgroundPosition_text": "center center",
         "headingFontFamily_text": "Georgia, \"Times New Roman\", serif",
         "bodyFontFamily_text": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
-        "headingSize_desktop_number": 40,
+        "headingSize_desktop_number": 44,
         "headingTextColor_color": "#1d1027",
         "eyebrowTextColor_color": "#1d1027",
         "starsColor_color": "#f5b301",
