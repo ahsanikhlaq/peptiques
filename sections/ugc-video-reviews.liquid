@@ -371,6 +371,7 @@ gap: 6px;
 >
   <div class="uv-container">
     {%- if s.eyebrow_text != blank or s.show_stars_checkbox -%}
+     <div class="main-top-main">
       <p class="uv-eyebrow">
         {%- if s.show_stars_checkbox -%}
           <span class="uv-stars" aria-hidden="true">
@@ -385,6 +386,7 @@ gap: 6px;
           <div>{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</div>
         {%- endif -%}
       </p>
+</div>
     {%- endif -%}
 
     <h2 id="uv-heading-{{ sid }}" class="uv-heading">
