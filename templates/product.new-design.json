@@ -1578,9 +1578,9 @@
         },
         "video_TACry4": {
           "type": "video",
-          "disabled": true,
           "settings": {
             "video_url": "",
+            "video_file": "shopify://files/videos/Let's Fight Fluoride Together!.mp4",
             "reviewer_name": "Ana Williams",
             "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
             "verified_checkbox": true,
@@ -1623,6 +1623,7 @@
         "containerMaxWidth_number": 1600,
         "cardGap_number": 16,
         "cardRadius_number": 16,
+        "show_nav_checkbox": false,
         "show_stats_checkbox": true,
         "statsBackground_color": "#3f1c5c",
         "statsRadius_number": 14,
