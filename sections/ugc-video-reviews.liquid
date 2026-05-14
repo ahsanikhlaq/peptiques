@@ -460,11 +460,11 @@
       // Peek carousel: 2 full + 2 half-cut on sides on desktop.
       // slidesPerView ~2.4 centers two slides and shows ~20% of each neighbour.
       var swiper = new Swiper(swiperEl, {
-        slidesPerView: 1.2,
-        spaceBetween: {{ s.cardGap_number | default: 16 }},
-        centeredSlides: true,
-        loop: false,
-        watchOverflow: true,
+       slidesPerView: 1.2,
+  spaceBetween: {{ s.cardGap_number | default: 16 }},
+  centeredSlides: true,
+  loop: false,
+  watchOverflow: true,
         navigation: (prev && next) ? { prevEl: prev, nextEl: next } : false,
         breakpoints: {
           640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }} },
