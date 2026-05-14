@@ -1789,6 +1789,22 @@
     "pdp_monks_knew_FIGMA": {
       "type": "pdp-monks-knew",
       "blocks": {
+        "footer_item_kAxTNx": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/SVG_15.svg",
+            "icon_type": "pause",
+            "item_text": "Stop or Cancel Anytime"
+          }
+        },
+        "footer_item_9QhdzR": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/SVG_16.svg",
+            "icon_type": "pause",
+            "item_text": "Refills Ship Every 90 days"
+          }
+        },
         "tb_1": {
           "type": "trust_badge",
           "settings": {
@@ -1812,6 +1828,8 @@
         }
       },
       "block_order": [
+        "footer_item_kAxTNx",
+        "footer_item_9QhdzR",
         "tb_1",
         "tb_2",
         "tb_3"
@@ -1821,23 +1839,20 @@
         "left_image_alt": "",
         "section_background": "#ffffff",
         "media_background": "#cdb6e6",
-        "content_background": "#f6efff",
-        "content_background_end": "#f5e1ff",
         "heading_color": "#1d1027",
         "subheading_color": "#5b4f6b",
         "badge_icon_color": "#5a2a78",
         "badge_label_color": "#000000",
-        "divider_color": "#000000",
         "cta_background": "#47184d",
         "cta_text_color": "#ffffff",
         "cta_hover_background": "#5a2a78",
         "footer_color": "#000000",
+        "footer_icon_color": "#000000",
         "heading_text": "Monks knew 5,000 years ago, now you do too",
         "subheading_text": "What monks understood thousands of years ago can now support your daily routine.",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
         "cta_text": "UNLOCK YOUR TRUE POWER",
         "cta_url": "",
-        "footer_text": "Stop or Cancel Anytime | Refills Ship Every 90 days",
         "section_padding_top": 48,
         "section_padding_bottom": 48,
         "section_padding_x": 16,
