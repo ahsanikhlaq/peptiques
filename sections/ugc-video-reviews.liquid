@@ -270,22 +270,31 @@
   /* ============================================ */
 .uv-card {
   position: relative;
-  /* your existing styles, like background-image, height, etc. */
+  isolation: isolate; /* creates a new stacking context — important */
+}
+
+.uv-card-media {
+  z-index: 0; /* image at the back */
 }
 
 .uv-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(102, 102, 102, 0.00) 42.48%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.00) 42.48%);
   pointer-events: none;
-  border-radius: inherit; /* keeps the gradient inside rounded corners */
+  border-radius: inherit;
+  z-index: 1; /* gradient above image */
 }
 
-/* Make sure content inside the card stays above the overlay */
-.uv-card > * {
-  position: relative;
-  z-index: 1;
+/* All text/buttons above the gradient */
+.uv-play,
+.uv-quote,
+.uv-meta,
+.uv-name,
+.uv-badge,
+.uv-card-overlay {
+  z-index: 2;
 }
   @media (max-width: 767px) {
     :root {
