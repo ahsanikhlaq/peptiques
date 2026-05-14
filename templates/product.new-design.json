@@ -2093,6 +2093,15 @@
             "author_label": "Verified Review",
             "stars": 5
           }
+        },
+        "review_GwB8gY": {
+          "type": "review",
+          "settings": {
+            "quote_text": "It helped me feel aligned again.",
+            "body_text": "Less fog, better rhythm, and a more connected feeling from morning to night.",
+            "author_label": "Verified Review",
+            "stars": 5
+          }
         }
       },
       "block_order": [
@@ -2107,7 +2116,8 @@
         "review_1",
         "review_2",
         "review_3",
-        "review_4"
+        "review_4",
+        "review_GwB8gY"
       ],
       "settings": {
         "section_background": "#f6efff",
@@ -2232,6 +2242,235 @@
         "aria_label": "Free from"
       }
     },
+    "pdp_daily_experience_m68B3P": {
+      "type": "pdp-daily-experience",
+      "blocks": {
+        "phase_3bdaYT": {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Morning",
+            "icon_color": "#f5b301",
+            "bg_color": "#fff8d6",
+            "pill_bg": "#fff2a0",
+            "tab_active_bg": "#fff2a0",
+            "tab_active_border": "#f5d04a",
+            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
+            "stat_figure_text": "97%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
+          }
+        },
+        "phase_WCTxLE": {
+          "type": "phase",
+          "settings": {
+            "tab_label": "Evening",
+            "icon_color": "#5a2a78",
+            "bg_color": "#ece1f8",
+            "pill_bg": "#e0d0f6",
+            "tab_active_bg": "#e0d0f6",
+            "tab_active_border": "#bba0d4",
+            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
+            "stat_figure_text": "93%",
+            "stat_caption": "Of people Like You",
+            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
+          }
+        }
+      },
+      "block_order": [
+        "phase_3bdaYT",
+        "phase_WCTxLE"
+      ],
+      "name": "Daily Experience",
+      "settings": {
+        "fallback_background": "#fff8d6",
+        "text_color": "#1d1027",
+        "tab_border": "#e0d7ea",
+        "stat_card_background": "#ffffff",
+        "stat_figure_color": "#3f1c5c",
+        "heading_italic_text": "Compact visual",
+        "heading_text": "of the daily experience.",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
+    },
+    "pdp_comparison_UraDcL": {
+      "type": "pdp-comparison",
+      "blocks": {
+        "row_jyiqkw": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Digestive Support",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_rND3W9": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Mental Clarity & Focus",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_qizat6": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Supports Calm & Awareness",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_jFYTiy": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Easy Daily Use",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_VzXDBE": {
+          "type": "row",
+          "settings": {
+            "feature_text": "No Bitter Taste or Prep",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_YBghKG": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Consistent Daily Dosage",
+            "our_check": true,
+            "them_check": false
+          }
+        },
+        "row_jCPYQB": {
+          "type": "row",
+          "settings": {
+            "feature_text": "Lab-Tested for Quality",
+            "our_check": true,
+            "them_check": false
+          }
+        }
+      },
+      "block_order": [
+        "row_jyiqkw",
+        "row_rND3W9",
+        "row_qizat6",
+        "row_jFYTiy",
+        "row_VzXDBE",
+        "row_YBghKG",
+        "row_jCPYQB"
+      ],
+      "name": "Comparison",
+      "settings": {
+        "section_background": "#1d1027",
+        "overlay_color": "#1d1027",
+        "heading_text": "Why Trypeptiques Is Different",
+        "description_text": "Trypeptiques provides safe, effective, and responsible weight-loss solutions with full transparency, clinical oversight, and personalized care offering more than just weight loss, but sustainable, real results.",
+        "heading_font_family": "Georgia, \"Times New Roman\", serif",
+        "text_color": "#ffffff",
+        "desc_color": "#e8dcef",
+        "features_column_label": "FEATURES",
+        "our_column_label": "PEPTIQUES®",
+        "them_column_label": "OTHERS",
+        "table_aria_label": "Comparison table",
+        "table_background": "#f6efff",
+        "table_head_background": "#f6efff",
+        "feature_color": "#1d1027",
+        "our_column_background": "#3f1c5c",
+        "our_column_color": "#ffffff",
+        "them_column_color": "#5b4f6b",
+        "check_circle_background": "#ffffff",
+        "cross_color": "#5b4f6b",
+        "row_divider_color": "#e0d7ea",
+        "our_row_divider_color": "#5a2a78",
+        "table_radius": 16,
+        "section_padding_top": 48,
+        "section_padding_bottom": 48,
+        "section_padding_x": 16,
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_x_desktop": 50
+      }
+    },
+    "pdp_nature_info_NEW": {
+      "type": "pdp-nature-info",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "label": "Plastic Free"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "label": "Plastic Free"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "label": "No Synthetic"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "label": "Non Gmo"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "label": "Sugar Free"
+          }
+        },
+        "badge_6": {
+          "type": "badge",
+          "settings": {
+            "label": "Gluten Free"
+          }
+        },
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Haritaki fruit powder",
+            "subtitle": "Terminalia chebula",
+            "amount": "500 mg",
+            "dv": "**"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5",
+        "badge_6",
+        "ing_1"
+      ],
+      "settings": {
+        "left_heading": "Only Nature, Nothing Fake",
+        "left_sub": "Real Ayurvedic wisdom designed to deliver clarity, balance, and results",
+        "cta_text": "UNLOCK YOUR TRUE POWER",
+        "cta_url": "",
+        "footer_text": "Stop or Cancel Anytime | Refills Ship Every 90 days",
+        "right_heading": "Suggested use:",
+        "right_intro": "Take two capsules per day one in the morning, another in the evening.",
+        "right_label": "each serving contains",
+        "amount_header": "Amount Per Serving",
+        "dv_header": "%DV",
+        "disclaimer": "* These supplements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+      }
+    },
     "pdp_faqs_xz4dnK": {
       "type": "pdp-faqs",
       "blocks": {
@@ -2347,235 +2586,6 @@
         "divider_color": "#e5dfee",
         "heading_text": "Frequently Asked Questions",
         "sub_text": "Got questions? We've got answers. Find everything you need to know below.",
-        "heading_font_family": "Georgia, \"Times New Roman\", serif",
-        "section_padding_top": 48,
-        "section_padding_bottom": 48,
-        "section_padding_x": 16,
-        "section_padding_top_desktop": 80,
-        "section_padding_bottom_desktop": 80,
-        "section_padding_x_desktop": 50
-      }
-    },
-    "pdp_nature_info_NEW": {
-      "type": "pdp-nature-info",
-      "blocks": {
-        "badge_1": {
-          "type": "badge",
-          "settings": {
-            "label": "Plastic Free"
-          }
-        },
-        "badge_2": {
-          "type": "badge",
-          "settings": {
-            "label": "Plastic Free"
-          }
-        },
-        "badge_3": {
-          "type": "badge",
-          "settings": {
-            "label": "No Synthetic"
-          }
-        },
-        "badge_4": {
-          "type": "badge",
-          "settings": {
-            "label": "Non Gmo"
-          }
-        },
-        "badge_5": {
-          "type": "badge",
-          "settings": {
-            "label": "Sugar Free"
-          }
-        },
-        "badge_6": {
-          "type": "badge",
-          "settings": {
-            "label": "Gluten Free"
-          }
-        },
-        "ing_1": {
-          "type": "ingredient",
-          "settings": {
-            "name": "Haritaki fruit powder",
-            "subtitle": "Terminalia chebula",
-            "amount": "500 mg",
-            "dv": "**"
-          }
-        }
-      },
-      "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4",
-        "badge_5",
-        "badge_6",
-        "ing_1"
-      ],
-      "settings": {
-        "left_heading": "Only Nature, Nothing Fake",
-        "left_sub": "Real Ayurvedic wisdom designed to deliver clarity, balance, and results",
-        "cta_text": "UNLOCK YOUR TRUE POWER",
-        "cta_url": "",
-        "footer_text": "Stop or Cancel Anytime | Refills Ship Every 90 days",
-        "right_heading": "Suggested use:",
-        "right_intro": "Take two capsules per day one in the morning, another in the evening.",
-        "right_label": "each serving contains",
-        "amount_header": "Amount Per Serving",
-        "dv_header": "%DV",
-        "disclaimer": "* These supplements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
-      }
-    },
-    "pdp_comparison_UraDcL": {
-      "type": "pdp-comparison",
-      "blocks": {
-        "row_jyiqkw": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Digestive Support",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "row_rND3W9": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Mental Clarity & Focus",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "row_qizat6": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Supports Calm & Awareness",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "row_jFYTiy": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Easy Daily Use",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "row_VzXDBE": {
-          "type": "row",
-          "settings": {
-            "feature_text": "No Bitter Taste or Prep",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "row_YBghKG": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Consistent Daily Dosage",
-            "our_check": true,
-            "them_check": false
-          }
-        },
-        "row_jCPYQB": {
-          "type": "row",
-          "settings": {
-            "feature_text": "Lab-Tested for Quality",
-            "our_check": true,
-            "them_check": false
-          }
-        }
-      },
-      "block_order": [
-        "row_jyiqkw",
-        "row_rND3W9",
-        "row_qizat6",
-        "row_jFYTiy",
-        "row_VzXDBE",
-        "row_YBghKG",
-        "row_jCPYQB"
-      ],
-      "name": "Comparison",
-      "settings": {
-        "section_background": "#1d1027",
-        "overlay_color": "#1d1027",
-        "heading_text": "Why Trypeptiques Is Different",
-        "description_text": "Trypeptiques provides safe, effective, and responsible weight-loss solutions with full transparency, clinical oversight, and personalized care offering more than just weight loss, but sustainable, real results.",
-        "heading_font_family": "Georgia, \"Times New Roman\", serif",
-        "text_color": "#ffffff",
-        "desc_color": "#e8dcef",
-        "features_column_label": "FEATURES",
-        "our_column_label": "PEPTIQUES®",
-        "them_column_label": "OTHERS",
-        "table_aria_label": "Comparison table",
-        "table_background": "#f6efff",
-        "table_head_background": "#f6efff",
-        "feature_color": "#1d1027",
-        "our_column_background": "#3f1c5c",
-        "our_column_color": "#ffffff",
-        "them_column_color": "#5b4f6b",
-        "check_circle_background": "#ffffff",
-        "cross_color": "#5b4f6b",
-        "row_divider_color": "#e0d7ea",
-        "our_row_divider_color": "#5a2a78",
-        "table_radius": 16,
-        "section_padding_top": 48,
-        "section_padding_bottom": 48,
-        "section_padding_x": 16,
-        "section_padding_top_desktop": 80,
-        "section_padding_bottom_desktop": 80,
-        "section_padding_x_desktop": 50
-      }
-    },
-    "pdp_daily_experience_m68B3P": {
-      "type": "pdp-daily-experience",
-      "blocks": {
-        "phase_3bdaYT": {
-          "type": "phase",
-          "settings": {
-            "tab_label": "Morning",
-            "icon_color": "#f5b301",
-            "bg_color": "#fff8d6",
-            "pill_bg": "#fff2a0",
-            "tab_active_bg": "#fff2a0",
-            "tab_active_border": "#f5d04a",
-            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
-            "stat_figure_text": "97%",
-            "stat_caption": "Of people Like You",
-            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
-          }
-        },
-        "phase_WCTxLE": {
-          "type": "phase",
-          "settings": {
-            "tab_label": "Evening",
-            "icon_color": "#5a2a78",
-            "bg_color": "#ece1f8",
-            "pill_bg": "#e0d0f6",
-            "tab_active_bg": "#e0d0f6",
-            "tab_active_border": "#bba0d4",
-            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
-            "stat_figure_text": "93%",
-            "stat_caption": "Of people Like You",
-            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
-          }
-        }
-      },
-      "block_order": [
-        "phase_3bdaYT",
-        "phase_WCTxLE"
-      ],
-      "name": "Daily Experience",
-      "settings": {
-        "fallback_background": "#fff8d6",
-        "text_color": "#1d1027",
-        "tab_border": "#e0d7ea",
-        "stat_card_background": "#ffffff",
-        "stat_figure_color": "#3f1c5c",
-        "heading_italic_text": "Compact visual",
-        "heading_text": "of the daily experience.",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
         "section_padding_top": 48,
         "section_padding_bottom": 48,
