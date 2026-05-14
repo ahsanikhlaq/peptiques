@@ -48,7 +48,7 @@
   }
 
   #shopify-section-{{ sid }} .uv-container{
-    max-width: {{ s.containerMaxWidth_number | default: 1340 }}px;
+    max-width: 100%;
     margin-inline: auto;
   }
 
@@ -469,7 +469,7 @@
         breakpoints: {
           640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }} },
           900:  { slidesPerView: 2.4, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
-          1200: { slidesPerView: 2.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
+          1200: { slidesPerView: 3.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
         }
       });
 
