@@ -1656,7 +1656,7 @@
         "eyebrowTextColor_color": "#1d1027",
         "starsColor_color": "#f5b301",
         "show_stars_checkbox": true,
-        "eyebrow_text": "10,500+ 5-Star Reviews",
+        "eyebrow_text": "<p><strong>10,500+</strong> 5-Star Reviews</p>",
         "eyebrow_link": "",
         "heading_text": "Wellness creators, mindful users,",
         "containerMaxWidth_number": 1400,
