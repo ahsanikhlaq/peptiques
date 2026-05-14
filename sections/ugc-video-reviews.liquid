@@ -457,19 +457,21 @@
       var prev     = root.querySelector('[data-uv-prev]');
       var next     = root.querySelector('[data-uv-next]');
 
+      // Peek carousel: 2 full + 2 half-cut on sides on desktop.
+      // slidesPerView ~2.4 centers two slides and shows ~20% of each neighbour.
       var swiper = new Swiper(swiperEl, {
-  slidesPerView: 1.2,
+       slidesPerView: 1.2,
   spaceBetween: {{ s.cardGap_number | default: 16 }},
   centeredSlides: true,
-  loop: false,
+  loop: true,
   watchOverflow: true,
-  navigation: (prev && next) ? { prevEl: prev, nextEl: next } : false,
-  breakpoints: {
-    640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
-    900:  { slidesPerView: 2.2, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
-    1200: { slidesPerView: 2.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
-  }
-});
+        navigation: (prev && next) ? { prevEl: prev, nextEl: next } : false,
+        breakpoints: {
+          640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }} },
+          900:  { slidesPerView: 2.4, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
+          1200: { slidesPerView: 3.8, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
+        }
+      });
 
       // Inline play: click card → swap in iframe/video
       function stopAllVideos(except){
