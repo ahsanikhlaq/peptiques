@@ -440,14 +440,16 @@
   </div>
 </div>
 
+{%- comment -%} Load Swiper library {%- endcomment -%}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
+
+{%- comment -%} ─── 1. SWIPER (carousel) ─── {%- endcomment -%}
 <script>
   (function(){
-    function init(){
+    function initSwiper(){
       if (typeof Swiper === 'undefined') {
-        // Swiper script not ready yet — retry shortly
-        return setTimeout(init, 50);
+        return setTimeout(initSwiper, 50);
       }
 
       var root = document.getElementById('shopify-section-{{ sid }}');
@@ -456,24 +458,45 @@
       var swiperEl = root.querySelector('[data-uv-swiper]');
       var prev     = root.querySelector('[data-uv-prev]');
       var next     = root.querySelector('[data-uv-next]');
+      if (!swiperEl) return;
 
-      // Peek carousel: 2 full + 2 half-cut on sides on desktop.
-      // slidesPerView ~2.4 centers two slides and shows ~20% of each neighbour.
       var swiper = new Swiper(swiperEl, {
-       slidesPerView: 1.2,
-  spaceBetween: {{ s.cardGap_number | default: 16 }},
-  centeredSlides: true,
-  loop: true,
-  watchOverflow: true,
+        slidesPerView: 1.2,
+        spaceBetween: {{ s.cardGap_number | default: 16 }},
+        centeredSlides: true,
+        loop: false,
+        watchOverflow: true,
         navigation: (prev && next) ? { prevEl: prev, nextEl: next } : false,
         breakpoints: {
-          640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }} },
-          900:  { slidesPerView: 2.4, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
-          1200: { slidesPerView: 3.8, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
+          640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
+          900:  { slidesPerView: 2.2, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
+          1200: { slidesPerView: 2.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
         }
       });
 
-      // Inline play: click card → swap in iframe/video
+      // Expose the instance so the video-play script can listen to slide changes
+      root._uvSwiper = swiper;
+
+      // Notify the video-play script (in case it loaded first)
+      root.dispatchEvent(new CustomEvent('uv:swiper-ready', { detail: { swiper: swiper } }));
+    }
+
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initSwiper);
+    } else {
+      initSwiper();
+    }
+  })();
+</script>
+
+
+{%- comment -%} ─── 2. VIDEO PLAY (inline play on card click) ─── {%- endcomment -%}
+<script>
+  (function(){
+    function initVideoPlay(){
+      var root = document.getElementById('shopify-section-{{ sid }}');
+      if (!root) return;
+
       function stopAllVideos(except){
         root.querySelectorAll('[data-uv-card][data-playing="true"]').forEach(function(c){
           if (c === except) return;
@@ -519,9 +542,9 @@
         card.setAttribute('data-playing', 'true');
       }
 
+      // Card click → play inline
       root.querySelectorAll('[data-uv-card]').forEach(function(card){
-        card.addEventListener('click', function(e){
-          // Don't re-trigger if user clicked inside the playing video
+        card.addEventListener('click', function(){
           if (card.getAttribute('data-playing') === 'true') return;
           playCard(card);
         });
@@ -533,54 +556,27 @@
         });
       });
 
-      // Stop playing video when user slides
-      swiper.on('slideChange', function(){
-        stopAllVideos(null);
-      });
+      // Stop playing video when user slides — hook into Swiper if/when ready
+      function bindSwiperEvents(swiper){
+        if (!swiper) return;
+        swiper.on('slideChange', function(){ stopAllVideos(null); });
+      }
+
+      if (root._uvSwiper) {
+        bindSwiperEvents(root._uvSwiper);
+      } else {
+        root.addEventListener('uv:swiper-ready', function(e){
+          bindSwiperEvents(e.detail.swiper);
+        });
+      }
     }
+
     if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', init);
+      document.addEventListener('DOMContentLoaded', initVideoPlay);
     } else {
-      init();
+      initVideoPlay();
     }
   })();
-</script>
-
-{%- comment -%} JSON-LD ItemList of VideoObjects {%- endcomment -%}
-{%- capture jsonld_videos -%}
-  {%- assign i = 0 -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'video' -%}
-      {%- assign i = i | plus: 1 -%}
-      {%- assign b = block.settings -%}
-      {
-        "@type": "ListItem",
-        "position": {{ i }},
-        "item": {
-          "@type": "VideoObject",
-          "name": {{ b.reviewer_name | default: "Customer video review" | json }},
-          "description": {{ b.review_quote | default: "Customer video review" | strip_html | json }}
-          {%- if b.thumbnail_image != blank -%},
-          "thumbnailUrl": {{ b.thumbnail_image | image_url: width: 640 | prepend: 'https:' | json }}
-          {%- endif -%}
-          {%- if b.upload_date != blank -%},
-          "uploadDate": {{ b.upload_date | json }}
-          {%- endif -%}
-          {%- if b.video_url != blank -%},
-          "contentUrl": {{ b.video_url | json }}
-          {%- endif -%}
-        }
-      }{% unless forloop.last %},{% endunless %}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endcapture -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": {{ s.heading_text | default: "Customer video reviews" | json }},
-  "itemListElement": [{{ jsonld_videos }}]
-}
 </script>
 
 {% schema %}
