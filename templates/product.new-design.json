@@ -1590,10 +1590,33 @@
         },
         "video_xA8tkP": {
           "type": "video",
-          "disabled": true,
           "settings": {
             "video_url": "",
             "video_file": "shopify://files/videos/CANCELLATION VIDEO.mp4",
+            "reviewer_name": "Ana Williams",
+            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
+        },
+        "video_jGChmY": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/UGC 4 Fixed  (1).mov",
+            "reviewer_name": "Ana Williams",
+            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
+        },
+        "video_Urd6wE": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/education video 2.mp4",
             "reviewer_name": "Ana Williams",
             "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
             "verified_checkbox": true,
@@ -1608,7 +1631,9 @@
         "video_gyQcXt",
         "video_yYPm3P",
         "video_TACry4",
-        "video_xA8tkP"
+        "video_xA8tkP",
+        "video_jGChmY",
+        "video_Urd6wE"
       ],
       "name": "UGC Video Reviews",
       "settings": {
