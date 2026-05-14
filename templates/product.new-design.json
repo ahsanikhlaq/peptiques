@@ -1587,6 +1587,18 @@
             "badge_text": "Verified Buyer",
             "upload_date": ""
           }
+        },
+        "video_xA8tkP": {
+          "type": "video",
+          "settings": {
+            "video_url": "",
+            "video_file": "shopify://files/videos/CANCELLATION VIDEO.mp4",
+            "reviewer_name": "Ana Williams",
+            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
         }
       },
       "block_order": [
@@ -1594,7 +1606,8 @@
         "video_iBqxqq",
         "video_gyQcXt",
         "video_yYPm3P",
-        "video_TACry4"
+        "video_TACry4",
+        "video_xA8tkP"
       ],
       "name": "UGC Video Reviews",
       "settings": {
