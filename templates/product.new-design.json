@@ -1532,6 +1532,7 @@
           "type": "video",
           "settings": {
             "video_url": "",
+            "video_file": "shopify://files/videos/UGC 2.mov",
             "reviewer_name": "Ana Williams",
             "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
             "verified_checkbox": true,
@@ -1543,6 +1544,7 @@
           "type": "video",
           "settings": {
             "video_url": "",
+            "video_file": "shopify://files/videos/UGC 3 Fix .mov",
             "reviewer_name": "Marcus Chen",
             "review_quote": "Three weeks in and my sleep is deeper than it's been in years.",
             "verified_checkbox": true,
@@ -1554,6 +1556,7 @@
           "type": "video",
           "settings": {
             "video_url": "",
+            "video_file": "shopify://files/videos/UGC 1.mov",
             "reviewer_name": "Priya Sharma",
             "review_quote": "My dreams are so much more vivid. I feel sharper through the day.",
             "verified_checkbox": true,
@@ -1565,6 +1568,7 @@
           "type": "video",
           "settings": {
             "video_url": "",
+            "video_file": "shopify://files/videos/UGC 4 Fixed  (1).mov",
             "reviewer_name": "Sofia Martinez",
             "review_quote": "Genuinely the only supplement that's made a noticeable difference.",
             "verified_checkbox": true,
@@ -1755,6 +1759,7 @@
       "settings": {
         "section_background": "#ffffff",
         "content_background": "#f6efff",
+        "content_background_end": "#f5e1ff",
         "media_background": "#cdb6e6",
         "heading_color": "#1d1027",
         "subheading_color": "#5b4f6b",
