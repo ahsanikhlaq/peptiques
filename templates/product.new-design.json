@@ -1742,7 +1742,7 @@
           "type": "stat_bar",
           "settings": {
             "label_text": "Sharpens Mental Focus",
-            "fill_percent": 35,
+            "fill_percent": 65,
             "striped": true
           }
         }
@@ -1777,6 +1777,7 @@
         "subheading_text": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
         "footer_image_alt": "Detox support for a lighter, cleaner daily routine",
+        "stat_label": "Detox support for a lighter, cleaner daily routine",
         "section_padding_top": 48,
         "section_padding_bottom": 48,
         "section_padding_x": 16,
