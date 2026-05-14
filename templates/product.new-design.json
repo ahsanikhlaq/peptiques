@@ -1763,7 +1763,6 @@
       "settings": {
         "bg_image_desktop": "shopify://shop_images/Frame_2147243097_1.webp",
         "bg_image_mobile": "shopify://shop_images/Section_1_1.webp",
-        "overlay_color": "rgba(0,0,0,0)",
         "card_background": "#3f1c5c",
         "gradient_from": "#5a2a78",
         "gradient_to": "#2a1442",
@@ -1986,6 +1985,8 @@
         "tl_card_15"
       ],
       "settings": {
+        "bg_image_desktop": "shopify://shop_images/Frame_2147243044.webp",
+        "bg_image_mobile": "shopify://shop_images/Frame_2147243118.webp",
         "section_background": "#1d1027",
         "overlay_color": "#1d1027",
         "tab_strip_background": "#1d1027",
