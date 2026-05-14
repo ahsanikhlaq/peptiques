@@ -1,11 +1,8 @@
 {% comment %}
   Ancient Wisdom / Modern Strength — tabbed timeline section.
-  Each card is a block with a phase_label setting. Tabs are derived
-  from unique phase_labels (in first-occurrence order). Clicking a
-  tab hides all cards that don't share its phase_label.
-
-  Defensive pattern: all Liquid in top {%- liquid -%} block, 6-digit
-  hex defaults only, no chained `default:` on image_picker.
+  • Middle card (featured) is taller than first & third.
+  • Each card supports image OR video (autoplay muted loop).
+  • Mobile: same structure — image/video left, text right.
 {% endcomment %}
 
 {%- liquid
@@ -27,24 +24,25 @@
 -%}
 
 <style>
-  #shopify-section-{{ sid }} .pt-section{
+  /* ─── Section ───────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-section {
     position: relative;
     padding: {{ s.section_padding_top | default: 40 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 40 }}px;
     background-color: {{ s.section_background | default: '#1d1027' }};
     background-size: cover;
-        min-height: 956px;
     background-position: center center;
     background-repeat: no-repeat;
     color: {{ s.heading_color | default: '#ffffff' }};
     overflow: hidden;
+    min-height: 956px;
     {% if mobile_bg != blank %}
       background-image:
         linear-gradient({{ s.overlay_color | default: '#1d1027' }}66, {{ s.overlay_color | default: '#1d1027' }}66),
         url({{ mobile_bg | image_url: width: 1200 }});
     {% endif %}
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-section{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-section {
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
       {% if bg_image != blank %}
         background-image:
@@ -54,19 +52,27 @@
     }
   }
 
-  #shopify-section-{{ sid }} .pt-wrap{
+  /* ─── Wrap ──────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-wrap {
     max-width: 100%;
     margin-inline: auto;
     display: flex;
-    justify-content: end;
     flex-direction: column;
-    gap: 337px;
-    height: 956px;
+    justify-content: flex-end;
+    gap: 239px;
+    height: 650px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-wrap {
+      gap: 337px;
+      height: 956px;
+    }
   }
 
-  #shopify-section-{{ sid }} .pt-heading{
+  /* ─── Heading ───────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-heading {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
-    color: {{ s.heading_color | default: '#000000' }};
+    color: {{ s.heading_color | default: '#ffffff' }};
     text-align: center;
     margin: 0 auto;
     max-width: 380px;
@@ -75,14 +81,15 @@
     letter-spacing: -0.07em;
     font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-heading{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-heading {
       padding-top: 80px;
       padding-bottom: 80px;
     }
   }
 
-  #shopify-section-{{ sid }} .pt-tabs-shell{
+  /* ─── Tab shell ─────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-tabs-shell {
     background: #00000033;
     border-radius: 16px;
     padding: 32px;
@@ -92,13 +99,9 @@
     flex-direction: column;
     gap: 32px;
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-tabs-shell{
-      padding: 32px;
-    }
-  }
 
-  #shopify-section-{{ sid }} .pt-tabs{
+  /* ─── Tabs row ──────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-tabs {
     display: flex;
     gap: 16px;
     justify-content: flex-start;
@@ -106,12 +109,12 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
-  #shopify-section-{{ sid }} .pt-tabs::-webkit-scrollbar{ display: none; }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-tabs{ justify-content: center; gap: 32px; }
+  #shopify-section-{{ sid }} .pt-tabs::-webkit-scrollbar { display: none; }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-tabs { justify-content: center; gap: 32px; }
   }
 
-  #shopify-section-{{ sid }} .pt-tab{
+  #shopify-section-{{ sid }} .pt-tab {
     flex: 0 0 auto;
     background: transparent;
     border: 0;
@@ -129,22 +132,21 @@
     border-bottom: 1px solid #ffffff;
     min-width: 100px;
   }
-  #shopify-section-{{ sid }} .pt-tab[aria-selected="true"]{
+  #shopify-section-{{ sid }} .pt-tab[aria-selected="true"] {
     opacity: 1;
     border-bottom: 2px solid #ffffff;
   }
 
-  #shopify-section-{{ sid }} .pt-panels{
-    position: relative;
-  }
-  #shopify-section-{{ sid }} .pt-panel{
-    display: none;
-  }
-  #shopify-section-{{ sid }} .pt-panel[data-pt-active="true"]{
-    display: block;
-  }
+  /* ─── Panels ────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-panel { display: none; }
+  #shopify-section-{{ sid }} .pt-panel[data-pt-active="true"] { display: block; }
 
-  #shopify-section-{{ sid }} .pt-cards{
+  /* ─── Cards grid ────────────────────────────────────────────── */
+  /*
+    3-column desktop: items align to bottom so the middle (featured/tall)
+    card rises above the shorter outer cards.
+  */
+  #shopify-section-{{ sid }} .pt-cards {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 86%;
@@ -155,18 +157,21 @@
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
   }
-  #shopify-section-{{ sid }} .pt-cards::-webkit-scrollbar{ display: none; }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-cards{
+  #shopify-section-{{ sid }} .pt-cards::-webkit-scrollbar { display: none; }
+
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-cards {
       grid-auto-flow: row;
       grid-template-columns: repeat({{ s.cards_per_row_desktop | default: 3 }}, minmax(0, 1fr));
       grid-auto-columns: auto;
       overflow-x: visible;
-      gap: 16px;
+      gap: 0 16px;            /* no row gap — height difference handles spacing */
+      align-items: end;       /* all cards bottom-aligned so tall card rises up */
     }
   }
 
-  #shopify-section-{{ sid }} .pt-card{
+  /* ─── Card base ─────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-card {
     scroll-snap-align: start;
     background: {{ s.card_background | default: '#ffffff' }};
     color: #000000;
@@ -176,23 +181,49 @@
     grid-template-columns: 120px minmax(0, 1fr);
     align-items: stretch;
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-card{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-card {
       grid-template-columns: 151px minmax(0, 1fr);
     }
   }
 
-  #shopify-section-{{ sid }} .pt-card-image{
-    background: #ffffff;
-    display: flex;
-    aspect-ratio: 151 / 142;
-  }
-  #shopify-section-{{ sid }} .pt-card-image img{
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+  /* ─── Featured (middle) card — taller ──────────────────────── */
+  /*
+    Add a setting checkbox "featured" to mark the middle card.
+    On desktop it gets extra top padding so it visually extends upward.
+  */
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-card--featured {
+      /* Extend upward by making it taller — align-items:end on grid does the rest */
+      padding-top: 0;
+      margin-top: -60px;      /* negative margin pulls top edge up */
+    }
   }
 
-  #shopify-section-{{ sid }} .pt-card-text{
+  /* ─── Media column (image or video) ────────────────────────── */
+  #shopify-section-{{ sid }} .pt-card-media {
+    background: #e8d5f5;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 151 / 142;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-card--featured .pt-card-media {
+      aspect-ratio: 151 / 180; /* taller media for featured card */
+    }
+  }
+  #shopify-section-{{ sid }} .pt-card-media img,
+  #shopify-section-{{ sid }} .pt-card-media video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ─── Text column ───────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pt-card-text {
     padding: 12px 8px 12px 15px;
     display: flex;
     flex-direction: column;
@@ -200,10 +231,15 @@
     gap: 12px;
     min-width: 0;
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pt-card-text{ padding: 16px 8px 16px 15px; gap: 12px; }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pt-card-text { padding: 16px 8px 16px 15px; }
+    #shopify-section-{{ sid }} .pt-card--featured .pt-card-text {
+      justify-content: flex-start;
+      padding-top: 24px;
+    }
   }
-  #shopify-section-{{ sid }} .pt-card-title{
+
+  #shopify-section-{{ sid }} .pt-card-title {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     font-weight: 400;
     font-size: 24px;
@@ -211,21 +247,27 @@
     margin: 0;
     color: #000000;
   }
-  #shopify-section-{{ sid }} .pt-card-body{
+  #shopify-section-{{ sid }} .pt-card-body {
     margin: 0;
     font-size: 14.6px;
     line-height: 18.8px;
     letter-spacing: -0.03em;
     color: #000000;
   }
-  @media (max-width:768px){
-    #shopify-section-{{ sid }} .pt-wrap {  
-      gap: 239px;
-    height: 650px;
-    }
+
+  /* ─── Mobile overrides ──────────────────────────────────────── */
+  @media (max-width: 768px) {
     #shopify-section-{{ sid }} .pt-section {
-          min-height: 650px;
-              padding: 40px 0px 24px;
+      min-height: 650px;
+      padding: 40px 0px 24px;
+    }
+    #shopify-section-{{ sid }} .pt-wrap {
+      gap: 239px;
+      height: 650px;
+    }
+    /* Featured card same as others on mobile */
+    #shopify-section-{{ sid }} .pt-card--featured {
+      margin-top: 0;
     }
   }
 </style>
@@ -234,10 +276,11 @@
   <div class="pt-wrap">
     <h2 class="pt-heading">{{ s.heading_text | default: 'Ancient Wisdom. Modern Strength' }}</h2>
 
-    {% if phases.size > 0 %}
+    {%- if phases.size > 0 -%}
       <div class="pt-tabs-shell">
+
         <div class="pt-tabs" role="tablist" data-pt-tabs>
-          {% for phase in phases %}
+          {%- for phase in phases -%}
             <button type="button"
                     class="pt-tab"
                     role="tab"
@@ -245,63 +288,110 @@
                     aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
               {{ phase }}
             </button>
-          {% endfor %}
+          {%- endfor -%}
         </div>
 
         <div class="pt-panels">
-          {% for phase in phases %}
-            <div class="pt-panel" role="tabpanel" data-pt-panel="{{ phase | handle }}" data-pt-active="{% if forloop.first %}true{% else %}false{% endif %}">
+          {%- for phase in phases -%}
+            <div class="pt-panel"
+                 role="tabpanel"
+                 data-pt-panel="{{ phase | handle }}"
+                 data-pt-active="{% if forloop.first %}true{% else %}false{% endif %}">
+
               <div class="pt-cards">
-                {% for block in section.blocks %}
-                  {% if block.settings.phase_label == phase %}
-                    <article class="pt-card" {{ block.shopify_attributes }}>
-                      <div class="pt-card-image">
-                        {% if block.settings.image != blank %}
+                {%- assign phase_index = 0 -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.settings.phase_label == phase -%}
+                    {%- assign phase_index = phase_index | plus: 1 -%}
+                    {%- assign is_featured = false -%}
+                    {%- if block.settings.featured -%}
+                      {%- assign is_featured = true -%}
+                    {%- endif -%}
+
+                    {%- comment -%} Determine media type {%- endcomment -%}
+                    {%- assign has_video = false -%}
+                    {%- assign video_mp4 = '' -%}
+                    {%- if block.settings.video_file != blank -%}
+                      {%- assign has_video = true -%}
+                      {%- for src in block.settings.video_file.sources -%}
+                        {%- if src.format == 'mp4' -%}
+                          {%- assign video_mp4 = src.url -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+
+                    <article class="pt-card{% if is_featured %} pt-card--featured{% endif %}" {{ block.shopify_attributes }}>
+
+                      {%- comment -%} MEDIA: video OR image {%- endcomment -%}
+                      <div class="pt-card-media">
+                        {%- if has_video and video_mp4 != '' -%}
+                          <video
+                            src="{{ video_mp4 }}"
+                            autoplay muted loop playsinline
+                            preload="none"
+                            aria-hidden="true">
+                          </video>
+                        {%- elsif block.settings.image != blank -%}
                           {{ block.settings.image | image_url: width: 400 | image_tag:
                                loading: 'lazy',
                                widths: '160,240,320,400',
-                               sizes: '(min-width: 1024px) 140px, 120px',
+                               sizes: '(min-width: 1024px) 151px, 120px',
                                alt: block.settings.title_text }}
-                        {% endif %}
+                        {%- endif -%}
                       </div>
+
+                      {%- comment -%} TEXT {%- endcomment -%}
                       <div class="pt-card-text">
                         <h3 class="pt-card-title">{{ block.settings.title_text }}</h3>
-                        {% if block.settings.body_text != blank %}
+                        {%- if block.settings.body_text != blank -%}
                           <p class="pt-card-body">{{ block.settings.body_text }}</p>
-                        {% endif %}
+                        {%- endif -%}
                       </div>
+
                     </article>
-                  {% endif %}
-                {% endfor %}
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
+
             </div>
-          {% endfor %}
+          {%- endfor -%}
         </div>
+
       </div>
-    {% endif %}
+    {%- endif -%}
   </div>
 </section>
 
 <script>
-  (function(){
-    var root = document.getElementById('shopify-section-{{ sid }}');
-    if (!root) return;
-    var tabs   = root.querySelectorAll('[data-pt-tab]');
-    var panels = root.querySelectorAll('[data-pt-panel]');
-    if (!tabs.length || !panels.length) return;
+(function () {
+  var root = document.getElementById('shopify-section-{{ sid }}');
+  if (!root) return;
+  var tabs   = root.querySelectorAll('[data-pt-tab]');
+  var panels = root.querySelectorAll('[data-pt-panel]');
+  if (!tabs.length || !panels.length) return;
 
-    function activate(id){
-      tabs.forEach(function(t){
-        t.setAttribute('aria-selected', t.getAttribute('data-pt-tab') === id ? 'true' : 'false');
-      });
-      panels.forEach(function(p){
-        p.setAttribute('data-pt-active', p.getAttribute('data-pt-panel') === id ? 'true' : 'false');
-      });
-    }
-    tabs.forEach(function(t){
-      t.addEventListener('click', function(){ activate(t.getAttribute('data-pt-tab')); });
+  function activate(id) {
+    tabs.forEach(function (t) {
+      t.setAttribute('aria-selected', t.getAttribute('data-pt-tab') === id ? 'true' : 'false');
     });
-  })();
+    panels.forEach(function (p) {
+      var isActive = p.getAttribute('data-pt-panel') === id;
+      p.setAttribute('data-pt-active', isActive ? 'true' : 'false');
+
+      /* Pause videos in hidden panels, play in active */
+      p.querySelectorAll('video').forEach(function (v) {
+        if (isActive) { v.play && v.play(); }
+        else          { v.pause && v.pause(); }
+      });
+    });
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      activate(t.getAttribute('data-pt-tab'));
+    });
+  });
+})();
 </script>
 
 {% schema %}
@@ -314,29 +404,25 @@
     { "type": "header", "content": "Background" },
     { "type": "image_picker", "id": "bg_image_desktop", "label": "Background image — Desktop" },
     { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
-    { "type": "color",        "id": "section_background","label": "Background color (fallback)", "default": "#47184d" },
-    { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)",  "default": "#47184d" },
-
-    { "type": "header", "content": "Tab strip" },
-    { "type": "color", "id": "tab_strip_background", "label": "Tab strip background", "default": "#1d1027" },
-    { "type": "range", "id": "tab_strip_radius",     "label": "Tab strip radius",     "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "color", "id": "section_background", "label": "Background color (fallback)", "default": "#47184d" },
+    { "type": "color", "id": "overlay_color",      "label": "Overlay color (over image)",  "default": "#47184d" },
 
     { "type": "header", "content": "Cards" },
-    { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
-    { "type": "color", "id": "heading_color",   "label": "Heading color",   "default": "#000000" },
-    { "type": "range", "id": "cards_per_row_desktop", "label": "Cards per row (Desktop)", "min": 1, "max": 4, "step": 1, "default": 3 },
+    { "type": "color", "id": "card_background",       "label": "Card background",         "default": "#ffffff" },
+    { "type": "color", "id": "heading_color",         "label": "Heading color",            "default": "#ffffff" },
+    { "type": "range", "id": "cards_per_row_desktop", "label": "Cards per row (Desktop)",  "min": 1, "max": 4, "step": 1, "default": 3 },
 
     { "type": "header", "content": "Content" },
-    { "type": "text",     "id": "heading_text", "label": "Heading", "default": "Ancient Wisdom. Modern Strength" },
-    { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
+    { "type": "text", "id": "heading_text",        "label": "Heading",           "default": "Ancient Wisdom. Modern Strength" },
+    { "type": "text", "id": "heading_font_family", "label": "Heading font-family","default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Spacing (px)" },
-    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
-    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
-    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+    { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "section_padding_bottom",         "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "section_padding_x",              "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",    "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop", "label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",      "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
   ],
   "blocks": [
     {
@@ -346,7 +432,9 @@
         { "type": "text",         "id": "phase_label", "label": "Phase / tab label", "info": "Cards with the same label group under the same tab.", "default": "1-2 Weeks" },
         { "type": "text",         "id": "title_text",  "label": "Card title" },
         { "type": "textarea",     "id": "body_text",   "label": "Card body" },
-        { "type": "image_picker", "id": "image",       "label": "Card image" }
+        { "type": "image_picker", "id": "image",       "label": "Card image (shown if no video)" },
+        { "type": "video",        "id": "video_file",  "label": "Card video (autoplay, overrides image)" },
+        { "type": "checkbox",     "id": "featured",    "label": "Featured card (taller on desktop)", "default": false }
       ]
     }
   ],
@@ -356,25 +444,25 @@
       "name": "Timeline Tabs",
       "category": "Custom",
       "blocks": [
-        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Cellular Rejuvenation Deepens", "body_text": "Full cellular rejuvenation. Notice radiant skin and a profound shift in spiritual awareness." } },
-        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "The First Signs Begin",          "body_text": "Feel the initial awakening. Gentle detox and sharper morning focus begin to take hold." } },
-        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Gut-Brain Alignment Starts",      "body_text": "Gut-brain alignment begins. Enjoy deeper sleep cycles and sustained natural energy." } },
+        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Cellular Rejuvenation Deepens", "body_text": "Full cellular rejuvenation. Notice radiant skin and a profound shift in spiritual awareness.", "featured": false } },
+        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "The First Signs Begin",          "body_text": "Feel the initial awakening. Gentle detox and sharper morning focus begin to take hold.",            "featured": true  } },
+        { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Gut-Brain Alignment Starts",     "body_text": "Gut-brain alignment begins. Enjoy deeper sleep cycles and sustained natural energy.",              "featured": false } },
 
-        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Cellular Reset",                  "body_text": "Cellular renewal accelerates. Skin tone evens out and energy holds steady through the afternoon." } },
-        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Mental Clarity Returns",          "body_text": "Brain fog lifts. Focused work feels lighter and dreams become more vivid." } },
-        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Digestive Rhythm Locks In",       "body_text": "Daily digestion regulates. Bloating fades and morning routines feel effortless." } },
+        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Cellular Reset",                 "body_text": "Cellular renewal accelerates. Skin tone evens out and energy holds steady through the afternoon.", "featured": false } },
+        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Mental Clarity Returns",         "body_text": "Brain fog lifts. Focused work feels lighter and dreams become more vivid.",                       "featured": true  } },
+        { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Digestive Rhythm Locks In",      "body_text": "Daily digestion regulates. Bloating fades and morning routines feel effortless.",                  "featured": false } },
 
-        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Sustained Energy Flow",           "body_text": "Energy plateaus stabilize. You feel a quiet, even-keeled stamina across the whole day." } },
-        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Inflammation Eases",              "body_text": "Joint stiffness and low-grade soreness step back. Mornings feel lighter on the body." } },
-        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Pineal Awakening",                "body_text": "Pineal cleansing deepens. Meditative states arrive faster and feel more grounded." } },
+        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Sustained Energy Flow",          "body_text": "Energy plateaus stabilize. You feel a quiet, even-keeled stamina across the whole day.",           "featured": false } },
+        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Inflammation Eases",             "body_text": "Joint stiffness and low-grade soreness step back. Mornings feel lighter on the body.",             "featured": true  } },
+        { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Pineal Awakening",               "body_text": "Pineal cleansing deepens. Meditative states arrive faster and feel more grounded.",                "featured": false } },
 
-        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Resilience Compounds",            "body_text": "Stress recovery is faster. Sleep is deeper and emotional baseline lifts." } },
-        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Skin & Vitality Visible",          "body_text": "Friends start to notice. Skin has a clearer tone and your presence carries more ease." } },
-        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Third Eye Activated",              "body_text": "Inner vision sharpens. Decisions feel more intuitive and creative output grows." } },
+        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Resilience Compounds",           "body_text": "Stress recovery is faster. Sleep is deeper and emotional baseline lifts.",                         "featured": false } },
+        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Skin & Vitality Visible",        "body_text": "Friends start to notice. Skin has a clearer tone and your presence carries more ease.",             "featured": true  } },
+        { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Third Eye Activated",            "body_text": "Inner vision sharpens. Decisions feel more intuitive and creative output grows.",                  "featured": false } },
 
-        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Full System Rebalance",            "body_text": "Mind, gut, and spirit operate in sync. Daily routines feel naturally aligned." } },
-        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Aging Slows",                       "body_text": "Markers of biological aging trend down. Energy and recovery match a younger you." } },
-        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Mastery Mode",                      "body_text": "You hold a steady, expansive presence. Stress, sleep, and focus settle into mastery." } }
+        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Full System Rebalance",          "body_text": "Mind, gut, and spirit operate in sync. Daily routines feel naturally aligned.",                    "featured": false } },
+        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Aging Slows",                    "body_text": "Markers of biological aging trend down. Energy and recovery match a younger you.",                 "featured": true  } },
+        { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Mastery Mode",                   "body_text": "You hold a steady, expansive presence. Stress, sleep, and focus settle into mastery.",             "featured": false } }
       ]
     }
   ]
