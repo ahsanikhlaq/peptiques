@@ -446,47 +446,24 @@
 
 {%- comment -%} ─── 1. SWIPER (carousel) ─── {%- endcomment -%}
 <script>
-  (function(){
-    function initSwiper(){
-      if (typeof Swiper === 'undefined') {
-        return setTimeout(initSwiper, 50);
-      }
-
-      var root = document.getElementById('shopify-section-{{ sid }}');
-      if (!root) return;
-
-      var swiperEl = root.querySelector('[data-uv-swiper]');
-      var prev     = root.querySelector('[data-uv-prev]');
-      var next     = root.querySelector('[data-uv-next]');
-      if (!swiperEl) return;
-
-      var swiper = new Swiper(swiperEl, {
-        slidesPerView: 1.2,
-        spaceBetween: {{ s.cardGap_number | default: 16 }},
-        centeredSlides: true,
-        loop: false,
-        watchOverflow: true,
-        navigation: (prev && next) ? { prevEl: prev, nextEl: next } : false,
-        breakpoints: {
-          640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
-          900:  { slidesPerView: 2.2, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
-          1200: { slidesPerView: 2.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
-        }
-      });
-
-      // Expose the instance so the video-play script can listen to slide changes
-      root._uvSwiper = swiper;
-
-      // Notify the video-play script (in case it loaded first)
-      root.dispatchEvent(new CustomEvent('uv:swiper-ready', { detail: { swiper: swiper } }));
+  var swiper = new Swiper(".uv-swiper", {
+    slidesPerView: 2.6,
+    spaceBetween: 16,
+    centeredSlides: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".uv-nav--next",
+      prevEl: ".uv-nav--prev",
+    },
+    breakpoints: {
+      640:  { slidesPerView: 1.6, spaceBetween: 16 },
+      900:  { slidesPerView: 2.2, spaceBetween: 16 },
+      1200: { slidesPerView: 3.8, spaceBetween: 16 }
     }
-
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', initSwiper);
-    } else {
-      initSwiper();
-    }
-  })();
+  });
 </script>
 
 
