@@ -1761,7 +1761,9 @@
       ],
       "name": "Ingredients",
       "settings": {
-        "overlay_color": "#ffffff",
+        "bg_image_desktop": "shopify://shop_images/Frame_2147243097_1.webp",
+        "bg_image_mobile": "shopify://shop_images/Section_1_1.webp",
+        "overlay_color": "rgba(0,0,0,0)",
         "card_background": "#3f1c5c",
         "gradient_from": "#5a2a78",
         "gradient_to": "#2a1442",
