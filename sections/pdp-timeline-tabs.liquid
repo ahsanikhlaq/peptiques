@@ -182,14 +182,15 @@
     align-items: stretch;
   }
 
-  /* Desktop: explicit heights so center is truly taller */
+  /* Desktop: explicit heights — center card taller, outer cards shorter */
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pt-card {
       grid-template-columns: 151px minmax(0, 1fr);
-      height: 155px;          /* first & third: shorter */
+      height: 148px;
     }
-    #shopify-section-{{ sid }} .pt-card--featured {
-      height: 230px;          /* center card: taller */
+    /* Center card (2nd child): TALLER */
+    #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
+      height: 230px;
     }
   }
 
@@ -259,11 +260,12 @@
       gap: 239px;
       height: 650px;
     }
-    /* Featured card same height as others on mobile */
-    #shopify-section-{{ sid }} .pt-card--featured {
+    /* All cards same height on mobile */
+    #shopify-section-{{ sid }} .pt-card,
+    #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
       height: auto;
     }
-    #shopify-section-{{ sid }} .pt-card--featured .pt-card-media {
+    #shopify-section-{{ sid }} .pt-card-media {
       aspect-ratio: 151 / 142;
     }
   }
