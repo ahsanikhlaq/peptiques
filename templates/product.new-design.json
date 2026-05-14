@@ -1988,7 +1988,7 @@
         "bg_image_desktop": "shopify://shop_images/Frame_2147243044.webp",
         "bg_image_mobile": "shopify://shop_images/Frame_2147243118.webp",
         "section_background": "#1d1027",
-        "overlay_color": "#1d1027",
+        "overlay_color": "#47184d",
         "tab_strip_background": "#1d1027",
         "tab_strip_radius": 16,
         "card_background": "#ffffff",
