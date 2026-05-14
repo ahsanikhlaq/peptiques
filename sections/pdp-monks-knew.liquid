@@ -207,8 +207,8 @@
   }
 
   /* ════════════════════════════════════════════════════════════
-     FOOTER ITEMS  —  icon + text, with dividers between
-     Desktop: row (horizontal), Mobile: 2-column grid
+     FOOTER ITEMS — icon + text, pseudo-element divider
+     Desktop: row, Mobile: 2-column grid
   ════════════════════════════════════════════════════════════ */
   #shopify-section-{{ sid }} .pm-footer {
     display: grid;
@@ -234,23 +234,32 @@
     align-items: center;
     gap: 8px;
     text-align: center;
-  }
-  @media (min-width: 1024px) {
-    #shopify-section-{{ sid }} .pm-footer-item {
-        flex-direction: row;
-        gap: 10px;
-        text-align: left;
-        padding: 0 14px;
-    }
-  }
-
-  /* Vertical divider between items — desktop only */
-  #shopify-section-{{ sid }} .pm-footer-item + .pm-footer-item {
     /* mobile: no divider */
   }
   @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-footer-item {
+      flex-direction: row;
+      gap: 10px;
+      text-align: left;
+      padding: 0 14px;
+      position: relative; /* needed for ::before pseudo */
+    }
+  }
+
+  /* ── Pseudo-element divider — height adjustable ── */
+  @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pm-footer-item + .pm-footer-item {
-      border-left: 1px solid #000000;
+      border-left: none; /* remove old full-height border */
+    }
+    #shopify-section-{{ sid }} .pm-footer-item + .pm-footer-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: {{ s.footer_divider_height | default: 32 }}px; /* ← customizer se control */
+      background: #000000;
     }
   }
 
@@ -387,17 +396,20 @@
     { "type": "text",         "id": "left_image_alt", "label": "Image alt text" },
 
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "section_background",     "label": "Section background",             "default": "#ffffff" },
-    { "type": "color", "id": "media_background",       "label": "Image card fallback background", "default": "#cdb6e6" },
-    { "type": "color", "id": "heading_color",          "label": "Heading color",                  "default": "#000000" },
-    { "type": "color", "id": "subheading_color",       "label": "Subheading color",               "default": "#000000" },
-    { "type": "color", "id": "badge_icon_color",       "label": "Badge icon color",               "default": "#5a2a78" },
-    { "type": "color", "id": "badge_label_color",      "label": "Badge label color",              "default": "#000000" },
-    { "type": "color", "id": "cta_background",         "label": "CTA background",                 "default": "#47184d" },
-    { "type": "color", "id": "cta_text_color",         "label": "CTA text color",                 "default": "#ffffff" },
-    { "type": "color", "id": "cta_hover_background",   "label": "CTA hover background",           "default": "#5a2a78" },
-    { "type": "color", "id": "footer_color",           "label": "Footer text color",              "default": "#000000" },
-    { "type": "color", "id": "footer_icon_color",      "label": "Footer icon color (SVG fallback)","default": "#000000" },
+    { "type": "color", "id": "section_background",     "label": "Section background",              "default": "#ffffff" },
+    { "type": "color", "id": "media_background",       "label": "Image card fallback background",  "default": "#cdb6e6" },
+    { "type": "color", "id": "heading_color",          "label": "Heading color",                   "default": "#000000" },
+    { "type": "color", "id": "subheading_color",       "label": "Subheading color",                "default": "#000000" },
+    { "type": "color", "id": "badge_icon_color",       "label": "Badge icon color",                "default": "#5a2a78" },
+    { "type": "color", "id": "badge_label_color",      "label": "Badge label color",               "default": "#000000" },
+    { "type": "color", "id": "cta_background",         "label": "CTA background",                  "default": "#47184d" },
+    { "type": "color", "id": "cta_text_color",         "label": "CTA text color",                  "default": "#ffffff" },
+    { "type": "color", "id": "cta_hover_background",   "label": "CTA hover background",            "default": "#5a2a78" },
+    { "type": "color", "id": "footer_color",           "label": "Footer text color",               "default": "#000000" },
+    { "type": "color", "id": "footer_icon_color",      "label": "Footer icon color (SVG fallback)", "default": "#000000" },
+
+    { "type": "header", "content": "Footer divider" },
+    { "type": "range", "id": "footer_divider_height", "label": "Divider height (px)", "min": 10, "max": 80, "step": 2, "unit": "px", "default": 32 },
 
     { "type": "header", "content": "Content" },
     { "type": "text",     "id": "heading_text",        "label": "Heading",    "default": "Monks knew 5,000 years ago, now you do too" },
@@ -411,10 +423,10 @@
     { "type": "header", "content": "Spacing (px)" },
     { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
     { "type": "range", "id": "section_padding_bottom",         "label": "Padding bottom (Mobile)",  "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x",             "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_x",              "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
     { "type": "range", "id": "section_padding_top_desktop",    "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
     { "type": "range", "id": "section_padding_bottom_desktop", "label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",     "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+    { "type": "range", "id": "section_padding_x_desktop",      "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
   ],
   "blocks": [
     {
@@ -429,8 +441,8 @@
       "type": "footer_item",
       "name": "Footer item",
       "settings": [
-        { "type": "image_picker", "id": "icon_image",  "label": "Icon image (upload from customizer)" },
-        { "type": "select",       "id": "icon_type",   "label": "Fallback SVG icon (if no image)",
+        { "type": "image_picker", "id": "icon_image", "label": "Icon image (upload from customizer)" },
+        { "type": "select",       "id": "icon_type",  "label": "Fallback SVG icon (if no image)",
           "options": [
             { "value": "pause",   "label": "Pause circle" },
             { "value": "refresh", "label": "Refresh / repeat" }
