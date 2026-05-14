@@ -1,42 +1,13 @@
-{% comment %}
-  UGC Video Reviews section — sits below the Haritaki benefits.
-  Built from Figma: Trypeptiques 2.0 / PDP / "UGC" frame (12 May 2026).
-  Re-pushed 2026-05-12 to trigger Shopify GitHub sync.
-{% endcomment %}
-
-{%- liquid
-  assign heading_font = section.settings.headingFontFamily_text | default: 'Georgia, "Times New Roman", serif'
-  assign body_font    = section.settings.bodyFontFamily_text    | default: '"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-  assign sid          = section.id
-  assign s            = section.settings
-
-  assign video_count = 0
-  for block in section.blocks
-    if block.type == 'video'
-      assign video_count = video_count | plus: 1
-    endif
-  endfor
-  assign per_view_desktop = 4
-  assign show_nav = false
-  if video_count > per_view_desktop
-    assign show_nav = true
-  endif
--%}
-
 <style>
+  /* ============================================ */
+  /* DESKTOP STYLES (default)                     */
+  /* ============================================ */
+
   :root {
-    --uv-{{ sid }}-pt: {{ s.sectionPaddingTop_responsive_range_mobile    | default: s.sectionPaddingTop_responsive_range_desktop    | default: 56 }}px;
-    --uv-{{ sid }}-pb: {{ s.sectionPaddingBottom_responsive_range_mobile | default: s.sectionPaddingBottom_responsive_range_desktop | default: 56 }}px;
-    --uv-{{ sid }}-pl: {{ s.sectionPaddingLeft_responsive_range_mobile   | default: s.sectionPaddingLeft_responsive_range_desktop   | default: 16 }}px;
-    --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_mobile  | default: s.sectionPaddingRight_responsive_range_desktop  | default: 16 }}px;
-  }
-  @media (min-width: 768px) {
-    :root {
-      --uv-{{ sid }}-pt: {{ s.sectionPaddingTop_responsive_range_desktop    | default: 100 }}px;
-      --uv-{{ sid }}-pb: {{ s.sectionPaddingBottom_responsive_range_desktop | default: 100 }}px;
-      --uv-{{ sid }}-pl: {{ s.sectionPaddingLeft_responsive_range_desktop   | default: 50 }}px;
-      --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_desktop  | default: 50 }}px;
-    }
+    --uv-{{ sid }}-pt: {{ s.sectionPaddingTop_responsive_range_desktop    | default: 100 }}px;
+    --uv-{{ sid }}-pb: {{ s.sectionPaddingBottom_responsive_range_desktop | default: 100 }}px;
+    --uv-{{ sid }}-pl: {{ s.sectionPaddingLeft_responsive_range_desktop   | default: 50 }}px;
+    --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_desktop  | default: 50 }}px;
   }
 
   #shopify-section-{{ sid }} .uv-section{
@@ -92,30 +63,16 @@
   #shopify-section-{{ sid }} .uv-carousel{
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 82%;
+    grid-auto-columns: calc((100% - ({{ s.cardGap_number | default: 16 }}px * 3)) / 4);
     gap: {{ s.cardGap_number | default: 16 }}px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--uv-{{ sid }}-pl);
+    scroll-padding-inline: 0;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
-    /* Bleed to the section edges on mobile so cards peek from screen edges. */
-    margin-left: calc(var(--uv-{{ sid }}-pl) * -1);
-    margin-right: calc(var(--uv-{{ sid }}-pr) * -1);
-    padding-left: var(--uv-{{ sid }}-pl);
-    padding-right: var(--uv-{{ sid }}-pr);
   }
   #shopify-section-{{ sid }} .uv-carousel::-webkit-scrollbar{ display: none; }
-
-  @media (min-width: 768px){
-    #shopify-section-{{ sid }} .uv-carousel{
-      grid-auto-columns: calc((100% - ({{ s.cardGap_number | default: 16 }}px * 3)) / 4);
-      margin-left: 0; margin-right: 0;
-      padding-left: 0; padding-right: 0;
-      scroll-padding-inline: 0;
-    }
-  }
 
   #shopify-section-{{ sid }} .uv-card{
     position: relative;
@@ -279,6 +236,29 @@
     z-index: 2;
   }
   #shopify-section-{{ sid }} .uv-player-close svg{ width: 16px; height: 16px; color: #1d1027; }
+
+  /* ============================================ */
+  /* MOBILE STYLES (max-width: 767px)             */
+  /* ============================================ */
+
+  @media (max-width: 767px) {
+    :root {
+      --uv-{{ sid }}-pt: {{ s.sectionPaddingTop_responsive_range_mobile    | default: s.sectionPaddingTop_responsive_range_desktop    | default: 56 }}px;
+      --uv-{{ sid }}-pb: {{ s.sectionPaddingBottom_responsive_range_mobile | default: s.sectionPaddingBottom_responsive_range_desktop | default: 56 }}px;
+      --uv-{{ sid }}-pl: {{ s.sectionPaddingLeft_responsive_range_mobile   | default: s.sectionPaddingLeft_responsive_range_desktop   | default: 16 }}px;
+      --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_mobile  | default: s.sectionPaddingRight_responsive_range_desktop  | default: 16 }}px;
+    }
+
+    #shopify-section-{{ sid }} .uv-carousel{
+      grid-auto-columns: 82%;
+      scroll-padding-inline: var(--uv-{{ sid }}-pl);
+      /* Bleed to the section edges on mobile so cards peek from screen edges. */
+      margin-left: calc(var(--uv-{{ sid }}-pl) * -1);
+      margin-right: calc(var(--uv-{{ sid }}-pr) * -1);
+      padding-left: var(--uv-{{ sid }}-pl);
+      padding-right: var(--uv-{{ sid }}-pr);
+    }
+  }
 </style>
 
 <div
