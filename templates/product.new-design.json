@@ -1575,13 +1575,26 @@
             "badge_text": "Verified Buyer",
             "upload_date": ""
           }
+        },
+        "video_TACry4": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "video_url": "",
+            "reviewer_name": "Ana Williams",
+            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
+            "verified_checkbox": true,
+            "badge_text": "Verified Buyer",
+            "upload_date": ""
+          }
         }
       },
       "block_order": [
         "video_xxcQkq",
         "video_iBqxqq",
         "video_gyQcXt",
-        "video_yYPm3P"
+        "video_yYPm3P",
+        "video_TACry4"
       ],
       "name": "UGC Video Reviews",
       "settings": {
