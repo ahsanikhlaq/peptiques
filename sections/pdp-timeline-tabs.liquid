@@ -406,8 +406,35 @@
   tabs.forEach(function (t) {
     t.addEventListener('click', function () {
       activate(t.getAttribute('data-pt-tab'));
+      /* Re-center 2nd card when tab changes on mobile */
+      if (window.innerWidth <= 768) {
+        var activePanel = root.querySelector('[data-pt-panel="' + t.getAttribute('data-pt-tab') + '"]');
+        if (activePanel) centerSecondCard(activePanel.querySelector('.pt-cards'));
+      }
     });
   });
+
+  /* Center 2nd card on mobile page load */
+  function centerSecondCard(container) {
+    if (!container) return;
+    var cards = container.querySelectorAll('.pt-card');
+    if (cards.length < 2) return;
+    var second = cards[1];
+    /* Scroll so the 2nd card center = container center */
+    var containerCenter = container.offsetWidth / 2;
+    var cardCenter = second.offsetLeft + second.offsetWidth / 2;
+    container.scrollLeft = cardCenter - containerCenter;
+  }
+
+  if (window.innerWidth <= 768) {
+    /* Run after paint so layout is complete */
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        var firstPanel = root.querySelector('[data-pt-active="true"] .pt-cards');
+        centerSecondCard(firstPanel);
+      });
+    });
+  }
 })();
 </script>
 
