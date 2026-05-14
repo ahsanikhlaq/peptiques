@@ -47,11 +47,7 @@
       background-position: {{ s.sectionBackgroundPosition_text | default: 'center center' }};
       background-repeat: no-repeat;
     {%- else -%}
-      background:
-        linear-gradient(to right,
-          {{ s.sectionGradientFrom_color | default: '#f5e1ff' }} 0%,
-          #ffffff 50%,
-          {{ s.sectionGradientTo_color | default: '#f5e1ff' }} 100%);
+     background: var(--9, linear-gradient(90deg, #F5E1FF 0%, #FFF 50%, #F5E1FF 100%));
     {%- endif -%}
   }
 
@@ -273,9 +269,23 @@
   /* MOBILE (max-width: 767px)                    */
   /* ============================================ */
 .uv-card {
-  background:
-    linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(102, 102, 102, 0.00) 42.48%),
-    url('your-image.jpg') center / cover no-repeat;
+  position: relative;
+  /* your existing styles, like background-image, height, etc. */
+}
+
+.uv-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(102, 102, 102, 0.00) 42.48%);
+  pointer-events: none;
+  border-radius: inherit; /* keeps the gradient inside rounded corners */
+}
+
+/* Make sure content inside the card stays above the overlay */
+.uv-card > * {
+  position: relative;
+  z-index: 1;
 }
   @media (max-width: 767px) {
     :root {
