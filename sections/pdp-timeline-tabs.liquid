@@ -142,10 +142,6 @@
   #shopify-section-{{ sid }} .pt-panel[data-pt-active="true"] { display: block; }
 
   /* ─── Cards grid ────────────────────────────────────────────── */
-  /*
-    3-column desktop: items align to bottom so the middle (featured/tall)
-    card rises above the shorter outer cards.
-  */
   #shopify-section-{{ sid }} .pt-cards {
     display: grid;
     grid-auto-flow: column;
@@ -166,7 +162,7 @@
       grid-auto-columns: auto;
       overflow-x: visible;
       gap: 0 16px;
-      align-items: center;   /* bottom-align: featured rises above shorter cards */
+      align-items: center;
     }
   }
 
@@ -188,7 +184,6 @@
       grid-template-columns: 151px minmax(0, 1fr);
       height: 142px;
     }
-    /* Center card (2nd child): TALLER */
     #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
       height: 173px;
     }
@@ -200,11 +195,11 @@
     display: flex;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 151 / 142;  /* mobile */
+    aspect-ratio: 151 / 142;
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pt-card-media {
-      aspect-ratio: unset;    /* desktop: card height controls, not aspect-ratio */
+      aspect-ratio: unset;
       height: 100%;
     }
   }
@@ -260,30 +255,23 @@
       gap: 239px;
       height: 650px;
     }
-#shopify-section-{{ sid }} .pt-tabs-shell{
+    #shopify-section-{{ sid }} .pt-tabs-shell {
       padding: 24px 0;
-}
-    /* Mobile cards: horizontal scroll, centered snap */
+    }
     #shopify-section-{{ sid }} .pt-cards {
       grid-auto-columns: 85%;
       scroll-snap-type: x mandatory;
-      padding: 0 1.5%;        /* equal side padding so center card centers */
+      padding: 0 1.5%;
       gap: 12px;
-      align-items: center;       /* bottom-align — featured card rises above */
+      align-items: center;
     }
-
-    /* Card base height on mobile */
     #shopify-section-{{ sid }} .pt-card {
       height: 142px;
       scroll-snap-align: center;
     }
-
-    /* Center card (featured/2nd) taller on mobile too */
     #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
       height: 173px;
     }
-
-    /* Media column: fill card height on mobile */
     #shopify-section-{{ sid }} .pt-card-media {
       aspect-ratio: unset;
       height: 100%;
@@ -327,7 +315,6 @@
                       {%- assign is_featured = true -%}
                     {%- endif -%}
 
-                    {%- comment -%} Determine media type {%- endcomment -%}
                     {%- assign has_video = false -%}
                     {%- assign video_mp4 = '' -%}
                     {%- if block.settings.video_file != blank -%}
@@ -340,16 +327,9 @@
                     {%- endif -%}
 
                     <article class="pt-card{% if is_featured %} pt-card--featured{% endif %}" {{ block.shopify_attributes }}>
-
-                      {%- comment -%} MEDIA: video OR image {%- endcomment -%}
                       <div class="pt-card-media">
                         {%- if has_video and video_mp4 != '' -%}
-                          <video
-                            src="{{ video_mp4 }}"
-                            autoplay muted loop playsinline
-                            preload="none"
-                            aria-hidden="true">
-                          </video>
+                          <video src="{{ video_mp4 }}" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
                         {%- elsif block.settings.image != blank -%}
                           {{ block.settings.image | image_url: width: 400 | image_tag:
                                loading: 'lazy',
@@ -358,15 +338,12 @@
                                alt: block.settings.title_text }}
                         {%- endif -%}
                       </div>
-
-                      {%- comment -%} TEXT {%- endcomment -%}
                       <div class="pt-card-text">
                         <h3 class="pt-card-title">{{ block.settings.title_text }}</h3>
                         {%- if block.settings.body_text != blank -%}
                           <p class="pt-card-body">{{ block.settings.body_text }}</p>
                         {%- endif -%}
                       </div>
-
                     </article>
                   {%- endif -%}
                 {%- endfor -%}
@@ -389,6 +366,20 @@
   var panels = root.querySelectorAll('[data-pt-panel]');
   if (!tabs.length || !panels.length) return;
 
+  /* ── Center 2nd card in scroll container ── */
+  function centerSecondCard(container) {
+    if (!container) return;
+    var cards = container.querySelectorAll('.pt-card');
+    if (cards.length < 2) return;
+    var second = cards[1];
+    var containerW = container.offsetWidth;
+    var cardLeft   = second.offsetLeft;
+    var cardW      = second.offsetWidth;
+    /* scrollLeft so card center = container center */
+    container.scrollLeft = cardLeft - (containerW / 2) + (cardW / 2);
+  }
+
+  /* ── Activate tab ── */
   function activate(id) {
     tabs.forEach(function (t) {
       t.setAttribute('aria-selected', t.getAttribute('data-pt-tab') === id ? 'true' : 'false');
@@ -396,47 +387,47 @@
     panels.forEach(function (p) {
       var isActive = p.getAttribute('data-pt-panel') === id;
       p.setAttribute('data-pt-active', isActive ? 'true' : 'false');
-
-      /* Pause videos in hidden panels, play in active */
       p.querySelectorAll('video').forEach(function (v) {
-        if (isActive) { v.play && v.play(); }
-        else          { v.pause && v.pause(); }
+        isActive ? v.play && v.play() : v.pause && v.pause();
       });
+      /* After panel becomes visible, center 2nd card on mobile */
+      if (isActive && window.innerWidth <= 768) {
+        setTimeout(function () {
+          centerSecondCard(p.querySelector('.pt-cards'));
+        }, 50);
+      }
     });
   }
 
   tabs.forEach(function (t) {
     t.addEventListener('click', function () {
       activate(t.getAttribute('data-pt-tab'));
-      /* Re-center 2nd card when tab changes on mobile */
-      if (window.innerWidth <= 768) {
-        var activePanel = root.querySelector('[data-pt-panel="' + t.getAttribute('data-pt-tab') + '"]');
-        if (activePanel) centerSecondCard(activePanel.querySelector('.pt-cards'));
-      }
     });
   });
 
-  /* Center 2nd card on mobile page load */
-  function centerSecondCard(container) {
-    if (!container) return;
-    var cards = container.querySelectorAll('.pt-card');
-    if (cards.length < 2) return;
-    var second = cards[1];
-    /* Scroll so the 2nd card center = container center */
-    var containerCenter = container.offsetWidth / 2;
-    var cardCenter = second.offsetLeft + second.offsetWidth / 2;
-    container.scrollLeft = cardCenter - containerCenter;
+  /* ── On load: center 2nd card on mobile ── */
+  function initMobileCenter() {
+    if (window.innerWidth > 768) return;
+    var firstPanel = root.querySelector('[data-pt-active="true"] .pt-cards');
+    centerSecondCard(firstPanel);
   }
 
-  if (window.innerWidth <= 768) {
-    /* Run after paint so layout is complete */
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        var firstPanel = root.querySelector('[data-pt-active="true"] .pt-cards');
-        centerSecondCard(firstPanel);
-      });
+  /* Try multiple timings to catch slow renders */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(initMobileCenter, 100);
     });
+  } else {
+    /* DOM already ready — run after next paint + small buffer */
+    setTimeout(initMobileCenter, 100);
   }
+
+  /* Shopify editor reload */
+  document.addEventListener('shopify:section:load', function (e) {
+    if (e.detail && e.detail.sectionId === '{{ sid }}') {
+      setTimeout(initMobileCenter, 200);
+    }
+  });
 })();
 </script>
 
@@ -459,8 +450,8 @@
     { "type": "range", "id": "cards_per_row_desktop", "label": "Cards per row (Desktop)",  "min": 1, "max": 4, "step": 1, "default": 3 },
 
     { "type": "header", "content": "Content" },
-    { "type": "text", "id": "heading_text",        "label": "Heading",           "default": "Ancient Wisdom. Modern Strength" },
-    { "type": "text", "id": "heading_font_family", "label": "Heading font-family","default": "Georgia, \"Times New Roman\", serif" },
+    { "type": "text", "id": "heading_text",        "label": "Heading",            "default": "Ancient Wisdom. Modern Strength" },
+    { "type": "text", "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Spacing (px)" },
     { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 40 },
@@ -493,19 +484,15 @@
         { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Cellular Rejuvenation Deepens", "body_text": "Full cellular rejuvenation. Notice radiant skin and a profound shift in spiritual awareness.", "featured": false } },
         { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "The First Signs Begin",          "body_text": "Feel the initial awakening. Gentle detox and sharper morning focus begin to take hold.",            "featured": true  } },
         { "type": "card", "settings": { "phase_label": "1-2 Weeks", "title_text": "Gut-Brain Alignment Starts",     "body_text": "Gut-brain alignment begins. Enjoy deeper sleep cycles and sustained natural energy.",              "featured": false } },
-
         { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Cellular Reset",                 "body_text": "Cellular renewal accelerates. Skin tone evens out and energy holds steady through the afternoon.", "featured": false } },
         { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Mental Clarity Returns",         "body_text": "Brain fog lifts. Focused work feels lighter and dreams become more vivid.",                       "featured": true  } },
         { "type": "card", "settings": { "phase_label": "1 Month",   "title_text": "Digestive Rhythm Locks In",      "body_text": "Daily digestion regulates. Bloating fades and morning routines feel effortless.",                  "featured": false } },
-
         { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Sustained Energy Flow",          "body_text": "Energy plateaus stabilize. You feel a quiet, even-keeled stamina across the whole day.",           "featured": false } },
         { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Inflammation Eases",             "body_text": "Joint stiffness and low-grade soreness step back. Mornings feel lighter on the body.",             "featured": true  } },
         { "type": "card", "settings": { "phase_label": "2 Months",  "title_text": "Pineal Awakening",               "body_text": "Pineal cleansing deepens. Meditative states arrive faster and feel more grounded.",                "featured": false } },
-
         { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Resilience Compounds",           "body_text": "Stress recovery is faster. Sleep is deeper and emotional baseline lifts.",                         "featured": false } },
         { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Skin & Vitality Visible",        "body_text": "Friends start to notice. Skin has a clearer tone and your presence carries more ease.",             "featured": true  } },
         { "type": "card", "settings": { "phase_label": "4 Months",  "title_text": "Third Eye Activated",            "body_text": "Inner vision sharpens. Decisions feel more intuitive and creative output grows.",                  "featured": false } },
-
         { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Full System Rebalance",          "body_text": "Mind, gut, and spirit operate in sync. Daily routines feel naturally aligned.",                    "featured": false } },
         { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Aging Slows",                    "body_text": "Markers of biological aging trend down. Energy and recovery match a younger you.",                 "featured": true  } },
         { "type": "card", "settings": { "phase_label": "6 Months",  "title_text": "Mastery Mode",                   "body_text": "You hold a steady, expansive presence. Stress, sleep, and focus settle into mastery.",             "featured": false } }
