@@ -1590,6 +1590,7 @@
         },
         "video_xA8tkP": {
           "type": "video",
+          "disabled": true,
           "settings": {
             "video_url": "",
             "video_file": "shopify://files/videos/CANCELLATION VIDEO.mp4",
