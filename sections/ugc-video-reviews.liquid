@@ -71,6 +71,7 @@
     text-underline-offset: auto;
     text-underline-position: from-font;
     margin: 0;
+    margin: 0 0 16px;
   }
   #shopify-section-{{ sid }} .uv-eyebrow a{ color: inherit; text-decoration: underline; }
   #shopify-section-{{ sid }} .uv-stars{ display: inline-flex; gap: 1px; color: {{ s.starsColor_color | default: '#f5b301' }}; }
@@ -298,17 +299,6 @@ gap: 6px;
     margin-top: 13px;
     line-height: 1.2;
   }
-  .main-top-main {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    justify-content: center;
-        margin-bottom: 10px;
-}
-.main-top-main p {
-    margin: 0;
-}
-
 
   /* ============================================ */
   /* MOBILE (max-width: 767px)                    */
@@ -325,6 +315,7 @@ gap: 6px;
     }
     #shopify-section-{{ sid }} .uv-eyebrow{
       font-size: 14px;
+       margin: 0 0 10px;
     }
     #shopify-section-{{ sid }} .uv-heading{
       font-size: 30px;
@@ -366,9 +357,6 @@ gap: 6px;
     margin-top: 8px;
     line-height: 1.2;
    }
-     .main-top-main {
-       margin-bottom: 10px;
-    }
   }
 </style>
 
@@ -383,7 +371,6 @@ gap: 6px;
 >
   <div class="uv-container">
     {%- if s.eyebrow_text != blank or s.show_stars_checkbox -%}
-     <div class="main-top-main">
       <p class="uv-eyebrow">
         {%- if s.show_stars_checkbox -%}
           <span class="uv-stars" aria-hidden="true">
@@ -395,10 +382,9 @@ gap: 6px;
         {%- if s.eyebrow_link != blank -%}
           <a href="{{ s.eyebrow_link }}">{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</a>
         {%- else -%}
-          <div>{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</div>
+          <span>{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</span>
         {%- endif -%}
       </p>
-</div>
     {%- endif -%}
 
     <h2 id="uv-heading-{{ sid }}" class="uv-heading">
@@ -678,7 +664,7 @@ gap: 6px;
 
     { "type": "header", "content": "Eyebrow & Heading" },
     { "type": "checkbox", "id": "show_stars_checkbox", "label": "Show stars",   "default": true },
-   { "type": "richtext", "id": "eyebrow_text", "label": "Eyebrow text", "default": "<p>10,500+ 5-Star Reviews</p>" },
+    { "type": "text",     "id": "eyebrow_text",       "label": "Eyebrow text", "default": "10,500+ 5-Star Reviews" },
     { "type": "url",      "id": "eyebrow_link",       "label": "Eyebrow link (optional)" },
     { "type": "text",     "id": "heading_text",       "label": "Heading",      "default": "Wellness creators, mindful users," },
 
