@@ -272,7 +272,11 @@
   /* ============================================ */
   /* MOBILE (max-width: 767px)                    */
   /* ============================================ */
-
+.uv-card {
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(102, 102, 102, 0.00) 42.48%),
+    url('your-image.jpg') center / cover no-repeat;
+}
   @media (max-width: 767px) {
     :root {
       --uv-{{ sid }}-pt: {{ s.sectionPaddingTop_responsive_range_mobile    | default: s.sectionPaddingTop_responsive_range_desktop    | default: 56 }}px;
