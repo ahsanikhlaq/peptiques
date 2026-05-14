@@ -37,28 +37,26 @@
   #shopify-section-{{ sid }} .pi-section {
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.heading_color | default: '#ffffff' }};
-    background-color: {{ s.card_background | default: '#47184d' }};
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    position: relative;
+
     {% if mobile_bg_image != blank %}
-      background-image:
-        linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
-        url({{ mobile_bg_image | image_url: width: 1200 }});
+      /* IMAGE SET: show image only, no gradient overlay */
+      background: url('{{ mobile_bg_image | image_url: width: 1200 }}') center center / cover no-repeat;
     {% else %}
+      /* NO IMAGE: show purple gradient */
+      background-color: {{ s.card_background | default: '#47184d' }};
       background-image:
         radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255,255,255,0.08), transparent 60%),
         radial-gradient(ellipse 50% 60% at 100% 100%, rgba(255,255,255,0.06), transparent 65%),
         linear-gradient(160deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
     {% endif %}
   }
+
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pi-section {
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
       {% if bg_image != blank %}
-        background-image:
-          linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
-          url({{ bg_image | image_url: width: 2000 }});
+        background: url('{{ bg_image | image_url: width: 2000 }}') center center / cover no-repeat;
       {% endif %}
     }
   }
@@ -252,28 +250,28 @@
   #shopify-section-{{ sid }} .pi-bars::before {
     content: '';
     position: absolute;
-    top: 0; bottom: 0; left: 0; width: 0;height: 186px;
+    top: 0; bottom: 0; left: 0; width: 0; height: 186px;
     border-left: 1.2px dashed #E3E3E3;
     pointer-events: none;
-    z-index:1;
+    z-index: 1;
   }
   #shopify-section-{{ sid }} .pi-bars::after {
     content: '';
     position: absolute;
-    top: 0; bottom: 0; right: 0; width: 0;height: 186px;
+    top: 0; bottom: 0; right: 0; width: 0; height: 186px;
     border-right: 1.2px dashed #E3E3E3;
     pointer-events: none;
-     z-index:1;
+    z-index: 1;
   }
   #shopify-section-{{ sid }} .pi-bars-center {
     position: absolute;
-    top: 0; bottom: 0; left: 50%; width: 0;height: 186px;
+    top: 0; bottom: 0; left: 50%; width: 0; height: 186px;
     border-left: 1.2px dashed #E3E3E3;
     pointer-events: none;
-     z-index:1;
+    z-index: 1;
   }
 
-  #shopify-section-{{ sid }} .pi-bar { padding: 0; z-index:2;}
+  #shopify-section-{{ sid }} .pi-bar { padding: 0; z-index: 2; }
   #shopify-section-{{ sid }} .pi-bar-label {
     color: #E3E3E3;
     font-size: 20px;
@@ -292,7 +290,7 @@
     overflow: hidden;
   }
 
-  /* Fill — starts at width:0, JS animates to data-w value */
+  /* Fill — starts at 0, JS animates to data-w value */
   #shopify-section-{{ sid }} .pi-bar-fill {
     display: block !important;
     position: absolute;
@@ -310,7 +308,7 @@
     background-image: repeating-linear-gradient(
       -45deg,
       #000000 0px, #000000 4px,
-      transparent 4px, transparent 10px
+      transparent 4px, transparent 8px
     );
   }
 
@@ -377,7 +375,6 @@
     {%- if s.footer_image != blank or stat_count > 0 -%}
       <div class="pi-footer">
 
-        {%- comment -%} LEFT: image + description {%- endcomment -%}
         <div class="pi-footer-left">
           {%- if s.footer_image != blank -%}
             {{ s.footer_image | image_url: width: 800 | image_tag:
@@ -392,7 +389,6 @@
           {%- endif -%}
         </div>
 
-        {%- comment -%} RIGHT: bars {%- endcomment -%}
         {%- if stat_count > 0 -%}
           <div class="pi-bars" id="pi-bars-{{ sid }}">
             <span class="pi-bars-center" aria-hidden="true"></span>
@@ -420,8 +416,8 @@
 
 <script>
 (function () {
-  var sId     = '{{ sid }}';
-  var barsEl  = document.getElementById('pi-bars-' + sId);
+  var sId    = '{{ sid }}';
+  var barsEl = document.getElementById('pi-bars-' + sId);
   if (!barsEl) return;
 
   var triggered = false;
@@ -437,7 +433,6 @@
       var tw    = parseFloat(fill.getAttribute('data-w')) || 0;
       var delay = 350 + i * 180;
 
-      /* Reset to 0 without transition */
       fill.style.transition = 'none';
       fill.style.width = '0%';
 
@@ -454,16 +449,12 @@
         animate();
         obs.disconnect();
       }
-    }, {
-      threshold: 0.25,
-      rootMargin: '0px 0px -100px 0px'
-    });
+    }, { threshold: 0.25, rootMargin: '0px 0px -100px 0px' });
     obs.observe(barsEl);
   } else {
     animate();
   }
 
-  /* Shopify editor: re-trigger on section reload */
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === sId) {
       triggered = false;
@@ -480,12 +471,11 @@
   "class": "pi-ingredients",
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
-    { "type": "header", "content": "Background image" },
+    { "type": "header", "content": "Background" },
     { "type": "image_picker", "id": "bg_image_desktop", "label": "Background image — Desktop" },
     { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
-    { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)", "default": "#2a1442" },
 
-    { "type": "header", "content": "Colors" },
+    { "type": "header", "content": "Colors (used when no background image)" },
     { "type": "color", "id": "card_background",   "label": "Section background",    "default": "#47184d" },
     { "type": "color", "id": "gradient_from",     "label": "Gradient start",        "default": "#5a2a78" },
     { "type": "color", "id": "gradient_to",       "label": "Gradient end",          "default": "#2a1442" },
