@@ -1826,7 +1826,7 @@
         "heading_color": "#1d1027",
         "subheading_color": "#5b4f6b",
         "badge_icon_color": "#5a2a78",
-        "badge_label_color": "#1d1027",
+        "badge_label_color": "#000000",
         "divider_color": "#000000",
         "cta_background": "#3f1c5c",
         "cta_text_color": "#ffffff",
