@@ -1848,6 +1848,7 @@
         "cta_hover_background": "#5a2a78",
         "footer_color": "#000000",
         "footer_icon_color": "#000000",
+        "footer_divider_height": 16,
         "heading_text": "Monks knew 5,000 years ago, now you do too",
         "subheading_text": "What monks understood thousands of years ago can now support your daily routine.",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
