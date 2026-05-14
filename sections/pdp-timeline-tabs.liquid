@@ -166,7 +166,7 @@
       grid-auto-columns: auto;
       overflow-x: visible;
       gap: 0 16px;
-      align-items: center;   /* bottom-align: featured rises above shorter cards */
+      align-items: end;   /* bottom-align: featured rises above shorter cards */
     }
   }
 
@@ -186,11 +186,11 @@
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pt-card {
       grid-template-columns: 151px minmax(0, 1fr);
-      height: 142px;
+      height: 148px;
     }
     /* Center card (2nd child): TALLER */
     #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
-      height: 173px;
+      height: 230px;
     }
   }
 
@@ -260,13 +260,31 @@
       gap: 239px;
       height: 650px;
     }
-    /* All cards same height on mobile */
-    #shopify-section-{{ sid }} .pt-card,
-    #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
-      height: auto;
+
+    /* Mobile cards: horizontal scroll, centered snap */
+    #shopify-section-{{ sid }} .pt-cards {
+      grid-auto-columns: 85%;
+      scroll-snap-type: x mandatory;
+      padding: 0 7.5%;        /* equal side padding so center card centers */
+      gap: 12px;
+      align-items: end;       /* bottom-align — featured card rises above */
     }
+
+    /* Card base height on mobile */
+    #shopify-section-{{ sid }} .pt-card {
+      height: 160px;
+      scroll-snap-align: center;
+    }
+
+    /* Center card (featured/2nd) taller on mobile too */
+    #shopify-section-{{ sid }} .pt-cards .pt-card:nth-child(2) {
+      height: 240px;
+    }
+
+    /* Media column: fill card height on mobile */
     #shopify-section-{{ sid }} .pt-card-media {
-      aspect-ratio: 151 / 142;
+      aspect-ratio: unset;
+      height: 100%;
     }
   }
 </style>
