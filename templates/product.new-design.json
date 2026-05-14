@@ -1792,18 +1792,21 @@
         "tb_1": {
           "type": "trust_badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Frame_2.svg",
             "label_text": "Manufactured in a GMP-Certified Facility"
           }
         },
         "tb_2": {
           "type": "trust_badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Vector_61.svg",
             "label_text": "NSF / GMP Certified Facility"
           }
         },
         "tb_3": {
           "type": "trust_badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Vector_62.svg",
             "label_text": "FDA-Registered Facility"
           }
         }
