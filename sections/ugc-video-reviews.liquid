@@ -1,3 +1,31 @@
+
+{% comment %}
+  UGC Video Reviews section — sits below the Haritaki benefits.
+  Built from Figma: Trypeptiques 2.0 / PDP / "UGC" frame (12 May 2026).
+{% endcomment %}
+
+{%- liquid
+  assign heading_font = section.settings.headingFontFamily_text | default: 'Georgia, "Times New Roman", serif'
+  assign body_font    = section.settings.bodyFontFamily_text    | default: '"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+  assign sid          = section.id
+  assign s            = section.settings
+
+  assign video_count = 0
+  for block in section.blocks
+    if block.type == 'video'
+      assign video_count = video_count | plus: 1
+    endif
+  endfor
+  assign per_view_desktop = 4
+  assign show_nav = false
+  if video_count > per_view_desktop
+    assign show_nav = true
+  endif
+-%}
+
+
+
+
 <style>
   /* ============================================ */
   /* DESKTOP                                      */
