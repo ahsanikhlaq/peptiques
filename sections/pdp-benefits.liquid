@@ -226,10 +226,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 200ms ease;
   }
-  #shopify-section-{{ sid }} .pb-item details[open] .pb-toggle{ transform: rotate(45deg); }
   #shopify-section-{{ sid }} .pb-toggle svg{ width: 20px; height: 20px; }
+
+  /* Plus — closed, Minus — open */
+  #shopify-section-{{ sid }} .pb-toggle .icon-plus  { display: block; }
+  #shopify-section-{{ sid }} .pb-toggle .icon-minus { display: none;  }
+  #shopify-section-{{ sid }} .pb-item details[open] .pb-toggle .icon-plus  { display: none;  }
+  #shopify-section-{{ sid }} .pb-item details[open] .pb-toggle .icon-minus { display: block; }
+
+  /* Smooth text fade on open/close */
+  #shopify-section-{{ sid }} .pb-subtitle,
+  #shopify-section-{{ sid }} .pb-body {
+    transition: opacity 250ms ease;
+  }
+  #shopify-section-{{ sid }} .pb-subtitle { opacity: 1; }
+  #shopify-section-{{ sid }} .pb-body     { opacity: 0; }
+  #shopify-section-{{ sid }} .pb-item details[open] .pb-subtitle { opacity: 0; }
+  #shopify-section-{{ sid }} .pb-item details[open] .pb-body     { opacity: 1; }
 
   #shopify-section-{{ sid }} .pb-media{
     width: 100%;
@@ -336,9 +350,12 @@
                       </span>
                     </div>
                     <span class="pb-toggle" aria-hidden="true">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <svg class="icon-plus" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path d="M3 10H17" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M10 3V17" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <svg class="icon-minus" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 10H17" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </span>
                   </summary>
@@ -361,6 +378,21 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  document.querySelectorAll('#shopify-section-{{ sid }} .pb-item details').forEach(function(details) {
+    var summary = details.querySelector('summary');
+    summary.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (details.open) {
+        details.removeAttribute('open');
+      } else {
+        details.setAttribute('open', '');
+      }
+    });
+  });
+</script>
 
 {% schema %}
 {
