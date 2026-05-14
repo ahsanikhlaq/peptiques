@@ -1814,10 +1814,12 @@
         "tb_3"
       ],
       "settings": {
+        "left_image": "shopify://shop_images/Container_5.webp",
+        "left_image_alt": "",
         "section_background": "#ffffff",
+        "media_background": "#cdb6e6",
         "content_background": "#f6efff",
         "content_background_end": "#f5e1ff",
-        "media_background": "#cdb6e6",
         "heading_color": "#1d1027",
         "subheading_color": "#5b4f6b",
         "badge_icon_color": "#5a2a78",
@@ -1829,8 +1831,6 @@
         "footer_color": "#5b4f6b",
         "heading_text": "Monks knew 5,000 years ago, now you do too",
         "subheading_text": "What monks understood thousands of years ago can now support your daily routine.",
-        "poster_alt": "Haritaki video",
-        "video_url": "",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
         "cta_text": "UNLOCK YOUR TRUE POWER",
         "cta_url": "",
