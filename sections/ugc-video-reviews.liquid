@@ -379,11 +379,9 @@ gap: 6px;
             {%- endfor -%}
           </span>
         {%- endif -%}
-        {%- if s.eyebrow_link != blank -%}
-          <a href="{{ s.eyebrow_link }}">{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</a>
-        {%- else -%}
+        
           <span>{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</span>
-        {%- endif -%}
+        
       </p>
     {%- endif -%}
 
