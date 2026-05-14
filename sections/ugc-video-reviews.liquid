@@ -195,7 +195,7 @@ letter-spacing: -3.22px;
   }
 
   #shopify-section-{{ sid }} .uv-meta{
-    position: absolute; left: 12px; right: 12px; bottom: 10px;
+    position: absolute; left: 12px; right: 12px; bottom: 70px;
     display: flex; align-items: center; justify-content: space-between;
     gap: 8px;
     color: #fff;
@@ -203,7 +203,17 @@ letter-spacing: -3.22px;
     font-size: 13px;
     z-index: 2;
   }
-  #shopify-section-{{ sid }} .uv-name{ font-weight: 600; line-height: 1.2; }
+  #shopify-section-{{ sid }} .uv-name{ 
+   color: #FFF;
+
+/* Georgia/Georgia/dm sans semibold */
+font-family: "DM Sans";
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 120%; /* 19.2px */
+margin: 0;
+   }
   #shopify-section-{{ sid }} .uv-quote{
     position: absolute; left: 12px; right: 12px; bottom: 30px;
     color: #fff;
@@ -218,15 +228,18 @@ letter-spacing: -3.22px;
     z-index: 2;
   }
   #shopify-section-{{ sid }} .uv-badge{
-    display: inline-flex; align-items: center; gap: 4px;
-    background: rgba(255,255,255,0.16);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    color: #fff;
-    font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    white-space: nowrap;
+   color: var(--white, #FFF);
+
+/* Georgia/Georgia/dm sans bold */
+font-family: "DM Sans";
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: 120%; /* 14.4px */
+margin: 0;
+display: flex;
+align-items: center;
+gap: 6px;
   }
   #shopify-section-{{ sid }} .uv-badge svg{ width: 10px; height: 10px; color: #c1a0f0; }
 
