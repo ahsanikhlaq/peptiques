@@ -1,4 +1,3 @@
-
 {% comment %}
   UGC Video Reviews section — sits below the Haritaki benefits.
   Built from Figma: Trypeptiques 2.0 / PDP / "UGC" frame (12 May 2026).
@@ -16,15 +15,12 @@
       assign video_count = video_count | plus: 1
     endif
   endfor
-  assign per_view_desktop = 4
+
   assign show_nav = false
-  if video_count > per_view_desktop
+  if s.show_nav_checkbox and video_count > 1
     assign show_nav = true
   endif
 -%}
-
-
-
 
 <style>
   /* ============================================ */
@@ -47,7 +43,7 @@
       background-position: {{ s.sectionBackgroundPosition_text | default: 'center center' }};
       background-repeat: no-repeat;
     {%- else -%}
-     background: var(--9, linear-gradient(90deg, #F5E1FF 0%, #FFF 50%, #F5E1FF 100%));
+      background: linear-gradient(90deg, #F5E1FF 0%, #FFF 50%, #F5E1FF 100%);
     {%- endif -%}
   }
 
@@ -82,35 +78,41 @@
     font-size: clamp(1.75rem, 2.4vw + 1rem, {{ s.headingSize_desktop_number | default: 46 }}px);
   }
 
-  #shopify-section-{{ sid }} .uv-carousel-wrap{ position: relative; }
-
-  #shopify-section-{{ sid }} .uv-carousel{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% - ({{ s.cardGap_number | default: 16 }}px * 3)) / 4);
-    gap: {{ s.cardGap_number | default: 16 }}px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
+  #shopify-section-{{ sid }} .uv-carousel-wrap{
+    position: relative;
+    /* Allow the side peeks to extend past the container edges */
+    margin-inline: calc(var(--uv-{{ sid }}-pl) * -1) calc(var(--uv-{{ sid }}-pr) * -1);
   }
-  #shopify-section-{{ sid }} .uv-carousel::-webkit-scrollbar{ display: none; }
+
+  /* Swiper container */
+  #shopify-section-{{ sid }} .uv-swiper{
+    overflow: hidden;
+    padding: 0 var(--uv-{{ sid }}-pl);
+    padding-bottom: 8px;
+  }
+
+  #shopify-section-{{ sid }} .uv-swiper .swiper-wrapper{
+    display: flex;
+    align-items: stretch;
+  }
+
+  /* Each slide: width controlled by Swiper JS via slidesPerView,
+     but we set a fallback flex-basis for safety. */
+  #shopify-section-{{ sid }} .swiper-slide{
+    height: auto;
+    box-sizing: border-box;
+  }
 
   #shopify-section-{{ sid }} .uv-card{
     position: relative;
+    width: 100%;
     aspect-ratio: 9 / 12;
     border-radius: {{ s.cardRadius_number | default: 16 }}px;
     overflow: hidden;
-    scroll-snap-align: start;
     background: #0a0010;
     box-shadow: 0 10px 30px rgba(60, 20, 90, 0.18);
     isolation: isolate;
+    cursor: pointer;
   }
 
   #shopify-section-{{ sid }} .uv-card-media{
@@ -118,12 +120,46 @@
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
+    z-index: 0;
+  }
+
+  /* Inline video element (shown after click) */
+  #shopify-section-{{ sid }} .uv-card-video{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: none;
+    z-index: 3;
+    background: #000;
+    border: 0;
+  }
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-video{
+    display: block;
+  }
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-media,
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-play,
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-quote,
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-meta,
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-overlay,
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"]::before{
+    display: none;
   }
 
   #shopify-section-{{ sid }} .uv-card-overlay{
     position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%);
     pointer-events: none;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ sid }} .uv-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.00) 42.48%);
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 1;
   }
 
   #shopify-section-{{ sid }} .uv-play{
@@ -138,8 +174,10 @@
     cursor: pointer;
     box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     transition: transform 180ms ease, background 180ms ease;
+    z-index: 2;
+    pointer-events: none; /* card itself is clickable */
   }
-  #shopify-section-{{ sid }} .uv-play:hover{ transform: translate(-50%, -50%) scale(1.06); background: #fff; }
+  #shopify-section-{{ sid }} .uv-card:hover .uv-play{ transform: translate(-50%, -50%) scale(1.06); background: #fff; }
   #shopify-section-{{ sid }} .uv-play svg{ width: 22px; height: 22px; color: #1d1027; margin-left: 3px; }
   @media (prefers-reduced-motion: reduce){
     #shopify-section-{{ sid }} .uv-play{ transition: none; }
@@ -152,6 +190,7 @@
     color: #fff;
     font-family: {{ body_font }};
     font-size: 13px;
+    z-index: 2;
   }
   #shopify-section-{{ sid }} .uv-name{ font-weight: 600; line-height: 1.2; }
   #shopify-section-{{ sid }} .uv-quote{
@@ -165,6 +204,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    z-index: 2;
   }
   #shopify-section-{{ sid }} .uv-badge{
     display: inline-flex; align-items: center; gap: 4px;
@@ -179,25 +219,28 @@
   }
   #shopify-section-{{ sid }} .uv-badge svg{ width: 10px; height: 10px; color: #c1a0f0; }
 
+  /* Navigation buttons */
   #shopify-section-{{ sid }} .uv-nav{
     position: absolute; top: 50%;
     transform: translateY(-50%);
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.95);
     border: 0;
     box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-    display: none;
+    display: inline-flex;
     align-items: center; justify-content: center;
     cursor: pointer;
-    z-index: 2;
+    z-index: 10;
+    transition: opacity 180ms ease;
+  }
+  #shopify-section-{{ sid }} .uv-nav.swiper-button-disabled{
+    opacity: 0.35;
+    cursor: default;
   }
   #shopify-section-{{ sid }} .uv-nav svg{ width: 18px; height: 18px; color: #1d1027; }
-  #shopify-section-{{ sid }} .uv-nav--prev{ left: -8px; }
-  #shopify-section-{{ sid }} .uv-nav--next{ right: -8px; }
-  @media (min-width: 1024px) {
-    #shopify-section-{{ sid }} .uv-nav{ display: inline-flex; }
-  }
+  #shopify-section-{{ sid }} .uv-nav--prev{ left: 8px; }
+  #shopify-section-{{ sid }} .uv-nav--next{ right: 8px; }
 
   #shopify-section-{{ sid }} .uv-stats{
     margin: {{ s.statsMarginTop_number | default: 52 }}px auto 0;
@@ -231,71 +274,9 @@
     border-left: 1px solid rgba(255,255,255,0.18);
   }
 
-  #shopify-section-{{ sid }} .uv-player{
-    position: fixed; inset: 0;
-    background: rgba(8,2,14,0.85);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 9999;
-    padding: 16px;
-  }
-  #shopify-section-{{ sid }} .uv-player[aria-hidden="false"]{ display: flex; }
-  #shopify-section-{{ sid }} .uv-player-inner{
-    position: relative;
-    width: min(100%, 540px);
-    aspect-ratio: 9 / 16;
-    background: #000;
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  #shopify-section-{{ sid }} .uv-player-inner > iframe,
-  #shopify-section-{{ sid }} .uv-player-inner > video{
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    border: 0;
-  }
-  #shopify-section-{{ sid }} .uv-player-close{
-    position: absolute; top: 12px; right: 12px;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.9);
-    border: 0;
-    cursor: pointer;
-    z-index: 2;
-  }
-  #shopify-section-{{ sid }} .uv-player-close svg{ width: 16px; height: 16px; color: #1d1027; }
-
   /* ============================================ */
   /* MOBILE (max-width: 767px)                    */
   /* ============================================ */
-.uv-card {
-  position: relative;
-  isolation: isolate; /* creates a new stacking context — important */
-}
-
-.uv-card-media {
-  z-index: 0; /* image at the back */
-}
-
-.uv-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.00) 42.48%);
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 1; /* gradient above image */
-}
-
-/* All text/buttons above the gradient */
-.uv-play,
-.uv-quote,
-.uv-meta,
-.uv-name,
-.uv-badge,
-.uv-card-overlay {
-  z-index: 2;
-}
   @media (max-width: 767px) {
     :root {
       --uv-{{ sid }}-pt: {{ s.sectionPaddingTop_responsive_range_mobile    | default: s.sectionPaddingTop_responsive_range_desktop    | default: 56 }}px;
@@ -303,18 +284,14 @@
       --uv-{{ sid }}-pl: {{ s.sectionPaddingLeft_responsive_range_mobile   | default: s.sectionPaddingLeft_responsive_range_desktop   | default: 16 }}px;
       --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_mobile  | default: s.sectionPaddingRight_responsive_range_desktop  | default: 16 }}px;
     }
-
-    #shopify-section-{{ sid }} .uv-carousel{
-      grid-auto-columns: 82%;
-      scroll-padding-inline: var(--uv-{{ sid }}-pl);
-      /* Bleed to the section edges on mobile so cards peek from screen edges. */
-      margin-left: calc(var(--uv-{{ sid }}-pl) * -1);
-      margin-right: calc(var(--uv-{{ sid }}-pr) * -1);
-      padding-left: var(--uv-{{ sid }}-pl);
-      padding-right: var(--uv-{{ sid }}-pr);
+    #shopify-section-{{ sid }} .uv-nav{
+      width: 36px; height: 36px;
     }
   }
 </style>
+
+{%- comment -%} Swiper CSS + JS from CDN {%- endcomment -%}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <div
   class="uv-section"
@@ -344,95 +321,100 @@
       {{- s.heading_text | default: 'Wellness creators, mindful users,' -}}
     </h2>
 
-    <div class="uv-carousel-wrap" data-uv-root data-uv-show-nav="{{ show_nav }}">
+    <div class="uv-carousel-wrap">
+      <div class="uv-swiper" data-uv-swiper>
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'video' -%}
+              {%- liquid
+                assign b = block.settings
+                assign embed_url = ''
+                assign mp4_url = ''
+                if b.video_url contains 'youtube.com' or b.video_url contains 'youtu.be'
+                  assign yt_id = b.video_url | split: 'v=' | last | split: '&' | first
+                  if b.video_url contains 'youtu.be/'
+                    assign yt_id = b.video_url | split: 'youtu.be/' | last | split: '?' | first
+                  endif
+                  assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0&playsinline=1'
+                elsif b.video_url contains 'vimeo.com'
+                  assign vid = b.video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first
+                  assign embed_url = 'https://player.vimeo.com/video/' | append: vid | append: '?autoplay=1'
+                endif
+                if b.video_file != blank
+                  for src in b.video_file.sources
+                    if src.format == 'mp4'
+                      assign mp4_url = src.url
+                    endif
+                  endfor
+                endif
+                assign thumb_img = b.thumbnail_image
+                if thumb_img == blank and b.video_file != blank
+                  assign thumb_img = b.video_file.preview_image
+                endif
+              -%}
+              <div class="swiper-slide">
+                <div class="uv-card" {{ block.shopify_attributes }}
+                    itemscope itemtype="https://schema.org/VideoObject"
+                    data-uv-card
+                    data-embed="{{ embed_url }}"
+                    data-mp4="{{ mp4_url }}"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Play video by {{ b.reviewer_name | default: 'reviewer' }}"
+                >
+                  {%- if thumb_img != blank -%}
+                    {{ thumb_img
+                      | image_url: width: 640
+                      | image_tag:
+                        class: 'uv-card-media',
+                        loading: 'lazy',
+                        decoding: 'async',
+                        widths: '240,320,480,640,800',
+                        sizes: '(min-width: 768px) 25vw, 80vw',
+                        alt: b.reviewer_name | default: 'Customer video review'
+                    }}
+                    <meta itemprop="thumbnailUrl" content="{{ thumb_img | image_url: width: 640 }}">
+                  {%- else -%}
+                    <div class="uv-card-media" style="background:#1d1027;"></div>
+                  {%- endif -%}
+
+                  <meta itemprop="name"        content="{{ b.reviewer_name | default: 'Customer review' }}">
+                  <meta itemprop="description" content="{{ b.review_quote | default: 'Customer video review' | strip_html }}">
+                  {%- if b.upload_date != blank -%}<meta itemprop="uploadDate" content="{{ b.upload_date }}">{%- endif -%}
+
+                  <div class="uv-card-overlay" aria-hidden="true"></div>
+
+                  <span class="uv-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg>
+                  </span>
+
+                  {%- if b.review_quote != blank -%}
+                    <p class="uv-quote">{{ b.review_quote }}</p>
+                  {%- endif -%}
+
+                  <div class="uv-meta">
+                    <span class="uv-name">{{ b.reviewer_name | default: 'Verified Customer' }}</span>
+                    {%- if b.verified_checkbox -%}
+                      <span class="uv-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.39 4.84L20 8l-4 3.9.94 5.49L12 14.77 7.06 17.39 8 11.9 4 8l5.61-1.16L12 2z"/></svg>
+                        {{ b.badge_text | default: 'Verified Buyer' }}
+                      </span>
+                    {%- endif -%}
+                  </div>
+
+                  {%- comment -%} Inline player placeholder — filled on click {%- endcomment -%}
+                  <div class="uv-card-video" data-uv-video-slot></div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
       {%- if show_nav -%}
         <button type="button" class="uv-nav uv-nav--prev" data-uv-prev aria-label="Previous video">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-      {%- endif -%}
-
-      <ul class="uv-carousel" role="list" data-uv-track>
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'video' -%}
-            {%- liquid
-              assign b = block.settings
-              assign embed_url = ''
-              assign mp4_url = ''
-              if b.video_url contains 'youtube.com' or b.video_url contains 'youtu.be'
-                assign yt_id = b.video_url | split: 'v=' | last | split: '&' | first
-                if b.video_url contains 'youtu.be/'
-                  assign yt_id = b.video_url | split: 'youtu.be/' | last | split: '?' | first
-                endif
-                assign embed_url = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0&playsinline=1'
-              elsif b.video_url contains 'vimeo.com'
-                assign vid = b.video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first
-                assign embed_url = 'https://player.vimeo.com/video/' | append: vid | append: '?autoplay=1'
-              endif
-              if b.video_file != blank
-                for src in b.video_file.sources
-                  if src.format == 'mp4'
-                    assign mp4_url = src.url
-                  endif
-                endfor
-              endif
-              assign thumb_img = b.thumbnail_image
-              if thumb_img == blank and b.video_file != blank
-                assign thumb_img = b.video_file.preview_image
-              endif
-            -%}
-            <li class="uv-card" {{ block.shopify_attributes }}
-                itemscope itemtype="https://schema.org/VideoObject"
-                data-uv-card
-                data-embed="{{ embed_url }}"
-                data-mp4="{{ mp4_url }}"
-            >
-              {%- if thumb_img != blank -%}
-                {{ thumb_img
-                  | image_url: width: 640
-                  | image_tag:
-                    class: 'uv-card-media',
-                    loading: 'lazy',
-                    decoding: 'async',
-                    widths: '240,320,480,640,800',
-                    sizes: '(min-width: 768px) 25vw, 80vw',
-                    alt: b.reviewer_name | default: 'Customer video review'
-                }}
-                <meta itemprop="thumbnailUrl" content="{{ thumb_img | image_url: width: 640 }}">
-              {%- else -%}
-                <div class="uv-card-media" style="background:#1d1027;"></div>
-              {%- endif -%}
-
-              <meta itemprop="name"        content="{{ b.reviewer_name | default: 'Customer review' }}">
-              <meta itemprop="description" content="{{ b.review_quote | default: 'Customer video review' | strip_html }}">
-              {%- if b.upload_date != blank -%}<meta itemprop="uploadDate" content="{{ b.upload_date }}">{%- endif -%}
-
-              <div class="uv-card-overlay" aria-hidden="true"></div>
-
-              <button type="button" class="uv-play"
-                aria-label="Play video by {{ b.reviewer_name | default: 'reviewer' }}"
-                data-uv-play>
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8V4z"/></svg>
-              </button>
-
-              {%- if b.review_quote != blank -%}
-                <p class="uv-quote">{{ b.review_quote }}</p>
-              {%- endif -%}
-
-              <div class="uv-meta">
-                <span class="uv-name">{{ b.reviewer_name | default: 'Verified Customer' }}</span>
-                {%- if b.verified_checkbox -%}
-                  <span class="uv-badge">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.39 4.84L20 8l-4 3.9.94 5.49L12 14.77 7.06 17.39 8 11.9 4 8l5.61-1.16L12 2z"/></svg>
-                    {{ b.badge_text | default: 'Verified Buyer' }}
-                  </span>
-                {%- endif -%}
-              </div>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-
-      {%- if show_nav -%}
         <button type="button" class="uv-nav uv-nav--next" data-uv-next aria-label="Next video">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
@@ -456,14 +438,113 @@
       </div>
     {%- endif -%}
   </div>
-
-  <div class="uv-player" data-uv-modal aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video player">
-    <div class="uv-player-inner" data-uv-modal-inner></div>
-    <button type="button" class="uv-player-close" data-uv-modal-close aria-label="Close video">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+<script>
+  (function(){
+    function init(){
+      if (typeof Swiper === 'undefined') {
+        // Swiper script not ready yet — retry shortly
+        return setTimeout(init, 50);
+      }
+
+      var root = document.getElementById('shopify-section-{{ sid }}');
+      if (!root) return;
+
+      var swiperEl = root.querySelector('[data-uv-swiper]');
+      var prev     = root.querySelector('[data-uv-prev]');
+      var next     = root.querySelector('[data-uv-next]');
+
+      // Peek carousel: 2 full + 2 half-cut on sides on desktop.
+      // slidesPerView ~2.4 centers two slides and shows ~20% of each neighbour.
+      var swiper = new Swiper(swiperEl, {
+        slidesPerView: 1.2,
+        spaceBetween: {{ s.cardGap_number | default: 16 }},
+        centeredSlides: true,
+        loop: false,
+        watchOverflow: true,
+        navigation: (prev && next) ? { prevEl: prev, nextEl: next } : false,
+        breakpoints: {
+          640:  { slidesPerView: 1.6, spaceBetween: {{ s.cardGap_number | default: 16 }} },
+          900:  { slidesPerView: 2.4, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true },
+          1200: { slidesPerView: 2.6, spaceBetween: {{ s.cardGap_number | default: 16 }}, centeredSlides: true }
+        }
+      });
+
+      // Inline play: click card → swap in iframe/video
+      function stopAllVideos(except){
+        root.querySelectorAll('[data-uv-card][data-playing="true"]').forEach(function(c){
+          if (c === except) return;
+          var slot = c.querySelector('[data-uv-video-slot]');
+          if (slot) slot.innerHTML = '';
+          c.removeAttribute('data-playing');
+        });
+      }
+
+      function playCard(card){
+        if (card.getAttribute('data-playing') === 'true') return;
+        var embed = card.getAttribute('data-embed');
+        var mp4   = card.getAttribute('data-mp4');
+        var slot  = card.querySelector('[data-uv-video-slot]');
+        if (!slot) return;
+
+        stopAllVideos(card);
+        slot.innerHTML = '';
+
+        if (embed){
+          var f = document.createElement('iframe');
+          f.src = embed;
+          f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+          f.allowFullscreen = true;
+          f.loading = 'lazy';
+          f.style.width = '100%';
+          f.style.height = '100%';
+          f.style.border = '0';
+          slot.appendChild(f);
+        } else if (mp4){
+          var v = document.createElement('video');
+          v.src = mp4;
+          v.controls = true;
+          v.autoplay = true;
+          v.playsInline = true;
+          v.style.width = '100%';
+          v.style.height = '100%';
+          v.style.objectFit = 'cover';
+          slot.appendChild(v);
+        } else {
+          return;
+        }
+        card.setAttribute('data-playing', 'true');
+      }
+
+      root.querySelectorAll('[data-uv-card]').forEach(function(card){
+        card.addEventListener('click', function(e){
+          // Don't re-trigger if user clicked inside the playing video
+          if (card.getAttribute('data-playing') === 'true') return;
+          playCard(card);
+        });
+        card.addEventListener('keydown', function(e){
+          if (e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            playCard(card);
+          }
+        });
+      });
+
+      // Stop playing video when user slides
+      swiper.on('slideChange', function(){
+        stopAllVideos(null);
+      });
+    }
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
 
 {%- comment -%} JSON-LD ItemList of VideoObjects {%- endcomment -%}
 {%- capture jsonld_videos -%}
@@ -502,64 +583,6 @@
 }
 </script>
 
-<script>
-  (function(){
-    var root = document.getElementById('shopify-section-{{ sid }}');
-    if (!root) return;
-    var track  = root.querySelector('[data-uv-track]');
-    var prev   = root.querySelector('[data-uv-prev]');
-    var next   = root.querySelector('[data-uv-next]');
-    var modal  = root.querySelector('[data-uv-modal]');
-    var inner  = root.querySelector('[data-uv-modal-inner]');
-    var close  = root.querySelector('[data-uv-modal-close]');
-
-    function scrollBy(dir){
-      if (!track) return;
-      var card = track.querySelector('[data-uv-card]');
-      var w = card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 16) : 280;
-      track.scrollBy({ left: dir * w, behavior: 'smooth' });
-    }
-    prev && prev.addEventListener('click', function(){ scrollBy(-1); });
-    next && next.addEventListener('click', function(){ scrollBy(1); });
-
-    function openPlayer(card){
-      var embed = card.getAttribute('data-embed');
-      var mp4   = card.getAttribute('data-mp4');
-      inner.innerHTML = '';
-      if (embed){
-        var f = document.createElement('iframe');
-        f.src = embed;
-        f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
-        f.allowFullscreen = true;
-        f.loading = 'lazy';
-        inner.appendChild(f);
-      } else if (mp4){
-        var v = document.createElement('video');
-        v.src = mp4; v.controls = true; v.autoplay = true; v.playsInline = true;
-        inner.appendChild(v);
-      } else {
-        return;
-      }
-      modal.setAttribute('aria-hidden', 'false');
-      document.documentElement.style.overflow = 'hidden';
-    }
-    function closePlayer(){
-      inner.innerHTML = '';
-      modal.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
-    }
-    root.querySelectorAll('[data-uv-card]').forEach(function(card){
-      var btn = card.querySelector('[data-uv-play]');
-      btn && btn.addEventListener('click', function(){ openPlayer(card); });
-    });
-    close && close.addEventListener('click', closePlayer);
-    modal && modal.addEventListener('click', function(e){ if (e.target === modal) closePlayer(); });
-    document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closePlayer();
-    });
-  })();
-</script>
-
 {% schema %}
 {
   "name": "UGC Video Reviews",
@@ -580,36 +603,37 @@
     { "type": "range", "id": "sectionPaddingRight_responsive_range_mobile",  "label": "Section padding right (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
 
     { "type": "header", "content": "Background" },
-    { "type": "color",        "id": "sectionBackground_color",      "label": "Background color",    "default": "#ffffff" },
-    { "type": "color",        "id": "sectionGradientFrom_color",    "label": "Gradient edge color (both sides)", "default": "#f5e1ff" },
-    { "type": "color",        "id": "sectionGradientTo_color",      "label": "Gradient end (unused — kept for back-compat)", "default": "#f5e1ff" },
-    { "type": "image_picker", "id": "sectionBackgroundImage_picker","label": "Background image (optional)", "info": "When set, replaces the gradient. ≥ 2000px wide recommended." },
-    { "type": "text",         "id": "sectionBackgroundPosition_text","label": "Background position","default": "center center" },
+    { "type": "color",        "id": "sectionBackground_color",       "label": "Background color",  "default": "#ffffff" },
+    { "type": "color",        "id": "sectionGradientFrom_color",     "label": "Gradient edge color (both sides)", "default": "#f5e1ff" },
+    { "type": "color",        "id": "sectionGradientTo_color",       "label": "Gradient end (unused — kept for back-compat)", "default": "#f5e1ff" },
+    { "type": "image_picker", "id": "sectionBackgroundImage_picker", "label": "Background image (optional)", "info": "When set, replaces the gradient. ≥ 2000px wide recommended." },
+    { "type": "text",         "id": "sectionBackgroundPosition_text","label": "Background position", "default": "center center" },
 
     { "type": "header", "content": "Typography" },
     { "type": "text",  "id": "headingFontFamily_text", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
     { "type": "text",  "id": "bodyFontFamily_text",    "label": "Body font-family",    "default": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif" },
     { "type": "range", "id": "headingSize_desktop_number", "label": "Heading size (Desktop, px)", "min": 24, "max": 64, "step": 1, "unit": "px", "default": 46 },
-    { "type": "color", "id": "headingTextColor_color", "label": "Heading color", "default": "#000000" },
-    { "type": "color", "id": "eyebrowTextColor_color", "label": "Eyebrow text color", "default": "#1d1027" },
-    { "type": "color", "id": "starsColor_color",      "label": "Stars color",         "default": "#f5b301" },
+    { "type": "color", "id": "headingTextColor_color", "label": "Heading color",       "default": "#000000" },
+    { "type": "color", "id": "eyebrowTextColor_color","label": "Eyebrow text color",   "default": "#1d1027" },
+    { "type": "color", "id": "starsColor_color",      "label": "Stars color",          "default": "#f5b301" },
 
     { "type": "header", "content": "Eyebrow & Heading" },
-    { "type": "checkbox", "id": "show_stars_checkbox", "label": "Show stars",          "default": true },
-    { "type": "text",     "id": "eyebrow_text",       "label": "Eyebrow text",        "default": "10,500+ 5-Star Reviews" },
+    { "type": "checkbox", "id": "show_stars_checkbox", "label": "Show stars",   "default": true },
+    { "type": "text",     "id": "eyebrow_text",       "label": "Eyebrow text", "default": "10,500+ 5-Star Reviews" },
     { "type": "url",      "id": "eyebrow_link",       "label": "Eyebrow link (optional)" },
-    { "type": "text",     "id": "heading_text",       "label": "Heading",             "default": "Wellness creators, mindful users," },
+    { "type": "text",     "id": "heading_text",       "label": "Heading",      "default": "Wellness creators, mindful users," },
 
     { "type": "header", "content": "Layout" },
-    { "type": "range", "id": "containerMaxWidth_number","label": "Container max width", "min": 800, "max": 1600, "step": 20, "unit": "px", "default": 1340 },
-    { "type": "range", "id": "cardGap_number",          "label": "Card gap",            "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "cardRadius_number",       "label": "Card radius",         "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "containerMaxWidth_number","label": "Container max width", "min": 800, "max": 1600, "step": 20, "unit": "px", "default": 1340 },
+    { "type": "range",    "id": "cardGap_number",          "label": "Card gap",            "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "cardRadius_number",       "label": "Card radius",         "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "checkbox", "id": "show_nav_checkbox",       "label": "Show prev / next arrows", "default": true },
 
     { "type": "header", "content": "Stats bar" },
     { "type": "checkbox", "id": "show_stats_checkbox", "label": "Show stats bar", "default": true },
-    { "type": "color",    "id": "statsBackground_color","label": "Background",   "default": "#47184d" },
-    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius","min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",  "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "color",    "id": "statsBackground_color","label": "Background",    "default": "#47184d" },
+    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",   "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
     { "type": "text",     "id": "stat1_value", "label": "Stat 1 value", "default": "22,926+" },
     { "type": "text",     "id": "stat1_label", "label": "Stat 1 label", "default": "Verified Reviews" },
     { "type": "text",     "id": "stat2_value", "label": "Stat 2 value", "default": "4.8/5" },
