@@ -7,11 +7,15 @@
   assign sid = section.id
   assign s   = section.settings
 
-  assign badge_count = 0
+  assign badge_count  = 0
+  assign footer_count = 0
   for block in section.blocks
-    if block.type == 'trust_badge'
-      assign badge_count = badge_count | plus: 1
-    endif
+    case block.type
+      when 'trust_badge'
+        assign badge_count = badge_count | plus: 1
+      when 'footer_item'
+        assign footer_count = footer_count | plus: 1
+    endcase
   endfor
 -%}
 
@@ -26,13 +30,13 @@
     }
   }
 
-  /* ─── 2-column flex layout: left flex:1  right flex:1 ──────── */
+  /* ─── 2-column flex ─────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pm-wrap {
     max-width: 100%;
     margin-inline: auto;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     align-items: stretch;
   }
   @media (min-width: 1024px) {
@@ -43,66 +47,79 @@
     }
   }
 
-  /* ─── LEFT: image card ──────────────────────────────────────── */
+  /* ─── LEFT: image ───────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pm-media {
     flex: 1;
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
     background: {{ s.media_background | default: '#cdb6e6' }};
     aspect-ratio: 1 / 1;
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pm-media {
+      border-radius: 16px;
       aspect-ratio: auto;
     }
   }
   #shopify-section-{{ sid }} .pm-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
   }
 
   /* ─── RIGHT: content card ───────────────────────────────────── */
   #shopify-section-{{ sid }} .pm-content {
     flex: 1;
-   background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
-    border-radius: 16px;
-    padding: 28px 40px;
+    background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
+    border-radius: 12px;
+    padding: 17px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 12px;
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pm-content {
-        padding: 28px 40px;
-        gap: 16px;
+      border-radius: 16px;
+      padding: 28px 40px;
+      gap: 16px;
     }
   }
 
-  /* ─── Heading & sub ─────────────────────────────────────────── */
+  /* ─── Heading ───────────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pm-heading {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: {{ s.heading_color | default: '#000000' }};
     text-align: center;
     margin: 0 auto;
     font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.07em;
+    line-height: 110%;
+    letter-spacing: -0.04em;
     max-width: 496px;
-    font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
+    font-size: 30px;
   }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-heading {
+      font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
+      letter-spacing: -0.07em;
+      line-height: 1;
+    }
+  }
+
+  /* ─── Subheading ────────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pm-sub {
-    color:#000000;
+    color: #000000;
     text-align: center;
-    margin: 0 auto;
-    line-height: 1.3;
+    margin: 4px auto 0;
+    line-height: 18.8px;
     letter-spacing: -0.03em;
     max-width: 380px;
-    font-size: 16px;
-    margin-top: 4px;
-
+    font-size: 14.6px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-sub {
+      font-size: 16px;
+      line-height: 1.3;
+    }
   }
 
   /* ─── Trust badges ──────────────────────────────────────────── */
@@ -110,46 +127,61 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
-        margin:120px 0 16px;
+    margin: 20px 0;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-badges {
+      margin: 120px 0 16px;
+    }
   }
   #shopify-section-{{ sid }} .pm-badge {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0 12px;
+    padding: 0 6px;
     gap: 16px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-badge { padding: 0 12px; }
   }
   #shopify-section-{{ sid }} .pm-badge + .pm-badge {
     border-left: 1px solid #0000003D;
   }
   #shopify-section-{{ sid }} .pm-badge-icon {
-    width: 60px;
-    height: 60px;
+    width: 42px; height: 42px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: {{ s.badge_icon_color | default: '#5a2a78' }};
     flex-shrink: 0;
   }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-badge-icon { width: 60px; height: 60px; }
+  }
   #shopify-section-{{ sid }} .pm-badge-icon img {
     width: 100%; height: 100%;
-    object-fit: contain;
-    display: block;
+    object-fit: contain; display: block;
   }
   #shopify-section-{{ sid }} .pm-badge-label {
     color: {{ s.badge_label_color | default: '#000000' }};
-    font-family: 'DM Sans';
+    font-family: 'DM Sans', sans-serif;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20.3px;
-    letter-spacing: -3%;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: -0.03em;
     text-align: center;
     margin: 0;
-    max-width: 160px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-badge-label {
+      font-size: 14px;
+      line-height: 20.3px;
+      max-width: 160px;
+    }
   }
 
-  /* ─── CTA ───────────────────────────────────────────────────── */
+  /* ─── CTA button ────────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pm-cta {
     display: flex;
     align-items: center;
@@ -162,67 +194,95 @@
     text-transform: uppercase;
     font-size: 14px;
     border-radius: 100px;
-    padding: 20px 24px;
+    padding: 14px 24px;
     border: 1px solid #ffffff;
     line-height: 1.2;
     transition: background 0.2s ease;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-cta { padding: 20px 24px; }
   }
   #shopify-section-{{ sid }} .pm-cta:hover {
     background: {{ s.cta_hover_background | default: '#5a2a78' }};
   }
 
-  /* ─── Footer line ───────────────────────────────────────────── */
+  /* ════════════════════════════════════════════════════════════
+     FOOTER ITEMS  —  icon + text, with dividers between
+     Desktop: row (horizontal), Mobile: 2-column grid
+  ════════════════════════════════════════════════════════════ */
   #shopify-section-{{ sid }} .pm-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 12px;
+    align-items: start;
+    justify-items: center;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+  }
+
+  /* Each footer item */
+  #shopify-section-{{ sid }} .pm-footer-item {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-footer-item {
+      flex-direction: row;
+      gap: 8px;
+      text-align: left;
+      padding: 0 20px;
+    }
+  }
+
+  /* Vertical divider between items — desktop only */
+  #shopify-section-{{ sid }} .pm-footer-item + .pm-footer-item {
+    /* mobile: no divider */
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-footer-item + .pm-footer-item {
+      border-left: 1px solid rgba(0,0,0,0.25);
+    }
+  }
+
+  /* Icon */
+  #shopify-section-{{ sid }} .pm-footer-icon {
+    width: 28px; height: 28px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: {{ s.footer_color | default: '#000000' }};
-    font-size: 14px;
-    letter-spacing: -0.03em;
-    line-height: 1.4;
+    flex-shrink: 0;
+    color: {{ s.footer_icon_color | default: '#000000' }};
   }
-  @media (max-width:768px){
-    #shopify-section-{{ sid }} .pm-wrap{
-     gap: 16px;
-    }
-    #shopify-section-{{ sid }} .pm-media{
-      border-radius: 12px;
-    }
-    #shopify-section-{{ sid }} .pm-content{
-    border-radius: 12px;
-    padding: 17px;
-    gap: 12px;
-    }
-     #shopify-section-{{ sid }} .pm-badges {
-    margin: 20px 0;
-    }
-    #shopify-section-{{ sid }} .pm-heading{
-      font-size: 30px;
-      line-height: 110.00000000000001%;
-      letter-spacing: -4%;
-      color: #000000;
-    }
-    #shopify-section-{{ sid }} .pm-sub{
-      font-size: 14.6px;
-      line-height: 18.8px;
-      letter-spacing: -3%;
-    }
-    #shopify-section-{{ sid }} .pm-cta {
-      padding: 14px 24px;
-    }
-    #shopify-section-{{ sid }} .pm-badge-icon {
-    width: 42px;
-    height: 42px;
-    }
-    #shopify-section-{{ sid }} .pm-badge {
-          padding: 0 6px;
-    }
-    #shopify-section-{{ sid }} .pm-badge-label {
-    font-size: 12px;
-    line-height: 120%;
-    letter-spacing: -3%;
+  #shopify-section-{{ sid }} .pm-footer-icon img {
+    width: 100%; height: 100%;
+    object-fit: contain; display: block;
+  }
+
+  /* Text */
+  #shopify-section-{{ sid }} .pm-footer-text {
+    color: {{ s.footer_color | default: '#000000' }};
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 120px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pm-footer-text {
+      font-size: 14px;
+      max-width: none;
+      white-space: nowrap;
     }
   }
 </style>
@@ -230,7 +290,7 @@
 <section class="pm-section" {{ section.shopify_attributes }}>
   <div class="pm-wrap">
 
-    {%- comment -%} LEFT: image from customizer {%- endcomment -%}
+    {%- comment -%} LEFT: image {%- endcomment -%}
     <div class="pm-media">
       {%- if s.left_image != blank -%}
         {{ s.left_image | image_url: width: 1200 | image_tag:
@@ -258,8 +318,7 @@
                 <div class="pm-badge-icon">
                   {%- if block.settings.icon_image != blank -%}
                     {{ block.settings.icon_image | image_url: width: 120 | image_tag:
-                         loading: 'lazy',
-                         widths: '44,88,120',
+                         loading: 'lazy', widths: '44,88,120',
                          alt: block.settings.label_text }}
                   {%- else -%}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -279,8 +338,37 @@
         <a href="{{ s.cta_url | default: '#' }}" class="pm-cta">{{ s.cta_text }}</a>
       {%- endif -%}
 
-      {%- if s.footer_text != blank -%}
-        <div class="pm-footer">{{ s.footer_text }}</div>
+      {%- comment -%} FOOTER ITEMS: icon + text, divider between {%- endcomment -%}
+      {%- if footer_count > 0 -%}
+        <div class="pm-footer">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'footer_item' -%}
+              <div class="pm-footer-item" {{ block.shopify_attributes }}>
+                <span class="pm-footer-icon" aria-hidden="true">
+                  {%- if block.settings.icon_image != blank -%}
+                    {{ block.settings.icon_image | image_url: width: 60 | image_tag:
+                         loading: 'lazy', widths: '28,56,60',
+                         alt: '' }}
+                  {%- else -%}
+                    {%- if block.settings.icon_type == 'pause' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="9" y1="8" x2="9" y2="16"/>
+                        <line x1="15" y1="8" x2="15" y2="16"/>
+                      </svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"/>
+                        <path d="M3.51 15a9 9 0 1 0 .49-3"/>
+                      </svg>
+                    {%- endif -%}
+                  {%- endif -%}
+                </span>
+                <p class="pm-footer-text">{{ block.settings.item_text }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       {%- endif -%}
 
     </div>
@@ -299,19 +387,17 @@
     { "type": "text",         "id": "left_image_alt", "label": "Image alt text" },
 
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "section_background",     "label": "Section background",              "default": "#ffffff" },
-    { "type": "color", "id": "media_background",       "label": "Image card fallback background",  "default": "#cdb6e6" },
-    { "type": "color", "id": "content_background",     "label": "Content card — left edge",        "default": "#f5e1ff" },
-    { "type": "color", "id": "content_background_end", "label": "Content card — right edge",       "default": "#f5e1ff" },
-    { "type": "color", "id": "heading_color",          "label": "Heading color",                   "default": "#000000" },
-    { "type": "color", "id": "subheading_color",       "label": "Subheading color",                "default": "#000000" },
-    { "type": "color", "id": "badge_icon_color",       "label": "Badge icon color",                "default": "#5a2a78" },
-    { "type": "color", "id": "badge_label_color",      "label": "Badge label color",               "default": "#000000" },
-    { "type": "color", "id": "divider_color",          "label": "Badge divider color",             "default": "#3d3d3d" },
-    { "type": "color", "id": "cta_background",         "label": "CTA background",                  "default": "#47184d" },
-    { "type": "color", "id": "cta_text_color",         "label": "CTA text color",                  "default": "#ffffff" },
-    { "type": "color", "id": "cta_hover_background",   "label": "CTA hover background",            "default": "#5a2a78" },
-    { "type": "color", "id": "footer_color",           "label": "Footer text color",               "default": "#000000" },
+    { "type": "color", "id": "section_background",     "label": "Section background",             "default": "#ffffff" },
+    { "type": "color", "id": "media_background",       "label": "Image card fallback background", "default": "#cdb6e6" },
+    { "type": "color", "id": "heading_color",          "label": "Heading color",                  "default": "#000000" },
+    { "type": "color", "id": "subheading_color",       "label": "Subheading color",               "default": "#000000" },
+    { "type": "color", "id": "badge_icon_color",       "label": "Badge icon color",               "default": "#5a2a78" },
+    { "type": "color", "id": "badge_label_color",      "label": "Badge label color",              "default": "#000000" },
+    { "type": "color", "id": "cta_background",         "label": "CTA background",                 "default": "#47184d" },
+    { "type": "color", "id": "cta_text_color",         "label": "CTA text color",                 "default": "#ffffff" },
+    { "type": "color", "id": "cta_hover_background",   "label": "CTA hover background",           "default": "#5a2a78" },
+    { "type": "color", "id": "footer_color",           "label": "Footer text color",              "default": "#000000" },
+    { "type": "color", "id": "footer_icon_color",      "label": "Footer icon color (SVG fallback)","default": "#000000" },
 
     { "type": "header", "content": "Content" },
     { "type": "text",     "id": "heading_text",        "label": "Heading",    "default": "Monks knew 5,000 years ago, now you do too" },
@@ -322,16 +408,13 @@
     { "type": "text", "id": "cta_text", "label": "CTA text", "default": "UNLOCK YOUR TRUE POWER" },
     { "type": "url",  "id": "cta_url",  "label": "CTA URL" },
 
-    { "type": "header", "content": "Footer line" },
-    { "type": "text", "id": "footer_text", "label": "Footer text", "default": "Stop or Cancel Anytime | Refills Ship Every 90 days" },
-
     { "type": "header", "content": "Spacing (px)" },
     { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
     { "type": "range", "id": "section_padding_bottom",         "label": "Padding bottom (Mobile)",  "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x",              "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_x",             "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
     { "type": "range", "id": "section_padding_top_desktop",    "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
     { "type": "range", "id": "section_padding_bottom_desktop", "label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",      "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+    { "type": "range", "id": "section_padding_x_desktop",     "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
   ],
   "blocks": [
     {
@@ -341,17 +424,34 @@
         { "type": "image_picker", "id": "icon_image", "label": "Icon image (optional)" },
         { "type": "text",         "id": "label_text", "label": "Label", "default": "Trust badge" }
       ]
+    },
+    {
+      "type": "footer_item",
+      "name": "Footer item",
+      "settings": [
+        { "type": "image_picker", "id": "icon_image",  "label": "Icon image (upload from customizer)" },
+        { "type": "select",       "id": "icon_type",   "label": "Fallback SVG icon (if no image)",
+          "options": [
+            { "value": "pause",   "label": "Pause circle" },
+            { "value": "refresh", "label": "Refresh / repeat" }
+          ],
+          "default": "pause"
+        },
+        { "type": "text", "id": "item_text", "label": "Text", "default": "Stop or Cancel Anytime" }
+      ]
     }
   ],
-  "max_blocks": 6,
+  "max_blocks": 10,
   "presets": [
     {
       "name": "Monks Knew",
       "category": "Custom",
       "blocks": [
-        { "type": "trust_badge", "settings": { "label_text": "Manufactured in a GMP-Certified Facility" } },
-        { "type": "trust_badge", "settings": { "label_text": "NSF / GMP Certified Facility" } },
-        { "type": "trust_badge", "settings": { "label_text": "FDA-Registered Facility" } }
+        { "type": "trust_badge",  "settings": { "label_text": "Manufactured in a GMP-Certified Facility" } },
+        { "type": "trust_badge",  "settings": { "label_text": "NSF / GMP Certified Facility" } },
+        { "type": "trust_badge",  "settings": { "label_text": "FDA-Registered Facility" } },
+        { "type": "footer_item",  "settings": { "icon_type": "pause",   "item_text": "Stop or Cancel Anytime" } },
+        { "type": "footer_item",  "settings": { "icon_type": "refresh", "item_text": "Refills Ship Every 30 Days" } }
       ]
     }
   ]
