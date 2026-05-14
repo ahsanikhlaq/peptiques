@@ -1,12 +1,10 @@
 {% comment %}
   custom-fonts.liquid
-  Loads the merchant-uploaded Georgia + DM Sans (18pt / 24pt / 36pt)
-  font files from the theme's /assets folder. Upload every .woff and
-  .woff2 referenced below to: Edit code → Assets → Upload files.
+  Loads merchant-uploaded Georgia + DM Sans font files from
+  Settings → Files (file_url resolves there).
 
-  After upload, the URLs resolve via {{ '<file>' | asset_url }}, so
-  Shopify serves them from the theme CDN with the right cache
-  headers.
+  Upload every .woff and .woff2 referenced below to:
+  Shopify Admin → Settings → Files → Upload files.
 
   Render this snippet from layout/theme.liquid:
     {% render 'custom-fonts' %}
@@ -16,242 +14,92 @@
   /* ───── Georgia ───── */
   @font-face {
     font-family: 'Georgia';
-    src: url('{{ "Georgia.woff2" | asset_url }}') format('woff2'),
-         url('{{ "Georgia.woff"  | asset_url }}') format('woff');
+    src: url('{{ "Georgia.woff2" | file_url }}') format('woff2'),
+         url('{{ "Georgia.woff"  | file_url }}') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'Georgia';
-    src: url('{{ "Georgia-Bold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "Georgia-Bold.woff"  | asset_url }}') format('woff');
+    src: url('{{ "Georgia-Bold.woff2" | file_url }}') format('woff2'),
+         url('{{ "Georgia-Bold.woff"  | file_url }}') format('woff');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'Georgia';
-    src: url('{{ "Georgia-Italic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "Georgia-Italic.woff"  | asset_url }}') format('woff');
+    src: url('{{ "Georgia-Italic.woff2" | file_url }}') format('woff2'),
+         url('{{ "Georgia-Italic.woff"  | file_url }}') format('woff');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
   }
   @font-face {
     font-family: 'Georgia';
-    src: url('{{ "Georgia-BoldItalic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "Georgia-BoldItalic.woff"  | asset_url }}') format('woff');
+    src: url('{{ "Georgia-BoldItalic.woff2" | file_url }}') format('woff2'),
+         url('{{ "Georgia-BoldItalic.woff"  | file_url }}') format('woff');
     font-weight: bold;
     font-style: italic;
     font-display: swap;
   }
 
-  /* ───── DM Sans (variable-style; standard family name) ───── */
+  /* ───── DM Sans ───── */
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-Thin.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-Thin.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-Thin.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-Thin.woff"  | file_url }}') format('woff');
     font-weight: 100;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-Regular.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-Regular.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-Regular.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-Regular.woff"  | file_url }}') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-Medium.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-Medium.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-Medium.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-Medium.woff"  | file_url }}') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-SemiBold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-SemiBold.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-SemiBold.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-SemiBold.woff"  | file_url }}') format('woff');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-Bold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-Bold.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-Bold.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-Bold.woff"  | file_url }}') format('woff');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-BoldItalic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-BoldItalic.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-BoldItalic.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-BoldItalic.woff"  | file_url }}') format('woff');
     font-weight: 700;
     font-style: italic;
     font-display: swap;
   }
   @font-face {
     font-family: 'DM Sans';
-    src: url('{{ "DMSans-ExtraBoldItalic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans-ExtraBoldItalic.woff"  | asset_url }}') format('woff');
+    src: url('{{ "DMSans-ExtraBoldItalic.woff2" | file_url }}') format('woff2'),
+         url('{{ "DMSans-ExtraBoldItalic.woff"  | file_url }}') format('woff');
     font-weight: 800;
     font-style: italic;
-    font-display: swap;
-  }
-
-  /* ───── DM Sans 18pt optical-size variant ───── */
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-Thin.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-Thin.woff"  | asset_url }}') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-Regular.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-Regular.woff"  | asset_url }}') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-Italic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-Italic.woff"  | asset_url }}') format('woff');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-Medium.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-Medium.woff"  | asset_url }}') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-SemiBold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-SemiBold.woff"  | asset_url }}') format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-SemiBoldItalic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-SemiBoldItalic.woff"  | asset_url }}') format('woff');
-    font-weight: 600;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-Bold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-Bold.woff"  | asset_url }}') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-BoldItalic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-BoldItalic.woff"  | asset_url }}') format('woff');
-    font-weight: 700;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-ExtraBold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-ExtraBold.woff"  | asset_url }}') format('woff');
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 18pt';
-    src: url('{{ "DMSans18pt-Black.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans18pt-Black.woff"  | asset_url }}') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  /* ───── DM Sans 24pt optical-size variant ───── */
-  @font-face {
-    font-family: 'DM Sans 24pt';
-    src: url('{{ "DMSans24pt-Regular.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans24pt-Regular.woff"  | asset_url }}') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 24pt';
-    src: url('{{ "DMSans24pt-Medium.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans24pt-Medium.woff"  | asset_url }}') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 24pt';
-    src: url('{{ "DMSans24pt-SemiBold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans24pt-SemiBold.woff"  | asset_url }}') format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 24pt';
-    src: url('{{ "DMSans24pt-Bold.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans24pt-Bold.woff"  | asset_url }}') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 24pt';
-    src: url('{{ "DMSans24pt-Black.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans24pt-Black.woff"  | asset_url }}') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  /* ───── DM Sans 36pt optical-size variant ───── */
-  @font-face {
-    font-family: 'DM Sans 36pt';
-    src: url('{{ "DMSans36pt-Regular.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans36pt-Regular.woff"  | asset_url }}') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 36pt';
-    src: url('{{ "DMSans36pt-BoldItalic.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans36pt-BoldItalic.woff"  | asset_url }}') format('woff');
-    font-weight: 700;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'DM Sans 36pt';
-    src: url('{{ "DMSans36pt-Black.woff2" | asset_url }}') format('woff2'),
-         url('{{ "DMSans36pt-Black.woff"  | asset_url }}') format('woff');
-    font-weight: 900;
-    font-style: normal;
     font-display: swap;
   }
 {% endstyle %}
