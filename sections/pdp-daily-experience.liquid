@@ -132,26 +132,6 @@
     display: block;
   }
 
-  /* Desktop image: show on desktop, hide on mobile */
-  #shopify-section-{{ sid }} .pe-visual-desktop {
-    display: block;
-  }
-  #shopify-section-{{ sid }} .pe-visual-mobile {
-    display: none;
-  }
-  #shopify-section-{{ sid }} .pe-visual-desktop { display: block; }   /* desktop pe show */
-#shopify-section-{{ sid }} .pe-visual-mobile  { display: none; }    /* desktop pe hide */
-  @media (max-width: 768px) {
-    #shopify-section-{{ sid }} .pe-visual-desktop {
-      display: none;
-    }
-    #shopify-section-{{ sid }} .pe-visual-mobile {
-      display: block;
-    }
-    #shopify-section-{{ sid }} .pe-visual-desktop { display: none; }  /* mobile pe hide */
-  #shopify-section-{{ sid }} .pe-visual-mobile  { display: block; } /* mobile pe show */
-  }
-
   /* ─── Stat card ─────────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pe-stat {
     position: relative;
@@ -164,6 +144,7 @@
     border: 1px solid #E1DCF4;
   }
 
+  /* Stat figure */
   #shopify-section-{{ sid }} .pe-stat-figure {
     font-family: 'DM Sans', system-ui, sans-serif;
     color: {{ s.stat_figure_color | default: '#47184d' }};
@@ -203,49 +184,82 @@
     border-radius: 50%;
   }
 
+  /* Stat caption & body */
   #shopify-section-{{ sid }} .pe-stat-caption {
     font-family: 'DM Sans';
     font-weight: 400;
     font-size: 12px;
     line-height: 120%;
-    letter-spacing: -0.04em;
+    letter-spacing: -4%;
     text-align: center;
     margin: 0 0 16px;
-    color: #47184D;
+    color:#47184D;
   }
   #shopify-section-{{ sid }} .pe-stat-body {
     font-family: 'DM Sans';
     font-weight: 400;
     font-size: 12.8px;
     line-height: 16.4px;
-    letter-spacing: -0.03em;
+    letter-spacing: -3%;
     text-align: center;
     color: #000000;
     margin: 0 auto;
     max-width: 203px;
   }
-
-  /* ─── Mobile overrides ──────────────────────────────────────── */
-  @media (max-width: 768px) {
-    #shopify-section-{{ sid }} .pe-wrap { gap: 22px; }
-    #shopify-section-{{ sid }} .pe-heading {
-      font-size: 30px;
-      line-height: 110%;
-      letter-spacing: -0.04em;
-      text-align: center;
-      color: #000000;
+  @media (max-width:768px){
+    #shopify-section-{{ sid }} .pe-wrap{
+    gap: 22px;
     }
-    #shopify-section-{{ sid }} .pe-heading em { color: #000000; }
-    #shopify-section-{{ sid }} .pe-tab-icon { width: 28px; height: 28px; }
-    #shopify-section-{{ sid }} .pe-tab { padding: 14px 16px; gap: 14px; font-size: 20px; }
-    #shopify-section-{{ sid }} .pe-pill { max-width: 100%; margin: 0 16px; }
-    #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] { gap: 35px; }
-    #shopify-section-{{ sid }} .pe-visual { max-width: 100%; }
-    #shopify-section-{{ sid }} .pe-stat { padding: 16px 0; text-align: center; max-width: 196px; }
-    #shopify-section-{{ sid }} .pe-stat-figure { font-size: 34px; letter-spacing: -0.018em; margin: 0 0 12px; }
-    #shopify-section-{{ sid }} .pe-stat-avatars { margin: 0 0 6px; }
-    #shopify-section-{{ sid }} .pe-stat-caption { margin: 0 0 12px; }
-    #shopify-section-{{ sid }} .pe-stat-body { font-size: 11.8px; line-height: 16.4px; letter-spacing: -0.03em; }
+    #shopify-section-{{ sid }} .pe-heading{
+    font-size: 30px;
+    line-height: 110.00000000000001%;
+    letter-spacing: -4%;
+    text-align: center;
+    color:#000000;
+    }
+    #shopify-section-{{ sid }} .pe-heading em{
+    color:#000000;
+    }
+    #shopify-section-{{ sid }} .pe-tab-icon {
+    width: 28px;
+    height: 28px;
+    }
+    #shopify-section-{{ sid }} .pe-tab{
+     padding: 14px 16px;
+     gap: 14px;
+     font-size: 20px;
+    }
+    #shopify-section-{{ sid }} .pe-pill{
+      max-width: 100%;
+      margin: 0 16px;
+    }
+    #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] {
+    gap: 35px;
+    }
+    #shopify-section-{{ sid }} .pe-visual{
+    max-width: 100%;
+    }
+    #shopify-section-{{ sid }} .pe-stat{
+      padding: 16px 0;
+    text-align: center;
+    max-width: 196px;
+    }
+    #shopify-section-{{ sid }} .pe-stat-figure {
+    font-size: 34px;
+    letter-spacing: -0.018em;
+    margin: 0 0 12px;
+   }
+   #shopify-section-{{ sid }} .pe-stat-avatars{
+        margin: 0 0 6px;
+  }
+  #shopify-section-{{ sid }} .pe-stat-caption{
+        margin: 0 0 12px;
+  }
+  #shopify-section-{{ sid }} .pe-stat-body{
+    font-size: 11.8px;
+    line-height: 16.4px;
+    letter-spacing: -3%;
+  }
   }
 </style>
 
@@ -296,27 +310,10 @@
             {%- endif -%}
 
             <div class="pe-visual">
-              {%- comment -%} Desktop image — hidden on mobile {%- endcomment -%}
               {%- if block.settings.visual_image != blank -%}
                 {{ block.settings.visual_image | image_url: width: 1200 | image_tag:
-                     class: 'pe-visual-desktop',
                      loading: 'lazy',
                      widths: '400,600,800,1200',
-                     alt: block.settings.tab_label }}
-              {%- endif -%}
-
-              {%- comment -%} Mobile image — hidden on desktop. Falls back to desktop image if not set {%- endcomment -%}
-              {%- if block.settings.visual_image_mobile != blank -%}
-                {{ block.settings.visual_image_mobile | image_url: width: 800 | image_tag:
-                     class: 'pe-visual-mobile',
-                     loading: 'lazy',
-                     widths: '360,480,640,800',
-                     alt: block.settings.tab_label }}
-              {%- elsif block.settings.visual_image != blank -%}
-                {{ block.settings.visual_image | image_url: width: 800 | image_tag:
-                     class: 'pe-visual-mobile',
-                     loading: 'lazy',
-                     widths: '360,480,640,800',
                      alt: block.settings.tab_label }}
               {%- endif -%}
 
@@ -324,6 +321,7 @@
                 <div class="pe-stat">
                   <p class="pe-stat-figure">{{ block.settings.stat_figure_text }}</p>
 
+                  {%- comment -%} Avatars — each in its own .pe-avatar wrapper {%- endcomment -%}
                   {%- assign has_avatar = false -%}
                   {%- if block.settings.avatar_1 != blank or block.settings.avatar_2 != blank or block.settings.avatar_3 != blank or block.settings.avatar_4 != blank -%}
                     {%- assign has_avatar = true -%}
@@ -331,16 +329,24 @@
                   {%- if has_avatar -%}
                     <div class="pe-stat-avatars" aria-hidden="true">
                       {%- if block.settings.avatar_1 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
+                        <div class="pe-avatar">
+                          {{ block.settings.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}
+                        </div>
                       {%- endif -%}
                       {%- if block.settings.avatar_2 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
+                        <div class="pe-avatar">
+                          {{ block.settings.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}
+                        </div>
                       {%- endif -%}
                       {%- if block.settings.avatar_3 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
+                        <div class="pe-avatar">
+                          {{ block.settings.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}
+                        </div>
                       {%- endif -%}
                       {%- if block.settings.avatar_4 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_4 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
+                        <div class="pe-avatar">
+                          {{ block.settings.avatar_4 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}
+                        </div>
                       {%- endif -%}
                     </div>
                   {%- endif -%}
@@ -428,25 +434,22 @@
       "type": "phase",
       "name": "Phase tab",
       "settings": [
-        { "type": "text",         "id": "tab_label",           "label": "Tab label",                       "default": "Morning" },
-        { "type": "image_picker", "id": "icon_image",          "label": "Tab icon image (optional)" },
-        { "type": "color",        "id": "icon_color",          "label": "Icon color (default SVG)",        "default": "#f5b301" },
-        { "type": "color",        "id": "bg_color",            "label": "Section bg when active",          "default": "#fff8d6" },
-        { "type": "color",        "id": "pill_bg",             "label": "Pill bg when active",             "default": "#fff2a0" },
-        { "type": "color",        "id": "tab_active_bg",       "label": "Active tab bg",                   "default": "#fff2a0" },
-        { "type": "color",        "id": "tab_active_border",   "label": "Active tab border",               "default": "#f5d04a" },
-        { "type": "text",         "id": "pill_text",           "label": "Pill text (supports HTML)",       "default": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>." },
-        { "type": "header",       "content": "Visual images" },
-        { "type": "image_picker", "id": "visual_image",        "label": "Main image — Desktop" },
-        { "type": "image_picker", "id": "visual_image_mobile", "label": "Main image — Mobile (falls back to desktop if empty)" },
-        { "type": "header",       "content": "Stat card" },
-        { "type": "text",         "id": "stat_figure_text",    "label": "Stat figure",                    "default": "97%" },
-        { "type": "text",         "id": "stat_caption",        "label": "Stat caption",                   "default": "Of people Like You" },
-        { "type": "textarea",     "id": "stat_body",           "label": "Stat body",                      "default": "Experience the simplicity of complete daily nutrition in just two capsules." },
-        { "type": "image_picker", "id": "avatar_1",            "label": "Avatar 1" },
-        { "type": "image_picker", "id": "avatar_2",            "label": "Avatar 2" },
-        { "type": "image_picker", "id": "avatar_3",            "label": "Avatar 3" },
-        { "type": "image_picker", "id": "avatar_4",            "label": "Avatar 4" }
+        { "type": "text",         "id": "tab_label",         "label": "Tab label",                    "default": "Morning" },
+        { "type": "image_picker", "id": "icon_image",        "label": "Tab icon image (optional)" },
+        { "type": "color",        "id": "icon_color",        "label": "Icon color (default SVG)",     "default": "#f5b301" },
+        { "type": "color",        "id": "bg_color",          "label": "Section bg when active",       "default": "#fff8d6" },
+        { "type": "color",        "id": "pill_bg",           "label": "Pill bg when active",          "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_bg",     "label": "Active tab bg",                "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_border", "label": "Active tab border",            "default": "#f5d04a" },
+        { "type": "text",         "id": "pill_text",         "label": "Pill text (supports HTML)",    "default": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>." },
+        { "type": "image_picker", "id": "visual_image",      "label": "Main visual image" },
+        { "type": "text",         "id": "stat_figure_text",  "label": "Stat figure",                 "default": "97%" },
+        { "type": "text",         "id": "stat_caption",      "label": "Stat caption",                "default": "Of people Like You" },
+        { "type": "textarea",     "id": "stat_body",         "label": "Stat body",                   "default": "Experience the simplicity of complete daily nutrition in just two capsules." },
+        { "type": "image_picker", "id": "avatar_1",          "label": "Avatar 1" },
+        { "type": "image_picker", "id": "avatar_2",          "label": "Avatar 2" },
+        { "type": "image_picker", "id": "avatar_3",          "label": "Avatar 3" },
+        { "type": "image_picker", "id": "avatar_4",          "label": "Avatar 4" }
       ]
     }
   ],
