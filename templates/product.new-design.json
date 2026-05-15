@@ -2154,7 +2154,7 @@
       "settings": {
         "section_background": "",
         "text_color": "#1d1027",
-        "sub_color": "#5b4f6b",
+        "sub_color": "#000000",
         "stars_color": "#f5b301",
         "nav_prev_background": "#bba0d4",
         "nav_next_background": "#3f1c5c",
