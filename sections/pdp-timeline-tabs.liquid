@@ -377,7 +377,6 @@
     var containerW = container.offsetWidth;
     var cardLeft   = second.offsetLeft;
     var cardW      = second.offsetWidth;
-    /* scrollLeft so card center = container center */
     container.scrollLeft = cardLeft - (containerW / 2) + (cardW / 2);
   }
 
@@ -392,7 +391,6 @@
       p.querySelectorAll('video').forEach(function (v) {
         isActive ? v.play && v.play() : v.pause && v.pause();
       });
-      /* After panel becomes visible, center 2nd card on mobile */
       if (isActive && window.innerWidth <= 768) {
         setTimeout(function () {
           centerSecondCard(p.querySelector('.pt-cards'));
@@ -414,20 +412,28 @@
     centerSecondCard(firstPanel);
   }
 
-  /* Try multiple timings to catch slow renders */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      setTimeout(initMobileCenter, 100);
-    });
-  } else {
-    /* DOM already ready — run after next paint + small buffer */
-    setTimeout(initMobileCenter, 100);
+  /* window.load — sab resources load hone ke baad */
+  window.addEventListener('load', function () {
+    initMobileCenter();
+  });
+
+  /* IntersectionObserver — section viewport mein aaye tab */
+  if ('IntersectionObserver' in window) {
+    var sectionEl = root.querySelector('.pt-section');
+    var once = false;
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && !once) {
+        once = true;
+        initMobileCenter();
+      }
+    }, { threshold: 0.1 });
+    if (sectionEl) io.observe(sectionEl);
   }
 
   /* Shopify editor reload */
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === '{{ sid }}') {
-      setTimeout(initMobileCenter, 200);
+      setTimeout(initMobileCenter, 150);
     }
   });
 })();
