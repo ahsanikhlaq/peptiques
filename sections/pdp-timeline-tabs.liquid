@@ -36,16 +36,14 @@
     overflow: hidden;
     min-height: 956px;
     {% if mobile_bg != blank %}
-      background-image:
-        url({{ mobile_bg | image_url: width: 1200 }});
+      background-image: url({{ mobile_bg | image_url: width: 1200 }});
     {% endif %}
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pt-section {
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
       {% if bg_image != blank %}
-        background-image:
-          url({{ bg_image | image_url: width: 2000 }});
+        background-image: url({{ bg_image | image_url: width: 2000 }});
       {% endif %}
     }
   }
@@ -176,7 +174,6 @@
     align-items: stretch;
   }
 
-  /* Desktop: explicit heights — center card taller, outer cards shorter */
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pt-card {
       grid-template-columns: 151px minmax(0, 1fr);
@@ -187,7 +184,7 @@
     }
   }
 
-  /* ─── Media column (image or video) ────────────────────────── */
+  /* ─── Media column ──────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pt-card-media {
     background: #e8d5f5;
     display: flex;
@@ -241,7 +238,7 @@
     font-weight: 400;
     font-size: 14.6px;
     line-height: 18.8px;
-    letter-spacing: -3%;
+    letter-spacing: -0.03em;
     color: #000000;
   }
 
@@ -260,15 +257,15 @@
       gap: 20px;
       border-radius: 0;
     }
-    #shopify-section-{{ sid }} .pt-card-title{
+    #shopify-section-{{ sid }} .pt-card-title {
       font-size: 20px;
-      letter-spacing: -3%;
+      letter-spacing: -0.03em;
       line-height: 22.7px;
     }
     #shopify-section-{{ sid }} .pt-cards {
       grid-auto-columns: 90%;
       scroll-snap-type: x mandatory;
-      padding: 0 0%;
+      padding: 0;
       gap: 10px;
       align-items: center;
     }
@@ -284,23 +281,23 @@
       aspect-ratio: unset;
       height: 100%;
     }
-    #shopify-section-{{ sid }} .pt-tab{
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20.3px;
-    letter-spacing: -3%;
-    min-width: 65px;
+    #shopify-section-{{ sid }} .pt-tab {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20.3px;
+      letter-spacing: -0.03em;
+      min-width: 65px;
     }
-    #shopify-section-{{ sid }} .pt-tabs{
-    gap: 8px;
-    justify-content: center;
+    #shopify-section-{{ sid }} .pt-tabs {
+      gap: 8px;
+      justify-content: center;
     }
     #shopify-section-{{ sid }} .pt-heading {
-    font-size: 30px;
-    line-height: 110.00000000000001%;
-    letter-spacing: -4%;
-    text-align: center;
-    max-width: 220px;
+      font-size: 30px;
+      line-height: 110%;
+      letter-spacing: -0.04em;
+      text-align: center;
+      max-width: 220px;
     }
   }
 </style>
@@ -392,16 +389,21 @@
   var panels = root.querySelectorAll('[data-pt-panel]');
   if (!tabs.length || !panels.length) return;
 
-  /* ── Center 2nd card in scroll container ── */
+  /* ── Center 2nd card in active panel ── */
   function centerSecondCard(container) {
     if (!container) return;
     var cards = container.querySelectorAll('.pt-card');
     if (cards.length < 2) return;
-    var second = cards[1];
+    var second     = cards[1];
     var containerW = container.offsetWidth;
     var cardLeft   = second.offsetLeft;
     var cardW      = second.offsetWidth;
     container.scrollLeft = cardLeft - (containerW / 2) + (cardW / 2);
+  }
+
+  function centerActivePanel() {
+    var active = root.querySelector('[data-pt-active="true"] .pt-cards');
+    centerSecondCard(active);
   }
 
   /* ── Activate tab ── */
@@ -415,10 +417,11 @@
       p.querySelectorAll('video').forEach(function (v) {
         isActive ? v.play && v.play() : v.pause && v.pause();
       });
-      if (isActive && window.innerWidth <= 768) {
+      if (isActive && isMobile()) {
+        /* Small delay so panel display:block settles */
         setTimeout(function () {
           centerSecondCard(p.querySelector('.pt-cards'));
-        }, 50);
+        }, 30);
       }
     });
   }
@@ -429,37 +432,69 @@
     });
   });
 
-  /* ── On load: center 2nd card on mobile ── */
-  function initMobileCenter() {
-    if (window.innerWidth > 768) return;
-    var firstPanel = root.querySelector('[data-pt-active="true"] .pt-cards');
-    centerSecondCard(firstPanel);
+  function isMobile() {
+    return window.innerWidth <= 768;
   }
 
-  /* window.load — sab resources load hone ke baad */
-  window.addEventListener('load', function () {
-    initMobileCenter();
+  /* ──────────────────────────────────────────────────────────────
+     RELIABLE CENTERING — fires on EVERY scenario:
+     1. Mobile page load
+     2. Desktop → mobile resize
+     3. Shopify editor switch
+  ────────────────────────────────────────────────────────────── */
+  var wasMobile = isMobile();
+
+  function tryCenter() {
+    if (!isMobile()) return;
+    centerActivePanel();
+  }
+
+  /* window.load: all resources done, layout settled */
+  window.addEventListener('load', tryCenter);
+
+  /* resize: catch desktop → mobile switch */
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      var nowMobile = isMobile();
+      /* Fire when crossing INTO mobile from desktop */
+      if (nowMobile && !wasMobile) {
+        tryCenter();
+      }
+      wasMobile = nowMobile;
+      /* Also re-center if already mobile and width changed (orientation etc) */
+      if (nowMobile) {
+        tryCenter();
+      }
+    }, 80);
   });
 
-  /* IntersectionObserver — section viewport mein aaye tab */
+  /* IntersectionObserver: section enters viewport (no once-lock) */
   if ('IntersectionObserver' in window) {
     var sectionEl = root.querySelector('.pt-section');
-    var once = false;
     var io = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting && !once) {
-        once = true;
-        initMobileCenter();
+      if (entries[0].isIntersecting && isMobile()) {
+        tryCenter();
       }
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
     if (sectionEl) io.observe(sectionEl);
   }
 
   /* Shopify editor reload */
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === '{{ sid }}') {
-      setTimeout(initMobileCenter, 150);
+      setTimeout(tryCenter, 150);
     }
   });
+
+  /* Initial run for mobile page load */
+  if (isMobile()) {
+    /* Try immediately after script runs, then again after paint */
+    tryCenter();
+    setTimeout(tryCenter, 80);
+    setTimeout(tryCenter, 300);
+  }
 })();
 </script>
 
