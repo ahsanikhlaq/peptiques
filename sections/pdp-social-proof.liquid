@@ -237,9 +237,6 @@
       line-height: 120%;
       letter-spacing: -0.03em;
     }
-    #shopify-section-{{ sid }} .ps-reviews{
-      grid-auto-columns: 77%;
-    }
   }
 </style>
 
@@ -349,7 +346,10 @@
   /* ── Center MIDDLE card on load ──────────────────────────────
      3 cards → 2nd centered, 5 cards → 3rd centered etc.
      Multiple timings to catch slow/async renders.           ── */
+  function isMobile() { return window.innerWidth <= 768; }
+
   function centerMiddle() {
+    if (!isMobile()) return;   /* desktop pe kuch mat karo */
     var cards = Array.prototype.slice.call(track.querySelectorAll('.ps-review'));
     if (!cards.length) return;
     var mid = cards[Math.floor(cards.length / 2)];
