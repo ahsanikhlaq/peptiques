@@ -2544,7 +2544,7 @@
           "type": "faq",
           "settings": {
             "question": "Is this vegan?",
-            "answer": "",
+            "answer": "<p>100%. Vegan, non-GMO, gluten-free. Just pure Terminalia chebula, nothing artificial, no fillers.</p>",
             "open_by_default": false
           }
         },
@@ -2552,7 +2552,7 @@
           "type": "faq",
           "settings": {
             "question": "Can this help with vivid dreams or deeper sleep?",
-            "answer": "",
+            "answer": "<p>Many users wake up remembering dreams they'd normally forget. Better pineal function = better melatonin = deeper, more restorative sleep.</p>",
             "open_by_default": false
           }
         },
@@ -2560,7 +2560,7 @@
           "type": "faq",
           "settings": {
             "question": "What does Haritaki actually do in the body?",
-            "answer": "",
+            "answer": "<p>The \"King of Medicines\" in Ayurveda. Supports gut health, mental clarity, and natural detox, used by healers for 5,000+ years.</p>",
             "open_by_default": false
           }
         },
@@ -2568,7 +2568,7 @@
           "type": "faq",
           "settings": {
             "question": "Is this safe to use long-term?",
-            "answer": "",
+            "answer": "<p>It's been used daily for 5,000 years. Third-party tested, zero known toxicity at recommended doses.</p>",
             "open_by_default": false
           }
         },
