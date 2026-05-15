@@ -108,6 +108,7 @@
   }
 
   /* Desktop: 4-up grid, Mobile: single centered slide */
+  /* Mobile: 80% wide cards, 10% side padding → first card naturally centered */
   #shopify-section-{{ sid }} .ps-reviews {
     display: grid;
     grid-auto-flow: column;
@@ -115,9 +116,10 @@
     gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 10%;   /* snap target offset = side padding */
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    padding: 0;
+    padding-inline: 10%;          /* (100% - 80%) / 2 = 10% — centers cards */
   }
   #shopify-section-{{ sid }} .ps-reviews::-webkit-scrollbar { display: none; }
 
@@ -125,7 +127,8 @@
     #shopify-section-{{ sid }} .ps-reviews {
       grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 8.5))) / {{ s.reviews_per_view | default: 4 }});
       gap: {{ s.review_gap | default: 16 }}px;
-      padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px;
+      padding-inline: {{ s.section_padding_x_desktop | default: 50 }}px;
+      scroll-padding-inline: {{ s.section_padding_x_desktop | default: 50 }}px;
     }
   }
 
@@ -318,57 +321,17 @@
   var next  = root.querySelector('[data-ps-next]');
   if (!track) return;
 
-  /* ── Center a specific card in the track ── */
-  function centerCard(card) {
-    if (!card || !card.offsetWidth) return;
-    /* scrollLeft so card center = track center */
-    track.scrollLeft = card.offsetLeft - (track.clientWidth / 2) + (card.offsetWidth / 2);
-  }
-
-  /* ── Center first card (initial load + resize) ── */
-  function centerFirst() {
-    centerCard(track.querySelector('.ps-review'));
-  }
-
-  /* ── Step prev/next ── */
+  /* ── Prev / Next: step by 1 card ── */
   function step(dir) {
-    var cards = Array.prototype.slice.call(track.querySelectorAll('.ps-review'));
-    if (!cards.length) return;
-    var trackMid = track.scrollLeft + track.clientWidth / 2;
-    /* Find currently centered card */
-    var current = cards.reduce(function (best, card) {
-      var cardMid = card.offsetLeft + card.offsetWidth / 2;
-      return Math.abs(cardMid - trackMid) < Math.abs(best.offsetLeft + best.offsetWidth / 2 - trackMid) ? card : best;
-    });
-    var idx = cards.indexOf(current);
-    var target = cards[Math.max(0, Math.min(cards.length - 1, idx + dir))];
-    track.scrollTo({ left: target.offsetLeft - (track.clientWidth / 2) + (target.offsetWidth / 2), behavior: 'smooth' });
+    var card = track.querySelector('.ps-review');
+    if (!card) return;
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 12;
+    var w   = card.getBoundingClientRect().width + gap;
+    track.scrollBy({ left: dir * w, behavior: 'smooth' });
   }
 
   prev && prev.addEventListener('click', function () { step(-1); });
   next && next.addEventListener('click', function () { step(1); });
-
-  /* ── Initial centering — no isMobile guard, runs always ──
-     CSS handles desktop layout; JS only sets scroll position.
-     Multiple timings to catch slow/async renders.           ── */
-  centerFirst();
-  requestAnimationFrame(centerFirst);
-  setTimeout(centerFirst, 0);
-  setTimeout(centerFirst, 150);
-
-  window.addEventListener('load', centerFirst);
-
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(centerFirst, 80);
-  });
-
-  document.addEventListener('shopify:section:load', function (e) {
-    if (e.detail && e.detail.sectionId === '{{ sid }}') {
-      setTimeout(centerFirst, 100);
-    }
-  });
 })();
 </script>
 
