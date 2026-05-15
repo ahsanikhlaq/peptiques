@@ -2277,7 +2277,7 @@
         "letter_spacing": 0,
         "text_transform": "uppercase",
         "bar_height": 82,
-        "item_gap": 40,
+        "item_gap": 30,
         "icon_size": 18,
         "aria_label": "Free from"
       }
