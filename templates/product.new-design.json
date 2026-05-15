@@ -2443,7 +2443,7 @@
         "feature_color": "#1d1027",
         "our_column_background": "#47184d",
         "our_column_color": "#ffffff",
-        "them_column_color": "#5b4f6b",
+        "them_column_color": "#000000",
         "check_circle_background": "#ffffff",
         "cross_color": "#5b4f6b",
         "row_divider_color": "#e0d7ea",
