@@ -2536,7 +2536,7 @@
           "type": "faq",
           "settings": {
             "question": "Can I take this with other supplements or medications?",
-            "answer": "",
+            "answer": "<p>Yes. Haritaki is a whole-food herb, not a synthetic compound. That said, if you're on prescription meds, check with your doctor first.</p>",
             "open_by_default": false
           }
         },
