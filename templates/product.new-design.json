@@ -2171,7 +2171,7 @@
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
         "photo_speed_seconds": 40,
         "photo_gap": 12,
-        "photo_width_mobile": 130,
+        "photo_width_mobile": 110,
         "photo_width_desktop": 200,
         "photos_margin_top": 24,
         "photos_margin_bottom": 32,
