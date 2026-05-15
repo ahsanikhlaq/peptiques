@@ -150,6 +150,15 @@
     #shopify-section-{{ sid }} .pc-col-them { width: 120px; }
   }
 
+  /* Row icon image (check / cross) */
+  #shopify-section-{{ sid }} .pc-row-icon {
+    display: block;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
   /* Column header image */
   #shopify-section-{{ sid }} .pc-col-header-img {
     display: block;
@@ -238,24 +247,40 @@
                 <th scope="row" class="pc-row-feature">{{ block.settings.feature_text }}</th>
                 <td class="pc-col-us">
                   {%- if block.settings.our_check -%}
-                    <span class="pc-mark pc-mark--check" aria-label="Yes">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-                    </span>
+                    {%- if s.our_check_icon != blank -%}
+                      {{ s.our_check_icon | image_url: width: 60 | image_tag: class: 'pc-row-icon', loading: 'lazy', alt: 'Yes' }}
+                    {%- else -%}
+                      <span class="pc-mark pc-mark--check" aria-label="Yes">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                      </span>
+                    {%- endif -%}
                   {%- else -%}
-                    <span class="pc-mark pc-mark--cross" aria-label="No">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 12h5.5a2 2 0 0 1 2 2.26l-1.1 8a2 2 0 0 1-2 1.74H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 .59-1.41L10 9V4a2 2 0 0 1 2-2h0a3 3 0 0 1 3 3z" transform="rotate(180 12 12)"/></svg>
-                    </span>
+                    {%- if s.our_cross_icon != blank -%}
+                      {{ s.our_cross_icon | image_url: width: 60 | image_tag: class: 'pc-row-icon', loading: 'lazy', alt: 'No' }}
+                    {%- else -%}
+                      <span class="pc-mark pc-mark--cross" aria-label="No">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 12h5.5a2 2 0 0 1 2 2.26l-1.1 8a2 2 0 0 1-2 1.74H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 .59-1.41L10 9V4a2 2 0 0 1 2-2h0a3 3 0 0 1 3 3z" transform="rotate(180 12 12)"/></svg>
+                      </span>
+                    {%- endif -%}
                   {%- endif -%}
                 </td>
                 <td class="pc-col-them">
                   {%- if block.settings.them_check -%}
-                    <span class="pc-mark pc-mark--check" aria-label="Yes">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-                    </span>
+                    {%- if s.our_check_icon != blank -%}
+                      {{ s.our_check_icon | image_url: width: 60 | image_tag: class: 'pc-row-icon', loading: 'lazy', alt: 'Yes' }}
+                    {%- else -%}
+                      <span class="pc-mark pc-mark--check" aria-label="Yes">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                      </span>
+                    {%- endif -%}
                   {%- else -%}
-                    <span class="pc-mark pc-mark--cross" aria-label="No">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 12h5.5a2 2 0 0 1 2 2.26l-1.1 8a2 2 0 0 1-2 1.74H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 .59-1.41L10 9V4a2 2 0 0 1 2-2h0a3 3 0 0 1 3 3z" transform="rotate(180 12 12)"/></svg>
-                    </span>
+                    {%- if s.them_cross_icon != blank -%}
+                      {{ s.them_cross_icon | image_url: width: 60 | image_tag: class: 'pc-row-icon', loading: 'lazy', alt: 'No' }}
+                    {%- else -%}
+                      <span class="pc-mark pc-mark--cross" aria-label="No">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 12h5.5a2 2 0 0 1 2 2.26l-1.1 8a2 2 0 0 1-2 1.74H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 .59-1.41L10 9V4a2 2 0 0 1 2-2h0a3 3 0 0 1 3 3z" transform="rotate(180 12 12)"/></svg>
+                      </span>
+                    {%- endif -%}
                   {%- endif -%}
                 </td>
               </tr>
@@ -294,6 +319,11 @@
     { "type": "text",         "id": "them_column_label",          "label": "Others column label (shown if no image)",        "default": "OTHERS" },
     { "type": "image_picker", "id": "them_column_header_image",   "label": "Others column — header image (optional)" },
     { "type": "text",         "id": "table_aria_label",           "label": "Table aria-label",                               "default": "Comparison table" },
+
+    { "type": "header", "content": "Row icons" },
+    { "type": "image_picker", "id": "our_check_icon",  "label": "Check / tick icon image (used in both columns)" },
+    { "type": "image_picker", "id": "our_cross_icon",  "label": "Cross icon image (Our column — when unchecked)" },
+    { "type": "image_picker", "id": "them_cross_icon", "label": "Cross / thumbs-down icon image (Others column — when unchecked)" },
 
     { "type": "header", "content": "Table colors" },
     { "type": "color", "id": "table_background",        "label": "Table background (gradient edges)", "default": "#f5e1ff" },
