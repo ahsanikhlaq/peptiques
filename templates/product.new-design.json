@@ -2645,11 +2645,11 @@
         "heading_text": "Frequently Asked Questions",
         "sub_text": "Got questions? We've got answers. Find everything you need to know below.",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
-        "section_padding_top": 48,
-        "section_padding_bottom": 48,
+        "section_padding_top": 40,
+        "section_padding_bottom": 40,
         "section_padding_x": 16,
-        "section_padding_top_desktop": 80,
-        "section_padding_bottom_desktop": 80,
+        "section_padding_top_desktop": 100,
+        "section_padding_bottom_desktop": 100,
         "section_padding_x_desktop": 50
       }
     },
