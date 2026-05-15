@@ -2315,7 +2315,7 @@
             "bg_color": "#ece1f8",
             "pill_bg": "#e0d0f6",
             "tab_active_bg": "#e0d0f6",
-            "tab_active_border": "#bba0d4",
+            "tab_active_border": "#e1dcf4",
             "pill_text": "Take 1 capsule with water before bed, after dinner.",
             "visual_image": "shopify://shop_images/Group_1739331831_1.webp",
             "stat_figure_text": "93%",
