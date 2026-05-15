@@ -123,14 +123,16 @@
 
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .ps-reviews {
-      grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 2.5))) / {{ s.reviews_per_view | default: 4 }});
+      grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 1))) / {{ s.reviews_per_view | default: 4 }});
       gap: {{ s.review_gap | default: 16 }}px;
       padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px;
+      scroll-snap-type: none;    /* desktop pe snap off */
+      overflow-x: hidden;        /* desktop pe scroll hidden — 4 cards fit exactly */
     }
   }
 
   #shopify-section-{{ sid }} .ps-review {
-    scroll-snap-align: center;
+    scroll-snap-align: center;   /* mobile only — desktop snap is off */
     padding: 24px 16px;
     color: inherit;
     text-align: center;
@@ -237,9 +239,6 @@
       line-height: 120%;
       letter-spacing: -0.03em;
     }
-     #shopify-section-{{ sid }} .ps-reviews{
-      grid-auto-columns: 77%;
-    }
   }
 </style>
 
@@ -330,10 +329,18 @@
 
   /* ── Step prev/next ── */
   function step(dir) {
+    if (!isMobile()) {
+      /* Desktop: simple scroll by one card width */
+      var card = track.querySelector('.ps-review');
+      if (!card) return;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+      track.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
+      return;
+    }
+    /* Mobile: find centered card, move to next/prev */
     var cards = Array.prototype.slice.call(track.querySelectorAll('.ps-review'));
     if (!cards.length) return;
     var trackMid = track.scrollLeft + track.clientWidth / 2;
-    /* Find currently centered card */
     var current = cards.reduce(function (best, card) {
       var cardMid = card.offsetLeft + card.offsetWidth / 2;
       return Math.abs(cardMid - trackMid) < Math.abs(best.offsetLeft + best.offsetWidth / 2 - trackMid) ? card : best;
@@ -376,6 +383,7 @@
         centerMiddle();                /* mobile → center karo */
       } else if (wasMobile && !nowMobile) {
         track.scrollLeft = 0;         /* mobile → desktop: reset scroll */
+        track.style.overflowX = '';   /* restore desktop hidden overflow */
       }
       wasMobile = nowMobile;
     }, 80);
