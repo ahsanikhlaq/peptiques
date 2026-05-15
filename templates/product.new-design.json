@@ -2177,7 +2177,7 @@
         "photos_margin_bottom": 48,
         "photos_aria_label": "Customer photos",
         "reviews_per_view": 4,
-        "review_gap": 16,
+        "review_gap": 10,
         "head_margin_bottom": 48,
         "section_padding_top": 48,
         "section_padding_bottom": 48,
