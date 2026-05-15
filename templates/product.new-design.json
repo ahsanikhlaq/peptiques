@@ -2045,48 +2045,56 @@
         "photo_1": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Janet_Humbert.webp",
             "alt_text": "Customer photo 1"
           }
         },
         "photo_2": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Mia._M.webp",
             "alt_text": "Customer photo 2"
           }
         },
         "photo_3": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/pinmode209.webp",
             "alt_text": "Customer photo 3"
           }
         },
         "photo_4": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Emma_Bisaillon.webp",
             "alt_text": "Customer photo 4"
           }
         },
         "photo_5": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Chloe_C..webp",
             "alt_text": "Customer photo 5"
           }
         },
         "photo_6": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Janet_Humbert.webp",
             "alt_text": "Customer photo 6"
           }
         },
         "photo_7": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Mia._M.webp",
             "alt_text": "Customer photo 7"
           }
         },
         "photo_8": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/pinmode209.webp",
             "alt_text": "Customer photo 8"
           }
         },
