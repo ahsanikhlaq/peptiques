@@ -34,7 +34,6 @@
     /* Mobile background */
     {% if bg_mobile != blank %}
       background-image:
-        linear-gradient({{ s.overlay_color | default: '#47184d' }}66, {{ s.overlay_color | default: '#47184d' }}66),
         url({{ bg_mobile | image_url: width: 1200 }});
     {% endif %}
   }
@@ -44,7 +43,6 @@
       /* Desktop background */
       {% if bg_desktop != blank %}
         background-image:
-          linear-gradient({{ s.overlay_color | default: '#47184d' }}66, {{ s.overlay_color | default: '#47184d' }}66),
           url({{ bg_desktop | image_url: width: 2000 }});
       {% elsif bg_mobile != blank %}
         /* If no desktop image set, clear mobile image on desktop */
