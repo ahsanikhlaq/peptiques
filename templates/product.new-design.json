@@ -2289,6 +2289,7 @@
           "type": "phase",
           "settings": {
             "tab_label": "Morning",
+            "icon_image": "shopify://shop_images/Component_318.svg",
             "icon_color": "#f5b301",
             "bg_color": "#fff8d6",
             "pill_bg": "#fff2a0",
@@ -2309,15 +2310,21 @@
           "type": "phase",
           "settings": {
             "tab_label": "Evening",
-            "icon_color": "#5a2a78",
+            "icon_image": "shopify://shop_images/Component_318_1.svg",
+            "icon_color": "rgba(0,0,0,0)",
             "bg_color": "#ece1f8",
             "pill_bg": "#e0d0f6",
             "tab_active_bg": "#e0d0f6",
             "tab_active_border": "#bba0d4",
-            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
+            "pill_text": "Take 1 capsule with water before bed, after dinner.",
+            "visual_image": "shopify://shop_images/Group_1739331831_1.webp",
             "stat_figure_text": "93%",
             "stat_caption": "Of people Like You",
-            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
+            "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal.",
+            "avatar_1": "shopify://shop_images/Ellipse_575.svg",
+            "avatar_2": "shopify://shop_images/Ellipse_575.svg",
+            "avatar_3": "shopify://shop_images/Ellipse_575.svg",
+            "avatar_4": "shopify://shop_images/Ellipse_575.svg"
           }
         }
       },
