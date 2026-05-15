@@ -89,7 +89,11 @@
 
   /* Table */
   #shopify-section-{{ sid }} .pc-table {
-    background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
+    background:
+      linear-gradient(to right,
+        {{ s.table_background | default: '#f5e1ff' }} 0%,
+        #ffffff 50%,
+        {{ s.table_background | default: '#f5e1ff' }} 100%);
     border-radius: {{ s.table_radius | default: 16 }}px;
     overflow: hidden;
     color: #000000;
