@@ -119,6 +119,15 @@
     text-transform: uppercase;
     background: transparent;
   }
+  /* Header cells match their column colors */
+  #shopify-section-{{ sid }} .pc-table thead .pc-col-us {
+    background: {{ s.our_column_background | default: '#47184d' }};
+    color: {{ s.our_column_color | default: '#ffffff' }};
+  }
+  #shopify-section-{{ sid }} .pc-table thead .pc-col-them {
+    background: transparent;
+    color: {{ s.them_column_color | default: '#000000' }};
+  }
   #shopify-section-{{ sid }} .pc-row-feature {
     font-weight: 500;
     color: {{ s.feature_color | default: '#000000' }};
