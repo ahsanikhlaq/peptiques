@@ -2584,7 +2584,7 @@
           "type": "faq",
           "settings": {
             "question": "Can I take it if I'm sensitive to detox effects?",
-            "answer": "",
+            "answer": "<p>Start with 1 capsule per day and build up. Haritaki is gentle, but everyone's body is different. Listen to yours.</p>",
             "open_by_default": false
           }
         },
@@ -2592,7 +2592,7 @@
           "type": "faq",
           "settings": {
             "question": "Do I need to change my diet while using it?",
-            "answer": "",
+            "answer": "<p>No major changes are needed. Haritaki works with your current lifestyle. That said, cleaner eating = faster results. But it's not required.</p>",
             "open_by_default": false
           }
         },
@@ -2600,7 +2600,7 @@
           "type": "faq",
           "settings": {
             "question": "Will this help clear mental fog or improve focus?",
-            "answer": "",
+            "answer": "<p>When your gut is clogged, so is your brain. Haritaki clears the pathway. Users report sharper focus and clearer thinking within weeks.</p>",
             "open_by_default": false
           }
         },
@@ -2608,7 +2608,15 @@
           "type": "faq",
           "settings": {
             "question": "How long until I see results?",
-            "answer": "",
+            "answer": "<p>Most users report vivid dreams returning within 7 days. Mental clarity improvements often noticed within 2-3 weeks of consistent use.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_3t4ww3": {
+          "type": "faq",
+          "settings": {
+            "question": "Where is the haritaki sourced?",
+            "answer": "<p>100% Himalayan-sourced, organic, cold-processed to preserve active compounds.<br/><br/></p>",
             "open_by_default": false
           }
         },
@@ -2616,7 +2624,7 @@
           "type": "faq",
           "settings": {
             "question": "How does it actually decalcify the pineal gland?",
-            "answer": "",
+            "answer": "<p>Chebulinic Acid crosses the blood-brain barrier and helps remove calcium/fluoride deposits. Tannins provide neuroprotection during the process.</p>",
             "open_by_default": false
           }
         }
@@ -2632,6 +2640,7 @@
         "faq_e39WLE",
         "faq_DLq4xx",
         "faq_TYiHRP",
+        "faq_3t4ww3",
         "faq_hzM6k3"
       ],
       "name": "FAQs",
