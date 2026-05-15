@@ -2344,7 +2344,7 @@
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
         "section_padding_top": 40,
         "section_padding_bottom": 0,
-        "section_padding_x": 16,
+        "section_padding_x": 0,
         "section_padding_top_desktop": 80,
         "section_padding_bottom_desktop": 0,
         "section_padding_x_desktop": 50
