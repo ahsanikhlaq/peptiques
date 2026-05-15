@@ -23,11 +23,7 @@
 <style>
   #shopify-section-{{ sid }} .ps-section{
     padding: {{ s.section_padding_top | default: 48 }}px 0 {{ s.section_padding_bottom | default: 48 }}px;
-    background:
-      linear-gradient(to right,
-        {{ s.section_background | default: '#f5e1ff' }} 0%,
-        #ffffff 50%,
-        {{ s.section_background_end | default: '#f5e1ff' }} 100%);
+   background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
     color: {{ s.text_color | default: '#000000' }};
     overflow: hidden;
   }
