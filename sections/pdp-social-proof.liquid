@@ -123,7 +123,7 @@
 
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .ps-reviews {
-      grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 2.5))) / {{ s.reviews_per_view | default: 4 }});
+      grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 8.5))) / {{ s.reviews_per_view | default: 4 }});
       gap: {{ s.review_gap | default: 16 }}px;
       padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px;
     }
@@ -236,9 +236,6 @@
       font-size: 12px;
       line-height: 120%;
       letter-spacing: -0.03em;
-    }
-     #shopify-section-{{ sid }} .ps-reviews{
-      grid-auto-columns: 77%;
     }
   }
 </style>
@@ -367,9 +364,18 @@
   window.addEventListener('load', centerMiddle);
 
   var resizeTimer;
+  var wasMobile = isMobile();
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(centerMiddle, 80);
+    resizeTimer = setTimeout(function () {
+      var nowMobile = isMobile();
+      if (nowMobile) {
+        centerMiddle();                /* mobile → center karo */
+      } else if (wasMobile && !nowMobile) {
+        track.scrollLeft = 0;         /* mobile → desktop: reset scroll */
+      }
+      wasMobile = nowMobile;
+    }, 80);
   });
 
   document.addEventListener('shopify:section:load', function (e) {
