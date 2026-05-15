@@ -122,7 +122,7 @@
   #shopify-section-{{ sid }} .ps-reviews::-webkit-scrollbar{ display: none; }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .ps-reviews{
-      grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 1))) / {{ s.reviews_per_view | default: 4 }});
+      grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 4))) / {{ s.reviews_per_view | default: 4 }});
       gap: {{ s.review_gap | default: 16 }}px;
       padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px;
     }
