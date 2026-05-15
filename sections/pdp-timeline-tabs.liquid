@@ -37,7 +37,6 @@
     min-height: 956px;
     {% if mobile_bg != blank %}
       background-image:
-        linear-gradient({{ s.overlay_color | default: '#1d1027' }}66, {{ s.overlay_color | default: '#1d1027' }}66),
         url({{ mobile_bg | image_url: width: 1200 }});
     {% endif %}
   }
@@ -46,7 +45,6 @@
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
       {% if bg_image != blank %}
         background-image:
-          linear-gradient({{ s.overlay_color | default: '#1d1027' }}66, {{ s.overlay_color | default: '#1d1027' }}66),
           url({{ bg_image | image_url: width: 2000 }});
       {% endif %}
     }
