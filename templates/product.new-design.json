@@ -2027,7 +2027,7 @@
         "section_background": "#1d1027",
         "overlay_color": "#47184d",
         "card_background": "#ffffff",
-        "heading_color": "#ffffff",
+        "heading_color": "#000000",
         "cards_per_row_desktop": 3,
         "heading_text": "Ancient Wisdom. Modern Strength",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
