@@ -2424,8 +2424,9 @@
       "name": "Comparison",
       "settings": {
         "background_image": "shopify://shop_images/us_vs_them_2.webp",
+        "background_image_mobile": "shopify://shop_images/Frame_2147241488.webp",
         "section_background": "#1d1027",
-        "overlay_color": "#1d1027",
+        "overlay_color": "rgba(0,0,0,0)",
         "heading_text": "Why Trypeptiques Is Different",
         "description_text": "Trypeptiques provides safe, effective, and responsible weight-loss solutions with full transparency, clinical oversight, and personalized care offering more than just weight loss, but sustainable, real results.",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
@@ -2436,7 +2437,6 @@
         "them_column_label": "OTHERS",
         "table_aria_label": "Comparison table",
         "table_background": "#f6efff",
-        "table_head_background": "#f6efff",
         "feature_color": "#1d1027",
         "our_column_background": "#3f1c5c",
         "our_column_color": "#ffffff",
