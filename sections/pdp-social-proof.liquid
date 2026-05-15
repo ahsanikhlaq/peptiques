@@ -21,28 +21,28 @@
 -%}
 
 <style>
-  #shopify-section-{{ sid }} .ps-section{
+  #shopify-section-{{ sid }} .ps-section {
     padding: {{ s.section_padding_top | default: 48 }}px 0 {{ s.section_padding_bottom | default: 48 }}px;
-   background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
+    background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
     color: {{ s.text_color | default: '#000000' }};
     overflow: hidden;
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .ps-section{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .ps-section {
       padding: {{ s.section_padding_top_desktop | default: 80 }}px 0 {{ s.section_padding_bottom_desktop | default: 80 }}px;
     }
   }
 
-  #shopify-section-{{ sid }} .ps-head{
+  #shopify-section-{{ sid }} .ps-head {
     max-width: 1340px;
     margin: 0 auto {{ s.head_margin_bottom | default: 32 }}px;
     padding: 0 {{ s.section_padding_x | default: 16 }}px;
     text-align: center;
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .ps-head{ padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px; }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .ps-head { padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px; }
   }
-  #shopify-section-{{ sid }} .ps-heading{
+  #shopify-section-{{ sid }} .ps-heading {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: #000000;
     margin: 0 0 16px;
@@ -51,7 +51,7 @@
     letter-spacing: -0.07em;
     font-size: clamp(1.75rem, 2.4vw + 1rem, 46px);
   }
-  #shopify-section-{{ sid }} .ps-sub{
+  #shopify-section-{{ sid }} .ps-sub {
     color: {{ s.sub_color | default: '#000000' }};
     margin: 0 auto;
     max-width: 602px;
@@ -60,16 +60,14 @@
     font-size: 16px;
   }
 
-  /* Photo strip — auto-scrolling marquee.
-     Markup duplicates blocks twice so the -50% translate loops
-     seamlessly with no visual jump. */
-  #shopify-section-{{ sid }} .ps-photos{
+  /* ─── Photo strip — auto-scrolling marquee ──────────────────── */
+  #shopify-section-{{ sid }} .ps-photos {
     overflow: hidden;
     margin: {{ s.photos_margin_top | default: 24 }}px 0 {{ s.photos_margin_bottom | default: 32 }}px;
     mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
   }
-  #shopify-section-{{ sid }} .ps-photos-track{
+  #shopify-section-{{ sid }} .ps-photos-track {
     display: flex;
     gap: {{ s.photo_gap | default: 12 }}px;
     padding: 12px 0;
@@ -77,15 +75,15 @@
     width: max-content;
     animation: ps-marquee-{{ sid }} {{ s.photo_speed_seconds | default: 40 }}s linear infinite;
   }
-  #shopify-section-{{ sid }} .ps-photos:hover .ps-photos-track{ animation-play-state: paused; }
-  @media (prefers-reduced-motion: reduce){
-    #shopify-section-{{ sid }} .ps-photos-track{ animation: none; }
+  #shopify-section-{{ sid }} .ps-photos:hover .ps-photos-track { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }} .ps-photos-track { animation: none; }
   }
-  @keyframes ps-marquee-{{ sid }}{
+  @keyframes ps-marquee-{{ sid }} {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
-  #shopify-section-{{ sid }} .ps-photo{
+  #shopify-section-{{ sid }} .ps-photo {
     flex: 0 0 auto;
     width: {{ s.photo_width_mobile | default: 150 }}px;
     aspect-ratio: 1 / 1;
@@ -93,48 +91,54 @@
     overflow: hidden;
     background: #e8dcef;
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .ps-photo{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .ps-photo {
       width: {{ s.photo_width_desktop | default: 200 }}px;
     }
   }
-  #shopify-section-{{ sid }} .ps-photo img{
+  #shopify-section-{{ sid }} .ps-photo img {
     width: 100%; height: 100%;
     object-fit: cover; display: block;
   }
 
-  /* Reviews — manual slider with prev/next buttons. */
-  #shopify-section-{{ sid }} .ps-reviews-wrap{
+  /* ─── Reviews slider ────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .ps-reviews-wrap {
     max-width: 1340px;
     margin: 0 auto;
   }
-  #shopify-section-{{ sid }} .ps-reviews{
+
+  /* Desktop: 4-up grid, Mobile: single centered slide */
+  /* Mobile: 80% wide cards, 10% side padding → first card naturally centered */
+  #shopify-section-{{ sid }} .ps-reviews {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 86%;
-    gap: 16px;
+    grid-auto-columns: 80%;
+    gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 10%;   /* snap target offset = side padding */
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    padding: 0 {{ s.section_padding_x | default: 16 }}px;
+    padding-inline: 10%;          /* (100% - 80%) / 2 = 10% — centers cards */
   }
-  #shopify-section-{{ sid }} .ps-reviews::-webkit-scrollbar{ display: none; }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .ps-reviews{
+  #shopify-section-{{ sid }} .ps-reviews::-webkit-scrollbar { display: none; }
+
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .ps-reviews {
       grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 8.5))) / {{ s.reviews_per_view | default: 4 }});
       gap: {{ s.review_gap | default: 16 }}px;
-      padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px;
+      padding-inline: {{ s.section_padding_x_desktop | default: 50 }}px;
+      scroll-padding-inline: {{ s.section_padding_x_desktop | default: 50 }}px;
     }
   }
 
-  #shopify-section-{{ sid }} .ps-review{
-    scroll-snap-align: start;
+  #shopify-section-{{ sid }} .ps-review {
+    scroll-snap-align: center;
     padding: 24px 16px;
     color: inherit;
     text-align: center;
   }
-  #shopify-section-{{ sid }} .ps-review-quote{
+  #shopify-section-{{ sid }} .ps-review-quote {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     font-weight: 400;
     font-size: 30px;
@@ -143,14 +147,14 @@
     margin: 0 0 16px;
     color: #000000;
   }
-  #shopify-section-{{ sid }} .ps-review-body{
+  #shopify-section-{{ sid }} .ps-review-body {
     color: #000000;
     font-size: 14.6px;
     line-height: 18.8px;
     letter-spacing: -0.03em;
     margin: 0 auto 16px;
   }
-  #shopify-section-{{ sid }} .ps-review-meta{
+  #shopify-section-{{ sid }} .ps-review-meta {
     color: #000000;
     font-size: 14px;
     line-height: 20.3px;
@@ -158,20 +162,21 @@
     font-weight: 500;
     margin: 0 0 8px;
   }
-  #shopify-section-{{ sid }} .ps-stars{
+  #shopify-section-{{ sid }} .ps-stars {
     display: inline-flex;
     gap: 2px;
     color: {{ s.stars_color | default: '#f5b301' }};
   }
-  #shopify-section-{{ sid }} .ps-stars svg{ width: 16px; height: 16px; }
+  #shopify-section-{{ sid }} .ps-stars svg { width: 16px; height: 16px; }
 
-  #shopify-section-{{ sid }} .ps-nav{
+  /* ─── Nav buttons ───────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .ps-nav {
     display: flex;
     gap: 16px;
     justify-content: center;
     margin-top: 32px;
   }
-  #shopify-section-{{ sid }} .ps-nav-btn{
+  #shopify-section-{{ sid }} .ps-nav-btn {
     width: 50px; height: 50px;
     border-radius: 50%;
     border: 0;
@@ -181,77 +186,59 @@
     justify-content: center;
     transition: background 160ms ease, transform 160ms ease;
   }
-  #shopify-section-{{ sid }} .ps-nav-btn--prev{
+  #shopify-section-{{ sid }} .ps-nav-btn--prev {
     background: {{ s.nav_prev_background | default: '#bba0d4' }};
     color: #ffffff;
   }
-  #shopify-section-{{ sid }} .ps-nav-btn--next{
+  #shopify-section-{{ sid }} .ps-nav-btn--next {
     background: {{ s.nav_next_background | default: '#3f1c5c' }};
     color: #ffffff;
   }
-  #shopify-section-{{ sid }} .ps-nav-btn:active{ transform: translateY(1px); }
-  #shopify-section-{{ sid }} .ps-nav-btn svg{ width: 19px; height: 19px; }
-  @media (max-width:768px){
+  #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
+  #shopify-section-{{ sid }} .ps-nav-btn svg { width: 19px; height: 19px; }
+
+  /* ─── Mobile overrides ──────────────────────────────────────── */
+  @media (max-width: 768px) {
     #shopify-section-{{ sid }} .ps-heading {
-        font-size: 30px;
-        line-height: 110.00000000000001%;
-        letter-spacing: -4%;
-        max-width: 260px;
-        margin: 0 auto 10px;
+      font-size: 30px;
+      line-height: 110%;
+      letter-spacing: -0.04em;
+      max-width: 260px;
+      margin: 0 auto 10px;
     }
-    #shopify-section-{{ sid }} .ps-sub{
+    #shopify-section-{{ sid }} .ps-sub {
       font-size: 14.6px;
       line-height: 18.8px;
-      letter-spacing: -3%;
+      letter-spacing: -0.03em;
       text-align: center;
       max-width: 260px;
     }
-    #shopify-section-{{ sid }} .ps-head{
-    margin: 0 auto 24px;
-    }
-    #shopify-section-{{ sid }} .ps-photo{
-    border-radius: 8px;
-    }
-    #shopify-section-{{ sid }} .ps-photos-track{
-      gap: 6px;
-    padding: 8px 0;
-    }
-     #shopify-section-{{ sid }} .ps-photos{
-          margin: 0px 0 24px;
-    }
-    #shopify-section-{{ sid }} .ps-review{
-      padding: 0;
-    }
-    #shopify-section-{{ sid }} .ps-nav {
-    gap: 10px;
-    margin-top: 16px;
-   }
-   #shopify-section-{{ sid }} .ps-nav-btn svg {
-    width: 14px;
-    height: 14px;
-   }
-    #shopify-section-{{ sid }} .ps-nav-btn {
-    width: 35px;
-    height: 35px;
-   }
-    #shopify-section-{{ sid }} .ps-review-quote{
+    #shopify-section-{{ sid }} .ps-head { margin: 0 auto 24px; }
+    #shopify-section-{{ sid }} .ps-photo { border-radius: 8px; }
+    #shopify-section-{{ sid }} .ps-photos-track { gap: 6px; padding: 8px 0; }
+    #shopify-section-{{ sid }} .ps-photos { margin: 0px 0 24px; }
+    #shopify-section-{{ sid }} .ps-review { padding: 0; }
+    #shopify-section-{{ sid }} .ps-nav { gap: 10px; margin-top: 16px; }
+    #shopify-section-{{ sid }} .ps-nav-btn svg { width: 14px; height: 14px; }
+    #shopify-section-{{ sid }} .ps-nav-btn { width: 35px; height: 35px; }
+    #shopify-section-{{ sid }} .ps-review-quote {
       font-size: 20px;
       line-height: 22.7px;
-      letter-spacing: -3%;
+      letter-spacing: -0.03em;
       text-align: center;
       margin: 0 0 10px;
     }
-    #shopify-section-{{ sid }} .ps-review-body{
+    #shopify-section-{{ sid }} .ps-review-body {
       font-size: 12.8px;
       line-height: 15.4px;
-      letter-spacing: -3%;
-      color:#665169;
-      margin:0 auto 10px;
+      letter-spacing: -0.03em;
+      color: #665169;
+      margin: 0 auto 10px;
     }
-    #shopify-section-{{ sid }} .ps-review-meta{
+    #shopify-section-{{ sid }} .ps-review-meta {
       font-size: 12px;
       line-height: 120%;
-      letter-spacing: -3%;
+      letter-spacing: -0.03em;
     }
   }
 </style>
@@ -259,56 +246,58 @@
 <section class="ps-section" {{ section.shopify_attributes }}>
   <div class="ps-head">
     <h2 class="ps-heading">{{ s.heading_text | default: 'Ingredients That Just Do More' }}</h2>
-    {% if s.subheading_text != blank %}
+    {%- if s.subheading_text != blank -%}
       <p class="ps-sub">{{ s.subheading_text }}</p>
-    {% endif %}
+    {%- endif -%}
   </div>
 
-  {% if photo_count > 0 %}
+  {%- if photo_count > 0 -%}
     <div class="ps-photos" aria-label="{{ s.photos_aria_label | default: 'Customer photos' }}">
       <div class="ps-photos-track">
-        {% for pass in (1..2) %}
-          {% for block in section.blocks %}
-            {% if block.type == 'photo' %}
-              <div class="ps-photo" aria-hidden="{% if pass == 2 %}true{% else %}false{% endif %}" {% if pass == 1 %}{{ block.shopify_attributes }}{% endif %}>
-                {% if block.settings.image != blank %}
+        {%- for pass in (1..2) -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'photo' -%}
+              <div class="ps-photo"
+                   aria-hidden="{% if pass == 2 %}true{% else %}false{% endif %}"
+                   {%- if pass == 1 -%}{{ block.shopify_attributes }}{%- endif -%}>
+                {%- if block.settings.image != blank -%}
                   {{ block.settings.image | image_url: width: 400 | image_tag:
                        loading: 'lazy',
                        widths: '160,240,320,400',
                        sizes: '(min-width: 1024px) 160px, 130px',
                        alt: block.settings.alt_text | default: 'Customer photo' }}
-                {% endif %}
+                {%- endif -%}
               </div>
-            {% endif %}
-          {% endfor %}
-        {% endfor %}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
       </div>
     </div>
-  {% endif %}
+  {%- endif -%}
 
-  {% if review_count > 0 %}
+  {%- if review_count > 0 -%}
     <div class="ps-reviews-wrap">
       <div class="ps-reviews" data-ps-reviews>
-        {% for block in section.blocks %}
-          {% if block.type == 'review' %}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
             <article class="ps-review" {{ block.shopify_attributes }}>
-              <p class="ps-review-quote">“{{ block.settings.quote_text }}”</p>
-              {% if block.settings.body_text != blank %}
+              <p class="ps-review-quote">"{{ block.settings.quote_text }}"</p>
+              {%- if block.settings.body_text != blank -%}
                 <p class="ps-review-body">{{ block.settings.body_text }}</p>
-              {% endif %}
+              {%- endif -%}
               <p class="ps-review-meta">{{ block.settings.author_label | default: 'Verified Review' }}</p>
               <span class="ps-stars" aria-label="{{ block.settings.stars | default: 5 }} out of 5 stars">
-                {% for i in (1..5) %}
-                  {% if i <= block.settings.stars %}
+                {%- for i in (1..5) -%}
+                  {%- if i <= block.settings.stars -%}
                     <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
-                  {% else %}
+                  {%- else -%}
                     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
-                  {% endif %}
-                {% endfor %}
+                  {%- endif -%}
+                {%- endfor -%}
               </span>
             </article>
-          {% endif %}
-        {% endfor %}
+          {%- endif -%}
+        {%- endfor -%}
       </div>
 
       <div class="ps-nav">
@@ -320,28 +309,30 @@
         </button>
       </div>
     </div>
-  {% endif %}
+  {%- endif -%}
 </section>
 
 <script>
-  (function(){
-    var root = document.getElementById('shopify-section-{{ sid }}');
-    if (!root) return;
-    var track = root.querySelector('[data-ps-reviews]');
-    var prev  = root.querySelector('[data-ps-prev]');
-    var next  = root.querySelector('[data-ps-next]');
-    if (!track) return;
+(function () {
+  var root  = document.getElementById('shopify-section-{{ sid }}');
+  if (!root) return;
+  var track = root.querySelector('[data-ps-reviews]');
+  var prev  = root.querySelector('[data-ps-prev]');
+  var next  = root.querySelector('[data-ps-next]');
+  if (!track) return;
 
-    function step(dir){
-      var card = track.querySelector('.ps-review');
-      if (!card) return;
-      var gap = parseFloat(getComputedStyle(track).columnGap || 16);
-      var w = card.getBoundingClientRect().width + gap;
-      track.scrollBy({ left: dir * w, behavior: 'smooth' });
-    }
-    prev && prev.addEventListener('click', function(){ step(-1); });
-    next && next.addEventListener('click', function(){ step(1);  });
-  })();
+  /* ── Prev / Next: step by 1 card ── */
+  function step(dir) {
+    var card = track.querySelector('.ps-review');
+    if (!card) return;
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 12;
+    var w   = card.getBoundingClientRect().width + gap;
+    track.scrollBy({ left: dir * w, behavior: 'smooth' });
+  }
+
+  prev && prev.addEventListener('click', function () { step(-1); });
+  next && next.addEventListener('click', function () { step(1); });
+})();
 </script>
 
 {% schema %}
@@ -352,39 +343,39 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "section_background", "label": "Section background", "default": "#f6efff" },
-    { "type": "color", "id": "text_color",         "label": "Heading / quote color", "default": "#1d1027" },
-    { "type": "color", "id": "sub_color",          "label": "Subtle text color",     "default": "#5b4f6b" },
-    { "type": "color", "id": "stars_color",        "label": "Stars color",           "default": "#f5b301" },
-    { "type": "color", "id": "nav_prev_background","label": "Prev button bg",        "default": "#bba0d4" },
-    { "type": "color", "id": "nav_next_background","label": "Next button bg",        "default": "#3f1c5c" },
+    { "type": "color", "id": "section_background",  "label": "Section background",  "default": "#f6efff" },
+    { "type": "color", "id": "text_color",           "label": "Heading / quote color","default": "#1d1027" },
+    { "type": "color", "id": "sub_color",            "label": "Subtle text color",    "default": "#5b4f6b" },
+    { "type": "color", "id": "stars_color",          "label": "Stars color",          "default": "#f5b301" },
+    { "type": "color", "id": "nav_prev_background",  "label": "Prev button bg",       "default": "#bba0d4" },
+    { "type": "color", "id": "nav_next_background",  "label": "Next button bg",       "default": "#3f1c5c" },
 
     { "type": "header", "content": "Content" },
-    { "type": "text",     "id": "heading_text",        "label": "Heading",     "default": "Ingredients That Just Do More" },
-    { "type": "textarea", "id": "subheading_text",     "label": "Subheading",  "default": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:" },
+    { "type": "text",     "id": "heading_text",        "label": "Heading",    "default": "Ingredients That Just Do More" },
+    { "type": "textarea", "id": "subheading_text",     "label": "Subheading", "default": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:" },
     { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Photo strip" },
-    { "type": "range", "id": "photo_speed_seconds", "label": "Loop duration", "min": 10, "max": 120, "step": 5, "unit": "s", "default": 40 },
-    { "type": "range", "id": "photo_gap",           "label": "Gap between photos", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 12 },
-    { "type": "range", "id": "photo_width_mobile",  "label": "Photo width (Mobile)",  "min": 80, "max": 240, "step": 10, "unit": "px", "default": 130 },
-    { "type": "range", "id": "photo_width_desktop", "label": "Photo width (Desktop)", "min": 100, "max": 300, "step": 10, "unit": "px", "default": 160 },
-    { "type": "range", "id": "photos_margin_top",   "label": "Photos top margin",    "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
-    { "type": "range", "id": "photos_margin_bottom","label": "Photos bottom margin", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "photo_speed_seconds", "label": "Loop duration",        "min": 10, "max": 120, "step": 5,  "unit": "s",  "default": 40 },
+    { "type": "range", "id": "photo_gap",           "label": "Gap between photos",   "min": 0,  "max": 40,  "step": 2,  "unit": "px", "default": 12 },
+    { "type": "range", "id": "photo_width_mobile",  "label": "Photo width (Mobile)", "min": 80, "max": 240, "step": 10, "unit": "px", "default": 130 },
+    { "type": "range", "id": "photo_width_desktop", "label": "Photo width (Desktop)","min": 100,"max": 300, "step": 10, "unit": "px", "default": 160 },
+    { "type": "range", "id": "photos_margin_top",   "label": "Photos top margin",    "min": 0,  "max": 80,  "step": 4,  "unit": "px", "default": 24 },
+    { "type": "range", "id": "photos_margin_bottom","label": "Photos bottom margin", "min": 0,  "max": 80,  "step": 4,  "unit": "px", "default": 32 },
     { "type": "text",  "id": "photos_aria_label",   "label": "Photos aria-label",    "default": "Customer photos" },
 
     { "type": "header", "content": "Reviews" },
-    { "type": "range", "id": "reviews_per_view", "label": "Reviews visible (Desktop)", "min": 1, "max": 5, "step": 1, "default": 4 },
+    { "type": "range", "id": "reviews_per_view", "label": "Reviews visible (Desktop)", "min": 1, "max": 5, "step": 1,  "default": 4 },
     { "type": "range", "id": "review_gap",       "label": "Gap between reviews",       "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
 
     { "type": "header", "content": "Spacing (px)" },
-    { "type": "range", "id": "head_margin_bottom",           "label": "Heading margin bottom",   "min": 0, "max": 80,  "step": 4, "unit": "px", "default": 32 },
-    { "type": "range", "id": "section_padding_top",          "label": "Padding top (Mobile)",    "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_bottom",       "label": "Padding bottom (Mobile)", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x",            "label": "Padding sides (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "section_padding_top_desktop",  "label": "Padding top (Desktop)",   "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",    "label": "Padding sides (Desktop)", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+    { "type": "range", "id": "head_margin_bottom",            "label": "Heading margin bottom",    "min": 0, "max": 80,  "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "section_padding_top",           "label": "Padding top (Mobile)",     "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",        "label": "Padding bottom (Mobile)",  "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",             "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",   "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",     "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
   ],
   "blocks": [
     {
@@ -399,10 +390,10 @@
       "type": "review",
       "name": "Review",
       "settings": [
-        { "type": "text",     "id": "quote_text",   "label": "Quote (will be wrapped in “”)" },
+        { "type": "text",     "id": "quote_text",   "label": "Quote (will be wrapped in \"\")" },
         { "type": "textarea", "id": "body_text",    "label": "Body" },
         { "type": "text",     "id": "author_label", "label": "Author label", "default": "Verified Review" },
-        { "type": "range",    "id": "stars",        "label": "Stars",        "min": 0, "max": 5, "step": 1, "default": 5 }
+        { "type": "range",    "id": "stars",        "label": "Stars", "min": 0, "max": 5, "step": 1, "default": 5 }
       ]
     }
   ],
@@ -414,10 +405,10 @@
       "blocks": [
         { "type": "photo" }, { "type": "photo" }, { "type": "photo" }, { "type": "photo" },
         { "type": "photo" }, { "type": "photo" }, { "type": "photo" }, { "type": "photo" },
-        { "type": "review", "settings": { "quote_text": "My clarity came back.",       "body_text": "My gut felt off, my sleep was broken, and my mind felt foggy. Haritaki helped me feel lighter, clearer, and more like myself again." } },
-        { "type": "review", "settings": { "quote_text": "My mind feels clear again.",   "body_text": "Cleaner digestion, steadier energy, and a noticeably sharper sense of focus throughout the day." } },
-        { "type": "review", "settings": { "quote_text": "Simple, powerful, and easy to trust.", "body_text": "I love that it's just one ingredient, but the impact feels bigger across energy, clarity, and balance." } },
-        { "type": "review", "settings": { "quote_text": "It helped me feel aligned again.", "body_text": "Less fog, better rhythm, and a more connected feeling from morning to night." } }
+        { "type": "review", "settings": { "quote_text": "My clarity came back.",              "body_text": "My gut felt off, my sleep was broken, and my mind felt foggy. Haritaki helped me feel lighter, clearer, and more like myself again." } },
+        { "type": "review", "settings": { "quote_text": "My mind feels clear again.",          "body_text": "Cleaner digestion, steadier energy, and a noticeably sharper sense of focus throughout the day." } },
+        { "type": "review", "settings": { "quote_text": "Simple, powerful, and easy to trust.","body_text": "I love that it's just one ingredient, but the impact feels bigger across energy, clarity, and balance." } },
+        { "type": "review", "settings": { "quote_text": "It helped me feel aligned again.",    "body_text": "Less fog, better rhythm, and a more connected feeling from morning to night." } }
       ]
     }
   ]
