@@ -124,6 +124,7 @@
   #shopify-section-{{ sid }} .pc-table thead .pc-col-us {
     background: {{ s.our_column_background | default: '#47184d' }};
     color: {{ s.our_column_color | default: '#ffffff' }};
+     padding: 0 12px;
   }
   #shopify-section-{{ sid }} .pc-table thead .pc-col-them {
     background: transparent;
@@ -234,6 +235,9 @@
     object-fit: contain;
     margin: 0 auto;
 }
+  #shopify-section-{{ sid }} .pc-table thead .pc-col-us {
+     padding: 0 6px;
+  }
   }
 </style>
 
