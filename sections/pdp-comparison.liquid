@@ -31,21 +31,16 @@
     background-repeat: no-repeat;
     color: {{ s.text_color | default: '#ffffff' }};
     overflow: hidden;
-    /* Mobile background */
     {% if bg_mobile != blank %}
-      background-image:
-        url({{ bg_mobile | image_url: width: 1200 }});
+      background-image: url({{ bg_mobile | image_url: width: 1200 }});
     {% endif %}
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pc-section {
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
-      /* Desktop background */
       {% if bg_desktop != blank %}
-        background-image:
-          url({{ bg_desktop | image_url: width: 2000 }});
+        background-image: url({{ bg_desktop | image_url: width: 2000 }});
       {% elsif bg_mobile != blank %}
-        /* If no desktop image set, clear mobile image on desktop */
         background-image: none;
       {% endif %}
     }
@@ -66,6 +61,12 @@
       align-items: stretch;
       justify-content: center;
     }
+  }
+
+  #shopify-section-{{ sid }} .main-pc-h-d {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   #shopify-section-{{ sid }} .pc-heading {
@@ -128,11 +129,6 @@
     text-align: center;
     width: 100px;
   }
-  #shopify-section-{{ sid }} .main-pc-h-d {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pc-col-us { width: 140px; }
   }
@@ -144,6 +140,18 @@
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pc-col-them { width: 120px; }
   }
+
+  /* Column header image */
+  #shopify-section-{{ sid }} .pc-col-header-img {
+    display: block;
+    max-width: 80px;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
   #shopify-section-{{ sid }} .pc-mark {
     display: inline-flex;
     align-items: center;
@@ -186,8 +194,32 @@
         <thead>
           <tr>
             <th scope="col">{{ s.features_column_label | default: 'FEATURES' }}</th>
-            <th scope="col" class="pc-col-us">{{ s.our_column_label | default: 'PEPTIQUES®' }}</th>
-            <th scope="col" class="pc-col-them">{{ s.them_column_label | default: 'OTHERS' }}</th>
+
+            {%- comment -%} Our column header: image OR text {%- endcomment -%}
+            <th scope="col" class="pc-col-us">
+              {%- if s.our_column_header_image != blank -%}
+                {{ s.our_column_header_image | image_url: width: 200 | image_tag:
+                     class: 'pc-col-header-img',
+                     loading: 'lazy',
+                     widths: '80,120,160,200',
+                     alt: s.our_column_label | default: 'Our brand' }}
+              {%- else -%}
+                {{ s.our_column_label | default: 'PEPTIQUES®' }}
+              {%- endif -%}
+            </th>
+
+            {%- comment -%} Others column header: image OR text {%- endcomment -%}
+            <th scope="col" class="pc-col-them">
+              {%- if s.them_column_header_image != blank -%}
+                {{ s.them_column_header_image | image_url: width: 200 | image_tag:
+                     class: 'pc-col-header-img',
+                     loading: 'lazy',
+                     widths: '80,120,160,200',
+                     alt: s.them_column_label | default: 'Others' }}
+              {%- else -%}
+                {{ s.them_column_label | default: 'OTHERS' }}
+              {%- endif -%}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -246,20 +278,24 @@
     { "type": "color",    "id": "text_color",          "label": "Heading color",       "default": "#ffffff" },
     { "type": "color",    "id": "desc_color",          "label": "Description color",   "default": "#ffffff" },
 
-    { "type": "header", "content": "Table" },
-    { "type": "text",  "id": "features_column_label",   "label": "Features column label",            "default": "FEATURES" },
-    { "type": "text",  "id": "our_column_label",        "label": "Our brand column label",           "default": "PEPTIQUES®" },
-    { "type": "text",  "id": "them_column_label",       "label": "Others column label",              "default": "OTHERS" },
-    { "type": "text",  "id": "table_aria_label",        "label": "Table aria-label",                 "default": "Comparison table" },
-    { "type": "color", "id": "table_background",        "label": "Table background (gradient edges)","default": "#f5e1ff" },
-    { "type": "color", "id": "feature_color",           "label": "Feature label color",              "default": "#000000" },
-    { "type": "color", "id": "our_column_background",   "label": "Our column background",            "default": "#47184d" },
-    { "type": "color", "id": "our_column_color",        "label": "Our column text color",            "default": "#ffffff" },
-    { "type": "color", "id": "them_column_color",       "label": "Others column text color",         "default": "#000000" },
-    { "type": "color", "id": "check_circle_background", "label": "Check circle background",          "default": "#ffffff" },
-    { "type": "color", "id": "cross_color",             "label": "Thumbs-down color",                "default": "#000000" },
-    { "type": "color", "id": "row_divider_color",       "label": "Row divider color",                "default": "#a2a0a0" },
-    { "type": "color", "id": "our_row_divider_color",   "label": "Our column row divider",           "default": "#ffffff" },
+    { "type": "header", "content": "Table column headers" },
+    { "type": "text",         "id": "features_column_label",      "label": "Features column label",                          "default": "FEATURES" },
+    { "type": "text",         "id": "our_column_label",           "label": "Our brand column label (shown if no image)",     "default": "PEPTIQUES®" },
+    { "type": "image_picker", "id": "our_column_header_image",    "label": "Our brand column — header image (optional)" },
+    { "type": "text",         "id": "them_column_label",          "label": "Others column label (shown if no image)",        "default": "OTHERS" },
+    { "type": "image_picker", "id": "them_column_header_image",   "label": "Others column — header image (optional)" },
+    { "type": "text",         "id": "table_aria_label",           "label": "Table aria-label",                               "default": "Comparison table" },
+
+    { "type": "header", "content": "Table colors" },
+    { "type": "color", "id": "table_background",        "label": "Table background (gradient edges)", "default": "#f5e1ff" },
+    { "type": "color", "id": "feature_color",           "label": "Feature label color",               "default": "#000000" },
+    { "type": "color", "id": "our_column_background",   "label": "Our column background",             "default": "#47184d" },
+    { "type": "color", "id": "our_column_color",        "label": "Our column text color",             "default": "#ffffff" },
+    { "type": "color", "id": "them_column_color",       "label": "Others column text color",          "default": "#000000" },
+    { "type": "color", "id": "check_circle_background", "label": "Check circle background",           "default": "#ffffff" },
+    { "type": "color", "id": "cross_color",             "label": "Thumbs-down color",                 "default": "#000000" },
+    { "type": "color", "id": "row_divider_color",       "label": "Row divider color",                 "default": "#a2a0a0" },
+    { "type": "color", "id": "our_row_divider_color",   "label": "Our column row divider",            "default": "#ffffff" },
     { "type": "range", "id": "table_radius",            "label": "Table radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
 
     { "type": "header", "content": "Spacing (px)" },
