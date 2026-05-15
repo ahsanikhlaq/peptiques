@@ -139,8 +139,8 @@
   #shopify-section-{{ sid }} .pe-visual-mobile {
     display: none;
   }
-  .pe-visual-desktop { display: block; }   /* desktop pe show */
-.pe-visual-mobile  { display: none; }    /* desktop pe hide */
+  #shopify-section-{{ sid }} .pe-visual-desktop { display: block; }   /* desktop pe show */
+#shopify-section-{{ sid }} .pe-visual-mobile  { display: none; }    /* desktop pe hide */
   @media (max-width: 768px) {
     #shopify-section-{{ sid }} .pe-visual-desktop {
       display: none;
@@ -148,8 +148,8 @@
     #shopify-section-{{ sid }} .pe-visual-mobile {
       display: block;
     }
-    .pe-visual-desktop { display: none; }  /* mobile pe hide */
-  .pe-visual-mobile  { display: block; } /* mobile pe show */
+    #shopify-section-{{ sid }} .pe-visual-desktop { display: none; }  /* mobile pe hide */
+  #shopify-section-{{ sid }} .pe-visual-mobile  { display: block; } /* mobile pe show */
   }
 
   /* ─── Stat card ─────────────────────────────────────────────── */
