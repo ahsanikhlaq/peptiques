@@ -2172,7 +2172,7 @@
         "photo_speed_seconds": 40,
         "photo_gap": 12,
         "photo_width_mobile": 130,
-        "photo_width_desktop": 160,
+        "photo_width_desktop": 200,
         "photos_margin_top": 24,
         "photos_margin_bottom": 32,
         "photos_aria_label": "Customer photos",
