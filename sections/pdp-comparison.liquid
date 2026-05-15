@@ -195,6 +195,11 @@
   #shopify-section-{{ sid }} .pc-table tbody tr + tr .pc-col-us {
     border-top: 1px solid {{ s.our_row_divider_color | default: '#5a2a78' }};
   }
+  @media (max-width:768px){
+    #shopify-section-{{ sid }} .pc-wrap{
+      gap: 24px;
+    }
+  }
 </style>
 
 <section class="pc-section" {{ section.shopify_attributes }}>
