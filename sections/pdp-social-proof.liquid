@@ -72,6 +72,8 @@
   #shopify-section-{{ sid }} .ps-photos-track{
     display: flex;
     gap: {{ s.photo_gap | default: 12 }}px;
+    padding: 12px 0;
+    background: #FFFFFF;
     width: max-content;
     animation: ps-marquee-{{ sid }} {{ s.photo_speed_seconds | default: 40 }}s linear infinite;
   }
