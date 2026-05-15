@@ -2423,6 +2423,7 @@
       ],
       "name": "Comparison",
       "settings": {
+        "background_image": "shopify://shop_images/us_vs_them_2.webp",
         "section_background": "#1d1027",
         "overlay_color": "#1d1027",
         "heading_text": "Why Trypeptiques Is Different",
