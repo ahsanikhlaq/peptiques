@@ -2170,7 +2170,7 @@
         "photos_aria_label": "Customer photos",
         "reviews_per_view": 4,
         "review_gap": 16,
-        "head_margin_bottom": 32,
+        "head_margin_bottom": 48,
         "section_padding_top": 48,
         "section_padding_bottom": 48,
         "section_padding_x": 16,
