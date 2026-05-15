@@ -2636,7 +2636,7 @@
       ],
       "name": "FAQs",
       "settings": {
-        "background": "#ffffff",
+        "background": "#fffffc",
         "text_color": "#1d1027",
         "sub_color": "#5b4f6b",
         "answer_color": "#4d3f59",
