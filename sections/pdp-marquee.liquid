@@ -74,6 +74,11 @@
   }
   #shopify-section-{{ sid }} .pm-item-icon svg{ width: 100%; height: 100%; }
   #shopify-section-{{ sid }} .pm-item-icon img{ width: 100%; height: 100%; object-fit: contain; display: block; }
+  @media (max-width:768px){
+    #shopify-section-{{ sid }} .pm-bar {
+     min-height: 57px;
+    }
+  }
 </style>
 
 <div class="pm-bar" role="region" aria-label="{{ s.aria_label | default: 'Promotional bar' }}" {{ section.shopify_attributes }}>
