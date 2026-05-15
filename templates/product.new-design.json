@@ -2440,7 +2440,7 @@
         "our_check_icon": "shopify://shop_images/CheckCircle_2.svg",
         "them_cross_icon": "shopify://shop_images/ThumbsDown_1.svg",
         "table_background": "#f6efff",
-        "feature_color": "#1d1027",
+        "feature_color": "#000000",
         "our_column_background": "#47184d",
         "our_column_color": "#ffffff",
         "them_column_color": "#000000",
