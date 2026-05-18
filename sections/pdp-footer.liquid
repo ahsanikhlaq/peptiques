@@ -97,31 +97,35 @@
 /* ── FORM WRAPPER ── */
 #shopify-section-{{ sid }} .pf-nl-form {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   width: 100%;
-  gap: 0;
+  gap: 10px;
 }
 
-/* ── MOBILE: input left + JOIN NOW right, connected ── */
+/* ── MOBILE: input — separate rounded box ── */
 #shopify-section-{{ sid }} .pf-nl-input {
   flex: 1 1 auto;
   min-width: 0;
   background: transparent;
   border: 1.5px solid rgba(255,255,255,0.55);
-  border-right: none;
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px;
   color: inherit;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
   padding: 13px 14px;
-  outline: none;
+  outline: none !important;
+  box-shadow: none !important;
   -webkit-appearance: none;
   line-height: 1.4;
 }
 #shopify-section-{{ sid }} .pf-nl-input::placeholder { color: rgba(255,255,255,0.55); }
-#shopify-section-{{ sid }} .pf-nl-input:focus { border-color: rgba(255,255,255,0.9); }
+#shopify-section-{{ sid }} .pf-nl-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255,255,255,0.9);
+}
 
-/* Mobile button: white JOIN NOW pill connected to input */
+/* Mobile button: white JOIN NOW — separate pill */
 #shopify-section-{{ sid }} .pf-nl-btn {
   flex-shrink: 0;
   border: none;
@@ -136,8 +140,8 @@
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.05em;
-  padding: 13px 18px;
-  border-radius: 0 8px 8px 0;
+  padding: 13px 20px;
+  border-radius: 50px;
   white-space: nowrap;
 }
 #shopify-section-{{ sid }} .pf-nl-btn:hover { opacity: 0.88; }
@@ -151,14 +155,20 @@
     position: relative;
     align-items: center;
   }
-  /* Input: full border all sides, padding-right for button space */
+  /* Input: full border, arrow button inside right */
   #shopify-section-{{ sid }} .pf-nl-input {
-    border: 1.5px solid rgba(255,255,255,0.45);
-    border-right: 1.5px solid rgba(255,255,255,0.45);
-    border-radius: 8px;
-    padding: 13px 58px 13px 18px;
+    border: 1.5px solid rgba(255,255,255,0.45) !important;
+    border-radius: 8px !important;
+    padding: 13px 58px 13px 18px !important;
     font-size: 14px;
     width: 100%;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  #shopify-section-{{ sid }} .pf-nl-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: rgba(255,255,255,0.8) !important;
   }
   /* Button: absolute inside input on the right */
   #shopify-section-{{ sid }} .pf-nl-btn {
@@ -455,11 +465,15 @@
           <button type="submit" class="pf-nl-btn" name="commit" aria-label="Subscribe">
             <span class="pf-btn-text">{{ s.submit_label | default: 'JOIN NOW' }}</span>
             <span class="pf-btn-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="13 6 19 12 13 18"/>
-              </svg>
+              {%- if s.arrow_icon_image != blank -%}
+                {{ s.arrow_icon_image | image_url: width: 48 | image_tag: loading: 'lazy', width: 20, height: 20, alt: '', style: 'display:block;filter:brightness(10)' }}
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="13 6 19 12 13 18"/>
+                </svg>
+              {%- endif -%}
             </span>
           </button>
           {%- if form.errors -%}
@@ -636,7 +650,8 @@
     { "type": "text",     "id": "news_heading",      "label": "Heading",             "default": "Sign Up For Our Newsletter" },
     { "type": "textarea", "id": "news_subtext",      "label": "Subtext",             "default": "Exclusive deals for subscribers if you register from this website" },
     { "type": "text",     "id": "input_placeholder", "label": "Input placeholder",   "default": "Email Address" },
-    { "type": "text",     "id": "submit_label",      "label": "Button text (mobile)","default": "JOIN NOW" },
+    { "type": "text",         "id": "submit_label",    "label": "Mobile button text",                "default": "JOIN NOW" },
+    { "type": "image_picker", "id": "arrow_icon_image", "label": "Desktop arrow icon image (32x32px)" },
     { "type": "text",     "id": "success_message",   "label": "Success message",     "default": "Thanks for subscribing!" },
 
     { "type": "header", "content": "Footer Bottom" },
