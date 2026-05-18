@@ -92,12 +92,13 @@
     letter-spacing: 0;
   }
 
-  /* Mobile: 2-col — border after odd items */
+  /* Mobile default: 2-col — odd items get border-right */
   #shopify-section-{{ sid }} .ni-badge:nth-child(odd) {
     border-right: 0.79px solid #0000003D;
   }
 
   @media (min-width: 540px) {
+    /* Desktop: 4-col */
     #shopify-section-{{ sid }} .ni-badge {
       border-right: 0.79px solid #0000003D;
       border-top: none;
@@ -240,7 +241,6 @@
     margin: 0 0 16px;
     letter-spacing: 0;
   }
-  /* Empty middle cell for header alignment */
   #shopify-section-{{ sid }} .ni-table-header .ni-th-mid {
     min-width: 60px;
   }
@@ -294,119 +294,117 @@
     line-height: 1.4;
     letter-spacing: -0.03em;
     color: #000000;
-    margin:0;
+    margin: 0;
     font-weight: 400;
   }
-  @media (max-width:768px){
-     #shopify-section-{{ sid }} .ni-wrap {
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  #shopify-section-{{ sid }} .ni-card {
-    border-radius: 12px;
-    padding: 24px 16px;
-  }
-  #shopify-section-{{ sid }} .ni-h2 {
-    font-family: 'Georgia', serif;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 110.00000000000001%;
-    max-width: 241px;
-    letter-spacing: -4%;
-    color: #000000;
-    text-align: center;
-    margin: 0 auto 10px;
-  }
-  #shopify-section-{{ sid }} .ni-sub{
-    font-size: 14.6px;
-    line-height: 18.8px;
-    letter-spacing: -3%;
-    text-align: center;
-    max-width: 260px;
-    margin: 0 auto;
-  }
- #shopify-section-{{ sid }} .ni-badges {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 34px 0 34px;
-    gap: 16px 0;
-  }
-  #shopify-section-{{ sid }} .ni-badge-icon {
-    width: 50px;
-    height: 50px;
-  }
-  #shopify-section-{{ sid }} .ni-badge {
-    font-size: 12.8px;
-    line-height: 1.2;
-  }
-  #shopify-section-{{ sid }} .ni-cta {
-    padding: 14px 24px;
-  }
-  #shopify-section-{{ sid }} .ni-footer{
-    margin-top: 12px;
-    gap: 26px;
-    text-align: center;
-  }
-  #shopify-section-{{ sid }} .ni-footer-item {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 6px;
-    white-space: unset;
-  }
-  #shopify-section-{{ sid }} .ni-footer-divider {
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .ni-wrap {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    #shopify-section-{{ sid }} .ni-card {
+      border-radius: 12px;
+      padding: 24px 16px;
+    }
+    #shopify-section-{{ sid }} .ni-h2 {
+      font-family: 'Georgia', serif;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 110%;
+      max-width: 241px;
+      letter-spacing: -0.04em;
+      color: #000000;
+      text-align: center;
+      margin: 0 auto 10px;
+    }
+    #shopify-section-{{ sid }} .ni-sub {
+      font-size: 14.6px;
+      line-height: 18.8px;
+      letter-spacing: -0.03em;
+      text-align: center;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    #shopify-section-{{ sid }} .ni-badges {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 34px 0 34px;
+      gap: 16px 0;
+    }
+    /* Mobile 3-col: border on 1st & 2nd, NOT 3rd of each row */
+    #shopify-section-{{ sid }} .ni-badge:nth-child(odd) {
+      border-right: 0.79px solid #0000003D;
+    }
+    #shopify-section-{{ sid }} .ni-badge:nth-child(3n) {
+      border-right: none;
+    }
+    #shopify-section-{{ sid }} .ni-badge-icon {
+      width: 50px;
+      height: 50px;
+    }
+    #shopify-section-{{ sid }} .ni-badge {
+      font-size: 12.8px;
+      line-height: 1.2;
+    }
+    #shopify-section-{{ sid }} .ni-cta {
+      padding: 14px 24px;
+    }
+    #shopify-section-{{ sid }} .ni-footer {
+      margin-top: 12px;
+      gap: 26px;
+      text-align: center;
+    }
+    #shopify-section-{{ sid }} .ni-footer-item {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      max-width: 105px;
+      white-space: unset;
+    }
+    #shopify-section-{{ sid }} .ni-footer-divider {
       color: #000000;
       font-size: 16px;
       line-height: 1;
       display: none;
-  }
-  #shopify-section-{{ sid }} .ni-footer-item {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-    max-width: 105px;
-  }
-  #shopify-section-{{ sid }} .ni-right{
-        padding: 16px !important;
-  }
-  #shopify-section-{{ sid }} .ni-rh {
-    font-size: 24px;
-    line-height: 120%;
-    letter-spacing: 0;
-  }
-  #shopify-section-{{ sid }} .ni-rintro {
-    color: #ffffff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.2;
-    margin: 0 0 32px;
-    letter-spacing: 0;
-  }
-  #shopify-section-{{ sid }} .ni-rlabel{
-    font-size: 18px;
-    margin: 0 0 24px;
-  }
-  #shopify-section-{{ sid }} .ni-table-header{
-   font-size: 18px;
-  }
-  #shopify-section-{{ sid }} .ni-table{
-    padding: 20px 12px;
-    margin: 0 0 24px;
-  }
-  #shopify-section-{{ sid }} .ni-trow {
-    gap: 0 8px;
-    padding: 0px 0;
-  }
-  #shopify-section-{{ sid }} .ni-disc {
-    padding: 24px;
-    font-size: 14.6px;
-    line-height: 18.8px;
-    letter-spacing: -3%;
-  }
+    }
+    #shopify-section-{{ sid }} .ni-right { padding: 16px !important; }
+    #shopify-section-{{ sid }} .ni-rh {
+      font-size: 24px;
+      line-height: 120%;
+      letter-spacing: 0;
+    }
+    #shopify-section-{{ sid }} .ni-rintro {
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.2;
+      margin: 0 0 32px;
+      letter-spacing: 0;
+    }
+    #shopify-section-{{ sid }} .ni-rlabel {
+      font-size: 18px;
+      margin: 0 0 24px;
+    }
+    #shopify-section-{{ sid }} .ni-table-header { font-size: 18px; }
+    #shopify-section-{{ sid }} .ni-table {
+      padding: 20px 12px;
+      margin: 0 0 24px;
+    }
+    #shopify-section-{{ sid }} .ni-trow {
+      gap: 0 8px;
+      padding: 0px 0;
+    }
+    #shopify-section-{{ sid }} .ni-disc {
+      padding: 24px;
+      font-size: 14.6px;
+      line-height: 18.8px;
+      letter-spacing: -0.03em;
+    }
   }
 </style>
 
@@ -416,62 +414,62 @@
     {%- comment -%} LEFT card {%- endcomment -%}
     <div class="ni-card ni-left">
       <div>
-      <h2 class="ni-h2">{{ s.left_heading }}</h2>
-      <p class="ni-sub">{{ s.left_sub }}</p>
+        <h2 class="ni-h2">{{ s.left_heading }}</h2>
+        <p class="ni-sub">{{ s.left_sub }}</p>
 
-      <div class="ni-badges">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'badge' -%}
-            <div class="ni-badge" {{ block.shopify_attributes }}>
-              <div class="ni-badge-icon">
-                {%- if block.settings.icon_image != blank -%}
-                  {{ block.settings.icon_image | image_url: width: 140 | image_tag:
-                       loading: 'lazy', widths: '66,100,140', alt: block.settings.label }}
-                {%- else -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <circle cx="12" cy="12" r="10"/>
-                  </svg>
-                {%- endif -%}
+        <div class="ni-badges">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'badge' -%}
+              <div class="ni-badge" {{ block.shopify_attributes }}>
+                <div class="ni-badge-icon">
+                  {%- if block.settings.icon_image != blank -%}
+                    {{ block.settings.icon_image | image_url: width: 140 | image_tag:
+                         loading: 'lazy', widths: '66,100,140', alt: block.settings.label }}
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                  {%- endif -%}
+                </div>
+                <div>{{ block.settings.label }}</div>
               </div>
-              <div>{{ block.settings.label }}</div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       </div>
       <div>
-      <a href="{{ s.cta_url | default: '#' }}" class="ni-cta">{{ s.cta_text }}</a>
+        <a href="{{ s.cta_url | default: '#' }}" class="ni-cta">{{ s.cta_text }}</a>
 
-      <div class="ni-footer">
-        <div class="ni-footer-item">
-          <span class="ni-footer-icon">
-            {%- if s.footer_icon_1 != blank -%}
-              {{ s.footer_icon_1 | image_url: width: 40 | image_tag: loading: 'lazy', alt: '' }}
-            {%- else -%}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="9" y1="8" x2="9" y2="16"/>
-                <line x1="15" y1="8" x2="15" y2="16"/>
-              </svg>
-            {%- endif -%}
-          </span>
-          <span>{{ s.footer_text_1 | default: 'Stop or Cancel Anytime' }}</span>
+        <div class="ni-footer">
+          <div class="ni-footer-item">
+            <span class="ni-footer-icon">
+              {%- if s.footer_icon_1 != blank -%}
+                {{ s.footer_icon_1 | image_url: width: 40 | image_tag: loading: 'lazy', alt: '' }}
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="9" y1="8" x2="9" y2="16"/>
+                  <line x1="15" y1="8" x2="15" y2="16"/>
+                </svg>
+              {%- endif -%}
+            </span>
+            <span>{{ s.footer_text_1 | default: 'Stop or Cancel Anytime' }}</span>
+          </div>
+          <span class="ni-footer-divider">|</span>
+          <div class="ni-footer-item">
+            <span class="ni-footer-icon">
+              {%- if s.footer_icon_2 != blank -%}
+                {{ s.footer_icon_2 | image_url: width: 40 | image_tag: loading: 'lazy', alt: '' }}
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1 4 1 10 7 10"/>
+                  <path d="M3.51 15a9 9 0 1 0 .49-3"/>
+                </svg>
+              {%- endif -%}
+            </span>
+            <span>{{ s.footer_text_2 | default: 'Refills Ship Every 90 days' }}</span>
+          </div>
         </div>
-        <span class="ni-footer-divider">|</span>
-        <div class="ni-footer-item">
-          <span class="ni-footer-icon">
-            {%- if s.footer_icon_2 != blank -%}
-              {{ s.footer_icon_2 | image_url: width: 40 | image_tag: loading: 'lazy', alt: '' }}
-            {%- else -%}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="1 4 1 10 7 10"/>
-                <path d="M3.51 15a9 9 0 1 0 .49-3"/>
-              </svg>
-            {%- endif -%}
-          </span>
-          <span>{{ s.footer_text_2 | default: 'Refills Ship Every 90 days' }}</span>
-        </div>
-      </div>
       </div>
     </div>
 
@@ -481,14 +479,12 @@
       <p class="ni-rintro">{{ s.right_intro }}</p>
       <p class="ni-rlabel">{{ s.right_label }}</p>
 
-      {%- comment -%} Amount Per Serving header — bahar, white text {%- endcomment -%}
       <div class="ni-table-header">
         <span>{{ s.amount_header }}</span>
         <span class="ni-th-mid"></span>
         <span>{{ s.dv_header }}</span>
       </div>
 
-      {%- comment -%} White ingredient card {%- endcomment -%}
       <div class="ni-table">
         {%- for block in section.blocks -%}
           {%- if block.type == 'ingredient' -%}
