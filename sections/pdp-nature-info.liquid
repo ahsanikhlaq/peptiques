@@ -91,12 +91,6 @@
     position: relative;
   }
 
-  /*
-    Dividers — only RIGHT border, only when NOT the last in a row.
-    2-col mobile: 1st of every pair gets border-right.
-    4-col desktop: 1st,2nd,3rd of every group of 4 get border-right.
-    We use nth-child logic to avoid border on last of each row.
-  */
   /* Mobile: 2-col — border after odd items (1st, 3rd, 5th...) */
   #shopify-section-{{ sid }} .ni-badge:nth-child(odd) {
     border-right: 1px solid rgba(0, 0, 0, 0.18);
@@ -105,7 +99,7 @@
   @media (min-width: 540px) {
     /* Desktop: 4-col — reset all, then right border except 4th of each row */
     #shopify-section-{{ sid }} .ni-badge {
-      border-right: 1px solid rgba(0, 0, 0, 0.18);
+      border-right: 1px solid #0000003D;
       border-top: none;
     }
     #shopify-section-{{ sid }} .ni-badge:nth-child(4n) {
