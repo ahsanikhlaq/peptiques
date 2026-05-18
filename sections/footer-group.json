@@ -130,6 +130,7 @@
         "success_message": "Thanks for subscribing!",
         "disclaimer_text": "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease.",
         "social_label": "Check our Social Media",
+        "payment_image": "shopify://shop_images/Frame_1484579005.svg",
         "section_padding_top": 40,
         "section_padding_bottom": 40,
         "section_padding_x": 24,
