@@ -87,17 +87,15 @@
     font-weight: 500;
     line-height: 1.2;
     color: #47184d;
-    {% comment %} padding: 16px 8px; {% endcomment %}
     position: relative;
   }
 
-  /* Mobile: 2-col — border after odd items (1st, 3rd, 5th...) */
+  /* Mobile: 2-col — border after odd items */
   #shopify-section-{{ sid }} .ni-badge:nth-child(odd) {
-   border-right: 0.79px solid #0000003D;
+    border-right: 0.79px solid #0000003D;
   }
 
   @media (min-width: 540px) {
-    /* Desktop: 4-col — reset all, then right border except 4th of each row */
     #shopify-section-{{ sid }} .ni-badge {
       border-right: 0.79px solid #0000003D;
       border-top: none;
@@ -107,7 +105,7 @@
     }
   }
 
-  /* Badge icon — image or SVG circle */
+  /* Badge icon */
   #shopify-section-{{ sid }} .ni-badge-icon {
     width: 66px;
     height: 66px;
@@ -149,7 +147,7 @@
     padding: 20px 24px;
   }
 
-  /* ─── Footer: icon + text | icon + text ─────────────────────── */
+  /* ─── Footer ─────────────────────────────────────────────────── */
   #shopify-section-{{ sid }} .ni-footer {
     margin-top: 20px;
     display: flex;
@@ -183,9 +181,7 @@
     width: 100%; height: 100%;
     object-fit: contain; display: block;
   }
-  #shopify-section-{{ sid }} .ni-footer-icon svg {
-    width: 18px; height: 18px;
-  }
+  #shopify-section-{{ sid }} .ni-footer-icon svg { width: 18px; height: 18px; }
   #shopify-section-{{ sid }} .ni-footer-divider {
     color: #000000;
     font-size: 16px;
@@ -224,6 +220,20 @@
     padding-bottom: 16px;
     border-bottom: 1px solid #e1dcf4;
   }
+
+  /* Amount Per Serving header — OUTSIDE white box, white text */
+  #shopify-section-{{ sid }} .ni-table-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 12px;
+  }
+
+  /* White ingredient box */
   #shopify-section-{{ sid }} .ni-table {
     background: #ffffff;
     border: 1px solid #e1dcf4;
@@ -239,6 +249,7 @@
   #shopify-section-{{ sid }} .ni-trow {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     padding: 4px 0;
   }
   #shopify-section-{{ sid }} .ni-trow em {
@@ -249,6 +260,15 @@
     line-height: 20px;
     margin-top: 4px;
   }
+  #shopify-section-{{ sid }} .ni-dv-note {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #47184d;
+    margin: 12px 0 0;
+    line-height: 1.2;
+  }
+
   #shopify-section-{{ sid }} .ni-disc {
     background: #ffffff;
     border: 1px solid #e1dcf4;
@@ -291,7 +311,6 @@
 
       <a href="{{ s.cta_url | default: '#' }}" class="ni-cta">{{ s.cta_text }}</a>
 
-      {%- comment -%} Footer: icon + text | icon + text {%- endcomment -%}
       <div class="ni-footer">
         <div class="ni-footer-item">
           <span class="ni-footer-icon">
@@ -330,11 +349,14 @@
       <p class="ni-rintro">{{ s.right_intro }}</p>
       <p class="ni-rlabel">{{ s.right_label }}</p>
 
+      {%- comment -%} Amount Per Serving header — bahar, white text {%- endcomment -%}
+      <div class="ni-table-header">
+        <span>{{ s.amount_header }}</span>
+        <span>{{ s.dv_header }}</span>
+      </div>
+
+      {%- comment -%} White ingredient card {%- endcomment -%}
       <div class="ni-table">
-        <div class="ni-trow">
-          <span>{{ s.amount_header }}</span>
-          <span>{{ s.dv_header }}</span>
-        </div>
         {%- for block in section.blocks -%}
           {%- if block.type == 'ingredient' -%}
             <div class="ni-trow" {{ block.shopify_attributes }}>
@@ -343,6 +365,9 @@
             </div>
           {%- endif -%}
         {%- endfor -%}
+        {%- if s.dv_note != blank -%}
+          <p class="ni-dv-note">{{ s.dv_note }}</p>
+        {%- endif -%}
       </div>
 
       <p class="ni-disc">{{ s.disclaimer }}</p>
@@ -375,6 +400,7 @@
     { "type": "text",     "id": "right_label",   "label": "Right label",   "default": "each serving contains" },
     { "type": "text",     "id": "amount_header", "label": "Amount header", "default": "Amount Per Serving" },
     { "type": "text",     "id": "dv_header",     "label": "DV header",     "default": "%DV" },
+    { "type": "text",     "id": "dv_note",       "label": "DV note (inside card, below ingredients)", "default": "*Daily value not established" },
     { "type": "textarea", "id": "disclaimer",    "label": "Disclaimer",    "default": "* These supplements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease." }
   ],
   "blocks": [
