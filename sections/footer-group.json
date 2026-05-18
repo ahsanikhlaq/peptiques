@@ -92,7 +92,7 @@
         "section_padding_bottom": 40,
         "section_padding_x": 24,
         "section_padding_top_desktop": 52,
-        "section_padding_bottom_desktop": 52,
+        "section_padding_bottom_desktop": 12,
         "section_padding_x_desktop": 60,
         "row_padding_y": 40
       }
