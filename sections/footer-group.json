@@ -11,28 +11,6 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "custom_footer_DdGfdD": {
-      "type": "custom-footer",
-      "name": "Custom Footer PRO v2",
-      "settings": {
-        "logo": "shopify://shop_images/hf_20260326_143728_b8b5b90d-07c2-4451-8f18-9da8ffa3bab5_1_1.png",
-        "quick_menu": "",
-        "legal_menu": "menu",
-        "email": "contact@peptiques.com",
-        "menu_color": "#ffffff",
-        "bg_gradient": "linear-gradient(45deg, rgba(70, 47, 158, 1) 11%, rgba(115, 53, 151, 1) 84%)",
-        "facebook_icon": "shopify://shop_images/facebook.svg",
-        "facebook_link": "https://www.facebook.com/profile.php?id=61584904350525",
-        "instagram_icon": "shopify://shop_images/instagram.svg",
-        "instagram_link": "https://www.instagram.com/yogi.wisdom/",
-        "tiktok_icon": "shopify://shop_images/TiktokLogo.svg",
-        "tiktok_link": "https://www.tiktok.com/@yogi.wisdom",
-        "enable_country_selector": true,
-        "show_policy": true,
-        "payment_enable": true,
-        "enabled_payment_types": ""
-      }
-    },
     "pdp_footer_Gicnr8": {
       "type": "pdp-footer",
       "blocks": {
@@ -84,6 +62,7 @@
       "name": "Footer (Figma)",
       "settings": {
         "background_color": "#3f1c5c",
+        "background_image": "shopify://shop_images/Component_236.webp",
         "overlay_color": "#3f1c5c",
         "text_color": "#ffffff",
         "sub_color": "#cdb6e6",
@@ -115,6 +94,28 @@
         "section_padding_bottom_desktop": 40,
         "section_padding_x_desktop": 60,
         "row_padding_y": 28
+      }
+    },
+    "custom_footer_DdGfdD": {
+      "type": "custom-footer",
+      "name": "Custom Footer PRO v2",
+      "settings": {
+        "logo": "shopify://shop_images/hf_20260326_143728_b8b5b90d-07c2-4451-8f18-9da8ffa3bab5_1_1.png",
+        "quick_menu": "",
+        "legal_menu": "menu",
+        "email": "contact@peptiques.com",
+        "menu_color": "#ffffff",
+        "bg_gradient": "linear-gradient(45deg, rgba(70, 47, 158, 1) 11%, rgba(115, 53, 151, 1) 84%)",
+        "facebook_icon": "shopify://shop_images/facebook.svg",
+        "facebook_link": "https://www.facebook.com/profile.php?id=61584904350525",
+        "instagram_icon": "shopify://shop_images/instagram.svg",
+        "instagram_link": "https://www.instagram.com/yogi.wisdom/",
+        "tiktok_icon": "shopify://shop_images/TiktokLogo.svg",
+        "tiktok_link": "https://www.tiktok.com/@yogi.wisdom",
+        "enable_country_selector": true,
+        "show_policy": true,
+        "payment_enable": true,
+        "enabled_payment_types": ""
       }
     },
     "section_divider_eVcPCA": {
