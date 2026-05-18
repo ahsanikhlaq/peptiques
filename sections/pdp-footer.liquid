@@ -1,12 +1,13 @@
 {% comment %}
   Footer — matches reference image structure exactly.
   Mobile (max 768px):
-    - Newsletter full width (heading + subtext + email input)
+    - Newsletter full width (heading + subtext + email input + JOIN NOW pill button)
     - Accordion columns full width, one per row, + icon right
     - Social: only icon circles, no text, no pill border
+    - Payment icons row at very bottom
     - Logo hidden on mobile
   Desktop (769px+):
-    - Newsletter row (left heading, right input)
+    - Newsletter row (left heading+subtext, right input + circular arrow button)
     - Logo left + columns right (3 col grid)
     - Social: icon + text pills
 {% endcomment %}
@@ -75,12 +76,12 @@
    ROW 1 — NEWSLETTER
 ═══════════════════════════════ */
 #shopify-section-{{ sid }} .pf-row-news {
-  padding-bottom: 8px;
+  padding-bottom: 24px;
 }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-row-news {
     display: grid;
-    grid-template-columns: minmax(0,1fr) minmax(0,1.3fr);
+    grid-template-columns: minmax(0,1fr) minmax(0,1.2fr);
     align-items: center;
     gap: 40px;
     padding-bottom: 40px;
@@ -91,11 +92,11 @@
 #shopify-section-{{ sid }} .pf-news-heading {
   font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
   color: inherit;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  font-size: clamp(1.7rem, 5vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 5vw, 40px);
 }
 #shopify-section-{{ sid }} .pf-news-sub {
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -109,48 +110,96 @@
   #shopify-section-{{ sid }} .pf-news-sub { margin-bottom: 0; }
 }
 
-/* Email form */
+/* ───────────────────────────────
+   EMAIL FORM
+   Mobile: outlined input + white pill "JOIN NOW" button
+   Desktop: outlined input + circular dark arrow button
+─────────────────────────────── */
 #shopify-section-{{ sid }} .pf-news-form {
   display: flex;
   align-items: stretch;
   gap: 0;
   width: 100%;
 }
+
+/* INPUT — shared base */
 #shopify-section-{{ sid }} .pf-news-input {
   flex: 1 1 auto;
   background: transparent;
-  border: 1px solid {{ s.input_border_color | default: 'rgba(255,255,255,0.5)' }};
-  border-right: none;
+  border: 1.5px solid {{ s.input_border_color | default: 'rgba(255,255,255,0.55)' }};
   color: {{ s.text_color | default: '#ffffff' }};
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 15px;
   padding: 13px 16px;
-  border-radius: 8px 0 0 8px;
   outline: 0;
   min-width: 0;
+  /* Mobile: pill left side */
+  border-radius: 50px 0 0 50px;
+  border-right: none;
 }
 #shopify-section-{{ sid }} .pf-news-input::placeholder {
-  color: {{ s.input_placeholder_color | default: 'rgba(255,255,255,0.55)' }};
+  color: {{ s.input_placeholder_color | default: 'rgba(255,255,255,0.6)' }};
 }
 #shopify-section-{{ sid }} .pf-news-input:focus {
   border-color: {{ s.input_focus_border_color | default: '#ffffff' }};
 }
+
+/* SUBMIT — Mobile: white pill "JOIN NOW" */
 #shopify-section-{{ sid }} .pf-news-submit {
   flex-shrink: 0;
   background: {{ s.submit_background | default: '#ffffff' }};
   color: {{ s.submit_color | default: '#3f1c5c' }};
   border: none;
-  padding: 13px 20px;
-  border-radius: 0 8px 8px 0;
+  padding: 13px 22px;
+  border-radius: 0 50px 50px 0;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   cursor: pointer;
   white-space: nowrap;
   transition: opacity 150ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
 }
-#shopify-section-{{ sid }} .pf-news-submit:hover { opacity: 0.9; }
+#shopify-section-{{ sid }} .pf-news-submit:hover { opacity: 0.88; }
+
+/* Submit text span — shown on mobile */
+#shopify-section-{{ sid }} .pf-submit-text { display: inline; }
+/* Submit arrow icon — hidden on mobile */
+#shopify-section-{{ sid }} .pf-submit-arrow { display: none; }
+
+/* DESKTOP overrides */
+@media (min-width: 769px) {
+  /* Input: rectangular left side */
+  #shopify-section-{{ sid }} .pf-news-input {
+    border-radius: 8px 0 0 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    border: 1.5px solid {{ s.input_border_color | default: 'rgba(255,255,255,0.45)' }};
+    border-right: none;
+  }
+
+  /* Submit: circular dark arrow button */
+  #shopify-section-{{ sid }} .pf-news-submit {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+    background: {{ s.submit_bg_desktop | default: '#1a0a2e' }};
+    color: #ffffff;
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: -1px;
+  }
+  /* Hide text, show arrow */
+  #shopify-section-{{ sid }} .pf-submit-text { display: none; }
+  #shopify-section-{{ sid }} .pf-submit-arrow { display: flex; align-items: center; justify-content: center; }
+  #shopify-section-{{ sid }} .pf-submit-arrow svg { width: 18px; height: 18px; }
+}
+
 #shopify-section-{{ sid }} .pf-news-message {
   margin-top: 8px; font-size: 13px;
   color: {{ s.success_color | default: '#cdb6e6' }};
@@ -162,7 +211,6 @@
 
 /* ═══════════════════════════════
    ROW 2 — LOGO + COLUMNS
-   Desktop only logo, mobile hidden
 ═══════════════════════════════ */
 #shopify-section-{{ sid }} .pf-row-cols {
   padding: 0;
@@ -170,7 +218,7 @@
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-row-cols {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 220px 1fr;
     gap: 48px;
     align-items: flex-start;
     padding: 40px 0;
@@ -179,13 +227,9 @@
 }
 
 /* Logo — hidden on mobile */
-#shopify-section-{{ sid }} .pf-logo-wrap {
-  display: none;
-}
+#shopify-section-{{ sid }} .pf-logo-wrap { display: none; }
 @media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-logo-wrap {
-    display: block;
-  }
+  #shopify-section-{{ sid }} .pf-logo-wrap { display: block; }
 }
 #shopify-section-{{ sid }} .pf-logo {
   font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
@@ -193,7 +237,7 @@
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.04em;
-  font-size: clamp(2rem, 3vw, 4rem);
+  font-size: clamp(2rem, 3vw, 3.5rem);
   text-decoration: none;
   display: inline-flex;
   align-items: baseline;
@@ -211,12 +255,8 @@
 
 /* ═══════════════════════════════
    ACCORDION COLUMNS
-   Mobile: full width stacked, accordion
-   Desktop: side by side grid
 ═══════════════════════════════ */
-#shopify-section-{{ sid }} .pf-cols {
-  width: 100%;
-}
+#shopify-section-{{ sid }} .pf-cols { width: 100%; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-cols {
     display: grid;
@@ -230,9 +270,7 @@
   border-bottom: 1px solid {{ s.divider_color | default: 'rgba(255,255,255,0.2)' }};
 }
 @media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-col {
-    border-bottom: none;
-  }
+  #shopify-section-{{ sid }} .pf-col { border-bottom: none; }
 }
 
 /* Title row */
@@ -253,23 +291,21 @@
 }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-col-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     cursor: default;
     padding: 0 0 14px;
     pointer-events: none;
   }
-  #shopify-section-{{ sid }} .pf-col-title .pf-acc-icon {
-    display: none;
-  }
+  #shopify-section-{{ sid }} .pf-col-title .pf-acc-icon { display: none; }
 }
 
 /* Plus/X icon */
 #shopify-section-{{ sid }} .pf-acc-icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   transition: transform 300ms ease;
 }
@@ -349,7 +385,9 @@
   max-width: 480px;
 }
 
-/* Social section */
+/* ───────────────────────────────
+   SOCIAL
+─────────────────────────────── */
 #shopify-section-{{ sid }} .pf-social-wrap {
   display: flex;
   flex-direction: column;
@@ -357,9 +395,7 @@
   gap: 10px;
 }
 @media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-social-wrap {
-    align-items: flex-end;
-  }
+  #shopify-section-{{ sid }} .pf-social-wrap { align-items: flex-end; }
 }
 #shopify-section-{{ sid }} .pf-social-label {
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -370,7 +406,7 @@
 #shopify-section-{{ sid }} .pf-social-list {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Mobile: icon only circles */
@@ -378,34 +414,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1.5px solid rgba(255,255,255,0.35);
   color: inherit;
   text-decoration: none;
   transition: background 150ms;
   flex-shrink: 0;
 }
-#shopify-section-{{ sid }} .pf-social-link:hover {
-  background: rgba(255,255,255,0.25);
-}
+#shopify-section-{{ sid }} .pf-social-link:hover { background: rgba(255,255,255,0.25); }
 #shopify-section-{{ sid }} .pf-social-link img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  display: block;
+  width: 20px; height: 20px;
+  object-fit: contain; display: block;
 }
 #shopify-section-{{ sid }} .pf-social-link svg {
-  width: 18px;
-  height: 18px;
+  width: 20px; height: 20px;
   color: currentColor;
 }
-/* Label text hidden on mobile, shown on desktop as pill */
-#shopify-section-{{ sid }} .pf-social-link-text {
-  display: none;
-}
+#shopify-section-{{ sid }} .pf-social-link-text { display: none; }
+
+/* Desktop: pill with icon + text */
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-social-link {
     width: auto;
@@ -417,14 +447,8 @@
     background: rgba(255,255,255,0.1);
     border: 1px solid {{ s.social_border_color | default: 'rgba(255,255,255,0.35)' }};
   }
-  #shopify-section-{{ sid }} .pf-social-link img {
-    width: 16px;
-    height: 16px;
-  }
-  #shopify-section-{{ sid }} .pf-social-link svg {
-    width: 14px;
-    height: 14px;
-  }
+  #shopify-section-{{ sid }} .pf-social-link img { width: 16px; height: 16px; }
+  #shopify-section-{{ sid }} .pf-social-link svg { width: 16px; height: 16px; }
   #shopify-section-{{ sid }} .pf-social-link-text {
     display: inline;
     font-family: 'DM Sans', system-ui, sans-serif;
@@ -432,6 +456,31 @@
     font-weight: 500;
     white-space: nowrap;
   }
+}
+
+/* ═══════════════════════════════
+   PAYMENT ICONS ROW
+   Mobile only (shown below social)
+═══════════════════════════════ */
+#shopify-section-{{ sid }} .pf-payment-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid {{ s.divider_color | default: 'rgba(255,255,255,0.2)' }};
+  width: 100%;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .pf-payment-row { display: none; }
+}
+#shopify-section-{{ sid }} .pf-payment-icon {
+  height: 26px;
+  width: auto;
+  border-radius: 4px;
+  display: block;
+  filter: brightness(1);
 }
 </style>
 
@@ -448,6 +497,7 @@
           <p class="pf-news-sub">{{ s.news_subtext }}</p>
         {% endif %}
       </div>
+
       <div class="pf-news-form-wrap">
         {%- form 'customer', class: 'pf-news-form', id: 'pf-news-form-' | append: sid -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
@@ -461,7 +511,16 @@
             required
             aria-label="{{ s.input_aria_label | default: 'Email address' }}">
           <button type="submit" class="pf-news-submit" aria-label="{{ s.submit_aria_label | default: 'Subscribe' }}">
-            {{ s.submit_label | default: 'JOIN NOW' }}
+            {%- comment -%} Mobile: text label {%- endcomment -%}
+            <span class="pf-submit-text">{{ s.submit_label | default: 'JOIN NOW' }}</span>
+            {%- comment -%} Desktop: arrow icon {%- endcomment -%}
+            <span class="pf-submit-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="13 6 19 12 13 18"/>
+              </svg>
+            </span>
           </button>
           {%- if form.posted_successfully? -%}
             <p class="pf-news-message">{{ s.success_message | default: "Thanks for subscribing!" }}</p>
@@ -492,7 +551,7 @@
         {% endif %}
       </div>
 
-      {%- comment -%} Columns {%- endcomment -%}
+      {%- comment -%} Link Columns {%- endcomment -%}
       {% if link_col_count > 0 %}
         <div class="pf-cols">
           {% for block in section.blocks %}
@@ -500,11 +559,11 @@
               <div class="pf-col" {{ block.shopify_attributes }}>
                 <h3 class="pf-col-title" role="button" aria-expanded="false" tabindex="0">
                   {{ block.settings.title }}
-                  <svg class="pf-acc-icon" viewBox="0 0 16 16" fill="none"
+                  <svg class="pf-acc-icon" viewBox="0 0 18 18" fill="none"
                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
                        aria-hidden="true">
-                    <line x1="8" y1="2" x2="8" y2="14"/>
-                    <line x1="2" y1="8" x2="14" y2="8"/>
+                    <line x1="9" y1="2" x2="9" y2="16"/>
+                    <line x1="2" y1="9" x2="16" y2="9"/>
                   </svg>
                 </h3>
                 <ul class="pf-col-list">
@@ -563,6 +622,15 @@
       {% endif %}
 
     </div>
+
+    {%- comment -%}═══ PAYMENT ICONS — Mobile only ═══{%- endcomment -%}
+    {% unless shop.enabled_payment_types == empty %}
+      <div class="pf-payment-row">
+        {% for type in shop.enabled_payment_types %}
+          {{ type | payment_type_svg_tag: class: 'pf-payment-icon' }}
+        {% endfor %}
+      </div>
+    {% endunless %}
 
   </div>
 </section>
@@ -625,22 +693,23 @@
   "class": "pf-footer",
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background_color",         "label": "Fallback bg color",    "default": "#47184d" },
-    { "type": "color", "id": "text_color",               "label": "Text color",            "default": "#ffffff" },
-    { "type": "color", "id": "divider_color",            "label": "Divider color",         "default": "#ffffff" },
-    { "type": "color", "id": "col_title_color",          "label": "Column title color",    "default": "#ffffff" },
-    { "type": "color", "id": "input_border_color",       "label": "Input border",          "default": "#bfd2dd" },
-    { "type": "color", "id": "input_focus_border_color", "label": "Input focus border",    "default": "#ffffff" },
-    { "type": "color", "id": "input_placeholder_color",  "label": "Input placeholder",     "default": "#bba0d4" },
-    { "type": "color", "id": "submit_background",        "label": "Submit button bg",      "default": "#ffffff" },
-    { "type": "color", "id": "submit_color",             "label": "Submit button text",    "default": "#3f1c5c" },
-    { "type": "color", "id": "success_color",            "label": "Success message color", "default": "#cdb6e6" },
-    { "type": "color", "id": "error_color",              "label": "Error message color",   "default": "#ffb3b3" },
-    { "type": "color", "id": "social_border_color",      "label": "Social border (desktop)","default": "#9b87b3" },
+    { "type": "color", "id": "background_color",         "label": "Fallback bg color",       "default": "#47184d" },
+    { "type": "color", "id": "text_color",               "label": "Text color",               "default": "#ffffff" },
+    { "type": "color", "id": "divider_color",            "label": "Divider color",            "default": "#ffffff" },
+    { "type": "color", "id": "col_title_color",          "label": "Column title color",       "default": "#ffffff" },
+    { "type": "color", "id": "input_border_color",       "label": "Input border",             "default": "#bfd2dd" },
+    { "type": "color", "id": "input_focus_border_color", "label": "Input focus border",       "default": "#ffffff" },
+    { "type": "color", "id": "input_placeholder_color",  "label": "Input placeholder",        "default": "#bba0d4" },
+    { "type": "color", "id": "submit_background",        "label": "Submit button bg (mobile)","default": "#ffffff" },
+    { "type": "color", "id": "submit_color",             "label": "Submit button text (mob)", "default": "#3f1c5c" },
+    { "type": "color", "id": "submit_bg_desktop",        "label": "Submit button bg (desktop)","default": "#1a0a2e" },
+    { "type": "color", "id": "success_color",            "label": "Success message color",    "default": "#cdb6e6" },
+    { "type": "color", "id": "error_color",              "label": "Error message color",      "default": "#ffb3b3" },
+    { "type": "color", "id": "social_border_color",      "label": "Social border (desktop)",  "default": "#9b87b3" },
 
     { "type": "header", "content": "Background Images" },
     { "type": "image_picker", "id": "background_image_desktop", "label": "Background Desktop" },
-    { "type": "image_picker", "id": "background_image_mobile",  "label": "Background Mobile" },
+    { "type": "image_picker", "id": "background_image_mobile",  "label": "Background Mobile"  },
 
     { "type": "header", "content": "Logo" },
     { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
@@ -648,28 +717,28 @@
     { "type": "text",         "id": "logo_mark",  "label": "Logo trademark", "default": "®" },
 
     { "type": "header", "content": "Newsletter" },
-    { "type": "text",     "id": "news_heading",      "label": "Heading",           "default": "Sign Up For Our Newsletter" },
-    { "type": "textarea", "id": "news_subtext",      "label": "Subtext",           "default": "Exclusive deals for subscribers if you register from this website" },
-    { "type": "text",     "id": "input_placeholder", "label": "Input placeholder", "default": "Email Address" },
-    { "type": "text",     "id": "submit_label",      "label": "Submit button text","default": "JOIN NOW" },
-    { "type": "text",     "id": "input_aria_label",  "label": "Input aria-label",  "default": "Email address" },
-    { "type": "text",     "id": "submit_aria_label", "label": "Submit aria-label", "default": "Subscribe" },
-    { "type": "text",     "id": "success_message",   "label": "Success message",   "default": "Thanks for subscribing!" },
+    { "type": "text",     "id": "news_heading",      "label": "Heading",            "default": "Sign Up For Our Newsletter" },
+    { "type": "textarea", "id": "news_subtext",      "label": "Subtext",            "default": "Exclusive deals for subscribers if you register from this website" },
+    { "type": "text",     "id": "input_placeholder", "label": "Input placeholder",  "default": "Email Address" },
+    { "type": "text",     "id": "submit_label",      "label": "Submit label (mob)", "default": "JOIN NOW" },
+    { "type": "text",     "id": "input_aria_label",  "label": "Input aria-label",   "default": "Email address" },
+    { "type": "text",     "id": "submit_aria_label", "label": "Submit aria-label",  "default": "Subscribe" },
+    { "type": "text",     "id": "success_message",   "label": "Success message",    "default": "Thanks for subscribing!" },
 
     { "type": "header", "content": "Disclaimer and Social" },
-    { "type": "textarea", "id": "disclaimer_text", "label": "Disclaimer", "default": "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease." },
-    { "type": "text",     "id": "social_label",    "label": "Social label", "default": "Check our Social Media" },
+    { "type": "textarea", "id": "disclaimer_text", "label": "Disclaimer",    "default": "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease." },
+    { "type": "text",     "id": "social_label",    "label": "Social label",  "default": "Check our Social Media" },
 
     { "type": "header", "content": "Typography" },
     { "type": "text", "id": "heading_font_family", "label": "Heading font", "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Spacing px" },
-    { "type": "range", "id": "section_padding_top",            "label": "Top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 32 },
-    { "type": "range", "id": "section_padding_bottom",         "label": "Bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 24 },
-    { "type": "range", "id": "section_padding_x",              "label": "Sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 20 },
-    { "type": "range", "id": "section_padding_top_desktop",    "label": "Top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 64 },
-    { "type": "range", "id": "section_padding_bottom_desktop", "label": "Bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x_desktop",      "label": "Sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 80 }
+    { "type": "range", "id": "section_padding_top",            "label": "Top (Mobile)",     "min": 0, "max": 200, "step": 4,  "unit": "px", "default": 32 },
+    { "type": "range", "id": "section_padding_bottom",         "label": "Bottom (Mobile)",  "min": 0, "max": 200, "step": 4,  "unit": "px", "default": 24 },
+    { "type": "range", "id": "section_padding_x",              "label": "Sides (Mobile)",   "min": 0, "max": 80,  "step": 2,  "unit": "px", "default": 20 },
+    { "type": "range", "id": "section_padding_top_desktop",    "label": "Top (Desktop)",    "min": 0, "max": 240, "step": 4,  "unit": "px", "default": 64 },
+    { "type": "range", "id": "section_padding_bottom_desktop", "label": "Bottom (Desktop)", "min": 0, "max": 240, "step": 4,  "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x_desktop",      "label": "Sides (Desktop)",  "min": 0, "max": 200, "step": 2,  "unit": "px", "default": 80 }
   ],
   "blocks": [
     {
@@ -677,16 +746,16 @@
       "name": "Link column",
       "settings": [
         { "type": "text",      "id": "title", "label": "Column heading", "default": "EXPLORE" },
-        { "type": "link_list", "id": "menu",  "label": "Menu (Navigation se select karo)" }
+        { "type": "link_list", "id": "menu",  "label": "Menu" }
       ]
     },
     {
       "type": "social_link",
       "name": "Social link",
       "settings": [
-        { "type": "text",         "id": "label",      "label": "Label",                          "default": "Facebook" },
-        { "type": "url",          "id": "url",         "label": "URL" },
-        { "type": "image_picker", "id": "icon_image",  "label": "Icon image (32x32px)" }
+        { "type": "text",         "id": "label",     "label": "Label",                 "default": "Facebook" },
+        { "type": "url",          "id": "url",        "label": "URL" },
+        { "type": "image_picker", "id": "icon_image", "label": "Icon image (32x32px)" }
       ]
     }
   ],
