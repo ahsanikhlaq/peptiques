@@ -85,11 +85,11 @@
         "disclaimer_text": "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease.",
         "social_label": "Check our Social Media",
         "heading_font_family": "Georgia, \"Times New Roman\", serif",
-        "section_padding_top": 48,
-        "section_padding_bottom": 32,
+        "section_padding_top": 40,
+        "section_padding_bottom": 40,
         "section_padding_x": 24,
-        "section_padding_top_desktop": 80,
-        "section_padding_bottom_desktop": 40,
+        "section_padding_top_desktop": 52,
+        "section_padding_bottom_desktop": 52,
         "section_padding_x_desktop": 60,
         "row_padding_y": 28
       }
