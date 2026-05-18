@@ -46,6 +46,10 @@
            {{ s.section_padding_x | default: 20 }}px
            {{ s.section_padding_bottom | default: 24 }}px;
 }
+#shopify-section-{{ sid }} .pf-wrap{
+    max-width: 1340px;
+  margin: 0 auto;
+}
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-section {
     padding: {{ s.section_padding_top_desktop | default: 64 }}px
