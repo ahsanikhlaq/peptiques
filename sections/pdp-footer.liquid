@@ -119,7 +119,36 @@
   -webkit-appearance: none;
   line-height: 1.4;
 }
-#shopify-section-{{ sid }} .pf-nl-input::placeholder { color: rgba(255,255,255,0.55); }
+
+/* ── PLACEHOLDER FIX — all browsers ── */
+#shopify-section-{{ sid }} .pf-nl-input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 1;
+}
+#shopify-section-{{ sid }} .pf-nl-input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 1;
+}
+#shopify-section-{{ sid }} .pf-nl-input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+#shopify-section-{{ sid }} .pf-nl-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 1;
+}
+
 #shopify-section-{{ sid }} .pf-nl-input:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -170,6 +199,16 @@
     outline: none !important;
     box-shadow: none !important;
     border-color: rgba(255,255,255,0.8) !important;
+  }
+  /* Desktop placeholder — font size override to match input padding */
+  #shopify-section-{{ sid }} .pf-nl-input::-webkit-input-placeholder {
+    font-size: 14px;
+  }
+  #shopify-section-{{ sid }} .pf-nl-input::-moz-placeholder {
+    font-size: 14px;
+  }
+  #shopify-section-{{ sid }} .pf-nl-input::placeholder {
+    font-size: 14px;
   }
   /* Button: absolute inside input on the right */
   #shopify-section-{{ sid }} .pf-nl-btn {
