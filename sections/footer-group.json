@@ -18,7 +18,7 @@
           "type": "link_column",
           "settings": {
             "title": "EXPLORE",
-            "menu": ""
+            "menu": "explore-new"
           }
         },
         "link_column_hGBJFM": {
