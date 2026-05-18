@@ -99,6 +99,7 @@
     },
     "custom_footer_DdGfdD": {
       "type": "custom-footer",
+      "disabled": true,
       "name": "Custom Footer PRO v2",
       "settings": {
         "logo": "shopify://shop_images/hf_20260326_143728_b8b5b90d-07c2-4451-8f18-9da8ffa3bab5_1_1.png",
