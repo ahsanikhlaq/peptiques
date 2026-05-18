@@ -117,32 +117,33 @@
   outline: none !important;
   box-shadow: none !important;
   -webkit-appearance: none;
-  line-height: 1.4;
+  line-height: 100%;
+  letter-spacing: 0;
 }
 
 /* ── PLACEHOLDER FIX — all browsers ── */
 #shopify-section-{{ sid }} .pf-nl-input::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.55);
+  color: #fff;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 400;
   opacity: 1;
 }
 #shopify-section-{{ sid }} .pf-nl-input::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.55);
+  color: #fff;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 400;
   opacity: 1;
 }
 #shopify-section-{{ sid }} .pf-nl-input:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.55);
+  color: #fff;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 400;
 }
 #shopify-section-{{ sid }} .pf-nl-input::placeholder {
-  color: rgba(255, 255, 255, 0.55);
+  color: #fff;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -184,17 +185,18 @@
   #shopify-section-{{ sid }} .pf-nl-form {
     position: relative;
     align-items: center;
-    gap: 0;
   }
   /* Input: full border, arrow button inside right */
   #shopify-section-{{ sid }} .pf-nl-input {
     border-radius: 10px !important;
-    padding: 16px 58px 16px 16px !important;
+    padding: 23px 58px 23px 16px !important;
     font-size: 14px;
     width: 100%;
     outline: none !important;
     box-shadow: none !important;
     border: 1px solid #BFD2DD !important;
+    letter-spacing: -0.8px;
+        line-height: 100%;
   }
   #shopify-section-{{ sid }} .pf-nl-input:focus {
     outline: none !important;
@@ -203,13 +205,13 @@
   }
   /* Desktop placeholder — font size override to match input padding */
   #shopify-section-{{ sid }} .pf-nl-input::-webkit-input-placeholder {
-    font-size: 14px;
+    font-size: 20px;
   }
   #shopify-section-{{ sid }} .pf-nl-input::-moz-placeholder {
-    font-size: 14px;
+    font-size: 20px;
   }
   #shopify-section-{{ sid }} .pf-nl-input::placeholder {
-    font-size: 14px;
+    font-size: 20px;
   }
   /* Button: absolute inside input on the right */
   #shopify-section-{{ sid }} .pf-nl-btn {
@@ -440,7 +442,8 @@
     flex-direction: row-reverse;
     justify-content: flex-start;
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #FFFFFF
+    border: 1px solid #FFFFFF;
+            text-decoration: none;
   }
   #shopify-section-{{ sid }} .pf-soc-a img,
   #shopify-section-{{ sid }} .pf-soc-a svg { width: 20px; height: 20px; }
