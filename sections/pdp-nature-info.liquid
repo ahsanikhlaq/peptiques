@@ -299,6 +299,7 @@
 
     {%- comment -%} LEFT card {%- endcomment -%}
     <div class="ni-card ni-left">
+      <div>
       <h2 class="ni-h2">{{ s.left_heading }}</h2>
       <p class="ni-sub">{{ s.left_sub }}</p>
 
@@ -321,7 +322,8 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
-
+      </div>
+      <div>
       <a href="{{ s.cta_url | default: '#' }}" class="ni-cta">{{ s.cta_text }}</a>
 
       <div class="ni-footer">
@@ -353,6 +355,7 @@
           </span>
           <span>{{ s.footer_text_2 | default: 'Refills Ship Every 90 days' }}</span>
         </div>
+      </div>
       </div>
     </div>
 
