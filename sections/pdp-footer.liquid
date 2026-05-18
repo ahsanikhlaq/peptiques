@@ -79,7 +79,7 @@
   font-size: 46px;
   line-height: 100%;
   letter-spacing: -7%;
-      margin: 0 0 20px;
+  margin: 0 0 20px;
   color: #FFFFFF;
 }
 #shopify-section-{{ sid }} .pf-nl-sub {
@@ -89,13 +89,13 @@
   line-height: 100%;
   letter-spacing: 0;
   color: #FFFFFF;
-  margin:0;
+  margin: 0;
 }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-nl-sub { margin-bottom: 0; }
 }
 
-/* ── FORM WRAPPER ── */
+/* ── FORM WRAPPER — Mobile ── */
 #shopify-section-{{ sid }} .pf-nl-form {
   display: flex;
   align-items: center;
@@ -156,7 +156,7 @@
   border-color: rgba(255,255,255,0.9);
 }
 
-/* Mobile button: white JOIN NOW — separate pill */
+/* Mobile button: white JOIN NOW — separate pill, stays at end */
 #shopify-section-{{ sid }} .pf-nl-btn {
   flex-shrink: 0;
   border: none;
@@ -181,38 +181,35 @@
 
 /* ── DESKTOP: input full width, arrow button INSIDE on right ── */
 @media (min-width: 769px) {
-  /* Wrapper needs position:relative to place button inside */
+  /* gap:0 removes reserved space so input stretches 100% */
   #shopify-section-{{ sid }} .pf-nl-form {
     position: relative;
     align-items: center;
+    gap: 0;
+    width: 100%;
   }
-  /* Input: full border, arrow button inside right */
+  /* Input: full width, right padding for arrow button */
   #shopify-section-{{ sid }} .pf-nl-input {
+    flex: 1 1 100%;
+    width: 100%;
     border-radius: 10px !important;
     padding: 23px 58px 23px 16px !important;
     font-size: 14px;
-    width: 100%;
     outline: none !important;
     box-shadow: none !important;
     border: 1px solid #BFD2DD !important;
     letter-spacing: -0.8px;
-        line-height: 100%;
+    line-height: 100%;
   }
   #shopify-section-{{ sid }} .pf-nl-input:focus {
     outline: none !important;
     box-shadow: none !important;
     border-color: rgba(255,255,255,0.8) !important;
   }
-  /* Desktop placeholder — font size override to match input padding */
-  #shopify-section-{{ sid }} .pf-nl-input::-webkit-input-placeholder {
-    font-size: 20px;
-  }
-  #shopify-section-{{ sid }} .pf-nl-input::-moz-placeholder {
-    font-size: 20px;
-  }
-  #shopify-section-{{ sid }} .pf-nl-input::placeholder {
-    font-size: 20px;
-  }
+  /* Desktop placeholder */
+  #shopify-section-{{ sid }} .pf-nl-input::-webkit-input-placeholder { font-size: 20px; }
+  #shopify-section-{{ sid }} .pf-nl-input::-moz-placeholder           { font-size: 20px; }
+  #shopify-section-{{ sid }} .pf-nl-input::placeholder                 { font-size: 20px; }
   /* Button: absolute inside input on the right */
   #shopify-section-{{ sid }} .pf-nl-btn {
     position: absolute;
@@ -235,7 +232,7 @@
     width: 100%;
     height: 100%;
   }
-  #shopify-section-{{ sid }} .pf-btn-arrow svg { width: 18px; height: 18px; color: #47184D;}
+  #shopify-section-{{ sid }} .pf-btn-arrow svg { width: 18px; height: 18px; color: #47184D; }
 }
 
 #shopify-section-{{ sid }} .pf-nl-msg {
@@ -253,12 +250,12 @@
 #shopify-section-{{ sid }} .pf-row2 { padding: 0; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-row2 {
-        display: grid;
-        grid-template-columns: 536px 1fr;
-        gap: 225px;
-        align-items: center;
-        padding: 36px 0;
-        border-bottom: 1px solid #BFD2DD;
+    display: grid;
+    grid-template-columns: 536px 1fr;
+    gap: 225px;
+    align-items: center;
+    padding: 36px 0;
+    border-bottom: 1px solid #BFD2DD;
   }
 }
 
@@ -296,22 +293,22 @@
 @media (min-width: 769px) { #shopify-section-{{ sid }} .pf-col { border-bottom: none; } }
 
 #shopify-section-{{ sid }} .pf-col-title {
-      font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: inherit;
-    margin: 0;
-    padding: 14px 0 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-    letter-spacing: 0;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: inherit;
+  margin: 0;
+  padding: 14px 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
 }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-col-title {
@@ -415,14 +412,13 @@
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0.6px;
-  color:#fff;
+  color: #fff;
 }
 #shopify-section-{{ sid }} .pf-social-list {
   display: flex;
   align-items: center;
   gap: 22px;
 }
-
 
 #shopify-section-{{ sid }} .pf-soc-a:hover { background: rgba(255,255,255,0.25); }
 #shopify-section-{{ sid }} .pf-soc-a img,
@@ -437,13 +433,13 @@
     border-radius: 999px;
     padding: 6.5px 6.5px 6.5px 10px;
     gap: 13px;
-    display:flex;
+    display: flex;
     align-items: center;
     flex-direction: row-reverse;
     justify-content: flex-start;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #FFFFFF;
-            text-decoration: none;
+    text-decoration: none;
   }
   #shopify-section-{{ sid }} .pf-soc-a img,
   #shopify-section-{{ sid }} .pf-soc-a svg { width: 20px; height: 20px; }
@@ -468,12 +464,12 @@
 #shopify-section-{{ sid }} .pf-payment img { max-width: 100%; height: auto; display: block; }
 @media (min-width: 769px) { #shopify-section-{{ sid }} .pf-payment { display: none; } }
 
-@media (max-width:768px){
+@media (max-width: 768px) {
   #shopify-section-{{ sid }} .pf-nl-heading {
     font-family: 'Georgia';
     font-weight: 400;
     font-size: 30px;
-    line-height: 110.00000000000001%;
+    line-height: 110%;
     letter-spacing: -4%;
     margin: 0 0 15px;
     color: #FFFFFF;
@@ -484,8 +480,8 @@
     letter-spacing: -3%;
     margin: 0 0 25px;
   }
-  #shopify-section-{{ sid }} .pf-disclaimer{
-    display:none;
+  #shopify-section-{{ sid }} .pf-disclaimer {
+    display: none;
   }
   #shopify-section-{{ sid }} .pf-social {
     display: flex;
@@ -494,7 +490,7 @@
     flex-shrink: 0;
     flex-direction: column;
   }
-  #shopify-section-{{ sid }} .pf-soc-a img{
+  #shopify-section-{{ sid }} .pf-soc-a img {
     width: 30px;
     height: 30px;
   }
@@ -505,7 +501,7 @@
     line-height: 100%;
     letter-spacing: 0;
     color: #fff;
-}
+  }
 }
 </style>
 
@@ -694,8 +690,6 @@
 
     window.addEventListener('resize', function () { if (!isMobile()) closeAll(); });
   }
-
-
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { initAccordion(); });
