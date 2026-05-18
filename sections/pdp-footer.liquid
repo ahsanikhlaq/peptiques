@@ -65,10 +65,10 @@
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-newsletter {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
+    grid-template-columns: minmax(0,1fr) minmax(0,1.6fr);
     align-items: center;
-    gap: 48px;
-    padding-bottom: 40px;
+    gap: 60px;
+    padding-bottom: 44px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
   }
 }
@@ -99,6 +99,12 @@
   display: flex;
   align-items: center;
   width: 100%;
+  gap: 0;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .pf-nl-form {
+    gap: 12px;
+  }
 }
 #shopify-section-{{ sid }} .pf-nl-input {
   flex: 1 1 auto;
@@ -113,6 +119,12 @@
   padding: 13px 16px;
   outline: none;
   -webkit-appearance: none;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .pf-nl-input {
+    border-right: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 8px;
+  }
 }
 #shopify-section-{{ sid }} .pf-nl-input::placeholder { color: rgba(255,255,255,0.55); }
 #shopify-section-{{ sid }} .pf-nl-input:focus { border-color: rgba(255,255,255,0.9); }
@@ -143,23 +155,20 @@
 
 /* Desktop submit — circular dark arrow */
 @media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-nl-input {
-    border-radius: 8px 0 0 8px;
-    padding: 14px 18px;
-  }
   #shopify-section-{{ sid }} .pf-nl-btn {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     padding: 0;
     border-radius: 50%;
-    background: {{ s.submit_bg_desktop | default: '#2a0d40' }};
+    background: {{ s.submit_bg_desktop | default: '#1a0830' }};
     color: #ffffff;
-    margin-left: -1px;
     align-self: center;
+    flex-shrink: 0;
+    border-radius: 50%;
   }
   #shopify-section-{{ sid }} .pf-btn-text  { display: none; }
   #shopify-section-{{ sid }} .pf-btn-arrow { display: flex; align-items: center; justify-content: center; }
-  #shopify-section-{{ sid }} .pf-btn-arrow svg { width: 18px; height: 18px; }
+  #shopify-section-{{ sid }} .pf-btn-arrow svg { width: 20px; height: 20px; }
 }
 
 #shopify-section-{{ sid }} .pf-nl-msg {
@@ -176,39 +185,39 @@
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-row2 {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 60px;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
     align-items: flex-start;
-    padding: 40px 0;
+    padding: 44px 0;
     border-bottom: 1px solid rgba(255,255,255,0.2);
   }
 }
 
 /* Logo: desktop only */
 #shopify-section-{{ sid }} .pf-logo-wrap { display: none; }
-@media (min-width: 769px) { #shopify-section-{{ sid }} .pf-logo-wrap { display: block; } }
+@media (min-width: 769px) { #shopify-section-{{ sid }} .pf-logo-wrap { display: block; padding-top: 4px; } }
 
 #shopify-section-{{ sid }} .pf-logo {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-size: clamp(1.6rem, 2.2vw, 2.4rem);
   font-weight: 400;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   color: inherit;
   text-decoration: none;
   display: inline-flex;
   align-items: baseline;
   line-height: 1;
 }
-#shopify-section-{{ sid }} .pf-logo sup { font-size: 0.38em; vertical-align: super; margin-left: 0.08em; }
-#shopify-section-{{ sid }} .pf-logo img { max-width: 160px; height: auto; display: block; }
+#shopify-section-{{ sid }} .pf-logo sup { font-size: 0.35em; vertical-align: super; margin-left: 0.06em; }
+#shopify-section-{{ sid }} .pf-logo img { max-width: 180px; height: auto; display: block; }
 
 /* Columns grid */
 #shopify-section-{{ sid }} .pf-cols { width: 100%; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-cols {
     display: grid;
-    grid-template-columns: repeat({{ link_col_count | at_least: 1 }}, 1fr);
-    gap: 32px;
+    grid-template-columns: repeat({{ link_col_count | at_least: 1 }}, minmax(0,1fr));
+    gap: 24px;
   }
 }
 
