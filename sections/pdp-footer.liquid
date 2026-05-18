@@ -94,42 +94,34 @@
   #shopify-section-{{ sid }} .pf-nl-sub { margin-bottom: 0; }
 }
 
-/* Form */
+/* ── FORM WRAPPER ── */
 #shopify-section-{{ sid }} .pf-nl-form {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
   gap: 0;
 }
-@media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-nl-form {
-    gap: 12px;
-  }
-}
+
+/* ── MOBILE: input left + JOIN NOW right, connected ── */
 #shopify-section-{{ sid }} .pf-nl-input {
   flex: 1 1 auto;
   min-width: 0;
   background: transparent;
-  border: 1.5px solid rgba(255,255,255,0.5);
+  border: 1.5px solid rgba(255,255,255,0.55);
   border-right: none;
-  border-radius: 6px 0 0 6px;
+  border-radius: 8px 0 0 8px;
   color: inherit;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
-  padding: 13px 16px;
+  padding: 14px 16px;
   outline: none;
   -webkit-appearance: none;
-}
-@media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-nl-input {
-    border-right: 1.5px solid rgba(255,255,255,0.4);
-    border-radius: 8px;
-  }
+  line-height: 1.4;
 }
 #shopify-section-{{ sid }} .pf-nl-input::placeholder { color: rgba(255,255,255,0.55); }
 #shopify-section-{{ sid }} .pf-nl-input:focus { border-color: rgba(255,255,255,0.9); }
 
-/* Mobile submit — white JOIN NOW */
+/* Mobile button: white JOIN NOW pill connected to input */
 #shopify-section-{{ sid }} .pf-nl-btn {
   flex-shrink: 0;
   border: none;
@@ -144,31 +136,53 @@
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.05em;
-  padding: 13px 20px;
-  border-radius: 0 6px 6px 0;
+  padding: 14px 20px;
+  border-radius: 0 8px 8px 0;
   white-space: nowrap;
-  height: 100%;
 }
 #shopify-section-{{ sid }} .pf-nl-btn:hover { opacity: 0.88; }
-#shopify-section-{{ sid }} .pf-btn-text   { display: inline; }
-#shopify-section-{{ sid }} .pf-btn-arrow  { display: none; }
+#shopify-section-{{ sid }} .pf-btn-text  { display: inline; }
+#shopify-section-{{ sid }} .pf-btn-arrow { display: none; }
 
-/* Desktop submit — circular dark arrow */
+/* ── DESKTOP: input full width, arrow button INSIDE on right ── */
 @media (min-width: 769px) {
+  /* Wrapper needs position:relative to place button inside */
+  #shopify-section-{{ sid }} .pf-nl-form {
+    position: relative;
+    align-items: center;
+  }
+  /* Input: full border all sides, padding-right for button space */
+  #shopify-section-{{ sid }} .pf-nl-input {
+    border: 1.5px solid rgba(255,255,255,0.45);
+    border-right: 1.5px solid rgba(255,255,255,0.45);
+    border-radius: 10px;
+    padding: 16px 68px 16px 20px;
+    font-size: 15px;
+    width: 100%;
+  }
+  /* Button: absolute inside input on the right */
   #shopify-section-{{ sid }} .pf-nl-btn {
-    width: 52px;
-    height: 52px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
     padding: 0;
     border-radius: 50%;
     background: {{ s.submit_bg_desktop | default: '#1a0830' }};
     color: #ffffff;
-    align-self: center;
     flex-shrink: 0;
-    border-radius: 50%;
   }
   #shopify-section-{{ sid }} .pf-btn-text  { display: none; }
-  #shopify-section-{{ sid }} .pf-btn-arrow { display: flex; align-items: center; justify-content: center; }
-  #shopify-section-{{ sid }} .pf-btn-arrow svg { width: 20px; height: 20px; }
+  #shopify-section-{{ sid }} .pf-btn-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  #shopify-section-{{ sid }} .pf-btn-arrow svg { width: 18px; height: 18px; }
 }
 
 #shopify-section-{{ sid }} .pf-nl-msg {
