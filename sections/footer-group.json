@@ -11,6 +11,60 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "newsletter_JeyHMY": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_AJMK7R": {
+          "type": "heading",
+          "settings": {
+            "title": "Subscribe to our emails",
+            "title_highlight_color": "#6D388B",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_Vdp9xW": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        },
+        "email_form_x78KF9": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_AJMK7R",
+        "paragraph_Vdp9xW",
+        "email_form_x78KF9"
+      ],
+      "disabled": true,
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "button_type": "solid",
+        "button_label": "Sign up",
+        "button_style_secondary": false,
+        "color_scheme": "background-1",
+        "custom_colors_background": "#FFFFFF",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2E2A39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "pattern_bg": "none",
+        "pattern_color": "#6D388B",
+        "pattern_size": 20,
+        "pattern_thickness": 2,
+        "pattern_angle": 45,
+        "pattern_opacity_mode": "low",
+        "pattern_opacity_low": 7,
+        "pattern_opacity_normal": 80,
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "pdp_footer_Gicnr8": {
       "type": "pdp-footer",
       "blocks": {
@@ -70,6 +124,7 @@
         "input_placeholder_color": "#bba0d4",
         "submit_background": "#ffffff",
         "submit_color": "#3f1c5c",
+        "submit_bg_desktop": "#1a0a2e",
         "success_color": "#cdb6e6",
         "error_color": "#ffb3b3",
         "social_border_color": "#9b87b3",
@@ -280,6 +335,7 @@
     }
   },
   "order": [
+    "newsletter_JeyHMY",
     "pdp_footer_Gicnr8",
     "custom_footer_DdGfdD",
     "section_divider_eVcPCA",
