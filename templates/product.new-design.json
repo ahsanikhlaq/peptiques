@@ -2535,6 +2535,7 @@
         "right_label": "each serving contains",
         "amount_header": "Amount Per Serving",
         "dv_header": "%DV",
+        "dv_note": "*Daily value not established",
         "disclaimer": "* These supplements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
       }
     },
@@ -2722,6 +2723,7 @@
         "social_link_zG9cWq",
         "social_link_HxWer8"
       ],
+      "disabled": true,
       "name": "Footer (Figma)",
       "settings": {
         "background_color": "#3f1c5c",
