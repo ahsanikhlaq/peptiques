@@ -39,14 +39,16 @@
           "type": "social_link",
           "settings": {
             "label": "Facebook",
-            "url": "https://facebook.com/"
+            "url": "https://facebook.com/",
+            "icon_image": "shopify://shop_images/Group_1739331837.svg"
           }
         },
         "social_link_yGLieh": {
           "type": "social_link",
           "settings": {
             "label": "Tik Tok",
-            "url": "https://www.tiktok.com/"
+            "url": "https://www.tiktok.com/",
+            "icon_image": "shopify://shop_images/icon.svg_-_2026-05-11T180333.466_1.svg"
           }
         }
       },
