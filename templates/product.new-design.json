@@ -2463,36 +2463,42 @@
         "badge_1": {
           "type": "badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243171.svg",
             "label": "Plastic Free"
           }
         },
         "badge_2": {
           "type": "badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243171_1.svg",
             "label": "Plastic Free"
           }
         },
         "badge_3": {
           "type": "badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243172.svg",
             "label": "No Synthetic"
           }
         },
         "badge_4": {
           "type": "badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243171_2.svg",
             "label": "Non Gmo"
           }
         },
         "badge_5": {
           "type": "badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Group_1739331834.svg",
             "label": "Sugar Free"
           }
         },
         "badge_6": {
           "type": "badge",
           "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243169.svg",
             "label": "Gluten Free"
           }
         },
@@ -2520,7 +2526,10 @@
         "left_sub": "Real Ayurvedic wisdom designed to deliver clarity, balance, and results",
         "cta_text": "UNLOCK YOUR TRUE POWER",
         "cta_url": "",
-        "footer_text": "Stop or Cancel Anytime | Refills Ship Every 90 days",
+        "footer_icon_1": "shopify://shop_images/SVG_15.svg",
+        "footer_text_1": "Stop or Cancel Anytime",
+        "footer_icon_2": "shopify://shop_images/SVG_16.svg",
+        "footer_text_2": "Refills Ship Every 90 days",
         "right_heading": "Suggested use:",
         "right_intro": "Take two capsules per day one in the morning, another in the evening.",
         "right_label": "each serving contains",
