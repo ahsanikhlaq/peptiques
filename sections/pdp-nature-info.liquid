@@ -100,10 +100,6 @@
   #shopify-section-{{ sid }} .ni-badge:nth-child(odd) {
     border-right: 1px solid rgba(0, 0, 0, 0.18);
   }
-  /* Top border for 2nd row onwards (items 3+) on mobile */
-  #shopify-section-{{ sid }} .ni-badge:nth-child(n+3) {
-    border-top: 1px solid rgba(0, 0, 0, 0.18);
-  }
 
   @media (min-width: 540px) {
     /* Desktop: 4-col — reset all, then right border except 4th of each row */
@@ -113,10 +109,6 @@
     }
     #shopify-section-{{ sid }} .ni-badge:nth-child(4n) {
       border-right: none;
-    }
-    /* Top border for 2nd row (items 5+) */
-    #shopify-section-{{ sid }} .ni-badge:nth-child(n+5) {
-      border-top: 1px solid rgba(0, 0, 0, 0.18);
     }
   }
 
