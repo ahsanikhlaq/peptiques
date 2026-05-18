@@ -223,14 +223,19 @@
 
   /* Amount Per Serving header — OUTSIDE white box, white text */
   #shopify-section-{{ sid }} .ni-table-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0 16px;
     font-family: 'DM Sans', sans-serif;
     font-size: 16px;
     font-weight: 700;
     color: #ffffff;
     line-height: 1.2;
     margin: 0 0 12px;
+  }
+  /* Empty middle cell for header alignment */
+  #shopify-section-{{ sid }} .ni-table-header .ni-th-mid {
+    min-width: 60px;
   }
 
   /* White ingredient box */
@@ -247,9 +252,10 @@
     line-height: 1.2;
   }
   #shopify-section-{{ sid }} .ni-trow {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
     align-items: flex-start;
+    gap: 0 16px;
     padding: 4px 0;
   }
   #shopify-section-{{ sid }} .ni-trow em {
@@ -352,6 +358,7 @@
       {%- comment -%} Amount Per Serving header — bahar, white text {%- endcomment -%}
       <div class="ni-table-header">
         <span>{{ s.amount_header }}</span>
+        <span class="ni-th-mid"></span>
         <span>{{ s.dv_header }}</span>
       </div>
 
@@ -361,7 +368,8 @@
           {%- if block.type == 'ingredient' -%}
             <div class="ni-trow" {{ block.shopify_attributes }}>
               <span>{{ block.settings.name }} <em>({{ block.settings.subtitle }})</em></span>
-              <span>{{ block.settings.amount }} &nbsp; {{ block.settings.dv }}</span>
+              <span>{{ block.settings.amount }}</span>
+              <span>{{ block.settings.dv }}</span>
             </div>
           {%- endif -%}
         {%- endfor -%}
