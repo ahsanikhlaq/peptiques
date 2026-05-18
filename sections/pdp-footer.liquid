@@ -175,8 +175,10 @@
   margin-top: 8px;
   font-size: 13px;
   font-family: 'DM Sans', system-ui, sans-serif;
-  display: none;
+  display: block;
 }
+#shopify-section-{{ sid }} .pf-nl-msg--error  { color: #ffb3b3; }
+#shopify-section-{{ sid }} .pf-nl-msg--success { color: #cdb6e6; }
 
 /* ══════════════════════
    ROW 2 — LOGO + COLS
@@ -417,25 +419,26 @@
           <p class="pf-nl-sub">{{ s.news_subtext }}</p>
         {%- endif -%}
       </div>
-      <div>
-        <form
-          method="post"
-          action="/contact#contact_form"
-          class="pf-nl-form"
-          id="pf-nl-form-{{ sid }}"
-          accept-charset="UTF-8">
-          <input type="hidden" name="form_type" value="customer">
-          <input type="hidden" name="utf8" value="✓">
+      <div id="pf-nl-wrap-{{ sid }}">
+        {%- comment -%}
+          Using form 'customer' — same as newsletter section.
+          id: param removed from form tag — that caused the Liquid error before.
+        {%- endcomment -%}
+        {%- form 'customer', class: 'pf-nl-form' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input
+            id="pf-nl-email-{{ sid }}"
             class="pf-nl-input"
             type="email"
             name="contact[email]"
+            value="{{ form.email }}"
             placeholder="{{ s.input_placeholder | default: 'Email Address' }}"
             autocomplete="email"
-            required
-            aria-label="Email address">
-          <button type="submit" class="pf-nl-btn" aria-label="Subscribe">
+            autocorrect="off"
+            autocapitalize="off"
+            aria-required="true"
+            required>
+          <button type="submit" class="pf-nl-btn" name="commit" aria-label="Subscribe">
             <span class="pf-btn-text">{{ s.submit_label | default: 'JOIN NOW' }}</span>
             <span class="pf-btn-arrow" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -445,8 +448,17 @@
               </svg>
             </span>
           </button>
-        </form>
-        <p class="pf-nl-msg" id="pf-nl-msg-{{ sid }}"></p>
+          {%- if form.errors -%}
+            <p class="pf-nl-msg pf-nl-msg--error">
+              {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+            </p>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <p class="pf-nl-msg pf-nl-msg--success">
+              {{ s.success_message | default: "Thanks for subscribing!" }}
+            </p>
+          {%- endif -%}
+        {%- endform -%}
       </div>
     </div>
 
@@ -576,43 +588,12 @@
     window.addEventListener('resize', function () { if (!isMobile()) closeAll(); });
   }
 
-  function initForm() {
-    var form = document.getElementById('pf-nl-form-' + sid);
-    var msg  = document.getElementById('pf-nl-msg-' + sid);
-    if (!form || !msg) return;
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      fetch('/contact', {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (json) {
-        msg.style.display = 'block';
-        if (json.errors) {
-          msg.style.color = '#ffb3b3';
-          msg.textContent = Object.values(json.errors)[0];
-        } else {
-          msg.style.color = '#cdb6e6';
-          msg.textContent = '{{ s.success_message | default: "Thanks for subscribing!" | escape }}';
-          form.reset();
-        }
-      })
-      .catch(function () {
-        msg.style.display = 'block';
-        msg.style.color = '#ffb3b3';
-        msg.textContent = 'Something went wrong. Please try again.';
-      });
-    });
-  }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { initAccordion(); initForm(); });
+    document.addEventListener('DOMContentLoaded', function () { initAccordion(); });
   } else {
     initAccordion();
-    initForm();
   }
 })();
 </script>
