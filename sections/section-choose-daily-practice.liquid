@@ -570,27 +570,27 @@
 
               {%- comment -%} TOTAL — 100% original logic, zero changes {%- endcomment -%}
               {%- assign sum_p   = 0 -%}
-{%- assign sum_c   = 0 -%}
-{%- assign has_cmp = false -%}
-{%- assign tbi     = 0 -%}
+                {%- assign sum_c   = 0 -%}
+                {%- assign has_cmp = false -%}
+                {%- assign tbi     = 0 -%}
 
-{%- for b in section.blocks -%}
-  {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
-    {%- assign tp = b.settings.product -%}
+                {%- for b in section.blocks -%}
+                {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
+                    {%- assign tp = b.settings.product -%}
 
-    {%- if tp != blank -%}
-      {%- assign sum_p = sum_p | plus: tp.price -%}
+                    {%- if tp != blank -%}
+                    {%- assign sum_p = sum_p | plus: tp.price -%}
 
-      {%- if tp.compare_at_price > 0 -%}
-        {%- assign sum_c   = sum_c | plus: tp.compare_at_price -%}
-        {%- assign has_cmp = true -%}
-      {%- endif -%}
+                    {%- if tp.compare_at_price > 0 -%}
+                        {%- assign sum_c   = sum_c | plus: tp.compare_at_price -%}
+                        {%- assign has_cmp = true -%}
+                    {%- endif -%}
 
-    {%- endif -%}
-  {%- endif -%}
+                    {%- endif -%}
+                {%- endif -%}
 
-  {%- assign tbi = tbi | plus: 1 -%}
-{%- endfor -%}
+                {%- assign tbi = tbi | plus: 1 -%}
+                {%- endfor -%}
 
               {%- if sum_p > 0 or outer_block.settings.kitprice != blank -%}
                 <div class="cdp-total">
