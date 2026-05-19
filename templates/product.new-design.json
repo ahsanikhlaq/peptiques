@@ -1681,7 +1681,7 @@
         "ingredient_kYzzpY": {
           "type": "ingredient",
           "settings": {
-            "title_text": "Haritaki (Terminalia chebula)",
+            "title_text": "<p>Haritaki (Terminalia chebula)</p>",
             "body_text": "The primary active ingredient, sourced from organic farms. Known as 'The King of Medicines' in Ayurveda for its ability to support all three doshas and cleanse the entire system.",
             "image": "shopify://shop_images/strain_icons-1.png_2.webp"
           }
@@ -1689,7 +1689,7 @@
         "ingredient_qAi4p6": {
           "type": "ingredient",
           "settings": {
-            "title_text": "Vegetable Cellulose Capsule No Vegetable Oil",
+            "title_text": "<p>Vegetable Cellulose Capsule <strong>No Vegetable Oil</strong></p>",
             "body_text": "100% vegan and easy to digest, made without animal products or gelatin for a cleaner, lighter formula that fits seamlessly into your everyday wellness routine.",
             "image": "shopify://shop_images/strain_icons-1.png_1.webp"
           }
