@@ -618,11 +618,13 @@
                   <div class="cdp-total-vals">
                     {%- if has_cmp -%}
                       <s class="cdp-cmp-val" aria-label="Original price">{{ sum_c | money_without_trailing_zeros }}</s>
+                    {%- elsif sum_p > 0 and outer_block.settings.kitprice != blank -%}
+                      <s class="cdp-cmp-val" aria-label="Original price">{{ sum_p | money_without_trailing_zeros }}</s>
                     {%- endif -%}
-                    {%- if sum_p > 0 -%}
-                      <strong class="cdp-kit-price">{{ sum_p | money_without_trailing_zeros }}</strong>
-                    {%- elsif outer_block.settings.kitprice != blank -%}
+                    {%- if outer_block.settings.kitprice != blank -%}
                       <strong class="cdp-kit-price">{{ outer_block.settings.kitprice }}</strong>
+                    {%- elsif sum_p > 0 -%}
+                      <strong class="cdp-kit-price">{{ sum_p | money_without_trailing_zeros }}</strong>
                     {%- endif -%}
                   </div>
                 </div>
