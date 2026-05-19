@@ -2525,9 +2525,10 @@
           "type": "free_item",
           "settings": {
             "product_1": "free-detox-spiritual-guidance-e-book",
-            "product_2": "free-worldwide-shipping-1",
+            "product_2": "",
             "product_3": "",
-            "product_4": ""
+            "product_4": "",
+            "show_on_desktop": false
           }
         },
         "tab_FTwLP3": {
