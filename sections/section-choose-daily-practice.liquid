@@ -506,7 +506,7 @@
                         <div class="cdp-pinfo">
                           <span class="cdp-ptitle">{{ prod.title }}</span>
                         </div>
-                        <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
+                        <span class="cdp-pprice">{{ prod.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
                       </li>
                     {%- endif -%}
                   {%- endif -%}
@@ -601,9 +601,10 @@
                 {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
                   {%- assign tp = b.settings.product -%}
                   {%- if tp != blank -%}
-                    {%- assign sum_p = sum_p | plus: tp.price -%}
-                    {%- if tp.compare_at_price > 0 -%}
-                      {%- assign sum_c   = sum_c | plus: tp.compare_at_price -%}
+                    {%- assign tp_variant = tp.selected_or_first_available_variant -%}
+                    {%- assign sum_p = sum_p | plus: tp_variant.price -%}
+                    {%- if tp_variant.compare_at_price > tp_variant.price -%}
+                      {%- assign sum_c   = sum_c | plus: tp_variant.compare_at_price -%}
                       {%- assign has_cmp = true -%}
                     {%- endif -%}
                   {%- endif -%}
