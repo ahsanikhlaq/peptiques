@@ -2579,8 +2579,8 @@
       "settings": {
         "heading": "Choose your daily practice",
         "subtext": "Haritaki works from the inside. These kits work from the outside. Explore each one in detail before you decide.",
-        "bg_top": "#f5eafd",
-        "bg_bottom": "#e4cff3",
+        "bg_top": "rgba(0,0,0,0)",
+        "bg_bottom": "rgba(0,0,0,0)",
         "pt_m": 40,
         "pb_m": 40,
         "px_m": 20,
