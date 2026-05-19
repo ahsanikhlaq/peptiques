@@ -2507,6 +2507,18 @@
             "product": "bibhitaki-seven-chakras-capsules"
           }
         },
+        "free_item_XFJgDi": {
+          "type": "free_item",
+          "settings": {
+            "product": "free-detox-spiritual-guidance-e-book"
+          }
+        },
+        "free_item_tgEdXp": {
+          "type": "free_item",
+          "settings": {
+            "product": "free-detox-spiritual-guidance-e-book"
+          }
+        },
         "tab_FTwLP3": {
           "type": "tab",
           "settings": {
@@ -2569,6 +2581,8 @@
         "footer_item_TiLDRf",
         "tab_product_py9GyD",
         "tab_product_LnqDWd",
+        "free_item_XFJgDi",
+        "free_item_tgEdXp",
         "tab_FTwLP3",
         "footer_item_mQNwKP",
         "tab_product_gDQ6Nh",
