@@ -290,7 +290,7 @@ color:rgba(255, 255, 255, 1);
     gap: 8px;
     padding: 0;
 }
-#shopify-section-{{ sid }} .cdp-prod-row:first-child { border-top: 1px dashed #d8c8ea; }
+#shopify-section-{{ sid }} .cdp-prod-row:first-child { border-top: 1px dashed rgba(0, 0, 0, 0.4); }
 
 /* FREE ITEMS — mobile always, desktop only if show_on_desktop checked */
 #shopify-section-{{ sid }} .cdp-free-list {
@@ -362,8 +362,11 @@ color:rgba(255, 255, 255, 1);
 
 /* Total row */
 #shopify-section-{{ sid }} .cdp-total {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 12px; margin-top: 4px;
+      display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0;
+    margin-top: 0;
 }
 #shopify-section-{{ sid }} .cdp-total-lbl {
   font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px;
