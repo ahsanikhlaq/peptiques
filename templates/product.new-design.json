@@ -2460,6 +2460,30 @@
     "section_choose_daily_practice_7Db6tQ": {
       "type": "section-choose-daily-practice",
       "blocks": {
+        "bullet_item_QHqmw8": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Enter your bullet point here"
+          }
+        },
+        "bullet_item_TEegtN": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Enter your bullet point here"
+          }
+        },
+        "footer_item_mQNwKP": {
+          "type": "footer_item",
+          "settings": {
+            "text": "Stop or Cancel Anytime"
+          }
+        },
+        "footer_item_TiLDRf": {
+          "type": "footer_item",
+          "settings": {
+            "text": "Stop or Cancel Anytime"
+          }
+        },
         "tab_FicyAU": {
           "type": "tab",
           "settings": {
@@ -2469,26 +2493,18 @@
             "l_heading": "Why daily fluoride exposure matters",
             "l_desc": "<p>What feels like a normal daily routine may actually include repeated exposure to fluoride, aluminum, plastic, and harsh chemicals. From your shower water to your toothpaste and deodorant, small daily choices can add up over time.</p>",
             "l_sub": "How our kit will help you with Detox",
-            "bullet_1": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying.",
-            "bullet_2": "Cuts fluoride from your 3 daily sources: water, shower, toothpaste.",
-            "bullet_3": "Free worldwide shipping. 60-day pineal cleanse guarantee.",
-            "bullet_4": "",
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
-            "foot_1": "Stop or Cancel Anytime",
-            "foot_2": "Refills Ship Every 30 Days",
             "r_heading": "What's inside the Anti-Fluoride Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "product_1": "haritakifruit",
-            "product_2": "bibhitaki-seven-chakras-capsules",
-            "product_3": "free-worldwide-shipping-1",
-            "product_4": "",
-            "product_5": "",
-            "free_product_1": "free-detox-spiritual-guidance-e-book",
-            "free_product_2": "free-detox-spiritual-guidance-e-book",
-            "kit_compare": "$433",
             "kit_price": "$280",
             "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
+          }
+        },
+        "tab_product_py9GyD": {
+          "type": "tab_product",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
           }
         },
         "tab_FTwLP3": {
@@ -2499,24 +2515,10 @@
             "l_heading": "Why sleep quality matters",
             "l_desc": "",
             "l_sub": "How our kit will help you with Detox",
-            "bullet_1": "",
-            "bullet_2": "",
-            "bullet_3": "",
-            "bullet_4": "",
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
-            "foot_1": "Stop or Cancel Anytime",
-            "foot_2": "Refills Ship Every 30 Days",
             "r_heading": "What's inside the Vivid Dreams Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "product_1": "",
-            "product_2": "",
-            "product_3": "",
-            "product_4": "",
-            "product_5": "",
-            "free_product_1": "",
-            "free_product_2": "",
-            "kit_compare": "$389",
             "kit_price": "add for $280"
           }
         },
@@ -2528,30 +2530,21 @@
             "l_heading": "Reset and activate your pineal gland",
             "l_desc": "",
             "l_sub": "How our kit will help you with Detox",
-            "bullet_1": "",
-            "bullet_2": "",
-            "bullet_3": "",
-            "bullet_4": "",
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
-            "foot_1": "Stop or Cancel Anytime",
-            "foot_2": "Refills Ship Every 30 Days",
             "r_heading": "What's inside the Pineal Reset Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "product_1": "",
-            "product_2": "",
-            "product_3": "",
-            "product_4": "",
-            "product_5": "",
-            "free_product_1": "",
-            "free_product_2": "",
-            "kit_compare": "$450",
             "kit_price": "$280"
           }
         }
       },
       "block_order": [
+        "bullet_item_QHqmw8",
+        "bullet_item_TEegtN",
+        "footer_item_mQNwKP",
+        "footer_item_TiLDRf",
         "tab_FicyAU",
+        "tab_product_py9GyD",
         "tab_FTwLP3",
         "tab_cbiApH"
       ],
