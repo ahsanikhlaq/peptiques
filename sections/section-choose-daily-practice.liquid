@@ -21,9 +21,11 @@
 
 <style>
 #shopify-section-{{ sid }} {
-  background: linear-gradient(0deg, #FFFFFC, #FFFFFC),
-linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
-
+  background: radial-gradient(
+    ellipse at 50% -10%,
+    {{ s.bg_top    | default: '#f5eafd' }} 0%,
+    {{ s.bg_bottom | default: '#e4cff3' }} 100%
+  );
 }
 #shopify-section-{{ sid }} .cdp-outer {
   padding: {{ s.pt_m | default: 48 }}px {{ s.px_m | default: 20 }}px {{ s.pb_m | default: 48 }}px;
@@ -689,9 +691,6 @@ linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
     { "type": "header",   "content": "Section Header" },
     { "type": "text",     "id": "heading", "label": "Heading", "default": "Choose your daily practice" },
     { "type": "textarea", "id": "subtext", "label": "Subtext",  "default": "Haritaki works from the inside. These kits work from the outside." },
-    { "type": "header", "content": "Background Gradient" },
-    { "type": "color", "id": "bg_top",    "label": "Top color",    "default": "#f5eafd" },
-    { "type": "color", "id": "bg_bottom", "label": "Bottom color", "default": "#e4cff3" },
     { "type": "header", "content": "Mobile Padding" },
     { "type": "range", "id": "pt_m", "label": "Top",    "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
     { "type": "range", "id": "pb_m", "label": "Bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
