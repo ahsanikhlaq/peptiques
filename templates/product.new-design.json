@@ -2480,24 +2480,32 @@
         "bullet_item_QHqmw8": {
           "type": "bullet_item",
           "settings": {
-            "text": "Enter your bullet point here"
+            "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying."
           }
         },
         "bullet_item_TEegtN": {
           "type": "bullet_item",
           "settings": {
-            "text": "Enter your bullet point here"
+            "text": "Cuts fluoride from your 3 daily sources: water, shower, toothpaste."
+          }
+        },
+        "bullet_item_gz4bQC": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Free worldwide shipping. 60-day pineal cleanse guarantee."
           }
         },
         "footer_item_TiLDRf": {
           "type": "footer_item",
           "settings": {
+            "icon_image": "shopify://shop_images/SVG_15.svg",
             "text": "Stop or Cancel Anytime"
           }
         },
         "footer_item_PCcC4b": {
           "type": "footer_item",
           "settings": {
+            "icon_image": "shopify://shop_images/SVG_16.svg",
             "text": "Stop or Cancel Anytime"
           }
         },
@@ -2584,6 +2592,7 @@
         "tab_FicyAU",
         "bullet_item_QHqmw8",
         "bullet_item_TEegtN",
+        "bullet_item_gz4bQC",
         "footer_item_TiLDRf",
         "footer_item_PCcC4b",
         "tab_product_py9GyD",
