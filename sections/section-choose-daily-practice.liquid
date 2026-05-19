@@ -222,11 +222,26 @@ background-image: linear-gradient(
 #shopify-section-{{ sid }} .cdp-check svg { width: 11px; height: 11px; }
 #shopify-section-{{ sid }} .cdp-spacer { flex: 1; min-height: 20px; }
 #shopify-section-{{ sid }} .cdp-cta {
-  display: block; width: 100%; background: rgba(255, 255, 255, 1); color: rgba(71, 24, 77, 1);
-  font-family: 'DM Sans'; font-size: 14px; font-weight: 700;
-  letter-spacing: 0; text-align: center; text-decoration: none; text-transform: uppercase;
-  padding: 20px 0px; border-radius: 50px; border: none;
-  cursor: pointer; transition: opacity 0.15s; margin-bottom: 16px;
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 57px;
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    color: rgba(71, 24, 77, 1);
+    font-family: 'DM Sans';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-bottom: 16px;
 }
 #shopify-section-{{ sid }} .cdp-cta:hover { opacity: 0.88; }
 #shopify-section-{{ sid }} .cdp-foot {
