@@ -2460,30 +2460,6 @@
     "section_choose_daily_practice_7Db6tQ": {
       "type": "section-choose-daily-practice",
       "blocks": {
-        "bullet_item_QHqmw8": {
-          "type": "bullet_item",
-          "settings": {
-            "text": "Enter your bullet point here"
-          }
-        },
-        "bullet_item_TEegtN": {
-          "type": "bullet_item",
-          "settings": {
-            "text": "Enter your bullet point here"
-          }
-        },
-        "footer_item_mQNwKP": {
-          "type": "footer_item",
-          "settings": {
-            "text": "Stop or Cancel Anytime"
-          }
-        },
-        "footer_item_TiLDRf": {
-          "type": "footer_item",
-          "settings": {
-            "text": "Stop or Cancel Anytime"
-          }
-        },
         "tab_FicyAU": {
           "type": "tab",
           "settings": {
@@ -2501,10 +2477,34 @@
             "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
         },
+        "bullet_item_QHqmw8": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Enter your bullet point here"
+          }
+        },
         "tab_product_py9GyD": {
           "type": "tab_product",
           "settings": {
             "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "footer_item_mQNwKP": {
+          "type": "footer_item",
+          "settings": {
+            "text": "Stop or Cancel Anytime"
+          }
+        },
+        "bullet_item_TEegtN": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Enter your bullet point here"
+          }
+        },
+        "footer_item_TiLDRf": {
+          "type": "footer_item",
+          "settings": {
+            "text": "Stop or Cancel Anytime"
           }
         },
         "tab_FTwLP3": {
@@ -2520,6 +2520,12 @@
             "r_heading": "What's inside the Vivid Dreams Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
             "kit_price": "add for $280"
+          }
+        },
+        "tab_product_gDQ6Nh": {
+          "type": "tab_product",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
           }
         },
         "tab_cbiApH": {
@@ -2539,13 +2545,14 @@
         }
       },
       "block_order": [
-        "bullet_item_QHqmw8",
-        "bullet_item_TEegtN",
-        "footer_item_mQNwKP",
-        "footer_item_TiLDRf",
         "tab_FicyAU",
+        "bullet_item_QHqmw8",
         "tab_product_py9GyD",
+        "footer_item_mQNwKP",
+        "bullet_item_TEegtN",
+        "footer_item_TiLDRf",
         "tab_FTwLP3",
+        "tab_product_gDQ6Nh",
         "tab_cbiApH"
       ],
       "name": "Choose Daily Practice",
