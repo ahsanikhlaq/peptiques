@@ -2498,15 +2498,15 @@
         "footer_item_TiLDRf": {
           "type": "footer_item",
           "settings": {
-            "icon_image": "shopify://shop_images/SVG_15.svg",
+            "icon_image": "shopify://shop_images/Vector_63.svg",
             "text": "Stop or Cancel Anytime"
           }
         },
         "footer_item_PCcC4b": {
           "type": "footer_item",
           "settings": {
-            "icon_image": "shopify://shop_images/SVG_16.svg",
-            "text": "Stop or Cancel Anytime"
+            "icon_image": "shopify://shop_images/SVG_17.svg",
+            "text": "Refills Ship Every 30 days"
           }
         },
         "tabproduct_aww3R8": {
@@ -2579,8 +2579,6 @@
       "settings": {
         "heading": "Choose your daily practice",
         "subtext": "Haritaki works from the inside. These kits work from the outside. Explore each one in detail before you decide.",
-        "bg_top": "rgba(0,0,0,0)",
-        "bg_bottom": "rgba(0,0,0,0)",
         "pt_m": 40,
         "pb_m": 40,
         "px_m": 20,
