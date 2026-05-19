@@ -87,29 +87,43 @@
 #shopify-section-{{ sid }} .cdp-tabs-m::-webkit-scrollbar { display: none; }
 @media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-tabs-m { display: none; } }
 #shopify-section-{{ sid }} .cdp-card-btn {
-  flex: 0 0 120px; height: 155px; border-radius: 12px;
-  overflow: hidden; position: relative; display: block;
-  border: 2.5px solid transparent; cursor: pointer; padding: 0;
-  background: #c9a0e0; transition: border-color 0.2s; flex-shrink: 0;
+  flex: 0 0 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 2.5px solid transparent;
+  cursor: pointer; padding: 0;
+  background: #e8d5f0;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+  display: flex; flex-direction: column;
 }
 #shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: #3e1047; }
+#shopify-section-{{ sid }} .cdp-card-img-wrap {
+  flex: 0 0 110px; height: 110px;
+  position: relative; overflow: hidden;
+}
 #shopify-section-{{ sid }} .cdp-card-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
   object-fit: cover; display: block; z-index: 1;
 }
 #shopify-section-{{ sid }} .cdp-card-text {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(to top, rgba(35,5,55,0.9) 0%, rgba(35,5,55,0.05) 100%);
-  padding: 28px 8px 9px; text-align: left; z-index: 2;
+  padding: 8px 9px 10px; text-align: left; flex-shrink: 0;
+  background: rgba(220, 195, 238, 0.9);
+  transition: background 0.2s;
 }
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-text { background: #3e1047; }
 #shopify-section-{{ sid }} .cdp-card-name {
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 12px; font-weight: 700; color: #fff; display: block; line-height: 1.25;
+  font-size: 12px; font-weight: 700; color: #1a0a2e; display: block; line-height: 1.25;
 }
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-name { color: #fff; }
 #shopify-section-{{ sid }} .cdp-card-note {
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 10px; color: rgba(255,255,255,0.8); display: block; margin-top: 2px; line-height: 1.2;
+  font-size: 10px; color: #5a2872; display: block; margin-top: 2px; line-height: 1.2;
 }
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-note { color: rgba(255,255,255,0.8); }
 
 /* PANELS */
 #shopify-section-{{ sid }} .cdp-panel { display: none; }
@@ -209,8 +223,30 @@
   #shopify-section-{{ sid }} .cdp-free-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
 }
 #shopify-section-{{ sid }} .cdp-free-row {
-  display: flex; align-items: center; gap: 10px;
-  border: 1.5px dashed #22c55e; border-radius: 10px; padding: 9px 10px; background: #f0fdf4;
+  position: relative;
+  border: 1.5px dashed #22c55e; border-radius: 10px;
+  padding: 10px 10px 10px; background: #f0fdf4;
+}
+#shopify-section-{{ sid }} .cdp-free-badge {
+  position: absolute; top: -1px; right: 10px;
+  background: #16a34a; color: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px 3px 7px;
+  border-radius: 0 0 8px 8px;
+  display: flex; align-items: center; gap: 4px;
+}
+#shopify-section-{{ sid }} .cdp-free-badge svg { width: 13px; height: 13px; }
+#shopify-section-{{ sid }} .cdp-free-body {
+  display: flex; align-items: center; gap: 10px; padding-top: 4px;
+}
+#shopify-section-{{ sid }} .cdp-free-imgs {
+  display: flex; align-items: center; flex-shrink: 0;
+}
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg { margin-left: -8px; border: 1.5px solid #f0fdf4; border-radius: 7px; }
+#shopify-section-{{ sid }} .cdp-free-title {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px; color: #1a0a2e; line-height: 1.4; flex: 1;
 }
 #shopify-section-{{ sid }} .cdp-pimg {
   width: 44px; height: 44px; flex-shrink: 0; border-radius: 7px; overflow: hidden; background: #f5eefe;
@@ -223,16 +259,6 @@
 #shopify-section-{{ sid }} .cdp-pprice {
   font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #1a0a2e; white-space: nowrap; flex-shrink: 0;
 }
-#shopify-section-{{ sid }} .cdp-free-r { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-#shopify-section-{{ sid }} .cdp-free-tag {
-  background: #16a34a; color: #fff; font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 4px; white-space: nowrap;
-}
-#shopify-section-{{ sid }} .cdp-plus-c {
-  width: 27px; height: 27px; border-radius: 50%; border: 1.8px solid #3e1047;
-  background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-#shopify-section-{{ sid }} .cdp-plus-c svg { width: 12px; height: 12px; color: #3e1047; }
 
 /* Total row */
 #shopify-section-{{ sid }} .cdp-total {
@@ -288,10 +314,12 @@
       {%- if block.type == 'tab' -%}
         <button class="cdp-card-btn{% if tab_i == 0 %} cdp-active{% endif %}"
                 data-idx="{{ tab_i }}" type="button">
-          {%- if block.settings.tab_image != blank -%}
-            {{ block.settings.tab_image | image_url: width: 300
-               | image_tag: loading: 'lazy', class: 'cdp-card-img', alt: block.settings.tab_title }}
-          {%- endif -%}
+          <div class="cdp-card-img-wrap">
+            {%- if block.settings.tab_image != blank -%}
+              {{ block.settings.tab_image | image_url: width: 300
+                 | image_tag: loading: 'lazy', class: 'cdp-card-img', alt: block.settings.tab_title }}
+            {%- endif -%}
+          </div>
           <div class="cdp-card-text">
             <span class="cdp-card-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
             {%- if block.settings.tab_subtitle != blank -%}
@@ -429,32 +457,43 @@
             {%- endfor -%}
             {%- if _pr_open -%}</div>{%- endif -%}
 
-            {%- comment -%} FREE ITEMS — mobile only via CSS {%- endcomment -%}
+            {%- comment -%} FREE ITEMS — mobile only via CSS, 1 block = 2 products {%- endcomment -%}
             {%- assign _fr_open = false -%}
             {%- assign _fri     = 0 -%}
             {%- for b in section.blocks -%}
               {%- if _fri > _ts and _fri < _te and b.type == 'free_item' -%}
-                {%- assign _fprod = b.settings.product -%}
-                {%- if _fprod != blank -%}
+                {%- assign _fp1 = b.settings.product_1 -%}
+                {%- assign _fp2 = b.settings.product_2 -%}
+                {%- if _fp1 != blank -%}
                   {%- unless _fr_open -%}<div class="cdp-free-list">{%- assign _fr_open = true -%}{%- endunless -%}
                   <div class="cdp-free-row" {{ b.shopify_attributes }}>
-                    <div class="cdp-pimg">
-                      {%- if _fprod.featured_image != blank -%}
-                        {{ _fprod.featured_image | image_url: width: 120
-                           | image_tag: loading: 'lazy', alt: _fprod.title }}
-                      {%- endif -%}
+                    {%- comment -%} Gift badge at top right {%- endcomment -%}
+                    <div class="cdp-free-badge">
+                      <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 1a2 2 0 0 1 1.732 3H13a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.268A2 2 0 0 1 8 1zm0 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM3 8h5v7H4a1 1 0 0 1-1-1V8zm6 0h4v6a1 1 0 0 1-1 1H9V8z"/>
+                      </svg>
+                      Free
                     </div>
-                    <div class="cdp-pinfo">
-                      <span class="cdp-ptitle">{{ _fprod.title }}</span>
-                    </div>
-                    <div class="cdp-free-r">
-                      <span class="cdp-free-tag">Free</span>
-                      <span class="cdp-plus-c">
-                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-                             stroke-width="2.2" stroke-linecap="round">
-                          <line x1="6" y1="2" x2="6" y2="10"/>
-                          <line x1="2" y1="6" x2="10" y2="6"/>
-                        </svg>
+                    {%- comment -%} Content: images + title {%- endcomment -%}
+                    <div class="cdp-free-body">
+                      <div class="cdp-free-imgs">
+                        <div class="cdp-pimg">
+                          {%- if _fp1.featured_image != blank -%}
+                            {{ _fp1.featured_image | image_url: width: 120
+                               | image_tag: loading: 'lazy', alt: _fp1.title }}
+                          {%- endif -%}
+                        </div>
+                        {%- if _fp2 != blank -%}
+                          <div class="cdp-pimg">
+                            {%- if _fp2.featured_image != blank -%}
+                              {{ _fp2.featured_image | image_url: width: 120
+                                 | image_tag: loading: 'lazy', alt: _fp2.title }}
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                      <span class="cdp-free-title">
+                        {{ _fp1.title }}{%- if _fp2 != blank -%} + {{ _fp2.title }}{%- endif -%}
                       </span>
                     </div>
                   </div>
