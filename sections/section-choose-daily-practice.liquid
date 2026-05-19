@@ -224,7 +224,9 @@ background-image: linear-gradient(
 
 /* RIGHT PANEL */
 #shopify-section-{{ sid }} .cdp-right { order: 1; display: flex; flex-direction: column; gap: 12px; }
-@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-right { order: 2; } }
+@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-right { order: 2; background: rgba(234, 221, 255, 1);
+        padding: 32px;
+        border-radius: 0 12px 12px 0; } }
 #shopify-section-{{ sid }} .cdp-pcard {
   background: #fff; border-radius: 16px; padding: 18px 16px 14px;
   box-shadow: 0 2px 20px rgba(60,10,80,0.08);
