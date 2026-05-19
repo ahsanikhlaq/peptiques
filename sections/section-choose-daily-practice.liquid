@@ -465,35 +465,40 @@
             {%- if _fr_open -%}</div>{%- endif -%}
 
             {%- comment -%}
-              TOTAL — auto-calculate from tab_product blocks in this tab's range
-              _sum_c = sum of compare_at_price (fallback to price if no compare)
-              kit_price = manual field (the bundle deal price)
+              TOTAL
+              _sum_p = sum of product.price         → main kit price (no strikethrough)
+              _sum_c = sum of compare_at_price      → strikethrough (only if products have compare_at_price)
+              kit_price field = optional manual override for main price
             {%- endcomment -%}
-            {%- assign _sum_c = 0 -%}
-            {%- assign _tbi   = 0 -%}
+            {%- assign _sum_p      = 0 -%}
+            {%- assign _sum_c      = 0 -%}
+            {%- assign _has_cmp    = false -%}
+            {%- assign _tbi        = 0 -%}
             {%- for b in section.blocks -%}
               {%- if _tbi > _ts and _tbi < _te and b.type == 'tab_product' -%}
                 {%- assign _tp = b.settings.product -%}
                 {%- if _tp != blank -%}
+                  {%- assign _sum_p = _sum_p | plus: _tp.price -%}
                   {%- if _tp.compare_at_price > 0 -%}
-                    {%- assign _sum_c = _sum_c | plus: _tp.compare_at_price -%}
-                  {%- else -%}
-                    {%- assign _sum_c = _sum_c | plus: _tp.price -%}
+                    {%- assign _sum_c   = _sum_c | plus: _tp.compare_at_price -%}
+                    {%- assign _has_cmp = true -%}
                   {%- endif -%}
                 {%- endif -%}
               {%- endif -%}
               {%- assign _tbi = _tbi | plus: 1 -%}
             {%- endfor -%}
 
-            {%- if _sum_c > 0 or outer_block.settings.kit_price != blank -%}
+            {%- if _sum_p > 0 or outer_block.settings.kit_price != blank -%}
               <div class="cdp-total">
                 <span class="cdp-total-lbl">Total kit value</span>
                 <div class="cdp-total-vals">
-                  {%- if _sum_c > 0 -%}
+                  {%- if _has_cmp -%}
                     <span class="cdp-cmp-val">{{ _sum_c | money_without_trailing_zeros }}</span>
                   {%- endif -%}
                   {%- if outer_block.settings.kit_price != blank -%}
                     <span class="cdp-kit-price">{{ outer_block.settings.kit_price }}</span>
+                  {%- elsif _sum_p > 0 -%}
+                    <span class="cdp-kit-price">{{ _sum_p | money_without_trailing_zeros }}</span>
                   {%- endif -%}
                 </div>
               </div>
