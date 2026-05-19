@@ -9,15 +9,15 @@
 {%- assign sid = section.id -%}
 {%- assign s   = section.settings -%}
 
-{%- assign _ts_str = '' -%}
-{%- assign _pbi    = 0 -%}
+{%- assign ts_str = '' -%}
+{%- assign pbi    = 0 -%}
 {%- for block in section.blocks -%}
   {%- if block.type == 'tab' -%}
-    {%- assign _ts_str = _ts_str | append: _pbi | append: '|' -%}
+    {%- assign ts_str = ts_str | append: pbi | append: '|' -%}
   {%- endif -%}
-  {%- assign _pbi = _pbi | plus: 1 -%}
+  {%- assign pbi = pbi | plus: 1 -%}
 {%- endfor -%}
-{%- assign _ts_arr = _ts_str | split: '|' -%}
+{%- assign ts_arr = ts_str | split: '|' -%}
 
 <style>
 #shopify-section-{{ sid }} {
@@ -375,13 +375,13 @@
     {%- for outer_block in section.blocks -%}
       {%- if outer_block.type == 'tab' -%}
 
-        {%- assign _ts     = _ts_arr[tab_counter] | plus: 0 -%}
-        {%- assign _tc_nxt = tab_counter | plus: 1 -%}
-        {%- assign _te_raw = _ts_arr[_tc_nxt] -%}
-        {%- if _te_raw == blank -%}
-          {%- assign _te = section.blocks.size -%}
+        {%- assign ts     = ts_arr[tab_counter] | plus: 0 -%}
+        {%- assign tc_nxt = tab_counter | plus: 1 -%}
+        {%- assign te_raw = ts_arr[tc_nxt] -%}
+        {%- if te_raw == blank -%}
+          {%- assign te = section.blocks.size -%}
         {%- else -%}
-          {%- assign _te = _te_raw | plus: 0 -%}
+          {%- assign te = te_raw | plus: 0 -%}
         {%- endif -%}
 
         <div
@@ -405,11 +405,11 @@
               <p class="cdp-l-sub">{{ outer_block.settings.l_sub }}</p>
             {%- endif -%}
 
-            {%- assign _b_open = false -%}
-            {%- assign _bci    = 0 -%}
+            {%- assign b_open = false -%}
+            {%- assign bci    = 0 -%}
             {%- for b in section.blocks -%}
-              {%- if _bci > _ts and _bci < _te and b.type == 'bullet_item' -%}
-                {%- unless _b_open -%}<ul class="cdp-bullets">{%- assign _b_open = true -%}{%- endunless -%}
+              {%- if bci > ts and bci < te and b.type == 'bullet_item' -%}
+                {%- unless b_open -%}<ul class="cdp-bullets">{%- assign b_open = true -%}{%- endunless -%}
                 <li {{ b.shopify_attributes }}>
                   <span class="cdp-check" aria-hidden="true">
                     <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -420,9 +420,9 @@
                   {{ b.settings.text }}
                 </li>
               {%- endif -%}
-              {%- assign _bci = _bci | plus: 1 -%}
+              {%- assign bci = bci | plus: 1 -%}
             {%- endfor -%}
-            {%- if _b_open -%}</ul>{%- endif -%}
+            {%- if b_open -%}</ul>{%- endif -%}
 
             <div class="cdp-spacer"></div>
 
@@ -432,13 +432,13 @@
               </a>
             {%- endif -%}
 
-            {%- assign _f_open = false -%}
-            {%- assign _fci    = 0 -%}
+            {%- assign f_open = false -%}
+            {%- assign fci    = 0 -%}
             {%- for b in section.blocks -%}
-              {%- if _fci > _ts and _fci < _te and b.type == 'footer_item' -%}
-                {%- unless _f_open -%}
+              {%- if fci > ts and fci < te and b.type == 'footer_item' -%}
+                {%- unless f_open -%}
                   <div class="cdp-foot" role="list" aria-label="Guarantees">
-                  {%- assign _f_open = true -%}
+                  {%- assign f_open = true -%}
                 {%- endunless -%}
                 <span class="cdp-foot-item" role="listitem" {{ b.shopify_attributes }}>
                   {%- if b.settings.icon_image != blank -%}
@@ -456,9 +456,9 @@
                   {{ b.settings.text }}
                 </span>
               {%- endif -%}
-              {%- assign _fci = _fci | plus: 1 -%}
+              {%- assign fci = fci | plus: 1 -%}
             {%- endfor -%}
-            {%- if _f_open -%}</div>{%- endif -%}
+            {%- if f_open -%}</div>{%- endif -%}
 
           </div>
 
@@ -474,48 +474,48 @@
               {%- endif -%}
 
               {%- comment -%} PRODUCTS {%- endcomment -%}
-              {%- assign _pr_open = false -%}
-              {%- assign _pri     = 0 -%}
+              {%- assign pr_open = false -%}
+              {%- assign pri     = 0 -%}
               {%- for b in section.blocks -%}
-                {%- if _pri > _ts and _pri < _te and b.type == 'tab_product' -%}
-                  {%- assign _prod = b.settings.product -%}
-                  {%- if _prod != blank -%}
-                    {%- unless _pr_open -%}
+                {%- if pri > ts and pri < te and b.type == 'tabproduct' -%}
+                  {%- assign prod = b.settings.product -%}
+                  {%- if prod != blank -%}
+                    {%- unless pr_open -%}
                       <ul class="cdp-prod-list" aria-label="Kit products">
-                      {%- assign _pr_open = true -%}
+                      {%- assign pr_open = true -%}
                     {%- endunless -%}
                     <li class="cdp-prod-row" {{ b.shopify_attributes }}>
                       <div class="cdp-pimg">
-                        {%- if _prod.featured_image != blank -%}
-                          {{ _prod.featured_image
+                        {%- if prod.featured_image != blank -%}
+                          {{ prod.featured_image
                              | image_url: width: 120
-                             | image_tag: loading: 'lazy', alt: _prod.title | escape }}
+                             | image_tag: loading: 'lazy', alt: prod.title | escape }}
                         {%- endif -%}
                       </div>
                       <div class="cdp-pinfo">
-                        <span class="cdp-ptitle">{{ _prod.title }}</span>
+                        <span class="cdp-ptitle">{{ prod.title }}</span>
                       </div>
-                      <span class="cdp-pprice">{{ _prod.price | money_without_trailing_zeros }}</span>
+                      <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
                     </li>
                   {%- endif -%}
                 {%- endif -%}
-                {%- assign _pri = _pri | plus: 1 -%}
+                {%- assign pri = pri | plus: 1 -%}
               {%- endfor -%}
-              {%- if _pr_open -%}</ul>{%- endif -%}
+              {%- if pr_open -%}</ul>{%- endif -%}
 
               {%- comment -%} FREE ITEMS — up to 4 products per block {%- endcomment -%}
-              {%- assign _fr_open = false -%}
-              {%- assign _fri     = 0 -%}
+              {%- assign fr_open = false -%}
+              {%- assign fri     = 0 -%}
               {%- for b in section.blocks -%}
-                {%- if _fri > _ts and _fri < _te and b.type == 'free_item' -%}
-                  {%- assign _fp1 = b.settings.product_1 -%}
-                  {%- assign _fp2 = b.settings.product_2 -%}
-                  {%- assign _fp3 = b.settings.product_3 -%}
-                  {%- assign _fp4 = b.settings.product_4 -%}
-                  {%- if _fp1 != blank -%}
-                    {%- unless _fr_open -%}
+                {%- if fri > ts and fri < te and b.type == 'free_item' -%}
+                  {%- assign fp1 = b.settings.product_1 -%}
+                  {%- assign fp2 = b.settings.product_2 -%}
+                  {%- assign fp3 = b.settings.product_3 -%}
+                  {%- assign fp4 = b.settings.product_4 -%}
+                  {%- if fp1 != blank -%}
+                    {%- unless fr_open -%}
                       <ul class="cdp-free-list{% if b.settings.show_on_desktop %} cdp-show-desktop{% endif %}" aria-label="Free gifts">
-                      {%- assign _fr_open = true -%}
+                      {%- assign fr_open = true -%}
                     {%- endunless -%}
                     <li class="cdp-free-row" {{ b.shopify_attributes }}>
                       <div class="cdp-free-badge" aria-label="Free gift">
@@ -527,79 +527,79 @@
                       <div class="cdp-free-body">
                         <div class="cdp-free-imgs" aria-hidden="true">
                           <div class="cdp-pimg">
-                            {%- if _fp1.featured_image != blank -%}
-                              {{ _fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                            {%- if fp1.featured_image != blank -%}
+                              {{ fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
                             {%- endif -%}
                           </div>
-                          {%- if _fp2 != blank -%}
+                          {%- if fp2 != blank -%}
                             <span class="cdp-plus-icon" aria-hidden="true">+</span>
                             <div class="cdp-pimg">
-                              {%- if _fp2.featured_image != blank -%}
-                                {{ _fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                              {%- if fp2.featured_image != blank -%}
+                                {{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
                               {%- endif -%}
                             </div>
                           {%- endif -%}
-                          {%- if _fp3 != blank -%}
+                          {%- if fp3 != blank -%}
                             <span class="cdp-plus-icon" aria-hidden="true">+</span>
                             <div class="cdp-pimg">
-                              {%- if _fp3.featured_image != blank -%}
-                                {{ _fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                              {%- if fp3.featured_image != blank -%}
+                                {{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
                               {%- endif -%}
                             </div>
                           {%- endif -%}
-                          {%- if _fp4 != blank -%}
+                          {%- if fp4 != blank -%}
                             <span class="cdp-plus-icon" aria-hidden="true">+</span>
                             <div class="cdp-pimg">
-                              {%- if _fp4.featured_image != blank -%}
-                                {{ _fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                              {%- if fp4.featured_image != blank -%}
+                                {{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
                               {%- endif -%}
                             </div>
                           {%- endif -%}
                         </div>
                         <span class="cdp-free-title">
-                          {{ _fp1.title }}
-                          {%- if _fp2 != blank -%} + {{ _fp2.title }}{%- endif -%}
-                          {%- if _fp3 != blank -%} + {{ _fp3.title }}{%- endif -%}
-                          {%- if _fp4 != blank -%} + {{ _fp4.title }}{%- endif -%}
+                          {{ fp1.title }}
+                          {%- if fp2 != blank -%} + {{ fp2.title }}{%- endif -%}
+                          {%- if fp3 != blank -%} + {{ fp3.title }}{%- endif -%}
+                          {%- if fp4 != blank -%} + {{ fp4.title }}{%- endif -%}
                         </span>
                       </div>
                     </li>
                   {%- endif -%}
                 {%- endif -%}
-                {%- assign _fri = _fri | plus: 1 -%}
+                {%- assign fri = fri | plus: 1 -%}
               {%- endfor -%}
-              {%- if _fr_open -%}</ul>{%- endif -%}
+              {%- if fr_open -%}</ul>{%- endif -%}
 
               {%- comment -%} TOTAL {%- endcomment -%}
-              {%- assign _sum_p   = 0 -%}
-              {%- assign _sum_c   = 0 -%}
-              {%- assign _has_cmp = false -%}
-              {%- assign _tbi     = 0 -%}
+              {%- assign sum_p   = 0 -%}
+              {%- assign sum_c   = 0 -%}
+              {%- assign has_cmp = false -%}
+              {%- assign tbi     = 0 -%}
               {%- for b in section.blocks -%}
-                {%- if _tbi > _ts and _tbi < _te and b.type == 'tab_product' -%}
-                  {%- assign _tp = b.settings.product -%}
-                  {%- if _tp != blank -%}
-                    {%- assign _sum_p = _sum_p | plus: _tp.price -%}
-                    {%- if _tp.compare_at_price > 0 -%}
-                      {%- assign _sum_c   = _sum_c | plus: _tp.compare_at_price -%}
-                      {%- assign _has_cmp = true -%}
+                {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
+                  {%- assign tp = b.settings.product -%}
+                  {%- if tp != blank -%}
+                    {%- assign sum_p = sum_p | plus: tp.price -%}
+                    {%- if tp.compare_atprice > 0 -%}
+                      {%- assign sum_c   = sum_c | plus: tp.compare_atprice -%}
+                      {%- assign has_cmp = true -%}
                     {%- endif -%}
                   {%- endif -%}
                 {%- endif -%}
-                {%- assign _tbi = _tbi | plus: 1 -%}
+                {%- assign tbi = tbi | plus: 1 -%}
               {%- endfor -%}
 
-              {%- if _sum_p > 0 or outer_block.settings.kit_price != blank -%}
+              {%- if sum_p > 0 or outer_block.settings.kitprice != blank -%}
                 <div class="cdp-total">
                   <span class="cdp-total-lbl">Total kit value</span>
                   <div class="cdp-total-vals">
-                    {%- if _has_cmp -%}
-                      <s class="cdp-cmp-val" aria-label="Original price">{{ _sum_c | money_without_trailing_zeros }}</s>
+                    {%- if has_cmp -%}
+                      <s class="cdp-cmp-val" aria-label="Original price">{{ sum_c | money_without_trailing_zeros }}</s>
                     {%- endif -%}
-                    {%- if outer_block.settings.kit_price != blank -%}
-                      <strong class="cdp-kit-price">{{ outer_block.settings.kit_price }}</strong>
-                    {%- elsif _sum_p > 0 -%}
-                      <strong class="cdp-kit-price">{{ _sum_p | money_without_trailing_zeros }}</strong>
+                    {%- if outer_block.settings.kitprice != blank -%}
+                      <strong class="cdp-kit-price">{{ outer_block.settings.kitprice }}</strong>
+                    {%- elsif sum_p > 0 -%}
+                      <strong class="cdp-kit-price">{{ sum_p | money_without_trailing_zeros }}</strong>
                     {%- endif -%}
                   </div>
                 </div>
@@ -711,7 +711,7 @@
         { "type": "header",       "content": "Right Panel" },
         { "type": "text",         "id": "r_heading",    "label": "Right heading",          "default": "What's inside the kit" },
         { "type": "text",         "id": "gifts_label",  "label": "Gifts label",            "default": "6 items + 2 Free Gifts worth $69" },
-        { "type": "text",         "id": "kit_price",    "label": "Kit price (e.g. $280)",  "default": "$280" },
+        { "type": "text",         "id": "kitprice",    "label": "Kit price (e.g. $280)",  "default": "$280" },
         { "type": "image_picker", "id": "bottom_image", "label": "Bottom image (desktop only)" }
       ]
     },
@@ -731,7 +731,7 @@
       ]
     },
     {
-      "type": "tab_product",
+      "type": "tabproduct",
       "name": "Product",
       "settings": [
         { "type": "product", "id": "product", "label": "Select product" }
@@ -754,16 +754,16 @@
     {
       "name": "Choose Daily Practice",
       "blocks": [
-        { "type": "tab",         "settings": { "tab_title": "The Anti-Fluoride Kit", "tab_subtitle": "Detox your environment", "l_heading": "Why daily fluoride exposure matters", "l_sub": "How our kit will help you with Detox", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Anti-Fluoride Kit", "kit_price": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Anti-Fluoride Kit", "tab_subtitle": "Detox your environment", "l_heading": "Why daily fluoride exposure matters", "l_sub": "How our kit will help you with Detox", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Anti-Fluoride Kit", "kitprice": "$280" } },
         { "type": "bullet_item", "settings": { "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying." } },
         { "type": "bullet_item", "settings": { "text": "Cuts fluoride from your 3 daily sources: water, shower, toothpaste." } },
         { "type": "bullet_item", "settings": { "text": "Free worldwide shipping. 60-day pineal cleanse guarantee." } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } },
-        { "type": "tab",         "settings": { "tab_title": "The Vivid Dreams Kit", "tab_subtitle": "Optimize your sleep", "l_heading": "Why sleep quality matters", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Vivid Dreams Kit", "kit_price": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Vivid Dreams Kit", "tab_subtitle": "Optimize your sleep", "l_heading": "Why sleep quality matters", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Vivid Dreams Kit", "kitprice": "$280" } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } },
-        { "type": "tab",         "settings": { "tab_title": "The Pineal Reset Kit", "tab_subtitle": "Full activation", "l_heading": "Reset and activate your pineal gland", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Pineal Reset Kit", "kit_price": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Pineal Reset Kit", "tab_subtitle": "Full activation", "l_heading": "Reset and activate your pineal gland", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Pineal Reset Kit", "kitprice": "$280" } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } }
       ]
