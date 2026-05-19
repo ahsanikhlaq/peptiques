@@ -2524,13 +2524,10 @@
         "free_item_XFJgDi": {
           "type": "free_item",
           "settings": {
-            "product": "free-detox-spiritual-guidance-e-book"
-          }
-        },
-        "free_item_tgEdXp": {
-          "type": "free_item",
-          "settings": {
-            "product": "free-detox-spiritual-guidance-e-book"
+            "product_1": "free-detox-spiritual-guidance-e-book",
+            "product_2": "free-worldwide-shipping-1",
+            "product_3": "",
+            "product_4": ""
           }
         },
         "tab_FTwLP3": {
@@ -2598,7 +2595,6 @@
         "tab_product_py9GyD",
         "tab_product_LnqDWd",
         "free_item_XFJgDi",
-        "free_item_tgEdXp",
         "tab_FTwLP3",
         "footer_item_mQNwKP",
         "tab_product_gDQ6Nh",
