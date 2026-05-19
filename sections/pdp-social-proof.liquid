@@ -364,8 +364,43 @@
     track.scrollTo({ left: target.offsetLeft - (track.clientWidth / 2) + (target.offsetWidth / 2), behavior: 'smooth' });
   }
 
-  prev && prev.addEventListener('click', function () { step(-1); });
-  next && next.addEventListener('click', function () { step(1); });
+function updateNav() {
+  var atStart = track.scrollLeft <= 4;
+  var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  if (atStart) {
+    prev && prev.setAttribute('disabled', '');
+    prev && prev.classList.add('ps-inactive');
+    prev && prev.classList.remove('ps-active');
+    next && next.removeAttribute('disabled');
+    next && next.classList.add('ps-active');
+    next && next.classList.remove('ps-inactive');
+  } else if (atEnd) {
+    next && next.setAttribute('disabled', '');
+    next && next.classList.add('ps-inactive');
+    next && next.classList.remove('ps-active');
+    prev && prev.removeAttribute('disabled');
+    prev && prev.classList.add('ps-active');
+    prev && prev.classList.remove('ps-inactive');
+  } else {
+    [prev, next].forEach(function(b){ b && b.removeAttribute('disabled'); });
+  }
+}
+
+prev && prev.addEventListener('click', function () {
+  prev.classList.add('ps-active');   prev.classList.remove('ps-inactive');
+  next.classList.add('ps-inactive'); next.classList.remove('ps-active');
+  step(-1);
+  setTimeout(updateNav, 350);
+});
+next && next.addEventListener('click', function () {
+  next.classList.add('ps-active');   next.classList.remove('ps-inactive');
+  prev.classList.add('ps-inactive'); prev.classList.remove('ps-active');
+  step(1);
+  setTimeout(updateNav, 350);
+});
+
+updateNav();
+track.addEventListener('scroll', function () { clearTimeout(track._nt); track._nt = setTimeout(updateNav, 80); });
 
   /* ── Center MIDDLE card on load ──────────────────────────────
      3 cards → 2nd centered, 5 cards → 3rd centered etc.
