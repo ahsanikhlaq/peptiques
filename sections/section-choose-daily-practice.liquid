@@ -205,9 +205,13 @@
 }
 #shopify-section-{{ sid }} .cdp-prod-row:first-child { border-top: 1px dashed #d8c8ea; }
 
-/* FREE ITEMS — visible on both mobile and desktop */
+/* FREE ITEMS — mobile always, desktop only if show_on_desktop checked */
 #shopify-section-{{ sid }} .cdp-free-list {
   display: flex; flex-direction: column; gap: 6px; margin-top: 6px;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-free-list { display: none; }
+  #shopify-section-{{ sid }} .cdp-free-list.cdp-show-desktop { display: flex; }
 }
 #shopify-section-{{ sid }} .cdp-free-row {
   position: relative; border: 1.5px dashed #22c55e; border-radius: 10px;
@@ -226,10 +230,12 @@
   display: flex; align-items: center; gap: 10px; padding-top: 4px;
 }
 #shopify-section-{{ sid }} .cdp-free-imgs {
-  display: flex; align-items: center; flex-shrink: 0;
+  display: flex; align-items: center; flex-shrink: 0; gap: 4px;
 }
-#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg {
-  margin-left: -8px; border: 1.5px solid #f0fdf4; border-radius: 7px;
+#shopify-section-{{ sid }} .cdp-plus-icon {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 18px; font-weight: 700; color: #1a7a3c;
+  line-height: 1; flex-shrink: 0;
 }
 #shopify-section-{{ sid }} .cdp-free-title {
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -491,7 +497,7 @@
                   {%- assign _fp4 = b.settings.product_4 -%}
                   {%- if _fp1 != blank -%}
                     {%- unless _fr_open -%}
-                      <ul class="cdp-free-list" aria-label="Free gifts">
+                      <ul class="cdp-free-list{% if b.settings.show_on_desktop %} cdp-show-desktop{% endif %}" aria-label="Free gifts">
                       {%- assign _fr_open = true -%}
                     {%- endunless -%}
                     <li class="cdp-free-row" {{ b.shopify_attributes }}>
@@ -509,6 +515,7 @@
                             {%- endif -%}
                           </div>
                           {%- if _fp2 != blank -%}
+                            <span class="cdp-plus-icon" aria-hidden="true">+</span>
                             <div class="cdp-pimg">
                               {%- if _fp2.featured_image != blank -%}
                                 {{ _fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
@@ -516,6 +523,7 @@
                             </div>
                           {%- endif -%}
                           {%- if _fp3 != blank -%}
+                            <span class="cdp-plus-icon" aria-hidden="true">+</span>
                             <div class="cdp-pimg">
                               {%- if _fp3.featured_image != blank -%}
                                 {{ _fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
@@ -523,6 +531,7 @@
                             </div>
                           {%- endif -%}
                           {%- if _fp4 != blank -%}
+                            <span class="cdp-plus-icon" aria-hidden="true">+</span>
                             <div class="cdp-pimg">
                               {%- if _fp4.featured_image != blank -%}
                                 {{ _fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
@@ -715,10 +724,11 @@
       "type": "free_item",
       "name": "Free Gift",
       "settings": [
-        { "type": "product", "id": "product_1", "label": "Free product 1" },
-        { "type": "product", "id": "product_2", "label": "Free product 2 (optional)" },
-        { "type": "product", "id": "product_3", "label": "Free product 3 (optional)" },
-        { "type": "product", "id": "product_4", "label": "Free product 4 (optional)" }
+        { "type": "product",  "id": "product_1",       "label": "Free product 1" },
+        { "type": "product",  "id": "product_2",       "label": "Free product 2 (optional)" },
+        { "type": "product",  "id": "product_3",       "label": "Free product 3 (optional)" },
+        { "type": "product",  "id": "product_4",       "label": "Free product 4 (optional)" },
+        { "type": "checkbox", "id": "show_on_desktop", "label": "Desktop pe bhi dikhao", "default": false }
       ]
     }
   ],
