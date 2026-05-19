@@ -195,17 +195,6 @@
   }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
   #shopify-section-{{ sid }} .ps-nav-btn svg { width: 19px; height: 19px; }
-  #shopify-section-{{ sid }} .ps-nav-btn[disabled] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-#shopify-section-{{ sid }} .ps-nav-btn.ps-active {
-  background: {{ s.nav_next_background | default: '#3f1c5c' }};
-}
-#shopify-section-{{ sid }} .ps-nav-btn.ps-inactive {
-  background: {{ s.nav_prev_background | default: '#bba0d4' }};
-}
 
   /* ─── Mobile overrides ──────────────────────────────────────── */
   @media (max-width: 768px) {
@@ -364,43 +353,8 @@
     track.scrollTo({ left: target.offsetLeft - (track.clientWidth / 2) + (target.offsetWidth / 2), behavior: 'smooth' });
   }
 
-function updateNav() {
-  var atStart = track.scrollLeft <= 4;
-  var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-  if (atStart) {
-    prev && prev.setAttribute('disabled', '');
-    prev && prev.classList.add('ps-inactive');
-    prev && prev.classList.remove('ps-active');
-    next && next.removeAttribute('disabled');
-    next && next.classList.add('ps-active');
-    next && next.classList.remove('ps-inactive');
-  } else if (atEnd) {
-    next && next.setAttribute('disabled', '');
-    next && next.classList.add('ps-inactive');
-    next && next.classList.remove('ps-active');
-    prev && prev.removeAttribute('disabled');
-    prev && prev.classList.add('ps-active');
-    prev && prev.classList.remove('ps-inactive');
-  } else {
-    [prev, next].forEach(function(b){ b && b.removeAttribute('disabled'); });
-  }
-}
-
-prev && prev.addEventListener('click', function () {
-  prev.classList.add('ps-active');   prev.classList.remove('ps-inactive');
-  next.classList.add('ps-inactive'); next.classList.remove('ps-active');
-  step(-1);
-  setTimeout(updateNav, 350);
-});
-next && next.addEventListener('click', function () {
-  next.classList.add('ps-active');   next.classList.remove('ps-inactive');
-  prev.classList.add('ps-inactive'); prev.classList.remove('ps-active');
-  step(1);
-  setTimeout(updateNav, 350);
-});
-
-updateNav();
-track.addEventListener('scroll', function () { clearTimeout(track._nt); track._nt = setTimeout(updateNav, 80); });
+  prev && prev.addEventListener('click', function () { step(-1); });
+  next && next.addEventListener('click', function () { step(1); });
 
   /* ── Center MIDDLE card on load ──────────────────────────────
      3 cards → 2nd centered, 5 cards → 3rd centered etc.
