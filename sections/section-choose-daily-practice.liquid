@@ -383,6 +383,11 @@ color:rgba(255, 255, 255, 1);
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 16px; overflow: hidden; }
 }
 #shopify-section-{{ sid }} .cdp-btm-img img { width: 100%; height: auto; display: block; }
+@media(max-width:768px){
+    #shopify-section-{{ sid }} .cdp-r-gifts {
+  display:block;
+}
+}
 </style>
 
 <section class="cdp-outer" aria-label="{{ s.heading | escape }}" {{ section.shopify_attributes }}>
