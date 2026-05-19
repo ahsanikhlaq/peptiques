@@ -185,19 +185,14 @@
     justify-content: center;
     transition: background 160ms ease, transform 160ms ease;
   }
-#shopify-section-{{ sid }} .ps-nav-btn--prev,
-#shopify-section-{{ sid }} .ps-nav-btn--next {
-  background: {{ s.nav_prev_background | default: '#bba0d4' }};
-  color: #ffffff;
-}
-#shopify-section-{{ sid }} .ps-nav-btn.ps-active {
-  background: {{ s.nav_next_background | default: '#3f1c5c' }};
-}
-#shopify-section-{{ sid }} .ps-nav-btn[disabled] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
-}
+  #shopify-section-{{ sid }} .ps-nav-btn--prev {
+    background: {{ s.nav_prev_background | default: '#bba0d4' }};
+    color: #ffffff;
+  }
+  #shopify-section-{{ sid }} .ps-nav-btn--next {
+    background: {{ s.nav_next_background | default: '#3f1c5c' }};
+    color: #ffffff;
+  }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
   #shopify-section-{{ sid }} .ps-nav-btn svg { width: 19px; height: 19px; }
 
