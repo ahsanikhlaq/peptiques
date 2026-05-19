@@ -345,20 +345,30 @@ color:rgba(255, 255, 255, 1);
 }
 #shopify-section-{{ sid }} .cdp-free-imgs {
   display: flex; align-items: center; flex-shrink: 0;
-  gap: 4px;
+  position: relative;
+      gap: 4px;
 }
-/* ── PLUS ICON FIX: removed position:absolute, now inline flex item ── */
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg {
+  position: relative; z-index: 1;
+}
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg {
+  margin-left: 6px;
+}
 #shopify-section-{{ sid }} .cdp-plus-icon {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
   width: 22px; height: 22px;
   background: rgba(2, 18, 48, 1);
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 1);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px; font-weight: 700; color: rgba(255, 255, 255, 1);
+  line-height: 1; flex-shrink: 0;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
-#shopify-section-{{ sid }} .cdp-plus-icon svg { width: 12px; height: 12px; display: block; }
 #shopify-section-{{ sid }} .cdp-free-title {
    font-family: 'DM Sans';
   font-weight: 500;
@@ -847,11 +857,7 @@ color:rgba(255, 255, 255, 1);
                               {%- endif -%}
                             </div>
                             {%- if fp2 != blank -%}
-                              <span class="cdp-plus-icon" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M8 0C3.592 0 0 3.592 0 8C0 12.408 3.592 16 8 16C12.408 16 16 12.408 16 8C16 3.592 12.408 0 8 0ZM11.2 8.6H8.6V11.2C8.6 11.528 8.328 11.8 8 11.8C7.672 11.8 7.4 11.528 7.4 11.2V8.6H4.8C4.472 8.6 4.2 8.328 4.2 8C4.2 7.672 4.472 7.4 4.8 7.4H7.4V4.8C7.4 4.472 7.672 4.2 8 4.2C8.328 4.2 8.6 4.472 8.6 4.8V7.4H11.2C11.528 7.4 11.8 7.672 11.8 8C11.8 8.328 11.528 8.6 11.2 8.6Z" fill="white"/>
-                                </svg>
-                              </span>
+                              <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               <div class="cdp-pimg">
                                 {%- if fp2.featured_image != blank -%}
                                   {{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
@@ -859,11 +865,7 @@ color:rgba(255, 255, 255, 1);
                               </div>
                             {%- endif -%}
                             {%- if fp3 != blank -%}
-                              <span class="cdp-plus-icon" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M8 0C3.592 0 0 3.592 0 8C0 12.408 3.592 16 8 16C12.408 16 16 12.408 16 8C16 3.592 12.408 0 8 0ZM11.2 8.6H8.6V11.2C8.6 11.528 8.328 11.8 8 11.8C7.672 11.8 7.4 11.528 7.4 11.2V8.6H4.8C4.472 8.6 4.2 8.328 4.2 8C4.2 7.672 4.472 7.4 4.8 7.4H7.4V4.8C7.4 4.472 7.672 4.2 8 4.2C8.328 4.2 8.6 4.472 8.6 4.8V7.4H11.2C11.528 7.4 11.8 7.672 11.8 8C11.8 8.328 11.528 8.6 11.2 8.6Z" fill="white"/>
-                                </svg>
-                              </span>
+                              <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               <div class="cdp-pimg">
                                 {%- if fp3.featured_image != blank -%}
                                   {{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
@@ -871,11 +873,7 @@ color:rgba(255, 255, 255, 1);
                               </div>
                             {%- endif -%}
                             {%- if fp4 != blank -%}
-                              <span class="cdp-plus-icon" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M8 0C3.592 0 0 3.592 0 8C0 12.408 3.592 16 8 16C12.408 16 16 12.408 16 8C16 3.592 12.408 0 8 0ZM11.2 8.6H8.6V11.2C8.6 11.528 8.328 11.8 8 11.8C7.672 11.8 7.4 11.528 7.4 11.2V8.6H4.8C4.472 8.6 4.2 8.328 4.2 8C4.2 7.672 4.472 7.4 4.8 7.4H7.4V4.8C7.4 4.472 7.672 4.2 8 4.2C8.328 4.2 8.6 4.472 8.6 4.8V7.4H11.2C11.528 7.4 11.8 7.672 11.8 8C11.8 8.328 11.528 8.6 11.2 8.6Z" fill="white"/>
-                                </svg>
-                              </span>
+                              <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               <div class="cdp-pimg">
                                 {%- if fp4.featured_image != blank -%}
                                   {{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
