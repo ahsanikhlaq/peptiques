@@ -2536,6 +2536,7 @@
           "settings": {
             "tab_title": "The Vivid Dreams Kit",
             "tab_subtitle": "Optimize your sleep | Full activation",
+            "tab_image": "shopify://shop_images/Background_8.webp",
             "l_heading": "Why sleep quality matters",
             "l_desc": "",
             "l_sub": "How our kit will help you with Detox",
@@ -2551,6 +2552,7 @@
           "settings": {
             "tab_title": "The Pineal Reset Kit",
             "tab_subtitle": "Full activation",
+            "tab_image": "shopify://shop_images/Background_8.webp",
             "l_heading": "Reset and activate your pineal gland",
             "l_desc": "",
             "l_sub": "How our kit will help you with Detox",
