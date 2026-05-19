@@ -2473,7 +2473,7 @@
             "btn_url": "",
             "r_heading": "What's inside the Anti-Fluoride Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "kit_price": "",
+            "kitprice": "$280",
             "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
         },
@@ -2509,16 +2509,16 @@
             "text": "Stop or Cancel Anytime"
           }
         },
-        "tab_product_py9GyD": {
-          "type": "tab_product",
+        "tabproduct_aww3R8": {
+          "type": "tabproduct",
           "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
+            "product": "haritakifruit"
           }
         },
-        "tab_product_LnqDWd": {
-          "type": "tab_product",
+        "tabproduct_NjaW8M": {
+          "type": "tabproduct",
           "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
+            "product": "haritakifruit"
           }
         },
         "free_item_XFJgDi": {
@@ -2543,25 +2543,13 @@
             "btn_url": "",
             "r_heading": "What's inside the Vivid Dreams Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "kit_price": ""
+            "kitprice": "$280"
           }
         },
         "footer_item_mQNwKP": {
           "type": "footer_item",
           "settings": {
             "text": "Stop or Cancel Anytime"
-          }
-        },
-        "tab_product_gDQ6Nh": {
-          "type": "tab_product",
-          "settings": {
-            "product": "haritaki"
-          }
-        },
-        "tab_product_wWfkN3": {
-          "type": "tab_product",
-          "settings": {
-            "product": "haritakifruit"
           }
         },
         "bullet_item_HBYRbB": {
@@ -2582,7 +2570,7 @@
             "btn_url": "",
             "r_heading": "What's inside the Pineal Reset Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "kit_price": "$280"
+            "kitprice": "$280"
           }
         }
       },
@@ -2593,13 +2581,11 @@
         "bullet_item_gz4bQC",
         "footer_item_TiLDRf",
         "footer_item_PCcC4b",
-        "tab_product_py9GyD",
-        "tab_product_LnqDWd",
+        "tabproduct_aww3R8",
+        "tabproduct_NjaW8M",
         "free_item_XFJgDi",
         "tab_FTwLP3",
         "footer_item_mQNwKP",
-        "tab_product_gDQ6Nh",
-        "tab_product_wWfkN3",
         "bullet_item_HBYRbB",
         "tab_cbiApH"
       ],
