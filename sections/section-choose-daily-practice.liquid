@@ -1,0 +1,919 @@
+{% comment %}
+  Section: Choose Your Daily Practice
+  Desktop: text-tabs | left dark-purple content | right white product card + bottom image
+  Mobile:  image-card tabs | product card (top) | dark-purple content (bottom)
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign s   = section.settings
+-%}
+
+<style>
+/* ══════════════════════════════════════
+   SECTION OUTER — Radial gradient bg
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} {
+  background: radial-gradient(
+    ellipse at 50% -10%,
+    {{ s.bg_top | default: '#f5eafd' }} 0%,
+    {{ s.bg_bottom | default: '#e4cfF3' }} 100%
+  );
+}
+
+#shopify-section-{{ sid }} .cdp-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: {{ s.pt_m | default: 48 }}px
+           {{ s.px_m | default: 20 }}px
+           {{ s.pb_m | default: 48 }}px;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-wrap {
+    padding: {{ s.pt_d | default: 72 }}px
+             {{ s.px_d | default: 60 }}px
+             {{ s.pb_d | default: 72 }}px;
+  }
+}
+
+/* ══════════════════════════════════════
+   HEADER
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+#shopify-section-{{ sid }} .cdp-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 34px;
+  color: #1a0a2e;
+  margin: 0 0 10px;
+  line-height: 1.15;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-title { font-size: 44px; }
+}
+#shopify-section-{{ sid }} .cdp-sub {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: #5a2872;
+  margin: 0 auto;
+  line-height: 1.55;
+  max-width: 460px;
+}
+
+/* ══════════════════════════════════════
+   DESKTOP TABS
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-tabs-d {
+  display: none;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-tabs-d {
+    display: flex;
+    gap: 0;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(190, 150, 220, 0.35);
+  }
+  #shopify-section-{{ sid }} .cdp-tab-btn {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 22px;
+    border: none;
+    border-right: 1px solid rgba(190, 150, 220, 0.35);
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  #shopify-section-{{ sid }} .cdp-tab-btn:last-child { border-right: none; }
+  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active { background: #3e1047; }
+  #shopify-section-{{ sid }} .cdp-tab-name {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a0a2e;
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-name { color: #fff; }
+  #shopify-section-{{ sid }} .cdp-tab-note {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 12px;
+    color: #7a4a90;
+    display: block;
+    line-height: 1.3;
+  }
+  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-note { color: rgba(255,255,255,0.7); }
+}
+
+/* ══════════════════════════════════════
+   MOBILE TAB CARDS (image cards)
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-tabs-m {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+}
+#shopify-section-{{ sid }} .cdp-tabs-m::-webkit-scrollbar { display: none; }
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-tabs-m { display: none; }
+}
+#shopify-section-{{ sid }} .cdp-card-btn {
+  flex: 0 0 115px;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 2.5px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  background: #c9a0e0;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+}
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active {
+  border-color: #3e1047;
+}
+#shopify-section-{{ sid }} .cdp-card-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+#shopify-section-{{ sid }} .cdp-card-text {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(35,5,55,0.9) 0%, rgba(35,5,55,0.1) 100%);
+  padding: 28px 8px 9px;
+  text-align: left;
+}
+#shopify-section-{{ sid }} .cdp-card-name {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11.5px; font-weight: 700;
+  color: #fff; display: block; line-height: 1.25;
+}
+#shopify-section-{{ sid }} .cdp-card-note {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 10px; color: rgba(255,255,255,0.78);
+  display: block; margin-top: 2px; line-height: 1.2;
+}
+
+/* ══════════════════════════════════════
+   PANELS — hide/show
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-panel { display: none; }
+#shopify-section-{{ sid }} .cdp-panel.cdp-active {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-panel.cdp-active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+}
+
+/* ══════════════════════════════════════
+   LEFT PANEL (dark purple)
+   Mobile: order 2 (below right)
+   Desktop: order 1 (left column)
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-left {
+  background: #3e1047;
+  border-radius: 16px;
+  padding: 28px 22px 24px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  min-height: 320px;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-left {
+    order: 1;
+    padding: 40px 36px 32px;
+    min-height: unset;
+  }
+}
+
+#shopify-section-{{ sid }} .cdp-l-heading {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  color: #fff;
+  margin: 0 0 14px;
+  line-height: 1.25;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-l-heading { font-size: 30px; }
+}
+
+#shopify-section-{{ sid }} .cdp-l-desc {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+#shopify-section-{{ sid }} .cdp-l-desc p { margin: 0 0 8px; }
+#shopify-section-{{ sid }} .cdp-l-desc p:last-child { margin-bottom: 0; }
+
+#shopify-section-{{ sid }} .cdp-l-sub {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 14px;
+}
+
+/* Bullet list */
+#shopify-section-{{ sid }} .cdp-bullets {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#shopify-section-{{ sid }} .cdp-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.5;
+}
+#shopify-section-{{ sid }} .cdp-check {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+#shopify-section-{{ sid }} .cdp-check svg {
+  width: 11px; height: 11px;
+}
+
+/* Spacer to push button to bottom */
+#shopify-section-{{ sid }} .cdp-spacer { flex: 1; }
+
+/* CTA Button */
+#shopify-section-{{ sid }} .cdp-cta {
+  display: block;
+  width: 100%;
+  background: #fff;
+  color: #3e1047;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
+#shopify-section-{{ sid }} .cdp-cta:hover { opacity: 0.88; }
+
+/* Footer info row */
+#shopify-section-{{ sid }} .cdp-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.62);
+}
+#shopify-section-{{ sid }} .cdp-foot-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+#shopify-section-{{ sid }} .cdp-foot-item svg {
+  width: 13px; height: 13px; flex-shrink: 0;
+}
+#shopify-section-{{ sid }} .cdp-foot-div {
+  color: rgba(255,255,255,0.3);
+}
+
+/* ══════════════════════════════════════
+   RIGHT PANEL
+   Mobile: order 1 (above left)
+   Desktop: order 2 (right column)
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-right {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-right { order: 2; }
+}
+
+/* Product card */
+#shopify-section-{{ sid }} .cdp-pcard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px 16px 14px;
+  box-shadow: 0 2px 20px rgba(60,10,80,0.08);
+}
+
+#shopify-section-{{ sid }} .cdp-r-heading {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a0a2e;
+  margin: 0 0 3px;
+}
+
+/* Mobile-only gifts label */
+#shopify-section-{{ sid }} .cdp-r-gifts {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11.5px;
+  color: #7a4a90;
+  margin: 0 0 10px;
+  display: none;
+}
+@media (max-width: 768px) {
+  #shopify-section-{{ sid }} .cdp-r-gifts { display: block; }
+}
+
+/* Product rows container */
+#shopify-section-{{ sid }} .cdp-prod-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+}
+
+/* Regular product row */
+#shopify-section-{{ sid }} .cdp-prod-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dotted #dac8ea;
+}
+#shopify-section-{{ sid }} .cdp-prod-row:first-child {
+  border-top: 1px dotted #dac8ea;
+}
+
+/* Free product row — dashed green border box */
+#shopify-section-{{ sid }} .cdp-prod-row--free {
+  border: 1.5px dashed #22c55e !important;
+  border-radius: 10px;
+  padding: 9px 10px;
+  margin-top: 6px;
+  background: #f0fdf4;
+}
+#shopify-section-{{ sid }} .cdp-prod-row--free:first-child {
+  border-top: 1.5px dashed #22c55e !important;
+}
+
+/* Product thumbnail */
+#shopify-section-{{ sid }} .cdp-pimg {
+  width: 42px; height: 42px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #f5eefe;
+}
+#shopify-section-{{ sid }} .cdp-pimg img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* Product name */
+#shopify-section-{{ sid }} .cdp-pinfo {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#shopify-section-{{ sid }} .cdp-ptitle {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  color: #1a0a2e;
+  line-height: 1.35;
+  display: block;
+}
+
+/* Regular product price */
+#shopify-section-{{ sid }} .cdp-pprice {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a0a2e;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Free product right side */
+#shopify-section-{{ sid }} .cdp-free-r {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+#shopify-section-{{ sid }} .cdp-free-tag {
+  background: #16a34a;
+  color: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+#shopify-section-{{ sid }} .cdp-plus-c {
+  width: 27px; height: 27px;
+  border-radius: 50%;
+  border: 1.8px solid #3e1047;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+}
+#shopify-section-{{ sid }} .cdp-plus-c svg {
+  width: 12px; height: 12px;
+  color: #3e1047;
+}
+
+/* Total row */
+#shopify-section-{{ sid }} .cdp-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+#shopify-section-{{ sid }} .cdp-total-lbl {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a0a2e;
+}
+#shopify-section-{{ sid }} .cdp-total-vals {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+#shopify-section-{{ sid }} .cdp-cmp-val {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+#shopify-section-{{ sid }} .cdp-kit-price {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0a2e;
+}
+
+/* ══════════════════════════════════════
+   BOTTOM IMAGE — Desktop only
+══════════════════════════════════════ */
+#shopify-section-{{ sid }} .cdp-btm-img {
+  display: none;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-btm-img {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+}
+#shopify-section-{{ sid }} .cdp-btm-img img {
+  width: 100%; height: auto; display: block;
+}
+</style>
+
+<section class="cdp-outer" {{ section.shopify_attributes }}>
+  <div class="cdp-wrap">
+
+    {%- comment -%}── HEADER ──{%- endcomment -%}
+    <div class="cdp-header">
+      {%- if s.heading != blank -%}
+        <h2 class="cdp-title">{{ s.heading }}</h2>
+      {%- endif -%}
+      {%- if s.subtext != blank -%}
+        <p class="cdp-sub">{{ s.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%}── DESKTOP TABS ──{%- endcomment -%}
+    <div class="cdp-tabs-d">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <button class="cdp-tab-btn{% if forloop.first %} cdp-active{% endif %}"
+                  data-idx="{{ forloop.index0 }}"
+                  type="button"
+                  {{ block.shopify_attributes }}>
+            <span class="cdp-tab-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
+            {%- if block.settings.tab_subtitle != blank -%}
+              <span class="cdp-tab-note">{{ block.settings.tab_subtitle }}</span>
+            {%- endif -%}
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%}── MOBILE TAB CARDS ──{%- endcomment -%}
+    <div class="cdp-tabs-m">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <button class="cdp-card-btn{% if forloop.first %} cdp-active{% endif %}"
+                  data-idx="{{ forloop.index0 }}"
+                  type="button">
+            {%- if block.settings.tab_image != blank -%}
+              {{ block.settings.tab_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'cdp-card-img', alt: block.settings.tab_title }}
+            {%- endif -%}
+            <div class="cdp-card-text">
+              <span class="cdp-card-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
+              {%- if block.settings.tab_subtitle != blank -%}
+                <span class="cdp-card-note">{{ block.settings.tab_subtitle }}</span>
+              {%- endif -%}
+            </div>
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%}── PANELS ──{%- endcomment -%}
+    {%- assign tab_idx = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'tab' -%}
+
+        <div class="cdp-panel{% if forloop.first %} cdp-active{% endif %}"
+             data-panel="{{ tab_idx }}">
+
+          {%- comment -%}── LEFT PANEL ──{%- endcomment -%}
+          <div class="cdp-left">
+
+            {%- if block.settings.l_heading != blank -%}
+              <h3 class="cdp-l-heading">{{ block.settings.l_heading }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.l_desc != blank -%}
+              <div class="cdp-l-desc">{{ block.settings.l_desc }}</div>
+            {%- endif -%}
+
+            {%- if block.settings.l_sub != blank -%}
+              <h4 class="cdp-l-sub">{{ block.settings.l_sub }}</h4>
+            {%- endif -%}
+
+            {%- assign has_b = false -%}
+            {%- for bi in (1..4) -%}
+              {%- assign bk = 'bullet_' | append: bi -%}
+              {%- if block.settings[bk] != blank -%}{%- assign has_b = true -%}{%- endif -%}
+            {%- endfor -%}
+
+            {%- if has_b -%}
+              <ul class="cdp-bullets">
+                {%- for bi in (1..4) -%}
+                  {%- assign bk = 'bullet_' | append: bi -%}
+                  {%- if block.settings[bk] != blank -%}
+                    <li>
+                      <span class="cdp-check">
+                        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2"
+                                    stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                      {{ block.settings[bk] }}
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            <div class="cdp-spacer"></div>
+
+            {%- if block.settings.btn_text != blank -%}
+              <a href="{{ block.settings.btn_url | default: '#' }}" class="cdp-cta">
+                {{ block.settings.btn_text }}
+              </a>
+            {%- endif -%}
+
+            <div class="cdp-foot">
+              {%- if block.settings.foot_1 != blank -%}
+                <span class="cdp-foot-item">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                       stroke-width="1.6" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="7.5"/>
+                    <line x1="10" y1="7" x2="10" y2="10.5"/>
+                    <circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/>
+                  </svg>
+                  {{ block.settings.foot_1 }}
+                </span>
+              {%- endif -%}
+              {%- if block.settings.foot_1 != blank and block.settings.foot_2 != blank -%}
+                <span class="cdp-foot-div">&nbsp;|&nbsp;</span>
+              {%- endif -%}
+              {%- if block.settings.foot_2 != blank -%}
+                <span class="cdp-foot-item">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                       stroke-width="1.6" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 10a6 6 0 1 1-1.5-4"/>
+                    <polyline points="16,4 16,8 12,8"/>
+                  </svg>
+                  {{ block.settings.foot_2 }}
+                </span>
+              {%- endif -%}
+            </div>
+
+          </div>
+
+          {%- comment -%}── RIGHT PANEL ──{%- endcomment -%}
+          <div class="cdp-right">
+
+            {%- comment -%} Product card {%- endcomment -%}
+            <div class="cdp-pcard">
+
+              {%- if block.settings.r_heading != blank -%}
+                <p class="cdp-r-heading">{{ block.settings.r_heading }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.gifts_label != blank -%}
+                <p class="cdp-r-gifts">{{ block.settings.gifts_label }}</p>
+              {%- endif -%}
+
+              <div class="cdp-prod-list">
+
+                {%- comment -%} Regular products (1–5) {%- endcomment -%}
+                {%- for pi in (1..5) -%}
+                  {%- assign pk = 'product_' | append: pi -%}
+                  {%- assign prod = block.settings[pk] -%}
+                  {%- if prod != blank -%}
+                    <div class="cdp-prod-row">
+                      <div class="cdp-pimg">
+                        {%- if prod.featured_image != blank -%}
+                          {{ prod.featured_image | image_url: width: 120
+                             | image_tag: loading: 'lazy', alt: prod.title }}
+                        {%- endif -%}
+                      </div>
+                      <div class="cdp-pinfo">
+                        <span class="cdp-ptitle">{{ prod.title }}</span>
+                      </div>
+                      <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- comment -%} Free products (1–2) — dashed green box with Free badge + plus icon {%- endcomment -%}
+                {%- for fi in (1..2) -%}
+                  {%- assign fk = 'free_product_' | append: fi -%}
+                  {%- assign fprod = block.settings[fk] -%}
+                  {%- if fprod != blank -%}
+                    <div class="cdp-prod-row cdp-prod-row--free">
+                      <div class="cdp-pimg">
+                        {%- if fprod.featured_image != blank -%}
+                          {{ fprod.featured_image | image_url: width: 120
+                             | image_tag: loading: 'lazy', alt: fprod.title }}
+                        {%- endif -%}
+                      </div>
+                      <div class="cdp-pinfo">
+                        <span class="cdp-ptitle">{{ fprod.title }}</span>
+                      </div>
+                      <div class="cdp-free-r">
+                        <span class="cdp-free-tag">Free</span>
+                        <span class="cdp-plus-c">
+                          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                               stroke-width="2.2" stroke-linecap="round"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <line x1="6" y1="2" x2="6" y2="10"/>
+                            <line x1="2" y1="6" x2="10" y2="6"/>
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+
+              </div>
+
+              {%- comment -%} Total row {%- endcomment -%}
+              {%- if block.settings.kit_compare != blank or block.settings.kit_price != blank -%}
+                <div class="cdp-total">
+                  <span class="cdp-total-lbl">Total kit value</span>
+                  <div class="cdp-total-vals">
+                    {%- if block.settings.kit_compare != blank -%}
+                      <span class="cdp-cmp-val">{{ block.settings.kit_compare }}</span>
+                    {%- endif -%}
+                    {%- if block.settings.kit_price != blank -%}
+                      <span class="cdp-kit-price">{{ block.settings.kit_price }}</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+
+            </div>{%- comment -%} /cdp-pcard {%- endcomment -%}
+
+            {%- comment -%} Bottom image — Desktop only {%- endcomment -%}
+            {%- if block.settings.bottom_image != blank -%}
+              <div class="cdp-btm-img">
+                {{ block.settings.bottom_image | image_url: width: 900
+                   | image_tag: loading: 'lazy', alt: block.settings.tab_title }}
+              </div>
+            {%- endif -%}
+
+          </div>{%- comment -%} /cdp-right {%- endcomment -%}
+
+        </div>{%- comment -%} /cdp-panel {%- endcomment -%}
+
+        {%- assign tab_idx = tab_idx | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var sid = '{{ sid }}';
+
+  function init() {
+    var sec = document.getElementById('shopify-section-' + sid);
+    if (!sec) return;
+
+    var tabBtnsD = sec.querySelectorAll('.cdp-tab-btn');
+    var tabBtnsM = sec.querySelectorAll('.cdp-card-btn');
+    var panels   = sec.querySelectorAll('.cdp-panel');
+
+    function activate(idx) {
+      tabBtnsD.forEach(function (b) { b.classList.remove('cdp-active'); });
+      tabBtnsM.forEach(function (b) { b.classList.remove('cdp-active'); });
+      panels.forEach(function (p) { p.classList.remove('cdp-active'); });
+
+      var dBtn  = sec.querySelector('.cdp-tab-btn[data-idx="' + idx + '"]');
+      var mBtn  = sec.querySelector('.cdp-card-btn[data-idx="' + idx + '"]');
+      var panel = sec.querySelector('.cdp-panel[data-panel="' + idx + '"]');
+
+      if (dBtn)  dBtn.classList.add('cdp-active');
+      if (mBtn)  mBtn.classList.add('cdp-active');
+      if (panel) panel.classList.add('cdp-active');
+    }
+
+    tabBtnsD.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activate(parseInt(btn.dataset.idx, 10));
+      });
+    });
+    tabBtnsM.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activate(parseInt(btn.dataset.idx, 10));
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Choose Daily Practice",
+  "tag": "section",
+  "class": "cdp-section-wrap",
+  "settings": [
+    { "type": "header", "content": "Section Header" },
+    { "type": "text",     "id": "heading", "label": "Heading",  "default": "Choose your daily practice" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext",  "default": "Haritaki works from the inside. These kits work from the outside. Explore each one in detail before you decide." },
+
+    { "type": "header", "content": "Background Gradient" },
+    { "type": "color", "id": "bg_top",    "label": "Gradient — top color",    "default": "#f5eafd" },
+    { "type": "color", "id": "bg_bottom", "label": "Gradient — bottom color", "default": "#e4cff3" },
+
+    { "type": "header", "content": "Mobile Padding" },
+    { "type": "range", "id": "pt_m", "label": "Top",    "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "pb_m", "label": "Bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "px_m", "label": "Sides",  "min": 0, "max": 60,  "step": 2, "unit": "px", "default": 20 },
+
+    { "type": "header", "content": "Desktop Padding" },
+    { "type": "range", "id": "pt_d", "label": "Top",    "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "pb_d", "label": "Bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "px_d", "label": "Sides",  "min": 0, "max": 160, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Kit Tab",
+      "settings": [
+        { "type": "header", "content": "Tab Header" },
+        { "type": "text",         "id": "tab_title",    "label": "Tab title",                 "default": "The Anti-Fluoride Kit" },
+        { "type": "text",         "id": "tab_subtitle", "label": "Tab subtitle",               "default": "Detox your environment" },
+        { "type": "image_picker", "id": "tab_image",    "label": "Tab image (Mobile card)" },
+
+        { "type": "header", "content": "Left Panel — Content" },
+        { "type": "text",     "id": "l_heading", "label": "Main heading",  "default": "Why daily fluoride exposure matters" },
+        { "type": "richtext", "id": "l_desc",    "label": "Description" },
+        { "type": "text",     "id": "l_sub",     "label": "Sub heading",   "default": "How our kit will help you with Detox" },
+        { "type": "text",     "id": "bullet_1",  "label": "Bullet 1" },
+        { "type": "text",     "id": "bullet_2",  "label": "Bullet 2" },
+        { "type": "text",     "id": "bullet_3",  "label": "Bullet 3" },
+        { "type": "text",     "id": "bullet_4",  "label": "Bullet 4" },
+        { "type": "text",     "id": "btn_text",  "label": "Button text",   "default": "START YOUR CLEAN ROUTINE" },
+        { "type": "url",      "id": "btn_url",   "label": "Button URL" },
+        { "type": "text",     "id": "foot_1",    "label": "Footer item 1", "default": "Stop or Cancel Anytime" },
+        { "type": "text",     "id": "foot_2",    "label": "Footer item 2", "default": "Refills Ship Every 30 Days" },
+
+        { "type": "header", "content": "Right Panel — Products" },
+        { "type": "text",         "id": "r_heading",     "label": "Right heading",                        "default": "What's inside the Anti-Fluoride Kit" },
+        { "type": "text",         "id": "gifts_label",   "label": "Gifts label (Mobile only)",             "default": "6 items + 2 Free Gifts worth $69" },
+        { "type": "product",      "id": "product_1",     "label": "Product 1" },
+        { "type": "product",      "id": "product_2",     "label": "Product 2" },
+        { "type": "product",      "id": "product_3",     "label": "Product 3" },
+        { "type": "product",      "id": "product_4",     "label": "Product 4" },
+        { "type": "product",      "id": "product_5",     "label": "Product 5" },
+        { "type": "product",      "id": "free_product_1","label": "Free Product 1" },
+        { "type": "product",      "id": "free_product_2","label": "Free Product 2" },
+        { "type": "text",         "id": "kit_compare",   "label": "Total compare price",                  "default": "$433" },
+        { "type": "text",         "id": "kit_price",     "label": "Kit price (e.g. $280 or add for $280)","default": "$280" },
+        { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image (Desktop only)" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Choose Daily Practice",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title":    "The Anti-Fluoride Kit",
+            "tab_subtitle": "Detox your environment",
+            "l_heading":    "Why daily fluoride exposure matters",
+            "l_sub":        "How our kit will help you with Detox",
+            "bullet_1":     "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying.",
+            "bullet_2":     "Cuts fluoride from your 3 daily sources: water, shower, toothpaste.",
+            "bullet_3":     "Free worldwide shipping. 60-day pineal cleanse guarantee.",
+            "btn_text":     "START YOUR CLEAN ROUTINE",
+            "foot_1":       "Stop or Cancel Anytime",
+            "foot_2":       "Refills Ship Every 30 Days",
+            "r_heading":    "What's inside the Anti-Fluoride Kit",
+            "kit_compare":  "$433",
+            "kit_price":    "$280"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title":    "The Vivid Dreams Kit",
+            "tab_subtitle": "Optimize your sleep | Full activation",
+            "l_heading":    "Why sleep quality matters",
+            "btn_text":     "START YOUR CLEAN ROUTINE",
+            "foot_1":       "Stop or Cancel Anytime",
+            "foot_2":       "Refills Ship Every 30 Days",
+            "r_heading":    "What's inside the Vivid Dreams Kit",
+            "kit_compare":  "$389",
+            "kit_price":    "add for $280"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title":    "The Pineal Reset Kit",
+            "tab_subtitle": "Full activation",
+            "l_heading":    "Reset and activate your pineal gland",
+            "btn_text":     "START YOUR CLEAN ROUTINE",
+            "foot_1":       "Stop or Cancel Anytime",
+            "foot_2":       "Refills Ship Every 30 Days",
+            "r_heading":    "What's inside the Pineal Reset Kit",
+            "kit_compare":  "$450",
+            "kit_price":    "$280"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
