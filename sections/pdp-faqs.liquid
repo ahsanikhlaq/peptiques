@@ -107,7 +107,8 @@
     flex-shrink: 0;
     transition: transform 200ms ease;
   }
-  #shopify-section-{{ sid }} .pq-item details[open] .pq-toggle{ transform: rotate(45deg); }
+  #shopify-section-{{ sid }} .pq-item details[open] .pq-toggle{ transform: none; }
+#shopify-section-{{ sid }} .pq-item details[open] .pq-toggle .pq-v-line{ display: none; }
   #shopify-section-{{ sid }} .pq-toggle svg{ width: 18px; height: 18px; }
 
   #shopify-section-{{ sid }} .pq-answer{
@@ -185,7 +186,10 @@
                 <summary class="pq-summary">
                   <span itemprop="name">{{ block.settings.question }}</span>
                   <span class="pq-toggle" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path class="pq-v-line" d="M12 5v14"/>
+                    <path d="M5 12h14"/>
+                  </svg>
                   </span>
                 </summary>
                 <div class="pq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
