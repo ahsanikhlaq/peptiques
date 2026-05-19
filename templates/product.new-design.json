@@ -2472,7 +2472,7 @@
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
             "r_heading": "What's inside the Anti-Fluoride Kit",
-            "gifts_label": "6 items + 2 Free Gifts worth $69",
+            "gifts_label": "<p>6 items + <strong>2 Free Gifts worth $69</strong></p>",
             "kitprice": "",
             "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
@@ -2543,7 +2543,7 @@
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
             "r_heading": "What's inside the Vivid Dreams Kit",
-            "gifts_label": "6 items + 2 Free Gifts worth $69",
+            "gifts_label": "<p>6 items + 2 Free Gifts worth $69</p>",
             "kitprice": "$280"
           }
         },
@@ -2559,7 +2559,7 @@
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
             "r_heading": "What's inside the Pineal Reset Kit",
-            "gifts_label": "6 items + 2 Free Gifts worth $69",
+            "gifts_label": "<p>6 items + 2 Free Gifts worth $69</p>",
             "kitprice": "$280"
           }
         }
