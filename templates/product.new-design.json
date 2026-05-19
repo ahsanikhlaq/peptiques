@@ -2483,18 +2483,6 @@
             "text": "Enter your bullet point here"
           }
         },
-        "tab_product_py9GyD": {
-          "type": "tab_product",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "footer_item_mQNwKP": {
-          "type": "footer_item",
-          "settings": {
-            "text": "Stop or Cancel Anytime"
-          }
-        },
         "bullet_item_TEegtN": {
           "type": "bullet_item",
           "settings": {
@@ -2505,6 +2493,18 @@
           "type": "footer_item",
           "settings": {
             "text": "Stop or Cancel Anytime"
+          }
+        },
+        "tab_product_py9GyD": {
+          "type": "tab_product",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tab_product_LnqDWd": {
+          "type": "tab_product",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
           }
         },
         "tab_FTwLP3": {
@@ -2522,10 +2522,28 @@
             "kit_price": "add for $280"
           }
         },
+        "footer_item_mQNwKP": {
+          "type": "footer_item",
+          "settings": {
+            "text": "Stop or Cancel Anytime"
+          }
+        },
         "tab_product_gDQ6Nh": {
           "type": "tab_product",
           "settings": {
             "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tab_product_wWfkN3": {
+          "type": "tab_product",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "bullet_item_HBYRbB": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Enter your bullet point here"
           }
         },
         "tab_cbiApH": {
@@ -2547,12 +2565,15 @@
       "block_order": [
         "tab_FicyAU",
         "bullet_item_QHqmw8",
-        "tab_product_py9GyD",
-        "footer_item_mQNwKP",
         "bullet_item_TEegtN",
         "footer_item_TiLDRf",
+        "tab_product_py9GyD",
+        "tab_product_LnqDWd",
         "tab_FTwLP3",
+        "footer_item_mQNwKP",
         "tab_product_gDQ6Nh",
+        "tab_product_wWfkN3",
+        "bullet_item_HBYRbB",
         "tab_cbiApH"
       ],
       "name": "Choose Daily Practice",
