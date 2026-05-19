@@ -2465,8 +2465,9 @@
           "settings": {
             "tab_title": "The Anti-Fluoride Kit",
             "tab_subtitle": "Detox your environment",
+            "tab_image": "shopify://shop_images/Background_8.webp",
             "l_heading": "Why daily fluoride exposure matters",
-            "l_desc": "",
+            "l_desc": "<p>What feels like a normal daily routine may actually include repeated exposure to fluoride, aluminum, plastic, and harsh chemicals. From your shower water to your toothpaste and deodorant, small daily choices can add up over time.</p>",
             "l_sub": "How our kit will help you with Detox",
             "bullet_1": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying.",
             "bullet_2": "Cuts fluoride from your 3 daily sources: water, shower, toothpaste.",
@@ -2478,15 +2479,16 @@
             "foot_2": "Refills Ship Every 30 Days",
             "r_heading": "What's inside the Anti-Fluoride Kit",
             "gifts_label": "6 items + 2 Free Gifts worth $69",
-            "product_1": "",
-            "product_2": "",
-            "product_3": "",
+            "product_1": "haritakifruit",
+            "product_2": "bibhitaki-seven-chakras-capsules",
+            "product_3": "free-worldwide-shipping-1",
             "product_4": "",
             "product_5": "",
             "free_product_1": "",
             "free_product_2": "",
             "kit_compare": "$433",
-            "kit_price": "$280"
+            "kit_price": "$280",
+            "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
         },
         "tab_FTwLP3": {
