@@ -508,7 +508,7 @@ color:rgba(255, 255, 255, 1);
               {%- endfor -%}
             </ul>
            </div>
-            <div class="cdp-spacer"></div>
+            {% comment %} <div class="cdp-spacer"></div> {% endcomment %}
             <div>
             {%- if outer_block.settings.btn_text != blank -%}
               <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">
