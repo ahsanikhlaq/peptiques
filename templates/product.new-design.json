@@ -2581,12 +2581,12 @@
         "subtext": "Haritaki works from the inside. These kits work from the outside. Explore each one in detail before you decide.",
         "bg_top": "#f5eafd",
         "bg_bottom": "#e4cff3",
-        "pt_m": 48,
-        "pb_m": 48,
+        "pt_m": 40,
+        "pb_m": 40,
         "px_m": 20,
-        "pt_d": 72,
-        "pb_d": 72,
-        "px_d": 60
+        "pt_d": 80,
+        "pb_d": 80,
+        "px_d": 80
       }
     },
     "pdp_nature_info_NEW": {
