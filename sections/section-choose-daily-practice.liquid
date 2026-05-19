@@ -1,15 +1,14 @@
 {% comment %}
-  Choose Your Daily Practice v3
-  Fix: pre-pass index approach, inline loops, auto compare_at_price total, bullets/footer as blocks
+  Choose Your Daily Practice v4
+  - free_item: 4 products selectable
+  - free items visible on both mobile + desktop
+  - SEO: h2 for section, h3 for panels, proper aria labels
+  - Logic same, schema clean
 {% endcomment %}
 
 {%- assign sid = section.id -%}
 {%- assign s   = section.settings -%}
 
-{%- comment -%}
-  PRE-PASS — collect each tab block's forloop index
-  Builds: _ts_arr e.g. ["0","4","9"] = start positions of each tab block
-{%- endcomment -%}
 {%- assign _ts_str = '' -%}
 {%- assign _pbi    = 0 -%}
 {%- for block in section.blocks -%}
@@ -21,9 +20,6 @@
 {%- assign _ts_arr = _ts_str | split: '|' -%}
 
 <style>
-/* ══════════════════════════════════════
-   SECTION bg
-══════════════════════════════════════ */
 #shopify-section-{{ sid }} {
   background: radial-gradient(
     ellipse at 50% -10%,
@@ -59,6 +55,7 @@
   #shopify-section-{{ sid }} .cdp-tabs-d {
     display: flex; gap: 0; margin-bottom: 14px; border-radius: 12px; overflow: hidden;
     background: rgba(255,255,255,0.55); border: 1px solid rgba(190,150,220,0.35);
+    list-style: none; padding: 0; margin-top: 0;
   }
   #shopify-section-{{ sid }} .cdp-tab-btn {
     flex: 1 1 0; display: flex; flex-direction: column; align-items: flex-start;
@@ -83,35 +80,27 @@
 #shopify-section-{{ sid }} .cdp-tabs-m {
   display: flex; gap: 10px; overflow-x: auto;
   scrollbar-width: none; padding-bottom: 4px; margin-bottom: 20px;
+  list-style: none; padding-left: 0; margin-top: 0;
 }
 #shopify-section-{{ sid }} .cdp-tabs-m::-webkit-scrollbar { display: none; }
 @media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-tabs-m { display: none; } }
 #shopify-section-{{ sid }} .cdp-card-btn {
-  flex: 0 0 130px;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  border: 2.5px solid transparent;
-  cursor: pointer; padding: 0;
-  background: #e8d5f0;
-  transition: border-color 0.2s;
-  flex-shrink: 0;
+  flex: 0 0 130px; border-radius: 12px; overflow: hidden; position: relative;
+  border: 2.5px solid transparent; cursor: pointer; padding: 0;
+  background: #e8d5f0; transition: border-color 0.2s; flex-shrink: 0;
   display: flex; flex-direction: column;
 }
 #shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: #3e1047; }
 #shopify-section-{{ sid }} .cdp-card-img-wrap {
-  flex: 0 0 110px; height: 110px;
-  position: relative; overflow: hidden;
+  flex: 0 0 110px; height: 110px; position: relative; overflow: hidden;
 }
 #shopify-section-{{ sid }} .cdp-card-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
+  position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; display: block; z-index: 1;
 }
 #shopify-section-{{ sid }} .cdp-card-text {
   padding: 8px 9px 10px; text-align: left; flex-shrink: 0;
-  background: rgba(220, 195, 238, 0.9);
-  transition: background 0.2s;
+  background: rgba(220,195,238,0.9); transition: background 0.2s;
 }
 #shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-text { background: #3e1047; }
 #shopify-section-{{ sid }} .cdp-card-name {
@@ -156,7 +145,7 @@
   font-weight: 700; color: #fff; margin: 0 0 14px;
 }
 #shopify-section-{{ sid }} .cdp-bullets {
-  list-style: none; margin: 0 0 0; padding: 0;
+  list-style: none; margin: 0; padding: 0;
   display: flex; flex-direction: column; gap: 10px;
 }
 #shopify-section-{{ sid }} .cdp-bullets li {
@@ -205,9 +194,8 @@
 }
 #shopify-section-{{ sid }} .cdp-r-gifts {
   font-family: 'DM Sans', system-ui, sans-serif; font-size: 11.5px;
-  color: #7a4a90; margin: 0 0 10px; display: none;
+  color: #7a4a90; margin: 0 0 10px;
 }
-@media (max-width: 768px) { #shopify-section-{{ sid }} .cdp-r-gifts { display: block; } }
 
 /* Product rows */
 #shopify-section-{{ sid }} .cdp-prod-list { display: flex; flex-direction: column; }
@@ -217,23 +205,20 @@
 }
 #shopify-section-{{ sid }} .cdp-prod-row:first-child { border-top: 1px dashed #d8c8ea; }
 
-/* FREE rows — mobile only */
-#shopify-section-{{ sid }} .cdp-free-list { display: none; }
-@media (max-width: 768px) {
-  #shopify-section-{{ sid }} .cdp-free-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+/* FREE ITEMS — visible on both mobile and desktop */
+#shopify-section-{{ sid }} .cdp-free-list {
+  display: flex; flex-direction: column; gap: 6px; margin-top: 6px;
 }
 #shopify-section-{{ sid }} .cdp-free-row {
-  position: relative;
-  border: 1.5px dashed #22c55e; border-radius: 10px;
-  padding: 10px 10px 10px; background: #f0fdf4;
+  position: relative; border: 1.5px dashed #22c55e; border-radius: 10px;
+  padding: 10px; background: #f0fdf4;
 }
 #shopify-section-{{ sid }} .cdp-free-badge {
   position: absolute; top: -1px; right: 10px;
   background: #16a34a; color: #fff;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 11px; font-weight: 700;
-  padding: 3px 10px 3px 7px;
-  border-radius: 0 0 8px 8px;
+  padding: 3px 10px 3px 7px; border-radius: 0 0 8px 8px;
   display: flex; align-items: center; gap: 4px;
 }
 #shopify-section-{{ sid }} .cdp-free-badge svg { width: 13px; height: 13px; }
@@ -243,324 +228,376 @@
 #shopify-section-{{ sid }} .cdp-free-imgs {
   display: flex; align-items: center; flex-shrink: 0;
 }
-#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg { margin-left: -8px; border: 1.5px solid #f0fdf4; border-radius: 7px; }
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg {
+  margin-left: -8px; border: 1.5px solid #f0fdf4; border-radius: 7px;
+}
 #shopify-section-{{ sid }} .cdp-free-title {
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 13px; color: #1a0a2e; line-height: 1.4; flex: 1;
 }
 #shopify-section-{{ sid }} .cdp-pimg {
-  width: 44px; height: 44px; flex-shrink: 0; border-radius: 7px; overflow: hidden; background: #f5eefe;
+  width: 44px; height: 44px; flex-shrink: 0; border-radius: 7px;
+  overflow: hidden; background: #f5eefe;
 }
 #shopify-section-{{ sid }} .cdp-pimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
 #shopify-section-{{ sid }} .cdp-pinfo { flex: 1 1 auto; min-width: 0; }
 #shopify-section-{{ sid }} .cdp-ptitle {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 12.5px; color: #1a0a2e; line-height: 1.35; display: block;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12.5px; color: #1a0a2e; line-height: 1.35; display: block;
 }
 #shopify-section-{{ sid }} .cdp-pprice {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #1a0a2e; white-space: nowrap; flex-shrink: 0;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px; font-weight: 600; color: #1a0a2e; white-space: nowrap; flex-shrink: 0;
 }
 
 /* Total row */
 #shopify-section-{{ sid }} .cdp-total {
-  display: flex; align-items: center; justify-content: space-between; padding-top: 12px; margin-top: 4px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; margin-top: 4px;
 }
 #shopify-section-{{ sid }} .cdp-total-lbl {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500; color: #1a0a2e;
+  font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px;
+  font-weight: 500; color: #1a0a2e;
 }
 #shopify-section-{{ sid }} .cdp-total-vals { display: flex; align-items: baseline; gap: 8px; }
 #shopify-section-{{ sid }} .cdp-cmp-val {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: #aaa; text-decoration: line-through;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px; color: #aaa; text-decoration: line-through;
 }
 #shopify-section-{{ sid }} .cdp-kit-price {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: #1a0a2e;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px; font-weight: 700; color: #1a0a2e;
 }
 
-/* Bottom image — desktop only */
+/* Bottom image desktop only */
 #shopify-section-{{ sid }} .cdp-btm-img { display: none; }
-@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 16px; overflow: hidden; } }
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 16px; overflow: hidden; }
+}
 #shopify-section-{{ sid }} .cdp-btm-img img { width: 100%; height: auto; display: block; }
 </style>
 
-<section class="cdp-outer" {{ section.shopify_attributes }}>
-<div class="cdp-wrap">
+<section class="cdp-outer" aria-label="{{ s.heading | escape }}" {{ section.shopify_attributes }}>
+  <div class="cdp-wrap">
 
-  {%- comment -%}── HEADER ──{%- endcomment -%}
-  <div class="cdp-header">
-    {%- if s.heading != blank -%}<h2 class="cdp-title">{{ s.heading }}</h2>{%- endif -%}
-    {%- if s.subtext  != blank -%}<p  class="cdp-sub">{{ s.subtext }}</p>{%- endif -%}
-  </div>
-
-  {%- comment -%}── DESKTOP TABS ──{%- endcomment -%}
-  <div class="cdp-tabs-d">
-    {%- assign tab_i = 0 -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'tab' -%}
-        <button class="cdp-tab-btn{% if tab_i == 0 %} cdp-active{% endif %}"
-                data-idx="{{ tab_i }}" type="button" {{ block.shopify_attributes }}>
-          <span class="cdp-tab-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
-          {%- if block.settings.tab_subtitle != blank -%}
-            <span class="cdp-tab-note">{{ block.settings.tab_subtitle }}</span>
-          {%- endif -%}
-        </button>
-        {%- assign tab_i = tab_i | plus: 1 -%}
+    {%- comment -%}── HEADER ──{%- endcomment -%}
+    <header class="cdp-header">
+      {%- if s.heading != blank -%}
+        <h2 class="cdp-title">{{ s.heading }}</h2>
       {%- endif -%}
-    {%- endfor -%}
-  </div>
+      {%- if s.subtext != blank -%}
+        <p class="cdp-sub">{{ s.subtext }}</p>
+      {%- endif -%}
+    </header>
 
-  {%- comment -%}── MOBILE TAB CARDS ──{%- endcomment -%}
-  <div class="cdp-tabs-m">
-    {%- assign tab_i = 0 -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'tab' -%}
-        <button class="cdp-card-btn{% if tab_i == 0 %} cdp-active{% endif %}"
-                data-idx="{{ tab_i }}" type="button">
-          <div class="cdp-card-img-wrap">
-            {%- if block.settings.tab_image != blank -%}
-              {{ block.settings.tab_image | image_url: width: 300
-                 | image_tag: loading: 'lazy', class: 'cdp-card-img', alt: block.settings.tab_title }}
-            {%- endif -%}
-          </div>
-          <div class="cdp-card-text">
-            <span class="cdp-card-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
+    {%- comment -%}── DESKTOP TABS ──{%- endcomment -%}
+    <nav class="cdp-tabs-d" aria-label="Kit tabs" role="tablist">
+      {%- assign tab_i = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <button
+            class="cdp-tab-btn{% if tab_i == 0 %} cdp-active{% endif %}"
+            data-idx="{{ tab_i }}"
+            type="button"
+            role="tab"
+            aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
+            aria-controls="cdp-panel-{{ sid }}-{{ tab_i }}"
+            id="cdp-tab-{{ sid }}-{{ tab_i }}"
+            {{ block.shopify_attributes }}>
+            <span class="cdp-tab-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
             {%- if block.settings.tab_subtitle != blank -%}
-              <span class="cdp-card-note">{{ block.settings.tab_subtitle }}</span>
+              <span class="cdp-tab-note">{{ block.settings.tab_subtitle }}</span>
             {%- endif -%}
-          </div>
-        </button>
-        {%- assign tab_i = tab_i | plus: 1 -%}
-      {%- endif -%}
-    {%- endfor -%}
-  </div>
+          </button>
+          {%- assign tab_i = tab_i | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
 
-  {%- comment -%}── PANELS ──{%- endcomment -%}
-  {%- assign tab_counter = 0 -%}
-  {%- for outer_block in section.blocks -%}
-    {%- if outer_block.type == 'tab' -%}
-
-      {%- comment -%} Range: _ts = this tab's index, _te = next tab's index (or end) {%- endcomment -%}
-      {%- assign _ts     = _ts_arr[tab_counter] | plus: 0 -%}
-      {%- assign _tc_nxt = tab_counter | plus: 1 -%}
-      {%- assign _te_raw = _ts_arr[_tc_nxt] -%}
-      {%- if _te_raw == blank -%}
-        {%- assign _te = section.blocks.size -%}
-      {%- else -%}
-        {%- assign _te = _te_raw | plus: 0 -%}
-      {%- endif -%}
-
-      <div class="cdp-panel{% if tab_counter == 0 %} cdp-active{% endif %}" data-panel="{{ tab_counter }}">
-
-        {%- comment -%}══ LEFT PANEL ══{%- endcomment -%}
-        <div class="cdp-left">
-
-          {%- if outer_block.settings.l_heading != blank -%}
-            <h3 class="cdp-l-heading">{{ outer_block.settings.l_heading }}</h3>
-          {%- endif -%}
-          {%- if outer_block.settings.l_desc != blank -%}
-            <div class="cdp-l-desc">{{ outer_block.settings.l_desc }}</div>
-          {%- endif -%}
-          {%- if outer_block.settings.l_sub != blank -%}
-            <h4 class="cdp-l-sub">{{ outer_block.settings.l_sub }}</h4>
-          {%- endif -%}
-
-          {%- comment -%}
-            BULLETS — iterate all blocks, pick bullet_item blocks in this tab's range
-            _b_open: tracks whether <ul> has been opened
-          {%- endcomment -%}
-          {%- assign _b_open = false -%}
-          {%- assign _bci    = 0 -%}
-          {%- for b in section.blocks -%}
-            {%- if _bci > _ts and _bci < _te and b.type == 'bullet_item' -%}
-              {%- unless _b_open -%}<ul class="cdp-bullets">{%- assign _b_open = true -%}{%- endunless -%}
-              <li {{ b.shopify_attributes }}>
-                <span class="cdp-check">
-                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                {{ b.settings.text }}
-              </li>
-            {%- endif -%}
-            {%- assign _bci = _bci | plus: 1 -%}
-          {%- endfor -%}
-          {%- if _b_open -%}</ul>{%- endif -%}
-
-          <div class="cdp-spacer"></div>
-
-          {%- if outer_block.settings.btn_text != blank -%}
-            <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">
-              {{ outer_block.settings.btn_text }}
-            </a>
-          {%- endif -%}
-
-          {%- comment -%} FOOTER ITEMS {%- endcomment -%}
-          {%- assign _f_open = false -%}
-          {%- assign _fci    = 0 -%}
-          {%- for b in section.blocks -%}
-            {%- if _fci > _ts and _fci < _te and b.type == 'footer_item' -%}
-              {%- unless _f_open -%}<div class="cdp-foot">{%- assign _f_open = true -%}{%- endunless -%}
-              <span class="cdp-foot-item" {{ b.shopify_attributes }}>
-                {%- if b.settings.icon_image != blank -%}
-                  {{ b.settings.icon_image | image_url: width: 40
-                     | image_tag: loading: 'lazy', class: 'cdp-foot-icon',
-                       width: 14, height: 14, alt: '' }}
-                {%- else -%}
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <circle cx="10" cy="10" r="7.5"/>
-                    <line x1="10" y1="7" x2="10" y2="10.5"/>
-                    <circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/>
-                  </svg>
-                {%- endif -%}
-                {{ b.settings.text }}
-              </span>
-            {%- endif -%}
-            {%- assign _fci = _fci | plus: 1 -%}
-          {%- endfor -%}
-          {%- if _f_open -%}</div>{%- endif -%}
-
-        </div>
-
-        {%- comment -%}══ RIGHT PANEL ══{%- endcomment -%}
-        <div class="cdp-right">
-          <div class="cdp-pcard">
-
-            {%- if outer_block.settings.r_heading != blank -%}
-              <p class="cdp-r-heading">{{ outer_block.settings.r_heading }}</p>
-            {%- endif -%}
-            {%- if outer_block.settings.gifts_label != blank -%}
-              <p class="cdp-r-gifts">{{ outer_block.settings.gifts_label }}</p>
-            {%- endif -%}
-
-            {%- comment -%} PRODUCTS {%- endcomment -%}
-            {%- assign _pr_open = false -%}
-            {%- assign _pri     = 0 -%}
-            {%- for b in section.blocks -%}
-              {%- if _pri > _ts and _pri < _te and b.type == 'tab_product' -%}
-                {%- assign _prod = b.settings.product -%}
-                {%- if _prod != blank -%}
-                  {%- unless _pr_open -%}<div class="cdp-prod-list">{%- assign _pr_open = true -%}{%- endunless -%}
-                  <div class="cdp-prod-row" {{ b.shopify_attributes }}>
-                    <div class="cdp-pimg">
-                      {%- if _prod.featured_image != blank -%}
-                        {{ _prod.featured_image | image_url: width: 120
-                           | image_tag: loading: 'lazy', alt: _prod.title }}
-                      {%- endif -%}
-                    </div>
-                    <div class="cdp-pinfo">
-                      <span class="cdp-ptitle">{{ _prod.title }}</span>
-                    </div>
-                    <span class="cdp-pprice">{{ _prod.price | money_without_trailing_zeros }}</span>
-                  </div>
-                {%- endif -%}
+    {%- comment -%}── MOBILE TAB CARDS ──{%- endcomment -%}
+    <div class="cdp-tabs-m" role="tablist" aria-label="Kit tabs mobile">
+      {%- assign tab_i = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <button
+            class="cdp-card-btn{% if tab_i == 0 %} cdp-active{% endif %}"
+            data-idx="{{ tab_i }}"
+            type="button"
+            role="tab"
+            aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
+            aria-controls="cdp-panel-{{ sid }}-{{ tab_i }}"
+            aria-label="{{ block.settings.tab_title | default: 'Kit Tab' | escape }}">
+            <div class="cdp-card-img-wrap">
+              {%- if block.settings.tab_image != blank -%}
+                {{ block.settings.tab_image
+                   | image_url: width: 300
+                   | image_tag: loading: 'lazy', class: 'cdp-card-img',
+                     alt: block.settings.tab_title | escape }}
               {%- endif -%}
-              {%- assign _pri = _pri | plus: 1 -%}
-            {%- endfor -%}
-            {%- if _pr_open -%}</div>{%- endif -%}
+            </div>
+            <div class="cdp-card-text">
+              <span class="cdp-card-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
+              {%- if block.settings.tab_subtitle != blank -%}
+                <span class="cdp-card-note">{{ block.settings.tab_subtitle }}</span>
+              {%- endif -%}
+            </div>
+          </button>
+          {%- assign tab_i = tab_i | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
 
-            {%- comment -%} FREE ITEMS — mobile only via CSS, 1 block = 2 products {%- endcomment -%}
-            {%- assign _fr_open = false -%}
-            {%- assign _fri     = 0 -%}
+    {%- comment -%}── PANELS ──{%- endcomment -%}
+    {%- assign tab_counter = 0 -%}
+    {%- for outer_block in section.blocks -%}
+      {%- if outer_block.type == 'tab' -%}
+
+        {%- assign _ts     = _ts_arr[tab_counter] | plus: 0 -%}
+        {%- assign _tc_nxt = tab_counter | plus: 1 -%}
+        {%- assign _te_raw = _ts_arr[_tc_nxt] -%}
+        {%- if _te_raw == blank -%}
+          {%- assign _te = section.blocks.size -%}
+        {%- else -%}
+          {%- assign _te = _te_raw | plus: 0 -%}
+        {%- endif -%}
+
+        <div
+          class="cdp-panel{% if tab_counter == 0 %} cdp-active{% endif %}"
+          data-panel="{{ tab_counter }}"
+          id="cdp-panel-{{ sid }}-{{ tab_counter }}"
+          role="tabpanel"
+          aria-labelledby="cdp-tab-{{ sid }}-{{ tab_counter }}"
+          {% unless tab_counter == 0 %}hidden{% endunless %}>
+
+          {%- comment -%}══ LEFT ══{%- endcomment -%}
+          <div class="cdp-left">
+
+            {%- if outer_block.settings.l_heading != blank -%}
+              <h3 class="cdp-l-heading">{{ outer_block.settings.l_heading }}</h3>
+            {%- endif -%}
+            {%- if outer_block.settings.l_desc != blank -%}
+              <div class="cdp-l-desc">{{ outer_block.settings.l_desc }}</div>
+            {%- endif -%}
+            {%- if outer_block.settings.l_sub != blank -%}
+              <p class="cdp-l-sub">{{ outer_block.settings.l_sub }}</p>
+            {%- endif -%}
+
+            {%- assign _b_open = false -%}
+            {%- assign _bci    = 0 -%}
             {%- for b in section.blocks -%}
-              {%- if _fri > _ts and _fri < _te and b.type == 'free_item' -%}
-                {%- assign _fp1 = b.settings.product_1 -%}
-                {%- assign _fp2 = b.settings.product_2 -%}
-                {%- if _fp1 != blank -%}
-                  {%- unless _fr_open -%}<div class="cdp-free-list">{%- assign _fr_open = true -%}{%- endunless -%}
-                  <div class="cdp-free-row" {{ b.shopify_attributes }}>
-                    {%- comment -%} Gift badge at top right {%- endcomment -%}
-                    <div class="cdp-free-badge">
-                      <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 1a2 2 0 0 1 1.732 3H13a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.268A2 2 0 0 1 8 1zm0 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM3 8h5v7H4a1 1 0 0 1-1-1V8zm6 0h4v6a1 1 0 0 1-1 1H9V8z"/>
-                      </svg>
-                      Free
-                    </div>
-                    {%- comment -%} Content: images + title {%- endcomment -%}
-                    <div class="cdp-free-body">
-                      <div class="cdp-free-imgs">
-                        <div class="cdp-pimg">
-                          {%- if _fp1.featured_image != blank -%}
-                            {{ _fp1.featured_image | image_url: width: 120
-                               | image_tag: loading: 'lazy', alt: _fp1.title }}
-                          {%- endif -%}
-                        </div>
-                        {%- if _fp2 != blank -%}
-                          <div class="cdp-pimg">
-                            {%- if _fp2.featured_image != blank -%}
-                              {{ _fp2.featured_image | image_url: width: 120
-                                 | image_tag: loading: 'lazy', alt: _fp2.title }}
-                            {%- endif -%}
-                          </div>
+              {%- if _bci > _ts and _bci < _te and b.type == 'bullet_item' -%}
+                {%- unless _b_open -%}<ul class="cdp-bullets">{%- assign _b_open = true -%}{%- endunless -%}
+                <li {{ b.shopify_attributes }}>
+                  <span class="cdp-check" aria-hidden="true">
+                    <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  {{ b.settings.text }}
+                </li>
+              {%- endif -%}
+              {%- assign _bci = _bci | plus: 1 -%}
+            {%- endfor -%}
+            {%- if _b_open -%}</ul>{%- endif -%}
+
+            <div class="cdp-spacer"></div>
+
+            {%- if outer_block.settings.btn_text != blank -%}
+              <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">
+                {{ outer_block.settings.btn_text }}
+              </a>
+            {%- endif -%}
+
+            {%- assign _f_open = false -%}
+            {%- assign _fci    = 0 -%}
+            {%- for b in section.blocks -%}
+              {%- if _fci > _ts and _fci < _te and b.type == 'footer_item' -%}
+                {%- unless _f_open -%}
+                  <div class="cdp-foot" role="list" aria-label="Guarantees">
+                  {%- assign _f_open = true -%}
+                {%- endunless -%}
+                <span class="cdp-foot-item" role="listitem" {{ b.shopify_attributes }}>
+                  {%- if b.settings.icon_image != blank -%}
+                    {{ b.settings.icon_image
+                       | image_url: width: 40
+                       | image_tag: loading: 'lazy', class: 'cdp-foot-icon',
+                         width: 14, height: 14, alt: '' }}
+                  {%- else -%}
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                      <circle cx="10" cy="10" r="7.5"/>
+                      <line x1="10" y1="7" x2="10" y2="10.5"/>
+                      <circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/>
+                    </svg>
+                  {%- endif -%}
+                  {{ b.settings.text }}
+                </span>
+              {%- endif -%}
+              {%- assign _fci = _fci | plus: 1 -%}
+            {%- endfor -%}
+            {%- if _f_open -%}</div>{%- endif -%}
+
+          </div>
+
+          {%- comment -%}══ RIGHT ══{%- endcomment -%}
+          <div class="cdp-right">
+            <div class="cdp-pcard">
+
+              {%- if outer_block.settings.r_heading != blank -%}
+                <h3 class="cdp-r-heading">{{ outer_block.settings.r_heading }}</h3>
+              {%- endif -%}
+              {%- if outer_block.settings.gifts_label != blank -%}
+                <p class="cdp-r-gifts">{{ outer_block.settings.gifts_label }}</p>
+              {%- endif -%}
+
+              {%- comment -%} PRODUCTS {%- endcomment -%}
+              {%- assign _pr_open = false -%}
+              {%- assign _pri     = 0 -%}
+              {%- for b in section.blocks -%}
+                {%- if _pri > _ts and _pri < _te and b.type == 'tab_product' -%}
+                  {%- assign _prod = b.settings.product -%}
+                  {%- if _prod != blank -%}
+                    {%- unless _pr_open -%}
+                      <ul class="cdp-prod-list" aria-label="Kit products">
+                      {%- assign _pr_open = true -%}
+                    {%- endunless -%}
+                    <li class="cdp-prod-row" {{ b.shopify_attributes }}>
+                      <div class="cdp-pimg">
+                        {%- if _prod.featured_image != blank -%}
+                          {{ _prod.featured_image
+                             | image_url: width: 120
+                             | image_tag: loading: 'lazy', alt: _prod.title | escape }}
                         {%- endif -%}
                       </div>
-                      <span class="cdp-free-title">
-                        {{ _fp1.title }}{%- if _fp2 != blank -%} + {{ _fp2.title }}{%- endif -%}
-                      </span>
-                    </div>
+                      <div class="cdp-pinfo">
+                        <span class="cdp-ptitle">{{ _prod.title }}</span>
+                      </div>
+                      <span class="cdp-pprice">{{ _prod.price | money_without_trailing_zeros }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endif -%}
+                {%- assign _pri = _pri | plus: 1 -%}
+              {%- endfor -%}
+              {%- if _pr_open -%}</ul>{%- endif -%}
+
+              {%- comment -%} FREE ITEMS — up to 4 products per block {%- endcomment -%}
+              {%- assign _fr_open = false -%}
+              {%- assign _fri     = 0 -%}
+              {%- for b in section.blocks -%}
+                {%- if _fri > _ts and _fri < _te and b.type == 'free_item' -%}
+                  {%- assign _fp1 = b.settings.product_1 -%}
+                  {%- assign _fp2 = b.settings.product_2 -%}
+                  {%- assign _fp3 = b.settings.product_3 -%}
+                  {%- assign _fp4 = b.settings.product_4 -%}
+                  {%- if _fp1 != blank -%}
+                    {%- unless _fr_open -%}
+                      <ul class="cdp-free-list" aria-label="Free gifts">
+                      {%- assign _fr_open = true -%}
+                    {%- endunless -%}
+                    <li class="cdp-free-row" {{ b.shopify_attributes }}>
+                      <div class="cdp-free-badge" aria-label="Free gift">
+                        <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M8 1a2 2 0 0 1 1.732 3H13a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.268A2 2 0 0 1 8 1zm0 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM3 8h5v7H4a1 1 0 0 1-1-1V8zm6 0h4v6a1 1 0 0 1-1 1H9V8z"/>
+                        </svg>
+                        Free
+                      </div>
+                      <div class="cdp-free-body">
+                        <div class="cdp-free-imgs" aria-hidden="true">
+                          <div class="cdp-pimg">
+                            {%- if _fp1.featured_image != blank -%}
+                              {{ _fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                            {%- endif -%}
+                          </div>
+                          {%- if _fp2 != blank -%}
+                            <div class="cdp-pimg">
+                              {%- if _fp2.featured_image != blank -%}
+                                {{ _fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+                          {%- if _fp3 != blank -%}
+                            <div class="cdp-pimg">
+                              {%- if _fp3.featured_image != blank -%}
+                                {{ _fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+                          {%- if _fp4 != blank -%}
+                            <div class="cdp-pimg">
+                              {%- if _fp4.featured_image != blank -%}
+                                {{ _fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                        <span class="cdp-free-title">
+                          {{ _fp1.title }}
+                          {%- if _fp2 != blank -%} + {{ _fp2.title }}{%- endif -%}
+                          {%- if _fp3 != blank -%} + {{ _fp3.title }}{%- endif -%}
+                          {%- if _fp4 != blank -%} + {{ _fp4.title }}{%- endif -%}
+                        </span>
+                      </div>
+                    </li>
+                  {%- endif -%}
+                {%- endif -%}
+                {%- assign _fri = _fri | plus: 1 -%}
+              {%- endfor -%}
+              {%- if _fr_open -%}</ul>{%- endif -%}
+
+              {%- comment -%} TOTAL {%- endcomment -%}
+              {%- assign _sum_p   = 0 -%}
+              {%- assign _sum_c   = 0 -%}
+              {%- assign _has_cmp = false -%}
+              {%- assign _tbi     = 0 -%}
+              {%- for b in section.blocks -%}
+                {%- if _tbi > _ts and _tbi < _te and b.type == 'tab_product' -%}
+                  {%- assign _tp = b.settings.product -%}
+                  {%- if _tp != blank -%}
+                    {%- assign _sum_p = _sum_p | plus: _tp.price -%}
+                    {%- if _tp.compare_at_price > 0 -%}
+                      {%- assign _sum_c   = _sum_c | plus: _tp.compare_at_price -%}
+                      {%- assign _has_cmp = true -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endif -%}
+                {%- assign _tbi = _tbi | plus: 1 -%}
+              {%- endfor -%}
+
+              {%- if _sum_p > 0 or outer_block.settings.kit_price != blank -%}
+                <div class="cdp-total">
+                  <span class="cdp-total-lbl">Total kit value</span>
+                  <div class="cdp-total-vals">
+                    {%- if _has_cmp -%}
+                      <s class="cdp-cmp-val" aria-label="Original price">{{ _sum_c | money_without_trailing_zeros }}</s>
+                    {%- endif -%}
+                    {%- if outer_block.settings.kit_price != blank -%}
+                      <strong class="cdp-kit-price">{{ outer_block.settings.kit_price }}</strong>
+                    {%- elsif _sum_p > 0 -%}
+                      <strong class="cdp-kit-price">{{ _sum_p | money_without_trailing_zeros }}</strong>
+                    {%- endif -%}
                   </div>
-                {%- endif -%}
-              {%- endif -%}
-              {%- assign _fri = _fri | plus: 1 -%}
-            {%- endfor -%}
-            {%- if _fr_open -%}</div>{%- endif -%}
-
-            {%- comment -%}
-              TOTAL
-              _sum_p = sum of product.price         → main kit price (no strikethrough)
-              _sum_c = sum of compare_at_price      → strikethrough (only if products have compare_at_price)
-              kit_price field = optional manual override for main price
-            {%- endcomment -%}
-            {%- assign _sum_p      = 0 -%}
-            {%- assign _sum_c      = 0 -%}
-            {%- assign _has_cmp    = false -%}
-            {%- assign _tbi        = 0 -%}
-            {%- for b in section.blocks -%}
-              {%- if _tbi > _ts and _tbi < _te and b.type == 'tab_product' -%}
-                {%- assign _tp = b.settings.product -%}
-                {%- if _tp != blank -%}
-                  {%- assign _sum_p = _sum_p | plus: _tp.price -%}
-                  {%- if _tp.compare_at_price > 0 -%}
-                    {%- assign _sum_c   = _sum_c | plus: _tp.compare_at_price -%}
-                    {%- assign _has_cmp = true -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endif -%}
-              {%- assign _tbi = _tbi | plus: 1 -%}
-            {%- endfor -%}
-
-            {%- if _sum_p > 0 or outer_block.settings.kit_price != blank -%}
-              <div class="cdp-total">
-                <span class="cdp-total-lbl">Total kit value</span>
-                <div class="cdp-total-vals">
-                  {%- if _has_cmp -%}
-                    <span class="cdp-cmp-val">{{ _sum_c | money_without_trailing_zeros }}</span>
-                  {%- endif -%}
-                  {%- if outer_block.settings.kit_price != blank -%}
-                    <span class="cdp-kit-price">{{ outer_block.settings.kit_price }}</span>
-                  {%- elsif _sum_p > 0 -%}
-                    <span class="cdp-kit-price">{{ _sum_p | money_without_trailing_zeros }}</span>
-                  {%- endif -%}
                 </div>
+              {%- endif -%}
+
+            </div>
+
+            {%- if outer_block.settings.bottom_image != blank -%}
+              <div class="cdp-btm-img">
+                {{ outer_block.settings.bottom_image
+                   | image_url: width: 900
+                   | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
               </div>
             {%- endif -%}
 
           </div>
 
-          {%- if outer_block.settings.bottom_image != blank -%}
-            <div class="cdp-btm-img">
-              {{ outer_block.settings.bottom_image | image_url: width: 900
-                 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title }}
-            </div>
-          {%- endif -%}
-
         </div>
 
-      </div>
+        {%- assign tab_counter = tab_counter | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
 
-      {%- assign tab_counter = tab_counter | plus: 1 -%}
-    {%- endif -%}
-  {%- endfor -%}
-
-</div>
+  </div>
 </section>
 
 <script>
@@ -572,21 +609,40 @@
     var btnsD  = sec.querySelectorAll('.cdp-tab-btn');
     var btnsM  = sec.querySelectorAll('.cdp-card-btn');
     var panels = sec.querySelectorAll('.cdp-panel');
+
     function activate(idx) {
-      btnsD.forEach(function(b)  { b.classList.remove('cdp-active'); });
-      btnsM.forEach(function(b)  { b.classList.remove('cdp-active'); });
-      panels.forEach(function(p) { p.classList.remove('cdp-active'); });
+      btnsD.forEach(function(b) {
+        b.classList.remove('cdp-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btnsM.forEach(function(b) {
+        b.classList.remove('cdp-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(function(p) {
+        p.classList.remove('cdp-active');
+        p.setAttribute('hidden', '');
+      });
+
       var dBtn  = sec.querySelector('.cdp-tab-btn[data-idx="'  + idx + '"]');
       var mBtn  = sec.querySelector('.cdp-card-btn[data-idx="' + idx + '"]');
       var panel = sec.querySelector('.cdp-panel[data-panel="'  + idx + '"]');
-      if (dBtn)  dBtn.classList.add('cdp-active');
-      if (mBtn)  mBtn.classList.add('cdp-active');
-      if (panel) panel.classList.add('cdp-active');
+
+      if (dBtn)  { dBtn.classList.add('cdp-active');  dBtn.setAttribute('aria-selected', 'true'); }
+      if (mBtn)  { mBtn.classList.add('cdp-active');  mBtn.setAttribute('aria-selected', 'true'); }
+      if (panel) { panel.classList.add('cdp-active'); panel.removeAttribute('hidden'); }
     }
-    btnsD.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
-    btnsM.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
+
+    btnsD.forEach(function(btn) {
+      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
+    });
+    btnsM.forEach(function(btn) {
+      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
+    });
   }
-  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
 })();
 </script>
 
@@ -597,8 +653,8 @@
   "class": "cdp-section-wrap",
   "settings": [
     { "type": "header",   "content": "Section Header" },
-    { "type": "text",     "id": "heading", "label": "Heading",  "default": "Choose your daily practice" },
-    { "type": "textarea", "id": "subtext", "label": "Subtext",  "default": "Haritaki works from the inside. These kits work from the outside. Explore each one in detail before you decide." },
+    { "type": "text",     "id": "heading", "label": "Heading", "default": "Choose your daily practice" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext",  "default": "Haritaki works from the inside. These kits work from the outside." },
     { "type": "header", "content": "Background Gradient" },
     { "type": "color", "id": "bg_top",    "label": "Top color",    "default": "#f5eafd" },
     { "type": "color", "id": "bg_bottom", "label": "Bottom color", "default": "#e4cff3" },
@@ -617,20 +673,20 @@
       "name": "Kit Tab",
       "settings": [
         { "type": "header",       "content": "Tab Header" },
-        { "type": "text",         "id": "tab_title",    "label": "Tab title",     "default": "The Anti-Fluoride Kit" },
-        { "type": "text",         "id": "tab_subtitle", "label": "Tab subtitle",   "default": "Detox your environment" },
-        { "type": "image_picker", "id": "tab_image",    "label": "Tab image (Mobile card)" },
+        { "type": "text",         "id": "tab_title",    "label": "Tab title",              "default": "The Anti-Fluoride Kit" },
+        { "type": "text",         "id": "tab_subtitle", "label": "Tab subtitle",           "default": "Detox your environment" },
+        { "type": "image_picker", "id": "tab_image",    "label": "Tab image (mobile card)" },
         { "type": "header",       "content": "Left Panel" },
-        { "type": "text",         "id": "l_heading", "label": "Main heading", "default": "Why daily fluoride exposure matters" },
-        { "type": "richtext",     "id": "l_desc",    "label": "Description" },
-        { "type": "text",         "id": "l_sub",     "label": "Sub heading",  "default": "How our kit will help you with Detox" },
-        { "type": "text",         "id": "btn_text",  "label": "Button text",  "default": "START YOUR CLEAN ROUTINE" },
-        { "type": "url",          "id": "btn_url",   "label": "Button URL" },
+        { "type": "text",         "id": "l_heading",    "label": "Main heading",           "default": "Why daily fluoride exposure matters" },
+        { "type": "richtext",     "id": "l_desc",       "label": "Description" },
+        { "type": "text",         "id": "l_sub",        "label": "Sub heading",            "default": "How our kit will help you" },
+        { "type": "text",         "id": "btn_text",     "label": "Button text",            "default": "START YOUR CLEAN ROUTINE" },
+        { "type": "url",          "id": "btn_url",      "label": "Button URL" },
         { "type": "header",       "content": "Right Panel" },
-        { "type": "text",         "id": "r_heading",   "label": "Right heading",            "default": "What's inside the Anti-Fluoride Kit" },
-        { "type": "text",         "id": "gifts_label", "label": "Gifts label (Mobile only)", "default": "6 items + 2 Free Gifts worth $69" },
-        { "type": "text",         "id": "kit_price",   "label": "Kit price (e.g. $280)",     "default": "$280" },
-        { "type": "image_picker", "id": "bottom_image","label": "Bottom image (Desktop only)" }
+        { "type": "text",         "id": "r_heading",    "label": "Right heading",          "default": "What's inside the kit" },
+        { "type": "text",         "id": "gifts_label",  "label": "Gifts label",            "default": "6 items + 2 Free Gifts worth $69" },
+        { "type": "text",         "id": "kit_price",    "label": "Kit price (e.g. $280)",  "default": "$280" },
+        { "type": "image_picker", "id": "bottom_image", "label": "Bottom image (desktop only)" }
       ]
     },
     {
@@ -657,9 +713,12 @@
     },
     {
       "type": "free_item",
-      "name": "Free Product",
+      "name": "Free Gift",
       "settings": [
-        { "type": "product", "id": "product", "label": "Select free product" }
+        { "type": "product", "id": "product_1", "label": "Free product 1" },
+        { "type": "product", "id": "product_2", "label": "Free product 2 (optional)" },
+        { "type": "product", "id": "product_3", "label": "Free product 3 (optional)" },
+        { "type": "product", "id": "product_4", "label": "Free product 4 (optional)" }
       ]
     }
   ],
@@ -674,10 +733,10 @@
         { "type": "bullet_item", "settings": { "text": "Free worldwide shipping. 60-day pineal cleanse guarantee." } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } },
-        { "type": "tab",         "settings": { "tab_title": "The Vivid Dreams Kit",  "tab_subtitle": "Optimize your sleep | Full activation", "l_heading": "Why sleep quality matters", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Vivid Dreams Kit", "kit_price": "add for $280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Vivid Dreams Kit", "tab_subtitle": "Optimize your sleep", "l_heading": "Why sleep quality matters", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Vivid Dreams Kit", "kit_price": "$280" } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } },
-        { "type": "tab",         "settings": { "tab_title": "The Pineal Reset Kit",  "tab_subtitle": "Full activation", "l_heading": "Reset and activate your pineal gland", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Pineal Reset Kit", "kit_price": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Pineal Reset Kit", "tab_subtitle": "Full activation", "l_heading": "Reset and activate your pineal gland", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Pineal Reset Kit", "kit_price": "$280" } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } }
       ]
