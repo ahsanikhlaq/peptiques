@@ -211,8 +211,7 @@
 }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-free-list { display: none; }
-  #shopify-section-{{ sid }} .cdp-free-list:has(.cdp-show-desktop-item) { display: flex; }
-  #shopify-section-{{ sid }} .cdp-free-row:not(.cdp-show-desktop-item) { display: none; }
+  #shopify-section-{{ sid }} .cdp-free-list.cdp-show-desktop { display: flex; }
 }
 #shopify-section-{{ sid }} .cdp-free-row {
   position: relative; border: 1.5px dashed #22c55e; border-radius: 10px;
@@ -376,13 +375,13 @@
     {%- for outer_block in section.blocks -%}
       {%- if outer_block.type == 'tab' -%}
 
-        {%- assign tab_start = ts_arr[tab_counter] | plus: 0 -%}
-        {%- assign tab_next = tab_counter | plus: 1 -%}
-        {%- assign tab_end_raw = ts_arr[tab_next] -%}
-        {%- if tab_end_raw == blank -%}
-          {%- assign tab_end = section.blocks.size -%}
+        {%- assign ts     = ts_arr[tab_counter] | plus: 0 -%}
+        {%- assign tc_nxt = tab_counter | plus: 1 -%}
+        {%- assign te_raw = ts_arr[tc_nxt] -%}
+        {%- if te_raw == blank -%}
+          {%- assign te = section.blocks.size -%}
         {%- else -%}
-          {%- assign tab_end = tab_end_raw | plus: 0 -%}
+          {%- assign te = te_raw | plus: 0 -%}
         {%- endif -%}
 
         <div
@@ -409,7 +408,7 @@
             {%- assign b_open = false -%}
             {%- assign bci    = 0 -%}
             {%- for b in section.blocks -%}
-              {%- if bci > tab_start and bci < tab_end and b.type == 'bullet_item' -%}
+              {%- if bci > ts and bci < te and b.type == 'bullet_item' -%}
                 {%- unless b_open -%}<ul class="cdp-bullets">{%- assign b_open = true -%}{%- endunless -%}
                 <li {{ b.shopify_attributes }}>
                   <span class="cdp-check" aria-hidden="true">
@@ -436,7 +435,7 @@
             {%- assign f_open = false -%}
             {%- assign fci    = 0 -%}
             {%- for b in section.blocks -%}
-              {%- if fci > tab_start and fci < tab_end and b.type == 'footer_item' -%}
+              {%- if fci > ts and fci < te and b.type == 'footer_item' -%}
                 {%- unless f_open -%}
                   <div class="cdp-foot" role="list" aria-label="Guarantees">
                   {%- assign f_open = true -%}
@@ -475,42 +474,50 @@
               {%- endif -%}
 
               {%- comment -%} PRODUCTS {%- endcomment -%}
-              <ul class="cdp-prod-list" aria-label="Kit products">
-                {%- assign pri = 0 -%}
-                {%- for b in section.blocks -%}
-                  {%- if pri > tab_start and pri < tab_end and b.type == 'tab_product' -%}
-                    {%- assign prod = b.settings.product -%}
-                    {%- if prod != blank -%}
-                      <li class="cdp-prod-row" {{ b.shopify_attributes }}>
-                        <div class="cdp-pimg">
-                          {%- if prod.featured_image != blank -%}
-                            {{ prod.featured_image
-                               | image_url: width: 120
-                               | image_tag: loading: 'lazy', alt: prod.title | escape }}
-                          {%- endif -%}
-                        </div>
-                        <div class="cdp-pinfo">
-                          <span class="cdp-ptitle">{{ prod.title }}</span>
-                        </div>
-                        <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
-                      </li>
-                    {%- endif -%}
+              {%- assign pr_open = false -%}
+              {%- assign pri     = 0 -%}
+              {%- for b in section.blocks -%}
+                {%- if pri > ts and pri < te and b.type == 'tabproduct' -%}
+                  {%- assign prod = b.settings.product -%}
+                  {%- if prod != blank -%}
+                    {%- unless pr_open -%}
+                      <ul class="cdp-prod-list" aria-label="Kit products">
+                      {%- assign pr_open = true -%}
+                    {%- endunless -%}
+                    <li class="cdp-prod-row" {{ b.shopify_attributes }}>
+                      <div class="cdp-pimg">
+                        {%- if prod.featured_image != blank -%}
+                          {{ prod.featured_image
+                             | image_url: width: 120
+                             | image_tag: loading: 'lazy', alt: prod.title | escape }}
+                        {%- endif -%}
+                      </div>
+                      <div class="cdp-pinfo">
+                        <span class="cdp-ptitle">{{ prod.title }}</span>
+                      </div>
+                      <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
+                    </li>
                   {%- endif -%}
-                  {%- assign pri = pri | plus: 1 -%}
-                {%- endfor -%}
-              </ul>
+                {%- endif -%}
+                {%- assign pri = pri | plus: 1 -%}
+              {%- endfor -%}
+              {%- if pr_open -%}</ul>{%- endif -%}
 
               {%- comment -%} FREE ITEMS — up to 4 products per block {%- endcomment -%}
-              <ul class="cdp-free-list" aria-label="Free gifts">
-              {%- assign fri = 0 -%}
+              {%- assign fr_open = false -%}
+              {%- assign fri     = 0 -%}
               {%- for b in section.blocks -%}
-                {%- if fri > tab_start and fri < tab_end and b.type == 'free_item' -%}
+                {%- if fri > ts and fri < te and b.type == 'free_item' -%}
                   {%- assign fp1 = b.settings.product_1 -%}
                   {%- assign fp2 = b.settings.product_2 -%}
                   {%- assign fp3 = b.settings.product_3 -%}
                   {%- assign fp4 = b.settings.product_4 -%}
                   {%- if fp1 != blank -%}
-                    <li class="cdp-free-row{% if b.settings.show_on_desktop %} cdp-show-desktop-item{% endif %}" {{ b.shopify_attributes }}>
+                    {%- unless fr_open -%}
+                      <ul class="cdp-free-list{% if b.settings.show_on_desktop %} cdp-show-desktop{% endif %}" aria-label="Free gifts">
+                      {%- assign fr_open = true -%}
+                    {%- endunless -%}
+                    <li class="cdp-free-row" {{ b.shopify_attributes }}>
                       <div class="cdp-free-badge" aria-label="Free gift">
                         <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                           <path d="M8 1a2 2 0 0 1 1.732 3H13a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.268A2 2 0 0 1 8 1zm0 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM3 8h5v7H4a1 1 0 0 1-1-1V8zm6 0h4v6a1 1 0 0 1-1 1H9V8z"/>
@@ -561,7 +568,7 @@
                 {%- endif -%}
                 {%- assign fri = fri | plus: 1 -%}
               {%- endfor -%}
-              </ul>
+              {%- if fr_open -%}</ul>{%- endif -%}
 
               {%- comment -%} TOTAL {%- endcomment -%}
               {%- assign sum_p   = 0 -%}
@@ -569,7 +576,7 @@
               {%- assign has_cmp = false -%}
               {%- assign tbi     = 0 -%}
               {%- for b in section.blocks -%}
-                {%- if tbi > tab_start and tbi < tab_end and b.type == 'tab_product' -%}
+                {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
                   {%- assign tp = b.settings.product -%}
                   {%- if tp != blank -%}
                     {%- assign sum_p = sum_p | plus: tp.price -%}
@@ -742,7 +749,7 @@
       ]
     }
   ],
-  "max_blocks": 50,
+  "max_blocks": 60,
   "presets": [
     {
       "name": "Choose Daily Practice",
