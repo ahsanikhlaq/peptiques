@@ -230,12 +230,29 @@
   display: flex; align-items: center; gap: 10px; padding-top: 4px;
 }
 #shopify-section-{{ sid }} .cdp-free-imgs {
-  display: flex; align-items: center; flex-shrink: 0; gap: 4px;
+  display: flex; align-items: center; flex-shrink: 0;
+  position: relative;
+}
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg {
+  position: relative; z-index: 1;
+}
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg {
+  margin-left: 6px;
 }
 #shopify-section-{{ sid }} .cdp-plus-icon {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 22px; height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1.5px solid #d1fae5;
+  display: flex; align-items: center; justify-content: center;
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 18px; font-weight: 700; color: #1a7a3c;
+  font-size: 14px; font-weight: 700; color: #16a34a;
   line-height: 1; flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
 }
 #shopify-section-{{ sid }} .cdp-free-title {
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -728,7 +745,7 @@
         { "type": "product",  "id": "product_2",       "label": "Free product 2 (optional)" },
         { "type": "product",  "id": "product_3",       "label": "Free product 3 (optional)" },
         { "type": "product",  "id": "product_4",       "label": "Free product 4 (optional)" },
-        { "type": "checkbox", "id": "show_on_desktop", "label": "Desktop pe bhi dikhao", "default": false }
+        { "type": "checkbox", "id": "show_on_desktop", "label": "Show on desktop", "default": false }
       ]
     }
   ],
