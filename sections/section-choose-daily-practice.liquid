@@ -21,11 +21,8 @@
 
 <style>
 #shopify-section-{{ sid }} {
-  background: radial-gradient(
-    ellipse at 50% -10%,
-    {{ s.bg_top    | default: '#f5eafd' }} 0%,
-    {{ s.bg_bottom | default: '#e4cff3' }} 100%
-  );
+  background: linear-gradient(0deg, #FFFFFC, #FFFFFC),
+linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
 }
 #shopify-section-{{ sid }} .cdp-outer {
   padding: {{ s.pt_m | default: 48 }}px {{ s.px_m | default: 20 }}px {{ s.pb_m | default: 48 }}px;
