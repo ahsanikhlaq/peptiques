@@ -791,7 +791,7 @@ position: absolute;
                 <h3 class="cdp-r-heading">{{ outer_block.settings.r_heading }}</h3>
               {%- endif -%}
               {%- if outer_block.settings.gifts_label != blank -%}
-                <p class="cdp-r-gifts">{{ outer_block.settings.gifts_label }}</p>
+                <div class="cdp-r-gifts">{{ outer_block.settings.gifts_label }}</div>
               {%- endif -%}
 
               {%- comment -%} FIX 3 (pr_open): ul always rendered, products looped inside — no conditional open/close tags {%- endcomment -%}
