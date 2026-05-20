@@ -2523,6 +2523,12 @@
             "product": "bibhitaki-seven-chakras-capsules"
           }
         },
+        "tabproduct_G8zYnA": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
         "free_item_XFJgDi": {
           "type": "free_item",
           "settings": {
@@ -2621,6 +2627,26 @@
             "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
         },
+        "bullet_item_LNb7tH": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying."
+          }
+        },
+        "footer_item_YKP3Rr": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_63.svg",
+            "text": "Stop or Cancel Anytime"
+          }
+        },
+        "footer_item_KqDTKe": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/SVG_17.svg",
+            "text": "Refills Ship Every 30 days"
+          }
+        },
         "tabproduct_DqFXJX": {
           "type": "tabproduct",
           "settings": {
@@ -2651,6 +2677,24 @@
             "product": "bibhitaki-seven-chakras-capsules"
           }
         },
+        "tabproduct_3hBVHG": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_W7TE9w": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_4nD9g6": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
         "free_item_7LkCGz": {
           "type": "free_item",
           "settings": {
@@ -2671,6 +2715,7 @@
         "footer_item_PCcC4b",
         "tabproduct_aww3R8",
         "tabproduct_NjaW8M",
+        "tabproduct_G8zYnA",
         "free_item_XFJgDi",
         "tab_FTwLP3",
         "bullet_item_rR7qAx",
@@ -2682,11 +2727,17 @@
         "tabproduct_diKYdD",
         "tabproduct_bLzja4",
         "tab_cbiApH",
+        "bullet_item_LNb7tH",
+        "footer_item_YKP3Rr",
+        "footer_item_KqDTKe",
         "tabproduct_DqFXJX",
         "tabproduct_Un9aeb",
         "tabproduct_jgYgKM",
         "tabproduct_R7dLy7",
         "tabproduct_WDiVGp",
+        "tabproduct_3hBVHG",
+        "tabproduct_W7TE9w",
+        "tabproduct_4nD9g6",
         "free_item_7LkCGz"
       ],
       "name": "Choose Daily Practice",
