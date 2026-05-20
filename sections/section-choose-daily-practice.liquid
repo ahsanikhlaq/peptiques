@@ -336,13 +336,12 @@
     padding-top: 12px;
   }
 
-  /* Mobile: horizontal scroll — browser ki natural scroll line aayegi */
+  /* Mobile: horizontal scroll — browser ki natural scroll bar neeche aayegi */
   #shopify-section-{{ sid }} .cdp-prod-list,
   #shopify-section-{{ sid }} .cdp-prod-list--2col {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    scrollbar-width: none;
     gap: 8px;
     padding-bottom: 6px;
     margin: 0;
@@ -351,8 +350,6 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
-  #shopify-section-{{ sid }} .cdp-prod-list::-webkit-scrollbar,
-  #shopify-section-{{ sid }} .cdp-prod-list--2col::-webkit-scrollbar { display: none; }
 
   #shopify-section-{{ sid }} .cdp-prod-row {
     flex: 0 0 calc(25% - 6px);
