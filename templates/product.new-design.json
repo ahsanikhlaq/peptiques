@@ -2650,6 +2650,16 @@
           "settings": {
             "product": "bibhitaki-seven-chakras-capsules"
           }
+        },
+        "free_item_7LkCGz": {
+          "type": "free_item",
+          "settings": {
+            "product_1": "free-detox-spiritual-guidance-e-book",
+            "product_2": "free-worldwide-shipping-1",
+            "product_3": "free-worldwide-shipping-1",
+            "product_4": "",
+            "show_on_desktop": true
+          }
         }
       },
       "block_order": [
@@ -2676,7 +2686,8 @@
         "tabproduct_Un9aeb",
         "tabproduct_jgYgKM",
         "tabproduct_R7dLy7",
-        "tabproduct_WDiVGp"
+        "tabproduct_WDiVGp",
+        "free_item_7LkCGz"
       ],
       "name": "Choose Daily Practice",
       "settings": {
