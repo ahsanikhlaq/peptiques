@@ -1,9 +1,9 @@
 {% comment %}
-  Choose Your Daily Practice v4
+  Choose Your Daily Practice v5
+  - Products layout: checkbox per tab — unchecked = 1-col, checked = 2-col (1fr 1fr)
+  - items_label: optional per-tab (e.g. "8 items + + Free shipping")
   - free_item: 4 products selectable
-  - free items visible on both mobile + desktop
   - SEO: h2 for section, h3 for panels, proper aria labels
-  - Logic same, schema clean
 {% endcomment %}
 
 {%- assign sid = section.id -%}
@@ -20,21 +20,12 @@
 {%- assign ts_arr = ts_str | split: '|' -%}
 
 <style>
-#shopify-section-{{ sid }} .cdp-outer  {
-background-color: #FFFFFC;
-background-image: linear-gradient(
-  90deg,
-  #F5E1FF 0%,
-  #FFFFFF 50%,
-  #F5E1FF 100%
-);
-}
 #shopify-section-{{ sid }} .cdp-outer {
+  background-color: #FFFFFC;
+  background-image: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
   padding: {{ s.pt_m | default: 48 }}px {{ s.px_m | default: 20 }}px {{ s.pb_m | default: 48 }}px;
 }
-#shopify-section-{{ sid }} .cdp-wrap {
-  max-width: 1340px; margin: 0 auto;
-}
+#shopify-section-{{ sid }} .cdp-wrap { max-width: 1340px; margin: 0 auto; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-outer {
     padding: {{ s.pt_d | default: 72 }}px {{ s.px_d | default: 60 }}px {{ s.pb_d | default: 72 }}px;
@@ -44,100 +35,58 @@ background-image: linear-gradient(
 /* HEADER */
 #shopify-section-{{ sid }} .cdp-header { text-align: center; margin-bottom: 50px; }
 #shopify-section-{{ sid }} .cdp-title {
-    font-family: 'Georgia';
-    font-weight: 400;
-    font-size: 46px;
-    line-height: 100%;
-    letter-spacing: -7%;
-    text-align: center;
-    color:#000000;
-    margin:0 0 16px;
+  font-family: 'Georgia'; font-weight: 400; font-size: 46px;
+  line-height: 100%; letter-spacing: -7%; text-align: center; color: #000000; margin: 0 0 16px;
 }
 #shopify-section-{{ sid }} .cdp-sub {
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: -3%;
-    text-align: center;
-    color: rgba(0, 0, 0, 1);
-    margin: 0 auto;
-    max-width: 442px;
+  font-family: 'DM Sans'; font-weight: 400; font-size: 16px;
+  line-height: 100%; letter-spacing: -3%; text-align: center;
+  color: rgba(0,0,0,1); margin: 0 auto; max-width: 442px;
 }
 
 /* DESKTOP TABS */
 #shopify-section-{{ sid }} .cdp-tabs-d { display: none; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-tabs-d {
-    display: flex;
-    gap: 0;
-    margin-bottom: 22px;
-    padding: 10px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(234, 221, 255, 1);
-    list-style: none;
-    margin-top: 0;
+    display: flex; gap: 0; margin-bottom: 22px; padding: 10px;
+    border-radius: 12px; overflow: hidden; background: rgba(234,221,255,1);
+    list-style: none; margin-top: 0;
   }
   #shopify-section-{{ sid }} .cdp-tab-btn {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.2s;
-    border-radius: 12px;
+    flex: 1 1 0; display: flex; flex-direction: column; align-items: center;
+    padding: 20px 0; border: none; background: transparent; cursor: pointer;
+    text-align: left; transition: background 0.2s; border-radius: 12px;
   }
   #shopify-section-{{ sid }} .cdp-tab-btn:last-child { border-right: none; }
-  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active { background: rgba(71, 24, 77, 1); }
+  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active { background: rgba(71,24,77,1); }
   #shopify-section-{{ sid }} .cdp-tab-name {
-    font-family: 'Georgia';
-    font-weight: 700;
-    font-size: 19px;
-    line-height: 22.8px;
-    letter-spacing: 0;
-    text-align: center;
-    margin-bottom: 4px;
-    color:rgba(0, 0, 0, 1);
+    font-family: 'Georgia'; font-weight: 700; font-size: 19px;
+    line-height: 22.8px; text-align: center; margin-bottom: 4px; color: rgba(0,0,0,1);
   }
-  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-name { color: rgba(255, 255, 255, 1); }
+  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-name { color: rgba(255,255,255,1); }
   #shopify-section-{{ sid }} .cdp-tab-note {
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: -3%;
-    text-align: center;
-    color:rgba(0, 0, 0, 1);
+    font-family: 'DM Sans'; font-weight: 400; font-size: 14px;
+    line-height: 100%; letter-spacing: -3%; text-align: center; color: rgba(0,0,0,1);
   }
-  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-note { color: rgba(255, 255, 255, 1); }
+  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-note { color: rgba(255,255,255,1); }
 }
 
 /* MOBILE TAB CARDS */
 #shopify-section-{{ sid }} .cdp-tabs-m {
-  display: flex; gap: 10px; overflow-x: auto;
-  scrollbar-width: none; padding-bottom: 4px; margin-bottom: 20px;
-  list-style: none; padding-left: 0; margin-top: 0;
+  display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none;
+  padding-bottom: 4px; margin-bottom: 20px; list-style: none; padding-left: 0; margin-top: 0;
 }
 #shopify-section-{{ sid }} .cdp-tabs-m::-webkit-scrollbar { display: none; }
 @media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-tabs-m { display: none; } }
 #shopify-section-{{ sid }} .cdp-card-btn {
   flex: 0 0 130px; border-radius: 12px; overflow: hidden; position: relative;
   border: 2.5px solid transparent; cursor: pointer; padding: 0;
-  background: #e8d5f0; transition: border-color 0.2s; flex-shrink: 0;
-  display: flex; flex-direction: column;
+  background: #e8d5f0; transition: border-color 0.2s; flex-shrink: 0; display: flex; flex-direction: column;
 }
 #shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: #3e1047; }
-#shopify-section-{{ sid }} .cdp-card-img-wrap {
-  flex: 0 0 110px; height: 110px; position: relative; overflow: hidden;
-}
+#shopify-section-{{ sid }} .cdp-card-img-wrap { flex: 0 0 110px; height: 110px; position: relative; overflow: hidden; }
 #shopify-section-{{ sid }} .cdp-card-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; display: block; z-index: 1;
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1;
 }
 #shopify-section-{{ sid }} .cdp-card-text {
   padding: 8px 9px 10px; text-align: left; flex-shrink: 0;
@@ -145,486 +94,257 @@ background-image: linear-gradient(
 }
 #shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-text { background: #3e1047; }
 #shopify-section-{{ sid }} .cdp-card-name {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 12px; font-weight: 700; color: #1a0a2e; display: block; line-height: 1.25;
+  font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700;
+  color: #1a0a2e; display: block; line-height: 1.25;
 }
 #shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-name { color: #fff; }
 #shopify-section-{{ sid }} .cdp-card-note {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 10px; color: #5a2872; display: block; margin-top: 2px; line-height: 1.2;
+  font-family: 'DM Sans', system-ui, sans-serif; font-size: 10px; color: #5a2872;
+  display: block; margin-top: 2px; line-height: 1.2;
 }
-#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-note { color: rgba(255, 255, 255, 1); }
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-note { color: rgba(255,255,255,1); }
 
 /* PANELS */
 #shopify-section-{{ sid }} .cdp-panel { display: none; }
 #shopify-section-{{ sid }} .cdp-panel.cdp-active { display: flex; flex-direction: column; gap: 14px; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-panel.cdp-active {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0px; align-items: start;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: start;
   }
 }
 
 /* LEFT PANEL */
 #shopify-section-{{ sid }} .cdp-left {
-  background: rgba(71, 24, 77, 1); border-radius: 12px 0px 0px 12px; padding: 28px 22px 24px;
+  background: rgba(71,24,77,1); border-radius: 12px 0 0 12px; padding: 28px 22px 24px;
   color: #fff; display: flex; flex-direction: column; order: 2; justify-content: space-between;
 }
-@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-left { order: 1; padding: 40px;height: 100%; } }
+@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-left { order: 1; padding: 40px; height: 100%; } }
 #shopify-section-{{ sid }} .cdp-l-heading {
-    font-family: 'Georgia';
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 100%;
-    letter-spacing: -7%;
-    vertical-align: middle;
-    color:rgba(255, 255, 255, 1);
-    margin:0 0 20px;
+  font-family: 'Georgia'; font-weight: 400; font-size: 32px;
+  line-height: 100%; letter-spacing: -7%; color: rgba(255,255,255,1); margin: 0 0 20px;
 }
 @media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-l-heading { font-size: 30px; } }
 #shopify-section-{{ sid }} .cdp-l-desc {
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.2;
-    letter-spacing: -3%;
-   color:rgba(255, 255, 255, 1);
-    margin:0 0 40px;
+  font-family: 'DM Sans'; font-weight: 400; font-size: 16px;
+  line-height: 1.2; letter-spacing: -3%; color: rgba(255,255,255,1); margin: 0 0 40px;
 }
 #shopify-section-{{ sid }} .cdp-l-desc p { margin: 0 0 8px; }
 #shopify-section-{{ sid }} .cdp-l-desc p:last-child { margin-bottom: 0; }
 #shopify-section-{{ sid }} .cdp-l-sub {
-    font-family: 'Georgia';
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 100%;
-    letter-spacing: -7%;
-    vertical-align: middle;
-    color: #fff; margin: 0 0 20px;
+  font-family: 'Georgia'; font-weight: 400; font-size: 24px;
+  line-height: 100%; letter-spacing: -7%; color: #fff; margin: 0 0 20px;
 }
 #shopify-section-{{ sid }} .cdp-bullets {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: 10px;
+  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px;
 }
 #shopify-section-{{ sid }} .cdp-bullets li {
-    display: flex; align-items: center; gap: 12px;
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: -3%;
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'DM Sans'; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: -3%;
 }
 #shopify-section-{{ sid }} .cdp-check {
-  flex-shrink: 0; width: 20px; height: 20px;
-  background: rgba(52, 199, 89, 1); border-radius: 50%;
+  flex-shrink: 0; width: 20px; height: 20px; background: rgba(52,199,89,1); border-radius: 50%;
   display: flex; align-items: center; justify-content: center; margin-top: 1px;
-  border: 1px solid rgba(71, 24, 77, 1)
+  border: 1px solid rgba(71,24,77,1);
 }
 #shopify-section-{{ sid }} .cdp-check svg { width: 11px; height: 11px; }
-#shopify-section-{{ sid }} .cdp-spacer { flex: 1; min-height: 20px; }
 #shopify-section-{{ sid }} .cdp-cta {
-      display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 57px;
-    width: 100%;
-    background: rgba(255, 255, 255, 1);
-    color: rgba(71, 24, 77, 1);
-    font-family: 'DM Sans';
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.15s;
-    margin-bottom: 16px;
+  display: flex; justify-content: center; align-items: center; height: 57px; width: 100%;
+  background: rgba(255,255,255,1); color: rgba(71,24,77,1); font-family: 'DM Sans';
+  font-size: 14px; font-weight: 700; letter-spacing: 0; text-align: center;
+  text-decoration: none; text-transform: uppercase; padding: 0; border-radius: 50px;
+  border: none; cursor: pointer; transition: opacity 0.15s; margin-bottom: 16px;
 }
 #shopify-section-{{ sid }} .cdp-cta:hover { opacity: 0.88; }
 #shopify-section-{{ sid }} .cdp-foot {
   display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 11.5px; color: rgba(255,255,255,0.62);
 }
 #shopify-section-{{ sid }} .cdp-foot-item {
-  display: flex; align-items: center; gap: 10px; padding: 0 14px; 
-  font-family: 'DM Sans', sans-serif;
-font-weight: 400;
-font-size: 14.2px;
-line-height: 17px;
-letter-spacing: -0.43px;
-color:rgba(255, 255, 255, 1);
+  display: flex; align-items: center; gap: 10px; padding: 0 14px;
+  font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 14.2px;
+  line-height: 17px; letter-spacing: -0.43px; color: rgba(255,255,255,1);
 }
-#shopify-section-{{ sid }} .cdp-foot-item + .cdp-foot-item {
-  border-left: 1px solid rgba(255,255,255,0.3);
-}
+#shopify-section-{{ sid }} .cdp-foot-item + .cdp-foot-item { border-left: 1px solid rgba(255,255,255,0.3); }
 #shopify-section-{{ sid }} .cdp-foot-icon { width: 20px; height: 20px; object-fit: contain; display: block; }
 #shopify-section-{{ sid }} .cdp-foot-item svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 /* RIGHT PANEL */
 #shopify-section-{{ sid }} .cdp-right { order: 1; display: flex; flex-direction: column; gap: 20px; }
-@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-right { order: 2; background: rgba(234, 221, 255, 1);
-        padding: 32px;
-        border-radius: 0 12px 12px 0; } }
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-right {
+    order: 2; background: rgba(234,221,255,1); padding: 32px; border-radius: 0 12px 12px 0;
+  }
+}
 #shopify-section-{{ sid }} .cdp-pcard {
-  background: #fff; border-radius: 8px; padding: 16px;
-  border: 1px solid rgba(71, 24, 77, 0.25)
+  background: #fff; border-radius: 8px; padding: 16px; border: 1px solid rgba(71,24,77,0.25);
+}
+
+/* RIGHT HEADING ROW */
+#shopify-section-{{ sid }} .cdp-r-heading-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0;
 }
 #shopify-section-{{ sid }} .cdp-r-heading {
-    font-family: 'Georgia';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: -5%;
-    color:rgba(0, 0, 0, 1);
-    margin:0;
+  font-family: 'Georgia'; font-weight: 400; font-size: 16px;
+  line-height: 100%; letter-spacing: -5%; color: rgba(0,0,0,1); margin: 0;
+}
+#shopify-section-{{ sid }} .cdp-items-label {
+  font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 11px;
+  line-height: 1.3; color: rgba(0,0,0,0.55); white-space: nowrap; flex-shrink: 0; text-align: right;
 }
 #shopify-section-{{ sid }} .cdp-r-gifts {
   font-family: 'DM Sans', system-ui, sans-serif; font-size: 11.5px;
-  color: #7a4a90; margin: 0 0 10px;
-  display:none;
+  color: #7a4a90; margin: 0 0 10px; display: none;
 }
 
-/* Product rows */
-#shopify-section-{{ sid }} .cdp-prod-list {     
-    display: flex;
-    flex-direction: column;
-    margin: 12px 0 0;
-    padding: 12px 0;
-    gap: 8px;
-    border-top: 1px dashed rgba(0, 0, 0, 0.4);
+/* ── PRODUCT LIST ──
+   Default: 1-col flex
+   .cdp-prod-list--2col: 2-col grid (1fr 1fr)
+   Checkbox in customizer controls which class gets applied — same on mobile + desktop
+*/
+#shopify-section-{{ sid }} .cdp-prod-list {
+  display: flex; flex-direction: column;
+  margin: 12px 0 0; padding: 12px 0; gap: 8px;
+  border-top: 1px dashed rgba(0,0,0,0.4);
 }
-#shopify-section-{{ sid }} .cdp-prod-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0;
+#shopify-section-{{ sid }} .cdp-prod-list--2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
+#shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-ptitle { max-width: none; }
 
-/* FREE ITEMS — mobile always, desktop only if show_on_desktop checked */
+#shopify-section-{{ sid }} .cdp-prod-row { display: flex; align-items: center; gap: 8px; padding: 0; }
+
+/* FREE ITEMS */
 #shopify-section-{{ sid }} .cdp-free-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 0;
-    list-style: none;
-    margin: 0px 0 0;
+  display: flex; flex-direction: column; gap: 6px; padding: 0; list-style: none; margin: 0;
 }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-free-list { display: none; }
   #shopify-section-{{ sid }} .cdp-free-list.cdp-show-desktop { display: flex; }
 }
 #shopify-section-{{ sid }} .cdp-free-row {
-      position: relative;
-    border: 1px dashed rgba(52, 199, 89, 1);
-    border-radius: 8px;
-    padding: 6px;
-    background: rgba(52, 199, 89, 0.2);
+  position: relative; border: 1px dashed rgba(52,199,89,1); border-radius: 8px;
+  padding: 6px; background: rgba(52,199,89,0.2);
 }
 #shopify-section-{{ sid }} .cdp-free-badge {
-  position: absolute;
-    top: -12px;
-    right: 10px;
-    background: rgba(52, 199, 89, 1);
-    color: #fff;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 12px;
-    line-height: 100%;
-    font-weight: 500;
-    padding: 3px 5px 3px 5px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  position: absolute; top: -12px; right: 10px; background: rgba(52,199,89,1); color: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; line-height: 100%;
+  font-weight: 500; padding: 3px 5px; border-radius: 3px; display: flex; align-items: center; gap: 4px;
 }
 #shopify-section-{{ sid }} .cdp-free-badge svg { width: 14px; height: 14px; }
-#shopify-section-{{ sid }} .cdp-free-body {
-  display: flex; align-items: center; gap: 12px; padding-top: 0px;
-}
-#shopify-section-{{ sid }} .cdp-free-imgs {
-  display: flex; align-items: center; flex-shrink: 0;
-  position: relative;
-      gap: 4px;
-}
-#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg {
-  position: relative; z-index: 1;
-}
-#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg {
-  margin-left: 6px;
-}
+#shopify-section-{{ sid }} .cdp-free-body { display: flex; align-items: center; gap: 12px; }
+#shopify-section-{{ sid }} .cdp-free-imgs { display: flex; align-items: center; flex-shrink: 0; position: relative; gap: 4px; }
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg { position: relative; z-index: 1; }
+#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg { margin-left: 6px; }
 #shopify-section-{{ sid }} .cdp-plus-icon {
-position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 20px;
-    height: 20px;
-    background: rgba(2, 18, 48, 1);
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 1);
-    display: flex;
-    align-items: flex-start;
-    padding-top: 0.5px;
-    padding-left: 1.3px;
-    justify-content: center;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 1);
-    line-height: 1;
-    flex-shrink: 0;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
+  width: 20px; height: 20px; background: rgba(2,18,48,1); border-radius: 50%;
+  border: 2px solid rgba(255,255,255,1); display: flex; align-items: flex-start;
+  padding-top: 0.5px; padding-left: 1.3px; justify-content: center;
+  font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,1); line-height: 1; flex-shrink: 0;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
 }
 #shopify-section-{{ sid }} .cdp-free-title {
-   font-family: 'DM Sans';
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 17px;
-  letter-spacing: -4%;
-  color:rgba(0, 0, 0, 1);
+  font-family: 'DM Sans'; font-weight: 500; font-size: 12px; line-height: 17px;
+  letter-spacing: -4%; color: rgba(0,0,0,1);
 }
 #shopify-section-{{ sid }} .cdp-pimg {
-  width: 42px; height: 42px; flex-shrink: 0; border-radius: 4px;
-  overflow: hidden;
+  width: 42px; height: 42px; flex-shrink: 0; border-radius: 4px; overflow: hidden;
   background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
-    linear-gradient(224.65deg, rgba(237, 225, 255, 0.3) -12.5%, rgba(71, 24, 77, 0.3) 100%);
-    border: 0.5px solid rgba(206, 203, 246, 1)
+    linear-gradient(224.65deg, rgba(237,225,255,0.3) -12.5%, rgba(71,24,77,0.3) 100%);
+  border: 0.5px solid rgba(206,203,246,1);
 }
 #shopify-section-{{ sid }} .cdp-pimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
 #shopify-section-{{ sid }} .cdp-pinfo { flex: 1 1 auto; min-width: 0; }
 #shopify-section-{{ sid }} .cdp-ptitle {
-     font-family: 'DM Sans';
-    font-weight: 500;
-    font-size: 13.8px;
-    line-height: 15.4px;
-    letter-spacing: -5%;
-    display: block;
-    color:rgba(0, 0, 0, 0.6);
-    max-width: 114px;
+  font-family: 'DM Sans'; font-weight: 500; font-size: 13.8px; line-height: 15.4px;
+  letter-spacing: -5%; display: block; color: rgba(0,0,0,0.6); max-width: 114px;
 }
 #shopify-section-{{ sid }} .cdp-pprice {
-    font-family: 'DM Sans';
-    font-weight: 500;
-    font-size: 11.9px;
-    line-height: 100%;
-    letter-spacing: -3%;
-    color: rgba(0, 0, 0, 1); 
-    white-space: nowrap; 
-    flex-shrink: 0;
-        padding: 4px 6px;
-    background: rgba(251, 241, 255, 1);
+  font-family: 'DM Sans'; font-weight: 500; font-size: 11.9px; line-height: 100%;
+  letter-spacing: -3%; color: rgba(0,0,0,1); white-space: nowrap; flex-shrink: 0;
+  padding: 4px 6px; background: rgba(251,241,255,1);
 }
 
-/* Total row */
+/* TOTAL ROW */
 #shopify-section-{{ sid }} .cdp-total {
-      display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0;
-    margin-top: 0;
+  display: flex; align-items: center; justify-content: space-between; padding-top: 0; margin-top: 0;
 }
 #shopify-section-{{ sid }} .cdp-total-lbl {
-     font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 17px;
-    letter-spacing: -4%;
-    color: rgba(0, 0, 0, 1);
+  font-family: 'DM Sans'; font-weight: 400; font-size: 11px;
+  line-height: 17px; letter-spacing: -4%; color: rgba(0,0,0,1);
 }
 #shopify-section-{{ sid }} .cdp-total-vals { display: flex; align-items: baseline; gap: 8px; }
 #shopify-section-{{ sid }} .cdp-cmp-val {
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20.15px;
-    letter-spacing: -5%;
-    color: #aaa; 
-    text-decoration: line-through;
+  font-family: 'DM Sans'; font-weight: 400; font-size: 13px;
+  line-height: 20.15px; letter-spacing: -5%; color: #aaa; text-decoration: line-through;
 }
 #shopify-section-{{ sid }} .cdp-kit-price {
-    font-family: 'DM Sans';
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 20.15px;
-    letter-spacing: -7%;
-    color: rgba(0, 0, 0, 1);
+  font-family: 'DM Sans'; font-weight: 600; font-size: 13px;
+  line-height: 20.15px; letter-spacing: -7%; color: rgba(0,0,0,1);
 }
 
-/* Bottom image desktop only */
+/* BOTTOM IMAGE desktop only */
 #shopify-section-{{ sid }} .cdp-btm-img { display: none; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
 }
 #shopify-section-{{ sid }} .cdp-btm-img img { width: 100%; height: auto; display: block; }
-@media(max-width:768px){
-    #shopify-section-{{ sid }} .cdp-r-gifts {
-    display:block;
-    margin:0;
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 15.5px;
-    letter-spacing: -5%;
-    color:rgba(0, 0, 0, 1);
-    }
-     #shopify-section-{{ sid }}  .cdp-r-gifts p{
-      margin:0;
-    }
-    #shopify-section-{{ sid }} .cdp-title{
-    font-size: 30px;
-    line-height: 110.00000000000001%;
-    letter-spacing: -4%;
-    text-align: center;
-    margin: 0 0 8px;
-    }
-    #shopify-section-{{ sid }} .cdp-header {
-    text-align: center;
-    margin-bottom: 24px;
-    }
-    #shopify-section-{{ sid }} .cdp-sub{
-        font-size: 14.6px;
-        line-height: 18.8px;
-        letter-spacing: -3%;
-        text-align: center;
-    }
-    #shopify-section-{{ sid }} .cdp-tabs-m{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 8px;
-        overflow-x: auto;
-        scrollbar-width: none;
-        padding-bottom: 0;
-        margin-bottom: 12px;
-        list-style: none;
-        padding-left: 0;
-        margin-top: 0;
-    }
-    #shopify-section-{{ sid }} .cdp-card-btn{
-        background: rgba(234, 221, 255, 1);
-        border-radius: 6px;
-        overflow: hidden;
-        position: relative;
-        border: unset;
-        cursor: pointer;
-        padding: 5px;
-    }
-    #shopify-section-{{ sid }} .cdp-card-btn.cdp-active {
-    border-color: unset;
-    background: rgba(71, 24, 77, 1);
-   }
-   #shopify-section-{{ sid }} .cdp-card-text{
-        padding: 8px 0 0;
-        text-align: left;
-        flex-shrink: 0;
-        background: unset;
-    }
-    #shopify-section-{{ sid }} .cdp-card-img-wrap {
-    flex: 0 0 65px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 4px;
-    }
-    #shopify-section-{{ sid }} .cdp-card-name {
-        font-family: 'Georgia';
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15.6px;
-        letter-spacing: -5%;
-        color:rgba(0, 0, 0, 1);
-    }
-     #shopify-section-{{ sid }} .cdp-card-note{
-        font-family: DM Sans;
-        font-weight: 400;
-        font-size: 10px;
-        line-height: 14.4px;
-        letter-spacing: -3%;
-        color:rgba(0, 0, 0, 1);
-    }
-    #shopify-section-{{ sid }} .cdp-r-heading{
-        margin: 0 0 6px;
-    }
-    #shopify-section-{{ sid }} .cdp-prod-list {
-        margin: 10px 0 0;
-    }
-    #shopify-section-{{ sid }} .cdp-total {
-    margin-top: 12px;
-    }
-    #shopify-section-{{ sid }} .cdp-ptitle{
-    font-size: 11.8px;
-    line-height: 12.4px;
-    letter-spacing: -5%;
-    }
-    #shopify-section-{{ sid }} .cdp-pprice{
-    font-size: 13px;
-    line-height: 100%;
-    letter-spacing: 0;
-    }
-    #shopify-section-{{ sid }} .cdp-panel.cdp-active {
-    display: flex; 
-    flex-direction: column; 
-    gap: 0px; 
-    }
-    #shopify-section-{{ sid }} .cdp-pcard{
-    border-radius: 10px 10px 0px 0px;
-    }
-    #shopify-section-{{ sid }} .cdp-left{
-    border-radius: 0px 0px 10px 10px;
-    padding: 16px;
-    gap: 32px;
-    }
-    #shopify-section-{{ sid }} .cdp-l-heading{
-    font-size: 30px;
-    line-height: 110.00000000000001%;
-    letter-spacing: -4%;
-    margin: 0 0 16px;
-    }
-    #shopify-section-{{ sid }} .cdp-l-desc{
-    font-size: 14.6px;
-    line-height: 18.8px;
-    letter-spacing: -3%;
-    margin: 0 0 16px;
-    }
-    #shopify-section-{{ sid }} .cdp-bullets{
-     gap: 12px;
-    }
-    #shopify-section-{{ sid }} .cdp-bullets li{
-    font-size: 14.6px;
-    line-height: 18.8px;
-    letter-spacing: -3%;
-    gap: 6px;
-    align-items: self-start;
-    }
-    #shopify-section-{{ sid }} .cdp-cta{
-      height: 48px;
-    }
-    #shopify-section-{{ sid }} .cdp-foot{
-          flex-wrap: nowrap;
-    }
-    #shopify-section-{{ sid }} .cdp-foot-item {
-    gap: 6px;
-    padding: 0;
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: -3%;
-    }
-    #shopify-section-{{ sid }} .cdp-foot{
-          justify-content: space-between;
-    }
-    #shopify-section-{{ sid }} .cdp-foot-item + .cdp-foot-item {
-    border-left: unset;
-    }
-    #shopify-section-{{ sid }} .cdp-foot-icon {
-    width: 18px;
-    height: 18px;
-    }
-    #shopify-section-{{ sid }} .cdp-pimg {
-    width: 40px;
-    height: 40px;
-    }
-    }
+
+/* ── MOBILE OVERRIDES ── */
+@media (max-width: 768px) {
+  #shopify-section-{{ sid }} .cdp-r-gifts {
+    display: block; margin: 0; font-family: 'DM Sans'; font-weight: 400;
+    font-size: 10px; line-height: 15.5px; letter-spacing: -5%; color: rgba(0,0,0,1);
+  }
+  #shopify-section-{{ sid }} .cdp-r-gifts p { margin: 0; }
+  #shopify-section-{{ sid }} .cdp-title {
+    font-size: 30px; line-height: 110%; letter-spacing: -4%; text-align: center; margin: 0 0 8px;
+  }
+  #shopify-section-{{ sid }} .cdp-header { text-align: center; margin-bottom: 24px; }
+  #shopify-section-{{ sid }} .cdp-sub { font-size: 14.6px; line-height: 18.8px; letter-spacing: -3%; text-align: center; }
+  #shopify-section-{{ sid }} .cdp-tabs-m {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; overflow-x: auto;
+    scrollbar-width: none; padding-bottom: 0; margin-bottom: 12px; list-style: none; padding-left: 0; margin-top: 0;
+  }
+  #shopify-section-{{ sid }} .cdp-card-btn {
+    background: rgba(234,221,255,1); border-radius: 6px; overflow: hidden;
+    position: relative; border: unset; cursor: pointer; padding: 5px;
+  }
+  #shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: unset; background: rgba(71,24,77,1); }
+  #shopify-section-{{ sid }} .cdp-card-text { padding: 8px 0 0; text-align: left; flex-shrink: 0; background: unset; }
+  #shopify-section-{{ sid }} .cdp-card-img-wrap { flex: 0 0 65px; position: relative; overflow: hidden; border-radius: 4px; }
+  #shopify-section-{{ sid }} .cdp-card-name {
+    font-family: 'Georgia'; font-weight: 400; font-size: 12px; line-height: 15.6px; letter-spacing: -5%; color: rgba(0,0,0,1);
+  }
+  #shopify-section-{{ sid }} .cdp-card-note {
+    font-family: 'DM Sans'; font-weight: 400; font-size: 10px; line-height: 14.4px; letter-spacing: -3%; color: rgba(0,0,0,1);
+  }
+  #shopify-section-{{ sid }} .cdp-r-heading { margin: 0; }
+  #shopify-section-{{ sid }} .cdp-prod-list { margin: 10px 0 0; }
+  #shopify-section-{{ sid }} .cdp-total { margin-top: 12px; }
+  #shopify-section-{{ sid }} .cdp-ptitle { font-size: 11.8px; line-height: 12.4px; letter-spacing: -5%; }
+  #shopify-section-{{ sid }} .cdp-pprice { font-size: 13px; line-height: 100%; letter-spacing: 0; }
+  #shopify-section-{{ sid }} .cdp-panel.cdp-active { display: flex; flex-direction: column; gap: 0; }
+  #shopify-section-{{ sid }} .cdp-pcard { border-radius: 10px 10px 0 0; }
+  #shopify-section-{{ sid }} .cdp-left { border-radius: 0 0 10px 10px; padding: 16px; gap: 32px; }
+  #shopify-section-{{ sid }} .cdp-l-heading { font-size: 30px; line-height: 110%; letter-spacing: -4%; margin: 0 0 16px; }
+  #shopify-section-{{ sid }} .cdp-l-desc { font-size: 14.6px; line-height: 18.8px; letter-spacing: -3%; margin: 0 0 16px; }
+  #shopify-section-{{ sid }} .cdp-bullets { gap: 12px; }
+  #shopify-section-{{ sid }} .cdp-bullets li { font-size: 14.6px; line-height: 18.8px; letter-spacing: -3%; gap: 6px; align-items: self-start; }
+  #shopify-section-{{ sid }} .cdp-cta { height: 48px; }
+  #shopify-section-{{ sid }} .cdp-foot { flex-wrap: nowrap; justify-content: space-between; }
+  #shopify-section-{{ sid }} .cdp-foot-item { gap: 6px; padding: 0; font-size: 12px; line-height: 16px; letter-spacing: -3%; }
+  #shopify-section-{{ sid }} .cdp-foot-item + .cdp-foot-item { border-left: unset; }
+  #shopify-section-{{ sid }} .cdp-foot-icon { width: 18px; height: 18px; }
+  #shopify-section-{{ sid }} .cdp-pimg { width: 40px; height: 40px; }
+  #shopify-section-{{ sid }} .cdp-items-label { font-size: 10px; }
+  /* 2-col grid on mobile too — same 1fr 1fr */
+  #shopify-section-{{ sid }} .cdp-prod-list--2col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+}
 </style>
 
 <section class="cdp-outer" aria-label="{{ s.heading | escape }}" {{ section.shopify_attributes }}>
@@ -648,8 +368,7 @@ position: absolute;
           <button
             class="cdp-tab-btn{% if tab_i == 0 %} cdp-active{% endif %}"
             data-idx="{{ tab_i }}"
-            type="button"
-            role="tab"
+            type="button" role="tab"
             aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
             aria-controls="cdp-panel-{{ sid }}-{{ tab_i }}"
             id="cdp-tab-{{ sid }}-{{ tab_i }}"
@@ -672,17 +391,13 @@ position: absolute;
           <button
             class="cdp-card-btn{% if tab_i == 0 %} cdp-active{% endif %}"
             data-idx="{{ tab_i }}"
-            type="button"
-            role="tab"
+            type="button" role="tab"
             aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
             aria-controls="cdp-panel-{{ sid }}-{{ tab_i }}"
             aria-label="{{ block.settings.tab_title | default: 'Kit Tab' | escape }}">
             <div class="cdp-card-img-wrap">
               {%- if block.settings.tab_image != blank -%}
-                {{ block.settings.tab_image
-                   | image_url: width: 300
-                   | image_tag: loading: 'lazy', class: 'cdp-card-img',
-                     alt: block.settings.tab_title | escape }}
+                {{ block.settings.tab_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'cdp-card-img', alt: block.settings.tab_title | escape }}
               {%- endif -%}
             </div>
             <div class="cdp-card-text">
@@ -721,84 +436,89 @@ position: absolute;
 
           {%- comment -%}══ LEFT ══{%- endcomment -%}
           <div class="cdp-left">
-           <div>
-            {%- if outer_block.settings.l_heading != blank -%}
-              <h3 class="cdp-l-heading">{{ outer_block.settings.l_heading }}</h3>
-            {%- endif -%}
-            {%- if outer_block.settings.l_desc != blank -%}
-              <div class="cdp-l-desc">{{ outer_block.settings.l_desc }}</div>
-            {%- endif -%}
-            {%- if outer_block.settings.l_sub != blank -%}
-              <p class="cdp-l-sub">{{ outer_block.settings.l_sub }}</p>
-            {%- endif -%}
-
-            {%- comment -%} FIX 1 (b_open): ul always rendered, items looped inside — no conditional open/close tags {%- endcomment -%}
-            <ul class="cdp-bullets">
-              {%- assign bci = 0 -%}
-              {%- for b in section.blocks -%}
-                {%- if bci > ts and bci < te and b.type == 'bullet_item' -%}
-                  <li {{ b.shopify_attributes }}>
-                    <span class="cdp-check" aria-hidden="true">
-                      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2"
-                                  stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                    {{ b.settings.text }}
-                  </li>
-                {%- endif -%}
-                {%- assign bci = bci | plus: 1 -%}
-              {%- endfor -%}
-            </ul>
-           </div>
-            {% comment %} <div class="cdp-spacer"></div> {% endcomment %}
             <div>
-            {%- if outer_block.settings.btn_text != blank -%}
-              <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">
-                {{ outer_block.settings.btn_text }}
-              </a>
-            {%- endif -%}
-
-            {%- comment -%} FIX 2 (f_open): div always rendered, items looped inside — no conditional open/close tags {%- endcomment -%}
-            <div class="cdp-foot" role="list" aria-label="Guarantees">
-              {%- assign fci = 0 -%}
-              {%- for b in section.blocks -%}
-                {%- if fci > ts and fci < te and b.type == 'footer_item' -%}
-                  <span class="cdp-foot-item" role="listitem" {{ b.shopify_attributes }}>
-                    {%- if b.settings.icon_image != blank -%}
-                      {{ b.settings.icon_image
-                         | image_url: width: 40
-                         | image_tag: loading: 'lazy', class: 'cdp-foot-icon',
-                           width: 14, height: 14, alt: '' }}
-                    {%- else -%}
-                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                        <circle cx="10" cy="10" r="7.5"/>
-                        <line x1="10" y1="7" x2="10" y2="10.5"/>
-                        <circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/>
-                      </svg>
-                    {%- endif -%}
-                    {{ b.settings.text }}
-                  </span>
-                {%- endif -%}
-                {%- assign fci = fci | plus: 1 -%}
-              {%- endfor -%}
+              {%- if outer_block.settings.l_heading != blank -%}
+                <h3 class="cdp-l-heading">{{ outer_block.settings.l_heading }}</h3>
+              {%- endif -%}
+              {%- if outer_block.settings.l_desc != blank -%}
+                <div class="cdp-l-desc">{{ outer_block.settings.l_desc }}</div>
+              {%- endif -%}
+              {%- if outer_block.settings.l_sub != blank -%}
+                <p class="cdp-l-sub">{{ outer_block.settings.l_sub }}</p>
+              {%- endif -%}
+              <ul class="cdp-bullets">
+                {%- assign bci = 0 -%}
+                {%- for b in section.blocks -%}
+                  {%- if bci > ts and bci < te and b.type == 'bullet_item' -%}
+                    <li {{ b.shopify_attributes }}>
+                      <span class="cdp-check" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                      {{ b.settings.text }}
+                    </li>
+                  {%- endif -%}
+                  {%- assign bci = bci | plus: 1 -%}
+                {%- endfor -%}
+              </ul>
             </div>
-        </div>
+            <div>
+              {%- if outer_block.settings.btn_text != blank -%}
+                <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">
+                  {{ outer_block.settings.btn_text }}
+                </a>
+              {%- endif -%}
+              <div class="cdp-foot" role="list" aria-label="Guarantees">
+                {%- assign fci = 0 -%}
+                {%- for b in section.blocks -%}
+                  {%- if fci > ts and fci < te and b.type == 'footer_item' -%}
+                    <span class="cdp-foot-item" role="listitem" {{ b.shopify_attributes }}>
+                      {%- if b.settings.icon_image != blank -%}
+                        {{ b.settings.icon_image | image_url: width: 40 | image_tag: loading: 'lazy', class: 'cdp-foot-icon', width: 14, height: 14, alt: '' }}
+                      {%- else -%}
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                          <circle cx="10" cy="10" r="7.5"/>
+                          <line x1="10" y1="7" x2="10" y2="10.5"/>
+                          <circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/>
+                        </svg>
+                      {%- endif -%}
+                      {{ b.settings.text }}
+                    </span>
+                  {%- endif -%}
+                  {%- assign fci = fci | plus: 1 -%}
+                {%- endfor -%}
+              </div>
+            </div>
           </div>
 
           {%- comment -%}══ RIGHT ══{%- endcomment -%}
           <div class="cdp-right">
             <div class="cdp-pcard">
 
-              {%- if outer_block.settings.r_heading != blank -%}
-                <h3 class="cdp-r-heading">{{ outer_block.settings.r_heading }}</h3>
+              {%- comment -%} Heading row + optional items label {%- endcomment -%}
+              {%- if outer_block.settings.r_heading != blank or outer_block.settings.items_label != blank -%}
+                <div class="cdp-r-heading-row">
+                  {%- if outer_block.settings.r_heading != blank -%}
+                    <h3 class="cdp-r-heading">{{ outer_block.settings.r_heading }}</h3>
+                  {%- endif -%}
+                  {%- if outer_block.settings.items_label != blank -%}
+                    <span class="cdp-items-label">{{ outer_block.settings.items_label }}</span>
+                  {%- endif -%}
+                </div>
               {%- endif -%}
+
               {%- if outer_block.settings.gifts_label != blank -%}
                 <div class="cdp-r-gifts">{{ outer_block.settings.gifts_label }}</div>
               {%- endif -%}
 
-              {%- comment -%} FIX 3 (pr_open): ul always rendered, products looped inside — no conditional open/close tags {%- endcomment -%}
-              <ul class="cdp-prod-list" aria-label="Kit products">
+              {%- comment -%}
+                PRODUCT LIST
+                Checkbox "products_2col" in customizer controls layout:
+                  unchecked → 1-col (default flex column)
+                  checked   → 2-col grid (1fr 1fr) — same on mobile + desktop
+              {%- endcomment -%}
+              <ul class="cdp-prod-list{% if outer_block.settings.products_2col %} cdp-prod-list--2col{% endif %}" aria-label="Kit products">
                 {%- assign pri = 0 -%}
                 {%- for b in section.blocks -%}
                   {%- if pri > ts and pri < te and b.type == 'tabproduct' -%}
@@ -807,9 +527,7 @@ position: absolute;
                       <li class="cdp-prod-row" {{ b.shopify_attributes }}>
                         <div class="cdp-pimg">
                           {%- if prod.featured_image != blank -%}
-                            {{ prod.featured_image
-                               | image_url: width: 120
-                               | image_tag: loading: 'lazy', alt: prod.title | escape }}
+                            {{ prod.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: prod.title | escape }}
                           {%- endif -%}
                         </div>
                         <div class="cdp-pinfo">
@@ -823,8 +541,7 @@ position: absolute;
                 {%- endfor -%}
               </ul>
 
-              {%- comment -%} FIX 4 (fr_open): ul always rendered, free items looped inside — no conditional open/close tags {%- endcomment -%}
-              {%- comment -%} Pre-scan show_on_desktop from first free_item in this tab range {%- endcomment -%}
+              {%- comment -%} Free items {%- endcomment -%}
               {%- assign fr_desktop = false -%}
               {%- assign frdi = 0 -%}
               {%- for b in section.blocks -%}
@@ -845,22 +562,16 @@ position: absolute;
                       <li class="cdp-free-row" {{ b.shopify_attributes }}>
                         <div class="cdp-free-badge" aria-label="Free gift">
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clip-path="url(#clip0_426_27608)">
-                          <g clip-path="url(#clip1_426_27608)">
+                          <g clip-path="url(#clip0_426_27608)"><g clip-path="url(#clip1_426_27608)">
                           <path d="M11.8125 4.375H2.1875C1.94587 4.375 1.75 4.57087 1.75 4.8125V6.5625C1.75 6.80413 1.94587 7 2.1875 7H11.8125C12.0541 7 12.25 6.80413 12.25 6.5625V4.8125C12.25 4.57087 12.0541 4.375 11.8125 4.375Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M11.375 7V10.9375C11.375 11.0536 11.3289 11.1648 11.2468 11.2468C11.1648 11.3289 11.0536 11.375 10.9375 11.375H3.0625C2.94647 11.375 2.83519 11.3289 2.75314 11.2468C2.67109 11.1648 2.625 11.0536 2.625 10.9375V7" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M7 4.375V11.375" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M9.66819 1.70695C10.179 2.21773 10.2091 3.07741 9.66819 3.55648C8.74342 4.37515 7 4.37515 7 4.37515C7 4.37515 7 2.63171 7.82033 1.70695C8.29773 1.16609 9.1574 1.19616 9.66819 1.70695Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M4.33195 1.70695C3.82116 2.21773 3.79109 3.07741 4.33195 3.55648C5.25671 4.37515 7.00015 4.37515 7.00015 4.37515C7.00015 4.37515 7.00015 2.63171 6.17984 1.70695C5.70241 1.16609 4.84273 1.19616 4.33195 1.70695Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
-                          </g>
-                          </g>
+                          </g></g>
                           <defs>
-                          <clipPath id="clip0_426_27608">
-                          <rect width="14" height="14" fill="white"/>
-                          </clipPath>
-                          <clipPath id="clip1_426_27608">
-                          <rect width="14" height="14" fill="white"/>
-                          </clipPath>
+                          <clipPath id="clip0_426_27608"><rect width="14" height="14" fill="white"/></clipPath>
+                          <clipPath id="clip1_426_27608"><rect width="14" height="14" fill="white"/></clipPath>
                           </defs>
                           </svg>
                           Free
@@ -875,25 +586,19 @@ position: absolute;
                             {%- if fp2 != blank -%}
                               <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               <div class="cdp-pimg">
-                                {%- if fp2.featured_image != blank -%}
-                                  {{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
-                                {%- endif -%}
+                                {%- if fp2.featured_image != blank -%}{{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
                               </div>
                             {%- endif -%}
                             {%- if fp3 != blank -%}
                               <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               <div class="cdp-pimg">
-                                {%- if fp3.featured_image != blank -%}
-                                  {{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
-                                {%- endif -%}
+                                {%- if fp3.featured_image != blank -%}{{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
                               </div>
                             {%- endif -%}
                             {%- if fp4 != blank -%}
                               <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               <div class="cdp-pimg">
-                                {%- if fp4.featured_image != blank -%}
-                                  {{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
-                                {%- endif -%}
+                                {%- if fp4.featured_image != blank -%}{{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
                               </div>
                             {%- endif -%}
                           </div>
@@ -911,29 +616,24 @@ position: absolute;
                 {%- endfor -%}
               </ul>
 
-              {%- comment -%} TOTAL — 100% original logic, zero changes {%- endcomment -%}
-              {%- assign sum_p   = 0 -%}
-                {%- assign sum_c   = 0 -%}
-                {%- assign has_cmp = false -%}
-                {%- assign tbi     = 0 -%}
-
-                {%- for b in section.blocks -%}
+              {%- comment -%} TOTAL {%- endcomment -%}
+              {%- assign sum_p = 0 -%}
+              {%- assign sum_c = 0 -%}
+              {%- assign has_cmp = false -%}
+              {%- assign tbi = 0 -%}
+              {%- for b in section.blocks -%}
                 {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
-                    {%- assign tp = b.settings.product -%}
-
-                    {%- if tp != blank -%}
+                  {%- assign tp = b.settings.product -%}
+                  {%- if tp != blank -%}
                     {%- assign sum_p = sum_p | plus: tp.price -%}
-
                     {%- if tp.compare_at_price > 0 -%}
-                        {%- assign sum_c   = sum_c | plus: tp.compare_at_price -%}
-                        {%- assign has_cmp = true -%}
+                      {%- assign sum_c = sum_c | plus: tp.compare_at_price -%}
+                      {%- assign has_cmp = true -%}
                     {%- endif -%}
-
-                    {%- endif -%}
+                  {%- endif -%}
                 {%- endif -%}
-
                 {%- assign tbi = tbi | plus: 1 -%}
-                {%- endfor -%}
+              {%- endfor -%}
 
               {%- if sum_p > 0 or outer_block.settings.kitprice != blank -%}
                 <div class="cdp-total">
@@ -955,14 +655,11 @@ position: absolute;
 
             {%- if outer_block.settings.bottom_image != blank -%}
               <div class="cdp-btm-img">
-                {{ outer_block.settings.bottom_image
-                   | image_url: width: 900
-                   | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
+                {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
               </div>
             {%- endif -%}
 
           </div>
-
         </div>
 
         {%- assign tab_counter = tab_counter | plus: 1 -%}
@@ -981,40 +678,21 @@ position: absolute;
     var btnsD  = sec.querySelectorAll('.cdp-tab-btn');
     var btnsM  = sec.querySelectorAll('.cdp-card-btn');
     var panels = sec.querySelectorAll('.cdp-panel');
-
     function activate(idx) {
-      btnsD.forEach(function(b) {
-        b.classList.remove('cdp-active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btnsM.forEach(function(b) {
-        b.classList.remove('cdp-active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      panels.forEach(function(p) {
-        p.classList.remove('cdp-active');
-        p.setAttribute('hidden', '');
-      });
-
+      btnsD.forEach(function(b) { b.classList.remove('cdp-active'); b.setAttribute('aria-selected', 'false'); });
+      btnsM.forEach(function(b) { b.classList.remove('cdp-active'); b.setAttribute('aria-selected', 'false'); });
+      panels.forEach(function(p) { p.classList.remove('cdp-active'); p.setAttribute('hidden', ''); });
       var dBtn  = sec.querySelector('.cdp-tab-btn[data-idx="'  + idx + '"]');
       var mBtn  = sec.querySelector('.cdp-card-btn[data-idx="' + idx + '"]');
       var panel = sec.querySelector('.cdp-panel[data-panel="'  + idx + '"]');
-
       if (dBtn)  { dBtn.classList.add('cdp-active');  dBtn.setAttribute('aria-selected', 'true'); }
       if (mBtn)  { mBtn.classList.add('cdp-active');  mBtn.setAttribute('aria-selected', 'true'); }
       if (panel) { panel.classList.add('cdp-active'); panel.removeAttribute('hidden'); }
     }
-
-    btnsD.forEach(function(btn) {
-      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
-    });
-    btnsM.forEach(function(btn) {
-      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
-    });
+    btnsD.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
+    btnsM.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
   }
-  document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', init)
-    : init();
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
 })();
 </script>
 
@@ -1042,20 +720,22 @@ position: absolute;
       "name": "Kit Tab",
       "settings": [
         { "type": "header",       "content": "Tab Header" },
-        { "type": "text",         "id": "tab_title",    "label": "Tab title",              "default": "The Anti-Fluoride Kit" },
-        { "type": "text",         "id": "tab_subtitle", "label": "Tab subtitle",           "default": "Detox your environment" },
-        { "type": "image_picker", "id": "tab_image",    "label": "Tab image (mobile card)" },
+        { "type": "text",         "id": "tab_title",     "label": "Tab title",     "default": "The Anti-Fluoride Kit" },
+        { "type": "text",         "id": "tab_subtitle",  "label": "Tab subtitle",  "default": "Detox your environment" },
+        { "type": "image_picker", "id": "tab_image",     "label": "Tab image (mobile card)" },
         { "type": "header",       "content": "Left Panel" },
-        { "type": "text",         "id": "l_heading",    "label": "Main heading",           "default": "Why daily fluoride exposure matters" },
-        { "type": "richtext",     "id": "l_desc",       "label": "Description" },
-        { "type": "text",         "id": "l_sub",        "label": "Sub heading",            "default": "How our kit will help you" },
-        { "type": "text",         "id": "btn_text",     "label": "Button text",            "default": "START YOUR CLEAN ROUTINE" },
-        { "type": "url",          "id": "btn_url",      "label": "Button URL" },
+        { "type": "text",         "id": "l_heading",     "label": "Main heading",  "default": "Why daily fluoride exposure matters" },
+        { "type": "richtext",     "id": "l_desc",        "label": "Description" },
+        { "type": "text",         "id": "l_sub",         "label": "Sub heading",   "default": "How our kit will help you" },
+        { "type": "text",         "id": "btn_text",      "label": "Button text",   "default": "START YOUR CLEAN ROUTINE" },
+        { "type": "url",          "id": "btn_url",       "label": "Button URL" },
         { "type": "header",       "content": "Right Panel" },
-        { "type": "text",         "id": "r_heading",    "label": "Right heading",          "default": "What's inside the kit" },
-        { "type": "richtext", "id": "gifts_label", "label": "Gifts label", "default": "<p>6 items + 2 Free Gifts worth $69</p>" },
-        { "type": "text",         "id": "kitprice",     "label": "Kit price (e.g. $280)",  "default": "$280" },
-        { "type": "image_picker", "id": "bottom_image", "label": "Bottom image (desktop only)" }
+        { "type": "text",         "id": "r_heading",     "label": "Right heading", "default": "What's inside the kit" },
+        { "type": "text",         "id": "items_label",   "label": "Items label (optional, e.g. '8 items + + Free shipping')", "info": "Leave blank to hide." },
+        { "type": "richtext",     "id": "gifts_label",   "label": "Gifts label",   "default": "<p>6 items + 2 Free Gifts worth $69</p>" },
+        { "type": "text",         "id": "kitprice",      "label": "Kit price (e.g. $280)", "default": "$280" },
+        { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns (1fr 1fr)", "default": false, "info": "Unchecked = 1 column. Checked = 2 columns side by side. Works on mobile too." },
+        { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image (desktop only)" }
       ]
     },
     {
@@ -1097,16 +777,16 @@ position: absolute;
     {
       "name": "Choose Daily Practice",
       "blocks": [
-        { "type": "tab",         "settings": { "tab_title": "The Anti-Fluoride Kit", "tab_subtitle": "Detox your environment", "l_heading": "Why daily fluoride exposure matters", "l_sub": "How our kit will help you with Detox", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Anti-Fluoride Kit", "kitprice": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Anti-Fluoride Kit", "tab_subtitle": "Detox your environment", "l_heading": "Why daily fluoride exposure matters", "l_sub": "How our kit will help you with Detox", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Anti-Fluoride Kit", "kitprice": "$280", "products_2col": false } },
         { "type": "bullet_item", "settings": { "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying." } },
         { "type": "bullet_item", "settings": { "text": "Cuts fluoride from your 3 daily sources: water, shower, toothpaste." } },
         { "type": "bullet_item", "settings": { "text": "Free worldwide shipping. 60-day pineal cleanse guarantee." } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } },
-        { "type": "tab",         "settings": { "tab_title": "The Vivid Dreams Kit", "tab_subtitle": "Optimize your sleep", "l_heading": "Why sleep quality matters", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Vivid Dreams Kit", "kitprice": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Vivid Dreams Kit", "tab_subtitle": "Optimize your sleep", "l_heading": "Why sleep quality matters", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Vivid Dreams Kit", "kitprice": "$280", "products_2col": true } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } },
-        { "type": "tab",         "settings": { "tab_title": "The Pineal Reset Kit", "tab_subtitle": "Full activation", "l_heading": "Reset and activate your pineal gland", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Pineal Reset Kit", "kitprice": "$280" } },
+        { "type": "tab",         "settings": { "tab_title": "The Pineal Reset Kit", "tab_subtitle": "Full activation", "l_heading": "Reset and activate your pineal gland", "btn_text": "START YOUR CLEAN ROUTINE", "r_heading": "What's inside the Pineal Reset Kit", "items_label": "8 items + + Free shipping", "kitprice": "$280", "products_2col": true } },
         { "type": "footer_item", "settings": { "text": "Stop or Cancel Anytime" } },
         { "type": "footer_item", "settings": { "text": "Refills Ship Every 30 Days" } }
       ]
