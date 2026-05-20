@@ -208,9 +208,21 @@
 #shopify-section-{{ sid }} .cdp-prod-list--2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap:8px 30px;
+  gap: 8px 12px;
+  overflow: hidden; /* FIX: horizontal scroll band hatao */
 }
-{% comment %} #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-ptitle { max-width: none; } {% endcomment %}
+
+/* FIX: 2col me har item overflow na kare */
+#shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-prod-row {
+  min-width: 0; /* grid item overflow prevent */
+  flex-wrap: wrap;
+}
+#shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-pprice {
+  white-space: normal; /* price wrap hone do */
+}
+#shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-ptitle {
+  max-width: 100%; /* 2col me full width le */
+}
 
 #shopify-section-{{ sid }} .cdp-prod-row { display: flex; align-items: center; gap: 8px; padding: 0; }
 
@@ -224,7 +236,7 @@
 }
 #shopify-section-{{ sid }} .cdp-free-row {
   position: relative; border: 1px dashed rgba(52,199,89,1); border-radius: 8px;
-  padding: 6px; background: rgba(52,199,89,0.2);  margin-bottom: 10px;
+  padding: 6px; background: rgba(52,199,89,0.2); margin-bottom: 10px;
 }
 #shopify-section-{{ sid }} .cdp-free-badge {
   position: absolute; top: -12px; right: 10px; background: rgba(52,199,89,1); color: #fff;
@@ -307,10 +319,9 @@
   line-height: 20.15px; letter-spacing: -7%; color: rgba(0,0,0,1);
 }
 
-/* BOTTOM IMAGE desktop only */
-#shopify-section-{{ sid }} .cdp-btm-img { display: none; }
-@media (min-width: 769px) {
-  #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
+/* BOTTOM IMAGE — FIX: mobile pe bhi show karo */
+#shopify-section-{{ sid }} .cdp-btm-img {
+  display: block; border-radius: 10px; overflow: hidden;
 }
 #shopify-section-{{ sid }} .cdp-btm-img img { width: 100%; height: auto; display: block; }
 
@@ -368,6 +379,25 @@
   /* 2-col grid on mobile too — same 1fr 1fr */
   #shopify-section-{{ sid }} .cdp-prod-list--2col {
     display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    overflow: hidden;
+  }
+  /* FIX: mobile 2col overflow band karo */
+  #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-prod-row {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-pprice {
+    white-space: normal;
+    font-size: 11px;
+  }
+  #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-ptitle {
+    max-width: 100%;
+    font-size: 10.5px;
+    line-height: 13px;
+  }
+  /* FIX: bottom image mobile pe bhi show — rounded corners */
+  #shopify-section-{{ sid }} .cdp-btm-img {
+    border-radius: 10px;
   }
 }
 </style>
