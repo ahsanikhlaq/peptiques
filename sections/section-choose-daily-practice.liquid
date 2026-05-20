@@ -233,18 +233,40 @@
 }
 #shopify-section-{{ sid }} .cdp-free-badge svg { width: 14px; height: 14px; }
 #shopify-section-{{ sid }} .cdp-free-body { display: flex; align-items: center; gap: 12px; }
-#shopify-section-{{ sid }} .cdp-free-imgs { display: flex; align-items: center; flex-shrink: 0; position: relative; gap: 4px; }
-#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg { position: relative; z-index: 1; }
-#shopify-section-{{ sid }} .cdp-free-imgs .cdp-pimg + .cdp-pimg { margin-left: 6px; }
+
+/* FREE IMGS — flex container with gap */
+#shopify-section-{{ sid }} .cdp-free-imgs {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+/* Each image wrapper — relative so plus can be absolute inside it */
+#shopify-section-{{ sid }} .cdp-img-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Plus icon — absolute at right edge of its image wrapper */
 #shopify-section-{{ sid }} .cdp-plus-icon {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
-  width: 20px; height: 20px; background: rgba(2,18,48,1); border-radius: 50%;
-  border: 2px solid rgba(255,255,255,1); display: flex; align-items: flex-start;
-  padding-top: 0.5px; padding-left: 1.3px; justify-content: center;
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500;
-  color: rgba(255,255,255,1); line-height: 1; flex-shrink: 0;
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 20px; height: 20px;
+  background: rgba(2,18,48,1);
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,1);
+  line-height: 1; flex-shrink: 0;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
 }
+
 #shopify-section-{{ sid }} .cdp-free-title {
   font-family: 'DM Sans'; font-weight: 500; font-size: 12px; line-height: 17px;
   letter-spacing: -4%; color: rgba(0,0,0,1);
@@ -577,31 +599,63 @@
                           Free
                         </div>
                         <div class="cdp-free-body">
+
+                          {%- comment -%} FREE IMGS — each image in its own wrapper with plus at right edge {%- endcomment -%}
                           <div class="cdp-free-imgs" aria-hidden="true">
-                            <div class="cdp-pimg">
-                              {%- if fp1.featured_image != blank -%}
-                                {{ fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+
+                            {%- comment -%} Image 1 — plus shows if fp2 exists {%- endcomment -%}
+                            <div class="cdp-img-wrap">
+                              <div class="cdp-pimg">
+                                {%- if fp1.featured_image != blank -%}
+                                  {{ fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                                {%- endif -%}
+                              </div>
+                              {%- if fp2 != blank -%}
+                                <span class="cdp-plus-icon" aria-hidden="true">+</span>
                               {%- endif -%}
                             </div>
+
+                            {%- comment -%} Image 2 — plus shows if fp3 exists {%- endcomment -%}
                             {%- if fp2 != blank -%}
-                              <span class="cdp-plus-icon" aria-hidden="true">+</span>
-                              <div class="cdp-pimg">
-                                {%- if fp2.featured_image != blank -%}{{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                              <div class="cdp-img-wrap">
+                                <div class="cdp-pimg">
+                                  {%- if fp2.featured_image != blank -%}
+                                    {{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                                  {%- endif -%}
+                                </div>
+                                {%- if fp3 != blank -%}
+                                  <span class="cdp-plus-icon" aria-hidden="true">+</span>
+                                {%- endif -%}
                               </div>
                             {%- endif -%}
+
+                            {%- comment -%} Image 3 — plus shows if fp4 exists {%- endcomment -%}
                             {%- if fp3 != blank -%}
-                              <span class="cdp-plus-icon" aria-hidden="true">+</span>
-                              <div class="cdp-pimg">
-                                {%- if fp3.featured_image != blank -%}{{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                              <div class="cdp-img-wrap">
+                                <div class="cdp-pimg">
+                                  {%- if fp3.featured_image != blank -%}
+                                    {{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                                  {%- endif -%}
+                                </div>
+                                {%- if fp4 != blank -%}
+                                  <span class="cdp-plus-icon" aria-hidden="true">+</span>
+                                {%- endif -%}
                               </div>
                             {%- endif -%}
+
+                            {%- comment -%} Image 4 — last, no plus {%- endcomment -%}
                             {%- if fp4 != blank -%}
-                              <span class="cdp-plus-icon" aria-hidden="true">+</span>
-                              <div class="cdp-pimg">
-                                {%- if fp4.featured_image != blank -%}{{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                              <div class="cdp-img-wrap">
+                                <div class="cdp-pimg">
+                                  {%- if fp4.featured_image != blank -%}
+                                    {{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                                  {%- endif -%}
+                                </div>
                               </div>
                             {%- endif -%}
+
                           </div>
+
                           <span class="cdp-free-title">
                             {{ fp1.title }}
                             {%- if fp2 != blank -%} + {{ fp2.title }}{%- endif -%}
