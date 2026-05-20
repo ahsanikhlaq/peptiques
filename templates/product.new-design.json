@@ -2569,6 +2569,18 @@
             "product": "bibhitaki-seven-chakras-capsules"
           }
         },
+        "tabproduct_cCTXVM": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_diKYdD": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
         "tab_cbiApH": {
           "type": "tab",
           "settings": {
@@ -2602,6 +2614,8 @@
         "bullet_item_rR7qAx",
         "tabproduct_PijyVM",
         "tabproduct_7mdbb7",
+        "tabproduct_cCTXVM",
+        "tabproduct_diKYdD",
         "tab_cbiApH"
       ],
       "name": "Choose Daily Practice",
