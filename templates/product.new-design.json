@@ -2582,6 +2582,12 @@
             "product": "bibhitaki-seven-chakras-capsules"
           }
         },
+        "tabproduct_bLzja4": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
         "tab_cbiApH": {
           "type": "tab",
           "settings": {
@@ -2648,6 +2654,7 @@
         "tabproduct_7mdbb7",
         "tabproduct_cCTXVM",
         "tabproduct_diKYdD",
+        "tabproduct_bLzja4",
         "tab_cbiApH",
         "tabproduct_DqFXJX",
         "tabproduct_Un9aeb",
