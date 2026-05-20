@@ -2548,7 +2548,8 @@
             "items_label": "",
             "gifts_label": "<p>6 items + 2 Free Gifts worth $69</p>",
             "kitprice": "$280",
-            "products_2col": true
+            "products_2col": true,
+            "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
         },
         "bullet_item_rR7qAx": {
