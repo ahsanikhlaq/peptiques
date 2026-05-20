@@ -2558,6 +2558,20 @@
             "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying."
           }
         },
+        "footer_item_8nRgpc": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_63.svg",
+            "text": "Stop or Cancel Anytime"
+          }
+        },
+        "footer_item_RayMyd": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/SVG_17.svg",
+            "text": "Refills Ship Every 30 days"
+          }
+        },
         "tabproduct_PijyVM": {
           "type": "tabproduct",
           "settings": {
@@ -2650,6 +2664,8 @@
         "free_item_XFJgDi",
         "tab_FTwLP3",
         "bullet_item_rR7qAx",
+        "footer_item_8nRgpc",
+        "footer_item_RayMyd",
         "tabproduct_PijyVM",
         "tabproduct_7mdbb7",
         "tabproduct_cCTXVM",
