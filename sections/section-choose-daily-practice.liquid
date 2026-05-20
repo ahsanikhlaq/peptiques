@@ -4,7 +4,6 @@
   - items_label: optional per-tab (e.g. "8 items + + Free shipping")
   - free_item: 4 products selectable
   - SEO: h2 for section, h3 for panels, proper aria labels
-  - Mobile: product list becomes horizontal scroll (overflow-x auto), 4 cards visible, scroll line indicator
   - Mobile: bottom image visible (flex, not none)
 {% endcomment %}
 
@@ -198,11 +197,7 @@
   color: #7a4a90; margin: 0 0 10px; display: none;
 }
 
-/* ── PRODUCT LIST ──
-   Desktop default: 1-col flex
-   Desktop .cdp-prod-list--2col: 2-col grid (1fr 1fr)
-   Mobile: ALWAYS horizontal scroll — overflow-x auto, flex row, fixed card width
-*/
+/* PRODUCT LIST */
 #shopify-section-{{ sid }} .cdp-prod-list {
   display: flex; flex-direction: column;
   margin: 12px 0 0; padding: 12px 0 0; gap: 8px;
@@ -216,32 +211,15 @@
 
 #shopify-section-{{ sid }} .cdp-prod-row { display: flex; align-items: center; gap: 8px; padding: 0; }
 
-/* ── MOBILE PRODUCT SCROLL WRAPPER ── */
+/* SCROLL WRAP — sirf wrapper hai, koi scroll nahi */
 #shopify-section-{{ sid }} .cdp-prod-scroll-wrap {
   position: relative;
   margin: 12px 0 0;
   border-top: 1px dashed rgba(0,0,0,0.4);
   padding-top: 12px;
 }
-/* The scroll line indicator at the bottom */
-#shopify-section-{{ sid }} .cdp-prod-scroll-line {
-  display: none; /* hidden on desktop */
-  height: 3px;
-  background: rgba(234,221,255,1);
-  border-radius: 2px;
-  margin-top: 10px;
-  overflow: hidden;
-  position: relative;
-}
-#shopify-section-{{ sid }} .cdp-prod-scroll-line::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0;
-  height: 100%;
-  width: 40%;
-  background: rgba(71,24,77,0.5);
-  border-radius: 2px;
-}
+/* Scroll line — hamesha hidden */
+#shopify-section-{{ sid }} .cdp-prod-scroll-line { display: none; }
 
 /* FREE ITEMS */
 #shopify-section-{{ sid }} .cdp-free-list {
@@ -262,8 +240,6 @@
 }
 #shopify-section-{{ sid }} .cdp-free-badge svg { width: 14px; height: 14px; }
 #shopify-section-{{ sid }} .cdp-free-body { display: flex; align-items: center; gap: 12px; }
-
-/* FREE IMGS */
 #shopify-section-{{ sid }} .cdp-free-imgs {
   display: flex; align-items: center; flex-shrink: 0; gap: 6px;
 }
@@ -317,7 +293,7 @@
   line-height: 20.15px; letter-spacing: -7%; color: rgba(0,0,0,1);
 }
 
-/* BOTTOM IMAGE — desktop only by default, but mobile override shows it */
+/* BOTTOM IMAGE — desktop + mobile dono pe */
 #shopify-section-{{ sid }} .cdp-btm-img { display: none; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
@@ -355,72 +331,16 @@
     font-family: 'DM Sans'; font-weight: 400; font-size: 10px; line-height: 14.4px; letter-spacing: -3%; color: rgba(0,0,0,1);
   }
   #shopify-section-{{ sid }} .cdp-r-heading { margin: 0; }
-
-  /* ── MOBILE PRODUCT SCROLL — override the static list ── */
-  #shopify-section-{{ sid }} .cdp-prod-scroll-wrap {
-    margin: 12px 0 0;
-    border-top: 1px dashed rgba(0,0,0,0.4);
-    padding-top: 12px;
-  }
-
-  /* Both 1-col and 2-col lists become horizontal scroll on mobile */
-  #shopify-section-{{ sid }} .cdp-prod-list,
+  #shopify-section-{{ sid }} .cdp-prod-list { margin: 10px 0 0; }
   #shopify-section-{{ sid }} .cdp-prod-list--2col {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    scrollbar-width: none;
-    gap: 8px;
-    padding-bottom: 6px;
-    margin: 0;
-    padding-top: 0;
-    border-top: none; /* border is on the wrapper */
-    /* snap to cards */
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; overflow: hidden;
   }
-  #shopify-section-{{ sid }} .cdp-prod-list::-webkit-scrollbar,
-  #shopify-section-{{ sid }} .cdp-prod-list--2col::-webkit-scrollbar { display: none; }
-
-  /* Each product card — fixed width so 4 visible */
-  #shopify-section-{{ sid }} .cdp-prod-row {
-    flex: 0 0 calc(25% - 6px);
-    min-width: 72px;
-    max-width: 90px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 0;
-    scroll-snap-align: start;
-  }
-
-  /* On mobile product rows: image on top, info + price below */
-  #shopify-section-{{ sid }} .cdp-pimg { width: 100%; height: 68px; border-radius: 6px; }
-  #shopify-section-{{ sid }} .cdp-pinfo { width: 100%; }
-  #shopify-section-{{ sid }} .cdp-ptitle {
-    font-size: 10px; line-height: 12px; letter-spacing: -3%;
-    max-width: 100%; display: -webkit-box; -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; overflow: hidden;
-  }
-  #shopify-section-{{ sid }} .cdp-pprice {
-    font-size: 10px; line-height: 100%; letter-spacing: 0;
-    padding: 3px 4px; margin-top: 2px; display: inline-block;
-  }
-
-  /* Show scroll line indicator on mobile */
-  #shopify-section-{{ sid }} .cdp-prod-scroll-line {
-    display: block;
-  }
-
-  /* BOTTOM IMAGE — show on mobile as well */
-  #shopify-section-{{ sid }} .cdp-btm-img {
-    display: block;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 0;
-  }
-
+  #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-prod-row { min-width: 0; flex-wrap: wrap; }
+  #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-pprice { white-space: normal; font-size: 11px; }
+  #shopify-section-{{ sid }} .cdp-prod-list--2col .cdp-ptitle { max-width: 100%; font-size: 10.5px; line-height: 13px; }
   #shopify-section-{{ sid }} .cdp-total { margin-top: 8px; }
+  #shopify-section-{{ sid }} .cdp-ptitle { font-size: 11.8px; line-height: 12.4px; letter-spacing: -5%; }
+  #shopify-section-{{ sid }} .cdp-pprice { font-size: 13px; line-height: 100%; letter-spacing: 0; }
   #shopify-section-{{ sid }} .cdp-panel.cdp-active { display: flex; flex-direction: column; gap: 0; }
   #shopify-section-{{ sid }} .cdp-pcard { border-radius: 10px 10px 0 0; }
   #shopify-section-{{ sid }} .cdp-left { border-radius: 0 0 10px 10px; padding: 16px; gap: 32px; }
@@ -433,7 +353,12 @@
   #shopify-section-{{ sid }} .cdp-foot-item { gap: 6px; padding: 0; font-size: 12px; line-height: 16px; letter-spacing: -3%; }
   #shopify-section-{{ sid }} .cdp-foot-item + .cdp-foot-item { border-left: unset; }
   #shopify-section-{{ sid }} .cdp-foot-icon { width: 18px; height: 18px; }
+  #shopify-section-{{ sid }} .cdp-pimg { width: 40px; height: 40px; }
   #shopify-section-{{ sid }} .cdp-items-label { font-size: 10px; }
+  /* BOTTOM IMAGE — mobile pe bhi show */
+  #shopify-section-{{ sid }} .cdp-btm-img {
+    display: block; border-radius: 10px; overflow: hidden; margin-top: 0;
+  }
 }
 </style>
 
@@ -602,10 +527,6 @@
                 <div class="cdp-r-gifts">{{ outer_block.settings.gifts_label }}</div>
               {%- endif -%}
 
-              {%- comment -%}
-                PRODUCT LIST — wrapped in scroll container on mobile
-                .cdp-prod-list--2col applies 2-col on desktop; on mobile both become horizontal scroll
-              {%- endcomment -%}
               <div class="cdp-prod-scroll-wrap">
                 <ul class="cdp-prod-list{% if outer_block.settings.products_2col %} cdp-prod-list--2col{% endif %}" aria-label="Kit products">
                   {%- assign pri = 0 -%}
@@ -629,7 +550,6 @@
                     {%- assign pri = pri | plus: 1 -%}
                   {%- endfor -%}
                 </ul>
-                {%- comment -%} Scroll indicator line — visible only on mobile via CSS {%- endcomment -%}
                 <div class="cdp-prod-scroll-line" aria-hidden="true"></div>
               </div>
 
@@ -846,7 +766,7 @@
         { "type": "richtext", "id": "items_label", "label": "Items label (optional, e.g. '8 items + Free shipping')", "info": "Leave blank to hide.", "default": "<p>8 items + Free shipping</p>" },
         { "type": "richtext",     "id": "gifts_label",   "label": "Gifts label",   "default": "<p>6 items + 2 Free Gifts worth $69</p>" },
         { "type": "text",         "id": "kitprice",      "label": "Kit price (e.g. $280)", "default": "$280" },
-        { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns (1fr 1fr)", "default": false, "info": "Unchecked = 1 column. Checked = 2 columns side by side. Works on desktop. Mobile always shows horizontal scroll." },
+        { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns (1fr 1fr)", "default": false, "info": "Unchecked = 1 column. Checked = 2 columns side by side. Works on mobile too." },
         { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image (shows on both mobile and desktop)" }
       ]
     },
