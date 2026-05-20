@@ -2472,8 +2472,10 @@
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
             "r_heading": "What's inside the Anti-Fluoride Kit",
+            "items_label": "",
             "gifts_label": "<p>6 items + <strong>2 Free Gifts worth $69</strong></p>",
             "kitprice": "",
+            "products_2col": false,
             "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
           }
         },
@@ -2543,8 +2545,28 @@
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
             "r_heading": "What's inside the Vivid Dreams Kit",
+            "items_label": "",
             "gifts_label": "<p>6 items + 2 Free Gifts worth $69</p>",
-            "kitprice": "$280"
+            "kitprice": "$280",
+            "products_2col": true
+          }
+        },
+        "bullet_item_rR7qAx": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying."
+          }
+        },
+        "tabproduct_PijyVM": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_7mdbb7": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
           }
         },
         "tab_cbiApH": {
@@ -2559,8 +2581,10 @@
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
             "r_heading": "What's inside the Pineal Reset Kit",
+            "items_label": "",
             "gifts_label": "<p>6 items + 2 Free Gifts worth $69</p>",
-            "kitprice": "$280"
+            "kitprice": "$280",
+            "products_2col": false
           }
         }
       },
@@ -2575,6 +2599,9 @@
         "tabproduct_NjaW8M",
         "free_item_XFJgDi",
         "tab_FTwLP3",
+        "bullet_item_rR7qAx",
+        "tabproduct_PijyVM",
+        "tabproduct_7mdbb7",
         "tab_cbiApH"
       ],
       "name": "Choose Daily Practice",
