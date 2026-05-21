@@ -145,9 +145,9 @@
     font-size: 14px;
     border-radius: 100px;
     padding: 20px 24px;
-    transition: opacity 0.2s ease;
+    transition: background 0.2s ease;
   }
-  #shopify-section-{{ sid }} .ni-cta:hover { opacity: 0.88; }
+  #shopify-section-{{ sid }} .ni-cta:hover { background: {{ s.cta_hover_background | default: '#5a2a78' }}; }
 
   /* ─── Footer ─────────────────────────────────────────────────── */
   #shopify-section-{{ sid }} .ni-footer {
@@ -495,6 +495,7 @@
     { "type": "textarea", "id": "left_sub",     "label": "Subheading",  "default": "Real Ayurvedic wisdom designed to deliver clarity, balance, and results" },
     { "type": "text",     "id": "cta_text",     "label": "CTA text",    "default": "UNLOCK YOUR TRUE POWER" },
     { "type": "url",      "id": "cta_url",      "label": "CTA URL" },
+    { "type": "color",    "id": "cta_hover_background", "label": "CTA hover background", "default": "#5a2a78" },
 
     { "type": "header", "content": "Footer (below button)" },
     { "type": "image_picker", "id": "footer_icon_1", "label": "Footer icon 1 (left of divider)" },
