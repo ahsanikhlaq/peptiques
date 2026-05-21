@@ -1791,12 +1791,13 @@
         "tb_3"
       ],
       "settings": {
+        "video_url": "",
+        "video_file": "shopify://files/videos/33 REVIEW.mp4",
         "left_image": "shopify://shop_images/Container_5.webp",
         "left_image_alt": "",
         "section_background": "#ffffff",
         "media_background": "#cdb6e6",
         "heading_color": "#000000",
-        "subheading_color": "#000000",
         "badge_icon_color": "#5a2a78",
         "badge_label_color": "#000000",
         "cta_background": "#47184d",
