@@ -1,5 +1,8 @@
 {% comment %}
   UGC Video Reviews section — sits below the Haritaki benefits.
+  ── Animation System ──────────────────────────────────────────────
+  Uses the global pb-js / data-pb-anim system — JS lives in theme.liquid.
+  No animation JS here. Swiper + video-play JS stays as-is below.
 {% endcomment %}
 
 {%- liquid
@@ -33,7 +36,7 @@
     --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_desktop  | default: 50 }}px;
   }
 
-  #shopify-section-{{ sid }} .uv-section{
+  #shopify-section-{{ sid }} .uv-section {
     padding: var(--uv-{{ sid }}-pt) var(--uv-{{ sid }}-pr) var(--uv-{{ sid }}-pb) var(--uv-{{ sid }}-pl);
     {%- if s.sectionBackgroundImage_picker != blank -%}
       background-color: {{ s.sectionBackground_color | default: '#f5e1ff' }};
@@ -46,13 +49,13 @@
     {%- endif -%}
   }
 
-  #shopify-section-{{ sid }} .uv-container{
+  #shopify-section-{{ sid }} .uv-container {
     max-width: 100%;
     margin-inline: auto;
   }
 
-  /* ── Eyebrow (richtext) ── */
-  #shopify-section-{{ sid }} .uv-eyebrow{
+  /* ── Eyebrow ──────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .uv-eyebrow {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,16 +78,17 @@
     font-weight: 500;
     color: #000;
     text-align: center;
-        letter-spacing: 0;
+    letter-spacing: 0;
   }
   #shopify-section-{{ sid }} .uv-eyebrow-richtext p { margin: 0; }
   #shopify-section-{{ sid }} .uv-eyebrow-richtext a { color: inherit; text-decoration: underline; }
   #shopify-section-{{ sid }} .uv-eyebrow-richtext strong { font-weight: 500; }
 
-  #shopify-section-{{ sid }} .uv-stars{ display: inline-flex; gap: 1px; color: {{ s.starsColor_color | default: '#f5b301' }}; }
-  #shopify-section-{{ sid }} .uv-stars svg{ width: 16px; height: 16px; }
+  #shopify-section-{{ sid }} .uv-stars { display: inline-flex; gap: 1px; color: {{ s.starsColor_color | default: '#f5b301' }}; }
+  #shopify-section-{{ sid }} .uv-stars svg { width: 16px; height: 16px; }
 
-  #shopify-section-{{ sid }} .uv-heading{
+  /* ── Heading ──────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .uv-heading {
     font-family: {{ heading_font }};
     color: var(--Black, #000);
     text-align: center;
@@ -96,28 +100,30 @@
     margin: 0 auto 52px;
   }
 
-  #shopify-section-{{ sid }} .uv-carousel-wrap{
+  /* ── Carousel ─────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .uv-carousel-wrap {
     position: relative;
     margin-inline: calc(var(--uv-{{ sid }}-pl) * -1) calc(var(--uv-{{ sid }}-pr) * -1);
   }
 
-  #shopify-section-{{ sid }} .uv-swiper{
+  #shopify-section-{{ sid }} .uv-swiper {
     overflow: hidden;
     padding: 0 var(--uv-{{ sid }}-pl);
     padding-bottom: 8px;
   }
 
-  #shopify-section-{{ sid }} .uv-swiper .swiper-wrapper{
+  #shopify-section-{{ sid }} .uv-swiper .swiper-wrapper {
     display: flex;
     align-items: stretch;
   }
 
-  #shopify-section-{{ sid }} .swiper-slide{
+  #shopify-section-{{ sid }} .swiper-slide {
     height: auto;
     box-sizing: border-box;
   }
 
-  #shopify-section-{{ sid }} .uv-card{
+  /* ── Card ─────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .uv-card {
     position: relative;
     width: 100%;
     aspect-ratio: 9 / 12;
@@ -126,9 +132,20 @@
     background: #0a0010;
     isolation: isolate;
     cursor: pointer;
+    /* Consistent hover — same style as pb-item in benefits section */
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }} .uv-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.22);
+  }
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"]:hover {
+    transform: none;
+    box-shadow: none;
   }
 
-  #shopify-section-{{ sid }} .uv-card-media{
+  #shopify-section-{{ sid }} .uv-card-media {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
@@ -137,7 +154,7 @@
   }
 
   /* Inline video element */
-  #shopify-section-{{ sid }} .uv-card-video{
+  #shopify-section-{{ sid }} .uv-card-video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
@@ -146,13 +163,13 @@
     background: #000;
     border: 0;
   }
-  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-video{ display: block; }
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-video  { display: block; }
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-media,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-play,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-overlay,
-  #shopify-section-{{ sid }} .uv-card[data-playing="true"]::before{ display: none; }
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"]::before { display: none; }
 
-  #shopify-section-{{ sid }} .uv-card-overlay{
+  #shopify-section-{{ sid }} .uv-card-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%);
     pointer-events: none;
@@ -168,7 +185,8 @@
     z-index: 1;
   }
 
-  #shopify-section-{{ sid }} .uv-play{
+  /* ── Play button ──────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .uv-play {
     position: absolute;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
@@ -181,11 +199,17 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     z-index: 4;
     pointer-events: none;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.2s ease;
   }
-  #shopify-section-{{ sid }} .uv-play svg{ width: 22px; height: 22px; color: #1d1027; margin-left: 3px; }
+  #shopify-section-{{ sid }} .uv-card:hover .uv-play {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: rgba(255,255,255,1);
+  }
+  #shopify-section-{{ sid }} .uv-play svg { width: 22px; height: 22px; color: #1d1027; margin-left: 3px; }
 
-  /* Navigation buttons */
-  #shopify-section-{{ sid }} .uv-nav{
+  /* ── Nav buttons — consistent hover ──────────────────────────── */
+  #shopify-section-{{ sid }} .uv-nav {
     position: absolute; top: 50%;
     transform: translateY(-50%);
     width: 44px; height: 44px;
@@ -197,13 +221,26 @@
     align-items: center; justify-content: center;
     cursor: pointer;
     z-index: 10;
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.22s ease,
+                background 0.18s ease;
   }
-  #shopify-section-{{ sid }} .uv-nav.swiper-button-disabled{ opacity: 0.35; cursor: default; }
-  #shopify-section-{{ sid }} .uv-nav svg{ width: 18px; height: 18px; color: #1d1027; }
-  #shopify-section-{{ sid }} .uv-nav--prev{ left: 8px; }
-  #shopify-section-{{ sid }} .uv-nav--next{ right: 8px; }
+  #shopify-section-{{ sid }} .uv-nav:hover {
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+    transform: translateY(calc(-50% - 2px));
+  }
+  #shopify-section-{{ sid }} .uv-nav.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+  }
+  #shopify-section-{{ sid }} .uv-nav svg { width: 18px; height: 18px; color: #1d1027; }
+  #shopify-section-{{ sid }} .uv-nav--prev { left: 8px; }
+  #shopify-section-{{ sid }} .uv-nav--next { right: 8px; }
 
-  #shopify-section-{{ sid }} .uv-stats{
+  /* ── Stats ────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .uv-stats {
     margin: {{ s.statsMarginTop_number | default: 52 }}px auto 0;
     max-width: 800px;
     background: {{ s.statsBackground_color | default: '#47184d' }};
@@ -217,7 +254,7 @@
     font-family: {{ body_font }};
     align-items: center;
   }
-  #shopify-section-{{ sid }} .uv-stat-value{
+  #shopify-section-{{ sid }} .uv-stat-value {
     font-family: "Georgia";
     font-weight: 400;
     font-size: 36px;
@@ -225,7 +262,7 @@
     letter-spacing: 0%;
     text-align: center;
   }
-  #shopify-section-{{ sid }} .uv-stat-label{
+  #shopify-section-{{ sid }} .uv-stat-label {
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
@@ -243,10 +280,10 @@
       --uv-{{ sid }}-pl: {{ s.sectionPaddingLeft_responsive_range_mobile   | default: s.sectionPaddingLeft_responsive_range_desktop   | default: 16 }}px;
       --uv-{{ sid }}-pr: {{ s.sectionPaddingRight_responsive_range_mobile  | default: s.sectionPaddingRight_responsive_range_desktop  | default: 16 }}px;
     }
-    #shopify-section-{{ sid }} .uv-nav{ width: 36px; height: 36px; }
+    #shopify-section-{{ sid }} .uv-nav { width: 36px; height: 36px; }
     #shopify-section-{{ sid }} .uv-eyebrow,
-    #shopify-section-{{ sid }} .uv-eyebrow-richtext{ font-size: 14px; margin: 0 0 0px; }
-    #shopify-section-{{ sid }} .uv-heading{
+    #shopify-section-{{ sid }} .uv-eyebrow-richtext { font-size: 14px; margin: 0 0 0px; }
+    #shopify-section-{{ sid }} .uv-heading {
       font-size: 30px;
       font-weight: 400;
       line-height: 110%;
@@ -254,14 +291,43 @@
       max-width: 272px;
       margin: 10px auto 24px;
     }
-    #shopify-section-{{ sid }} .uv-card{ border-radius: 12px; }
-    #shopify-section-{{ sid }} .uv-stats{
+    #shopify-section-{{ sid }} .uv-card { border-radius: 12px; }
+    #shopify-section-{{ sid }} .uv-stats {
       margin: 16px 16px 0;
       padding: 15px 12px;
       border-radius: 12px;
     }
-    #shopify-section-{{ sid }} .uv-stat-value{ font-size: 20px; line-height: 22.7px; letter-spacing: -3%; }
-    #shopify-section-{{ sid }} .uv-stat-label{ font-size: 12px; font-weight: 400; margin-top: 8px; line-height: 1.2; }
+    #shopify-section-{{ sid }} .uv-stat-value { font-size: 20px; line-height: 22.7px; letter-spacing: -3%; }
+    #shopify-section-{{ sid }} .uv-stat-label { font-size: 12px; font-weight: 400; margin-top: 8px; line-height: 1.2; }
+  }
+
+  /* ══ SCROLL ANIMATION SYSTEM ══════════════════════════════════════
+     Matches benefits-section.liquid exactly.
+     Default: fully visible (SEO / no-JS safe).
+     theme.liquid JS adds .pb-js → animations activate.
+     IntersectionObserver adds .pb-visible → elements show.
+  ═════════════════════════════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]    { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"]  { transform: translateX(-36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] { transform: translateX(36px); }
+
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
   }
 </style>
 
@@ -276,11 +342,15 @@
   <div class="uv-container">
 
     {%- if s.eyebrow_richtext != blank or s.show_stars_checkbox -%}
-      <div class="uv-eyebrow">
+      <div
+        class="uv-eyebrow"
+        data-pb-anim="up"
+        data-pb-delay="0"
+      >
         {%- if s.show_stars_checkbox -%}
-          <span class="uv-stars" aria-hidden="true">
+          <span class="uv-stars" aria-label="5 stars" role="img">
             {%- for i in (1..5) -%}
-              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
             {%- endfor -%}
           </span>
         {%- endif -%}
@@ -290,11 +360,21 @@
       </div>
     {%- endif -%}
 
-    <h2 id="uv-heading-{{ sid }}" class="uv-heading">
+    <h2
+      id="uv-heading-{{ sid }}"
+      class="uv-heading"
+      data-pb-anim="up"
+      data-pb-delay="80"
+      itemprop="name"
+    >
       {{- s.heading_text | default: 'Wellness creators, mindful users,' -}}
     </h2>
 
-    <div class="uv-carousel-wrap">
+    <div
+      class="uv-carousel-wrap"
+      data-pb-anim="up"
+      data-pb-delay="160"
+    >
       <div class="swiper uv-swiper" data-uv-swiper>
         <div class="swiper-wrapper">
           {%- for block in section.blocks -%}
@@ -326,34 +406,38 @@
                 endif
               -%}
               <div class="swiper-slide">
-                <div class="uv-card" {{ block.shopify_attributes }}
-                    itemscope itemtype="https://schema.org/VideoObject"
-                    data-uv-card
-                    data-embed="{{ embed_url }}"
-                    data-mp4="{{ mp4_url }}"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video"
+                <div
+                  class="uv-card"
+                  {{ block.shopify_attributes }}
+                  itemscope
+                  itemtype="https://schema.org/VideoObject"
+                  data-uv-card
+                  data-embed="{{ embed_url }}"
+                  data-mp4="{{ mp4_url }}"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Play video review by {{ b.reviewer_name | default: 'customer' | escape }}"
                 >
                   {%- if thumb_img != blank -%}
                     {{ thumb_img
-                      | image_url: width: 640
-                      | image_tag:
-                        class: 'uv-card-media',
-                        loading: 'lazy',
-                        decoding: 'async',
-                        widths: '240,320,480,640,800',
-                        sizes: '(min-width: 768px) 25vw, 80vw',
-                        alt: b.reviewer_name | default: 'Customer video review'
-                    }}
+                        | image_url: width: 640
+                        | image_tag:
+                            class: 'uv-card-media',
+                            loading: 'lazy',
+                            decoding: 'async',
+                            widths: '240,320,480,640,800',
+                            sizes: '(min-width: 768px) 25vw, 80vw',
+                            alt: b.reviewer_name | default: 'Customer video review' }}
                     <meta itemprop="thumbnailUrl" content="{{ thumb_img | image_url: width: 640 }}">
                   {%- else -%}
                     <div class="uv-card-media" style="background:#1d1027;"></div>
                   {%- endif -%}
 
-                  <meta itemprop="name"        content="{{ b.reviewer_name | default: 'Customer review' }}">
-                  <meta itemprop="description" content="{{ b.review_quote | default: 'Customer video review' | strip_html }}">
-                  {%- if b.upload_date != blank -%}<meta itemprop="uploadDate" content="{{ b.upload_date }}">{%- endif -%}
+                  <meta itemprop="name"        content="{{ b.reviewer_name | default: 'Customer review' | escape }}">
+                  <meta itemprop="description" content="{{ b.review_quote  | default: 'Customer video review' | strip_html | escape }}">
+                  {%- if b.upload_date != blank -%}
+                    <meta itemprop="uploadDate" content="{{ b.upload_date }}">
+                  {%- endif -%}
 
                   <div class="uv-card-overlay" aria-hidden="true"></div>
 
@@ -371,22 +455,30 @@
 
       {%- if show_nav -%}
         <button type="button" class="uv-nav uv-nav--prev" data-uv-prev aria-label="Previous video">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <button type="button" class="uv-nav uv-nav--next" data-uv-next aria-label="Next video">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       {%- endif -%}
     </div>
 
     {%- if s.show_stats_checkbox -%}
-      <div class="uv-stats" role="list">
+      <div
+        class="uv-stats"
+        role="list"
+        aria-label="Customer review statistics"
+        data-pb-anim="up"
+        data-pb-delay="220"
+        itemscope
+        itemtype="https://schema.org/AggregateRating"
+      >
         <div class="uv-stat" role="listitem">
-          <div class="uv-stat-value">{{ s.stat1_value | default: '22,926+' }}</div>
+          <div class="uv-stat-value" itemprop="reviewCount">{{ s.stat1_value | default: '22,926+' }}</div>
           <div class="uv-stat-label">{{ s.stat1_label | default: 'Verified Reviews' }}</div>
         </div>
         <div class="uv-stat" role="listitem">
-          <div class="uv-stat-value">{{ s.stat2_value | default: '4.8/5' }}</div>
+          <div class="uv-stat-value" itemprop="ratingValue">{{ s.stat2_value | default: '4.8/5' }}</div>
           <div class="uv-stat-label">{{ s.stat2_label | default: 'Average Rating' }}</div>
         </div>
         <div class="uv-stat" role="listitem">
@@ -411,14 +503,15 @@
       prevEl: ".uv-nav--prev",
     },
     breakpoints: {
-      0:   { slidesPerView: 1.4, spaceBetween: 16 },
-      900: { slidesPerView: 2.2, spaceBetween: 16 },
-      1200:{ slidesPerView: 3.8, spaceBetween: 16 }
+      0:    { slidesPerView: 1.4, spaceBetween: 16 },
+      900:  { slidesPerView: 2.2, spaceBetween: 16 },
+      1200: { slidesPerView: 3.8, spaceBetween: 16 }
     }
   });
 </script>
 
 <script>
+  /* ── Video play / stop — unchanged ── */
   (function(){
     function initVideoPlay(){
       var root = document.getElementById('shopify-section-{{ sid }}');
@@ -447,19 +540,19 @@
           f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
           f.allowFullscreen = true;
           f.loading = 'lazy';
-          f.style.width = '100%';
+          f.style.width  = '100%';
           f.style.height = '100%';
           f.style.border = '0';
           slot.appendChild(f);
         } else if (mp4){
           var v = document.createElement('video');
           v.src = mp4;
-          v.controls = true;
-          v.autoplay = true;
+          v.controls    = true;
+          v.autoplay    = true;
           v.playsInline = true;
-          v.style.width = '100%';
-          v.style.height = '100%';
-          v.style.objectFit = 'cover';
+          v.style.width      = '100%';
+          v.style.height     = '100%';
+          v.style.objectFit  = 'cover';
           slot.appendChild(v);
         } else { return; }
         card.setAttribute('data-playing', 'true');
@@ -504,9 +597,9 @@
     { "type": "range", "id": "sectionPaddingRight_responsive_range_mobile",  "label": "Section padding right (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
 
     { "type": "header", "content": "Background" },
-    { "type": "color",        "id": "sectionBackground_color",       "label": "Background color",  "default": "#ffffff" },
-    { "type": "image_picker", "id": "sectionBackgroundImage_picker", "label": "Background image (optional)" },
-    { "type": "text",         "id": "sectionBackgroundPosition_text","label": "Background position", "default": "center center" },
+    { "type": "color",        "id": "sectionBackground_color",        "label": "Background color",     "default": "#ffffff" },
+    { "type": "image_picker", "id": "sectionBackgroundImage_picker",  "label": "Background image (optional)" },
+    { "type": "text",         "id": "sectionBackgroundPosition_text", "label": "Background position",  "default": "center center" },
 
     { "type": "header", "content": "Typography" },
     { "type": "text",  "id": "headingFontFamily_text", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
@@ -514,19 +607,19 @@
     { "type": "color", "id": "starsColor_color",       "label": "Stars color",         "default": "#f5b301" },
 
     { "type": "header", "content": "Eyebrow & Heading" },
-    { "type": "checkbox", "id": "show_stars_checkbox", "label": "Show stars",                "default": true },
-    { "type": "richtext", "id": "eyebrow_richtext",    "label": "Eyebrow text (rich text)",  "default": "<p><strong>22,926+</strong> 4.8 / 5-Star Reviews</p>" },
-    { "type": "text",     "id": "heading_text",        "label": "Heading",                   "default": "Wellness creators, mindful users," },
+    { "type": "checkbox", "id": "show_stars_checkbox", "label": "Show stars",               "default": true },
+    { "type": "richtext", "id": "eyebrow_richtext",    "label": "Eyebrow text (rich text)", "default": "<p><strong>22,926+</strong> 4.8 / 5-Star Reviews</p>" },
+    { "type": "text",     "id": "heading_text",        "label": "Heading",                  "default": "Wellness creators, mindful users," },
 
     { "type": "header", "content": "Layout" },
-    { "type": "range",    "id": "cardRadius_number",  "label": "Card radius",             "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
-    { "type": "checkbox", "id": "show_nav_checkbox",  "label": "Show prev / next arrows", "default": true },
+    { "type": "range",    "id": "cardRadius_number", "label": "Card radius",             "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "checkbox", "id": "show_nav_checkbox", "label": "Show prev / next arrows", "default": true },
 
     { "type": "header", "content": "Stats bar" },
-    { "type": "checkbox", "id": "show_stats_checkbox",  "label": "Show stats bar",  "default": true },
-    { "type": "color",    "id": "statsBackground_color","label": "Background",      "default": "#47184d" },
-    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius",   "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",     "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "checkbox", "id": "show_stats_checkbox",   "label": "Show stats bar", "default": true },
+    { "type": "color",    "id": "statsBackground_color", "label": "Background",     "default": "#47184d" },
+    { "type": "range",    "id": "statsRadius_number",    "label": "Border radius",  "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "statsMarginTop_number", "label": "Top spacing",    "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
     { "type": "text",     "id": "stat1_value", "label": "Stat 1 value", "default": "22,926+" },
     { "type": "text",     "id": "stat1_label", "label": "Stat 1 label", "default": "Verified Reviews" },
     { "type": "text",     "id": "stat2_value", "label": "Stat 2 value", "default": "4.8/5" },
