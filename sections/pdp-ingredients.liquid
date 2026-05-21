@@ -478,14 +478,11 @@
               </div>
               <div class="pi-card-image" aria-hidden="true">
                 {%- if block.settings.image != blank -%}
-                  {{ block.settings.image
-                      | image_url: width: 400
-                      | image_tag:
-                          loading: 'lazy',
-                          decoding: 'async',
-                          widths: '200,280,400',
-                          sizes: '(min-width: 1024px) 170px, 130px',
-                          alt: block.settings.title_text | strip_html }}
+                  {{ block.settings.image | image_url: width: 400 | image_tag:
+                       loading: 'lazy',
+                       widths: '200,280,400',
+                       sizes: '(min-width: 1024px) 170px, 130px',
+                       alt: block.settings.title_text }}
                 {%- endif -%}
               </div>
             </article>
