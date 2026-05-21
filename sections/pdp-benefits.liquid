@@ -3,6 +3,15 @@
   Built from Figma. Keep this section minimal and resilient — schema
   uses only standard types, all Liquid logic stays in the top liquid
   block, no fancy filter chains.
+
+  ── Animation System ──────────────────────────────────────────────
+  JS lives in theme.liquid (paste the snippet provided separately).
+  This section only uses CSS + data-pb-anim / data-pb-delay attrs.
+  • data-pb-anim="up"    → fade + slide up   (default)
+  • data-pb-anim="left"  → fade + slide from left
+  • data-pb-anim="right" → fade + slide from right
+  • data-pb-delay="150"  → delay in ms (optional)
+  When JS is absent, all elements stay fully visible (progressive enhancement).
 {% endcomment %}
 
 {%- liquid
@@ -26,17 +35,19 @@
 -%}
 
 <style>
-  #shopify-section-{{ sid }} .pb-section{
+  /* ── Section shell ────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-section {
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 0 }}px {{ s.section_padding_bottom | default: 48 }}px;
     background: {{ s.outer_background | default: '#ffffff' }};
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pb-section{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pb-section {
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 0 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
     }
   }
 
-  #shopify-section-{{ sid }} .pb-card{
+  /* ── Card ─────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-card {
     max-width: 100%;
     margin-inline: auto;
     border-radius: {{ s.card_radius | default: 0 }}px;
@@ -48,8 +59,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     {% if mobile_bg_image != blank %}
-      background-image:
-        url({{ mobile_bg_image | image_url: width: 900 }});
+      background-image: url({{ mobile_bg_image | image_url: width: 900 }});
     {% else %}
       background-image:
         radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
@@ -57,8 +67,8 @@
         linear-gradient(135deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
     {% endif %}
   }
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pb-card{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pb-card {
       padding: 80px 0px;
       {% if bg_image != blank %}
         background-image:
@@ -68,38 +78,25 @@
     }
   }
 
-  #shopify-section-{{ sid }} .pb-grid{
+  /* ── Grid ─────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 32px;
     align-items: center;
   }
-  #shopify-section-{{ sid }} .pb-heading{
-    font-size: 30px;
-    letter-spacing: -1.2px;
-    margin: 0 0 10px;
-  }
-  #shopify-section-{{ sid }} .pb-desc{
-    font-size: 14.4px;
-    line-height: 18.8px;
-    letter-spacing: -0.438px;
-    margin-bottom: 24px;
-  }
-  #shopify-section-{{ sid }} .pb-list{
-    gap: 12px;
-  }
-
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pb-grid{
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pb-grid {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 48px;
       padding: 0px 50px;
     }
   }
 
-  #shopify-section-{{ sid }} .pb-heading{
+  /* ── Heading ──────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-heading {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
-    color: #FFF;
+    color: #fff;
     font-size: 46px;
     font-style: normal;
     font-weight: 400;
@@ -109,15 +106,25 @@
     max-width: 600px;
     width: 100%;
   }
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .pb-heading {
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 110%;
+      letter-spacing: -4%;
+      margin: 0 0 10px;
+    }
+  }
 
-  .pb-text{
+  /* ── Description ──────────────────────────────────────────────── */
+  .pb-text {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-
-  #shopify-section-{{ sid }} .pb-desc{
-    color: #FFF;
+  #shopify-section-{{ sid }} .pb-desc {
+    color: #fff;
     font-family: "DM Sans";
     font-size: 16px;
     font-style: normal;
@@ -129,8 +136,17 @@
     margin: 0;
     margin-bottom: 42px;
   }
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .pb-desc {
+      font-size: 14.6px;
+      line-height: 18.8px;
+      letter-spacing: -3%;
+      margin-bottom: 24px;
+    }
+  }
 
-  #shopify-section-{{ sid }} .pb-list{
+  /* ── Benefit list ─────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -138,23 +154,48 @@
     flex-direction: column;
     gap: 16px;
   }
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .pb-list { gap: 12px; }
+  }
 
-  #shopify-section-{{ sid }} .pb-item{
+  /* ── Benefit item ─────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-item {
     background: #ffffff;
     color: #1d1027;
     border-radius: 12px;
     overflow: hidden;
+    /* Consistent hover across all sections */
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: default;
+  }
+  #shopify-section-{{ sid }} .pb-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.13);
   }
 
-  /* Static row — no cursor, no toggle */
-  #shopify-section-{{ sid }} .pb-row{
+  /* ── Row ──────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-row {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 12px;
   }
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .pb-row {
+      padding: 10px;
+      gap: 10px;
+      align-items: start;
+    }
+    .pb-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
 
-  #shopify-section-{{ sid }} .pb-icon{
+  /* ── Icon ─────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-icon {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -165,12 +206,14 @@
     color: {{ s.icon_color | default: '#5a2a78' }};
     flex-shrink: 0;
   }
-  .pb-icon img{
-    width: 100%;
+  .pb-icon img { width: 100%; }
+  #shopify-section-{{ sid }} .pb-icon svg { width: 20px; height: 20px; }
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .pb-icon { width: 36px; height: 36px; }
   }
-  #shopify-section-{{ sid }} .pb-icon svg{ width: 20px; height: 20px; }
 
-  #shopify-section-{{ sid }} .pb-title{
+  /* ── Title ────────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-title {
     color: var(--Black, #000);
     font-family: 'Georgia';
     font-size: 18.8px;
@@ -180,9 +223,16 @@
     letter-spacing: -0.564px;
     margin: 0;
   }
+  @media (max-width: 768px) {
+    #shopify-section-{{ sid }} .pb-title {
+      font-size: 16px;
+      line-height: 120%;
+      letter-spacing: 0%;
+    }
+  }
 
-  /* Subtitle — always visible */
-  #shopify-section-{{ sid }} .pb-subtitle{
+  /* ── Subtitle ─────────────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-subtitle {
     color: #665169;
     font-family: "DM Sans";
     font-size: 12.8px;
@@ -194,7 +244,8 @@
     display: block;
   }
 
-  #shopify-section-{{ sid }} .pb-media{
+  /* ── Media / image col ────────────────────────────────────────── */
+  #shopify-section-{{ sid }} .pb-media {
     width: 100%;
     display: flex;
     align-items: center;
@@ -202,14 +253,14 @@
     order: -1;
   }
   {% if s.hide_image_on_mobile %}
-    @media (max-width: 1023.98px){
-      #shopify-section-{{ sid }} .pb-media{ display: none; }
+    @media (max-width: 1023.98px) {
+      #shopify-section-{{ sid }} .pb-media { display: none; }
     }
   {% endif %}
-  @media (min-width: 1024px){
-    #shopify-section-{{ sid }} .pb-media{ order: 0; }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .pb-media { order: 0; }
   }
-  #shopify-section-{{ sid }} .pb-media img{
+  #shopify-section-{{ sid }} .pb-media img {
     width: 100%;
     height: auto;
     max-width: 520px;
@@ -217,103 +268,140 @@
     object-fit: contain;
     display: block;
   }
+
+  /* ── Icon + text row ──────────────────────────────────────────── */
   .main-img-faq {
     display: flex;
     align-items: center;
     gap: 12px;
   }
+  @media (max-width: 768px) {
+    .main-img-faq { gap: 10px; }
+  }
 
-  @media (max-width:768px){
-    #shopify-section-{{ sid }} .pb-heading{
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 110.00000000000001%;
-      letter-spacing: -4%;
-      margin: 0 0 10px;
-    }
-    #shopify-section-{{ sid }} .pb-desc{
-      font-size: 14.6px;
-      line-height: 18.8px;
-      letter-spacing: -3%;
-      margin-bottom: 24px;
-    }
-    #shopify-section-{{ sid }} .pb-row{
-      padding: 10px;
-      gap: 10px;
-      align-items: start;
-    }
-    .pb-text {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    #shopify-section-{{ sid }} .pb-title{
-      font-size: 16px;
-      line-height: 120%;
-      letter-spacing: 0%;
-    }
-    #shopify-section-{{ sid }} .pb-list{
-      gap: 12px;
-    }
-    .main-img-faq {
-      display: flex;
-      align-items: center;
-      {% comment %} flex-direction: column; {% endcomment %}
-      gap: 10px;
-    }
-    #shopify-section-{{ sid }} .pb-icon {
-    width: 36px;
-    height: 36px;
+  /* ══ SCROLL ANIMATION SYSTEM ══════════════════════════════════════
+     Default: fully visible (no JS / SEO fallback).
+     When theme.liquid JS runs → section wrapper gets `.pb-js` class
+     → animations activate.  Elements get `.pb-visible` when in view.
+  ═════════════════════════════════════════════════════════════════ */
+
+  /* Invisible initial states — only when JS is active */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"] {
+    transform: translateY(28px);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"] {
+    transform: translateX(-36px);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] {
+    transform: translateX(36px);
+  }
+
+  /* Visible state — added by IntersectionObserver */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    will-change: auto;
+  }
+
+  /* Respect reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
     }
   }
 </style>
 
-<div class="pb-section" {{ section.shopify_attributes }}>
-  <div class="pb-card">
-    <div class="pb-grid">
-      <div class="pb-content">
-        <h2 class="pb-heading">{{ heading_text }}</h2>
-        {% if description != blank %}
-          <p class="pb-desc">{{ description }}</p>
-        {% endif %}
+{%- comment -%} ── SEO: schema.org BreadcrumbList / ItemList is handled
+    at page level. Here we use semantic landmark + aria. {%- endcomment -%}
 
-        <ul class="pb-list" role="list">
-          {% for block in section.blocks %}
-            {% if block.type == 'benefit' %}
-              <li class="pb-item" {{ block.shopify_attributes }}>
+<div
+  class="pb-section"
+  {{ section.shopify_attributes }}
+  aria-label="{{ heading_text | escape }}"
+>
+  <div class="pb-card" role="region" aria-label="{{ heading_text | escape }}">
+    <div class="pb-grid">
+
+      {%- comment -%} ── LEFT: text + benefit list ── {%- endcomment -%}
+      <div class="pb-content">
+
+        <h2
+          class="pb-heading"
+          data-pb-anim="left"
+          data-pb-delay="0"
+        >{{ heading_text }}</h2>
+
+        {%- if description != blank -%}
+          <p
+            class="pb-desc"
+            data-pb-anim="left"
+            data-pb-delay="80"
+          >{{ description }}</p>
+        {%- endif -%}
+
+        <ul class="pb-list" role="list" aria-label="{{ 'sections.benefits.list_label' | t | default: 'Product benefits' }}">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit' -%}
+              {%- assign delay_ms = forloop.index0 | times: 70 | plus: 120 -%}
+              <li
+                class="pb-item"
+                {{ block.shopify_attributes }}
+                data-pb-anim="up"
+                data-pb-delay="{{ delay_ms }}"
+              >
                 <div class="pb-row">
                   <div class="main-img-faq">
                     <span class="pb-icon" aria-hidden="true">
-                      {% if block.settings.icon_image != blank %}
-                        {{ block.settings.icon_image | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', alt: '' }}
-                      {% else %}
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
-                      {% endif %}
+                      {%- if block.settings.icon_image != blank -%}
+                        {{ block.settings.icon_image
+                            | image_url: width: 80
+                            | image_tag:
+                                loading: 'lazy',
+                                widths: '40,80',
+                                alt: '' }}
+                      {%- else -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+                      {%- endif -%}
                     </span>
                     <span class="pb-text">
                       <span class="pb-title">{{ block.settings.title_text }}</span>
-                      {% if block.settings.subtitle_text != blank %}
+                      {%- if block.settings.subtitle_text != blank -%}
                         <span class="pb-subtitle">{{ block.settings.subtitle_text }}</span>
-                      {% endif %}
+                      {%- endif -%}
                     </span>
                   </div>
                 </div>
               </li>
-            {% endif %}
-          {% endfor %}
+            {%- endif -%}
+          {%- endfor -%}
         </ul>
       </div>
 
-      <div class="pb-media">
-        {% if s.image != blank %}
-          {{ s.image | image_url: width: 1040 | image_tag:
-              loading: 'lazy',
-              widths: '320,480,640,820,1040',
-              sizes: '(min-width: 1024px) 480px, 90vw',
-              alt: s.image_alt | default: 'Haritaki capsules' }}
-        {% endif %}
+      {%- comment -%} ── RIGHT: product image ── {%- endcomment -%}
+      <div
+        class="pb-media"
+        data-pb-anim="right"
+        data-pb-delay="100"
+      >
+        {%- if s.image != blank -%}
+          {{ s.image
+              | image_url: width: 1040
+              | image_tag:
+                  loading: 'lazy',
+                  widths: '320,480,640,820,1040',
+                  sizes: '(min-width: 1024px) 480px, 90vw',
+                  alt: s.image_alt | default: 'Haritaki capsules' }}
+        {%- endif -%}
       </div>
+
     </div>
   </div>
 </div>
@@ -341,8 +429,8 @@
     { "type": "color", "id": "icon_background",  "label": "Icon background",    "default": "#f3eaf9" },
 
     { "type": "header", "content": "Content" },
-    { "type": "text",     "id": "heading_text",     "label": "Heading",           "default": "Haritaki™ isn't just a supplement" },
-    { "type": "textarea", "id": "description_text", "label": "Description",       "default": "It's the ancient Ayurvedic secret called \"The King of Medicines\" — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye." },
+    { "type": "text",     "id": "heading_text",        "label": "Heading",             "default": "Haritaki™ isn't just a supplement" },
+    { "type": "textarea", "id": "description_text",    "label": "Description",         "default": "It's the ancient Ayurvedic secret called \"The King of Medicines\" — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye." },
     { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Image" },
@@ -351,13 +439,13 @@
     { "type": "checkbox",     "id": "hide_image_on_mobile", "label": "Hide image on mobile", "default": true },
 
     { "type": "header", "content": "Spacing (px)" },
-    { "type": "range", "id": "section_padding_top",         "label": "Padding top (Mobile)",    "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_bottom",      "label": "Padding bottom (Mobile)", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x",           "label": "Padding sides (Mobile)",  "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "section_padding_top_desktop", "label": "Padding top (Desktop)",   "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)","min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",   "label": "Padding sides (Desktop)", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 },
-    { "type": "range", "id": "card_radius",                 "label": "Card radius",             "min": 0, "max": 40,  "step": 2, "unit": "px", "default": 24 }
+    { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",         "label": "Padding bottom (Mobile)",  "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",              "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",    "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop", "label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",      "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 },
+    { "type": "range", "id": "card_radius",                    "label": "Card radius",              "min": 0, "max": 40,  "step": 2, "unit": "px", "default": 24 }
   ],
   "blocks": [
     {
