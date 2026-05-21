@@ -1,5 +1,6 @@
 {% comment %}
   UGC Video Reviews section — sits below the Haritaki benefits.
+  Animation layer added via data-pb-anim / pb-visible pattern.
 {% endcomment %}
 
 {%- liquid
@@ -22,6 +23,143 @@
 -%}
 
 <style>
+  /* ============================================ */
+  /* ANIMATION BASE STATES                        */
+  /* Only active when JS is running (pb-js class) */
+  /* ============================================ */
+
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="fade-up"] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="fade-down"] {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="fade-in"] {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="scale-up"] {
+    opacity: 0;
+    transform: scale(0.90) translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ── Visible states (added by IntersectionObserver) ── */
+  #shopify-section-{{ sid }} [data-pb-anim].pb-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* ============================================ */
+  /* HOVER EFFECTS ON CARDS                       */
+  /* ============================================ */
+
+  /* Lift + glow on hover */
+  #shopify-section-{{ sid }} .uv-card {
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  #shopify-section-{{ sid }} .uv-card:hover {
+    transform: translateY(-8px) scale(1.025);
+    box-shadow: 0 24px 48px rgba(71, 24, 77, 0.35),
+                0 8px 16px rgba(0, 0, 0, 0.18);
+    z-index: 5;
+  }
+
+  /* Play button pulse on card hover */
+  #shopify-section-{{ sid }} .uv-card:hover .uv-play {
+    transform: translate(-50%, -50%) scale(1.15);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.15),
+                0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  #shopify-section-{{ sid }} .uv-play {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.3s ease,
+                box-shadow 0.35s ease;
+  }
+
+  /* Overlay shimmer on hover */
+  #shopify-section-{{ sid }} .uv-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ sid }} .uv-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Thumbnail zoom on hover */
+  #shopify-section-{{ sid }} .uv-card-media {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #shopify-section-{{ sid }} .uv-card:hover .uv-card-media {
+    transform: scale(1.06);
+  }
+
+  /* Swiper slides — don't clip the hover lift */
+  #shopify-section-{{ sid }} .uv-swiper {
+    overflow: visible !important;
+  }
+  #shopify-section-{{ sid }} .swiper-wrapper {
+    overflow: visible;
+  }
+  /* Re-clip only x-axis so cards don't overflow section width */
+  #shopify-section-{{ sid }} .uv-carousel-wrap {
+    overflow: hidden;
+  }
+
+  /* ============================================ */
+  /* STATS BAR COUNTER FADE                       */
+  /* ============================================ */
+  #shopify-section-{{ sid }}.pb-js .uv-stat {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }} .uv-stat.pb-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* ============================================ */
+  /* NAV BUTTON HOVER                             */
+  /* ============================================ */
+  #shopify-section-{{ sid }} .uv-nav {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  #shopify-section-{{ sid }} .uv-nav:hover:not(.swiper-button-disabled) {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 24px rgba(71, 24, 77, 0.25);
+    background: rgba(255, 255, 255, 1);
+  }
+
   /* ============================================ */
   /* DESKTOP                                      */
   /* ============================================ */
@@ -75,7 +213,7 @@
     font-weight: 500;
     color: #000;
     text-align: center;
-        letter-spacing: 0;
+    letter-spacing: 0;
   }
   #shopify-section-{{ sid }} .uv-eyebrow-richtext p { margin: 0; }
   #shopify-section-{{ sid }} .uv-eyebrow-richtext a { color: inherit; text-decoration: underline; }
@@ -102,7 +240,6 @@
   }
 
   #shopify-section-{{ sid }} .uv-swiper{
-    overflow: hidden;
     padding: 0 var(--uv-{{ sid }}-pl);
     padding-bottom: 8px;
   }
@@ -150,7 +287,8 @@
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-media,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-play,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-overlay,
-  #shopify-section-{{ sid }} .uv-card[data-playing="true"]::before{ display: none; }
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"]::before,
+  #shopify-section-{{ sid }} .uv-card[data-playing="true"]::after{ display: none; }
 
   #shopify-section-{{ sid }} .uv-card-overlay{
     position: absolute; inset: 0;
@@ -262,6 +400,11 @@
     }
     #shopify-section-{{ sid }} .uv-stat-value{ font-size: 20px; line-height: 22.7px; letter-spacing: -3%; }
     #shopify-section-{{ sid }} .uv-stat-label{ font-size: 12px; font-weight: 400; margin-top: 8px; line-height: 1.2; }
+
+    /* Mobile: reduce hover lift so cards don't clip siblings */
+    #shopify-section-{{ sid }} .uv-card:hover {
+      transform: translateY(-4px) scale(1.015);
+    }
   }
 </style>
 
@@ -276,7 +419,7 @@
   <div class="uv-container">
 
     {%- if s.eyebrow_richtext != blank or s.show_stars_checkbox -%}
-      <div class="uv-eyebrow">
+      <div class="uv-eyebrow" data-pb-anim="fade-down" data-pb-delay="0">
         {%- if s.show_stars_checkbox -%}
           <span class="uv-stars" aria-hidden="true">
             {%- for i in (1..5) -%}
@@ -290,7 +433,7 @@
       </div>
     {%- endif -%}
 
-    <h2 id="uv-heading-{{ sid }}" class="uv-heading">
+    <h2 id="uv-heading-{{ sid }}" class="uv-heading" data-pb-anim="fade-up" data-pb-delay="80">
       {{- s.heading_text | default: 'Wellness creators, mindful users,' -}}
     </h2>
 
@@ -324,11 +467,15 @@
                 if thumb_img == blank and b.video_file != blank
                   assign thumb_img = b.video_file.preview_image
                 endif
+                assign card_delay = forloop.index0 | times: 80 | plus: 160
               -%}
               <div class="swiper-slide">
-                <div class="uv-card" {{ block.shopify_attributes }}
+                <div class="uv-card"
+                    {{ block.shopify_attributes }}
                     itemscope itemtype="https://schema.org/VideoObject"
                     data-uv-card
+                    data-pb-anim="scale-up"
+                    data-pb-delay="{{ card_delay }}"
                     data-embed="{{ embed_url }}"
                     data-mp4="{{ mp4_url }}"
                     role="button"
@@ -381,15 +528,15 @@
 
     {%- if s.show_stats_checkbox -%}
       <div class="uv-stats" role="list">
-        <div class="uv-stat" role="listitem">
+        <div class="uv-stat" role="listitem" data-pb-anim="fade-up" data-pb-delay="0">
           <div class="uv-stat-value">{{ s.stat1_value | default: '22,926+' }}</div>
           <div class="uv-stat-label">{{ s.stat1_label | default: 'Verified Reviews' }}</div>
         </div>
-        <div class="uv-stat" role="listitem">
+        <div class="uv-stat" role="listitem" data-pb-anim="fade-up" data-pb-delay="100">
           <div class="uv-stat-value">{{ s.stat2_value | default: '4.8/5' }}</div>
           <div class="uv-stat-label">{{ s.stat2_label | default: 'Average Rating' }}</div>
         </div>
-        <div class="uv-stat" role="listitem">
+        <div class="uv-stat" role="listitem" data-pb-anim="fade-up" data-pb-delay="200">
           <div class="uv-stat-value">{{ s.stat3_value | default: '90 days' }}</div>
           <div class="uv-stat-label">{{ s.stat3_label | default: 'Money-Back Guarantee' }}</div>
         </div>
@@ -480,6 +627,67 @@
       document.addEventListener('DOMContentLoaded', initVideoPlay);
     } else {
       initVideoPlay();
+    }
+  })();
+</script>
+
+<!-- ═══════════════════════════════════════════
+     ANIMATION ENGINE
+     Same pb-js / pb-visible pattern you're using.
+     Scope: only this section's [data-pb-anim] elements.
+     ═══════════════════════════════════════════ -->
+<script>
+  (function () {
+    'use strict';
+
+    var sectionEl = document.getElementById('shopify-section-{{ sid }}');
+    if (!sectionEl) return;
+
+    /* No IO support → show everything immediately */
+    if (!('IntersectionObserver' in window)) {
+      sectionEl.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+        el.classList.add('pb-visible');
+      });
+      return;
+    }
+
+    /* Activate hidden states */
+    sectionEl.classList.add('pb-js');
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el    = entry.target;
+          var delay = parseInt(el.getAttribute('data-pb-delay') || '0', 10);
+          if (delay > 0) {
+            setTimeout(function () { el.classList.add('pb-visible'); }, delay);
+          } else {
+            el.classList.add('pb-visible');
+          }
+          observer.unobserve(el);
+        });
+      },
+      {
+        threshold:  0.10,
+        rootMargin: '0px 0px -40px 0px'
+      }
+    );
+
+    sectionEl.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+      observer.observe(el);
+    });
+
+    /* Theme editor re-init */
+    if (window.Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:section:load', function (e) {
+        if (e.target !== sectionEl) return;
+        sectionEl.classList.add('pb-js');
+        sectionEl.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+          el.classList.remove('pb-visible');
+          observer.observe(el);
+        });
+      });
     }
   })();
 </script>
