@@ -108,7 +108,6 @@
     margin: 0 auto;
   }
 
-  /* Desktop: 4-up grid, Mobile: single centered slide */
   #shopify-section-{{ sid }} .ps-reviews {
     display: grid;
     grid-auto-flow: column;
@@ -127,13 +126,13 @@
       grid-auto-columns: calc((100% - ({{ s.review_gap | default: 16 }}px * ({{ s.reviews_per_view | default: 4 }} - 3))) / {{ s.reviews_per_view | default: 4 }});
       gap: {{ s.review_gap | default: 16 }}px;
       padding: 0 {{ s.section_padding_x_desktop | default: 50 }}px;
-      scroll-snap-type: none;    /* desktop pe snap off */
-      overflow-x: hidden;        /* desktop pe scroll hidden — 4 cards fit exactly */
+      scroll-snap-type: none;
+      overflow-x: hidden;
     }
   }
 
   #shopify-section-{{ sid }} .ps-review {
-    scroll-snap-align: center;   /* mobile only — desktop snap is off */
+    scroll-snap-align: center;
     padding: 24px 16px;
     color: inherit;
     text-align: center;
@@ -148,7 +147,7 @@
     color: #000000;
   }
   #shopify-section-{{ sid }} .ps-review-body {
-     font-family: 'DM Sans';
+    font-family: 'DM Sans';
     color: #000000;
     font-size: 14.6px;
     line-height: 18.8px;
@@ -196,6 +195,7 @@
     background: {{ s.nav_next_background | default: '#3f1c5c' }};
     color: #ffffff;
   }
+  #shopify-section-{{ sid }} .ps-nav-btn:hover { transform: translateY(-2px); }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
   #shopify-section-{{ sid }} .ps-nav-btn svg { width: 19px; height: 19px; }
 
@@ -241,14 +241,37 @@
       line-height: 120%;
       letter-spacing: -0.03em;
     }
-     #shopify-section-{{ sid }} .ps-reviews{
-      grid-auto-columns: 77%;
+    #shopify-section-{{ sid }} .ps-reviews { grid-auto-columns: 77%; }
+  }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]   { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
     }
   }
 </style>
 
 <section class="ps-section" {{ section.shopify_attributes }}>
-  <div class="ps-head">
+  <div
+    class="ps-head"
+    data-pb-anim="up"
+    data-pb-delay="0"
+  >
     <h2 class="ps-heading">{{ s.heading_text | default: 'Ingredients That Just Do More' }}</h2>
     {%- if s.subheading_text != blank -%}
       <p class="ps-sub">{{ s.subheading_text }}</p>
@@ -256,7 +279,12 @@
   </div>
 
   {%- if photo_count > 0 -%}
-    <div class="ps-photos" aria-label="{{ s.photos_aria_label | default: 'Customer photos' }}">
+    <div
+      class="ps-photos"
+      aria-label="{{ s.photos_aria_label | default: 'Customer photos' }}"
+      data-pb-anim="up"
+      data-pb-delay="80"
+    >
       <div class="ps-photos-track">
         {%- for pass in (1..2) -%}
           {%- for block in section.blocks -%}
@@ -280,7 +308,11 @@
   {%- endif -%}
 
   {%- if review_count > 0 -%}
-    <div class="ps-reviews-wrap">
+    <div
+      class="ps-reviews-wrap"
+      data-pb-anim="up"
+      data-pb-delay="160"
+    >
       <div class="ps-reviews" data-ps-reviews>
         {%- for block in section.blocks -%}
           {%- if block.type == 'review' -%}
@@ -325,24 +357,19 @@
   var next  = root.querySelector('[data-ps-next]');
   if (!track) return;
 
-  /* ── Center a specific card in the track ── */
   function centerCard(card) {
     if (!card || !card.offsetWidth) return;
-    /* scrollLeft so card center = track center */
     track.scrollLeft = card.offsetLeft - (track.clientWidth / 2) + (card.offsetWidth / 2);
   }
 
-  /* ── Step prev/next ── */
   function step(dir) {
     if (!isMobile()) {
-      /* Desktop: simple scroll by one card width */
       var card = track.querySelector('.ps-review');
       if (!card) return;
       var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
       track.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
       return;
     }
-    /* Mobile: find centered card, move to next/prev */
     var cards = Array.prototype.slice.call(track.querySelectorAll('.ps-review'));
     if (!cards.length) return;
     var trackMid = track.scrollLeft + track.clientWidth / 2;
@@ -358,13 +385,10 @@
   prev && prev.addEventListener('click', function () { step(-1); });
   next && next.addEventListener('click', function () { step(1); });
 
-  /* ── Center MIDDLE card on load ──────────────────────────────
-     3 cards → 2nd centered, 5 cards → 3rd centered etc.
-     Multiple timings to catch slow/async renders.           ── */
   function isMobile() { return window.innerWidth <= 768; }
 
   function centerMiddle() {
-    if (!isMobile()) return;   /* desktop pe kuch mat karo */
+    if (!isMobile()) return;
     var cards = Array.prototype.slice.call(track.querySelectorAll('.ps-review'));
     if (!cards.length) return;
     var mid = cards[Math.floor(cards.length / 2)];
@@ -385,10 +409,10 @@
     resizeTimer = setTimeout(function () {
       var nowMobile = isMobile();
       if (nowMobile) {
-        centerMiddle();                /* mobile → center karo */
+        centerMiddle();
       } else if (wasMobile && !nowMobile) {
-        track.scrollLeft = 0;         /* mobile → desktop: reset scroll */
-        track.style.overflowX = '';   /* restore desktop hidden overflow */
+        track.scrollLeft = 0;
+        track.style.overflowX = '';
       }
       wasMobile = nowMobile;
     }, 80);
