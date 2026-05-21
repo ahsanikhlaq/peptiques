@@ -492,8 +492,10 @@
           {%- if block.type == 'ingredient' -%}
             <div class="ni-trow" {{ block.shopify_attributes }}>
               <span>{{ block.settings.name }} <em>({{ block.settings.subtitle }})</em></span>
+              <div class="main-amount-dv">
               <span>{{ block.settings.amount }}</span>
               <span>{{ block.settings.dv }}</span>
+              </div>
             </div>
           {%- endif -%}
         {%- endfor -%}
