@@ -81,9 +81,37 @@
       letter-spacing: -3%;
     }
   }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"] { transform: translateY(20px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
-<div class="pm-bar" role="region" aria-label="{{ s.aria_label | default: 'Promotional bar' }}" {{ section.shopify_attributes }}>
+<div
+  class="pm-bar"
+  role="region"
+  aria-label="{{ s.aria_label | default: 'Promotional bar' }}"
+  {{ section.shopify_attributes }}
+  data-pb-anim="up"
+  data-pb-delay="0"
+>
   <div class="pm-track">
     {% for pass in (1..2) %}
       {% for block in section.blocks %}
