@@ -301,14 +301,43 @@
       max-width: 220px;
     }
   }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]   { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
 <section class="pt-section" {{ section.shopify_attributes }}>
   <div class="pt-wrap">
-    <h2 class="pt-heading">{{ s.heading_text | default: 'Ancient Wisdom. Modern Strength' }}</h2>
+    <h2
+      class="pt-heading"
+      data-pb-anim="up"
+      data-pb-delay="0"
+    >{{ s.heading_text | default: 'Ancient Wisdom. Modern Strength' }}</h2>
 
     {%- if phases.size > 0 -%}
-      <div class="pt-tabs-shell">
+      <div
+        class="pt-tabs-shell"
+        data-pb-anim="up"
+        data-pb-delay="120"
+      >
 
         <div class="pt-tabs" role="tablist" data-pt-tabs>
           {%- for phase in phases -%}
@@ -419,7 +448,6 @@
         isActive ? v.play && v.play() : v.pause && v.pause();
       });
       if (isActive && isMobile()) {
-        /* Small delay so panel display:block settles */
         setTimeout(function () {
           centerSecondCard(p.querySelector('.pt-cards'));
         }, 30);
@@ -437,12 +465,6 @@
     return window.innerWidth <= 768;
   }
 
-  /* ──────────────────────────────────────────────────────────────
-     RELIABLE CENTERING — fires on EVERY scenario:
-     1. Mobile page load
-     2. Desktop → mobile resize
-     3. Shopify editor switch
-  ────────────────────────────────────────────────────────────── */
   var wasMobile = isMobile();
 
   function tryCenter() {
@@ -450,28 +472,23 @@
     centerActivePanel();
   }
 
-  /* window.load: all resources done, layout settled */
   window.addEventListener('load', tryCenter);
 
-  /* resize: catch desktop → mobile switch */
   var resizeTimer;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       var nowMobile = isMobile();
-      /* Fire when crossing INTO mobile from desktop */
       if (nowMobile && !wasMobile) {
         tryCenter();
       }
       wasMobile = nowMobile;
-      /* Also re-center if already mobile and width changed (orientation etc) */
       if (nowMobile) {
         tryCenter();
       }
     }, 80);
   });
 
-  /* IntersectionObserver: section enters viewport (no once-lock) */
   if ('IntersectionObserver' in window) {
     var sectionEl = root.querySelector('.pt-section');
     var io = new IntersectionObserver(function (entries) {
@@ -482,16 +499,13 @@
     if (sectionEl) io.observe(sectionEl);
   }
 
-  /* Shopify editor reload */
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === '{{ sid }}') {
       setTimeout(tryCenter, 150);
     }
   });
 
-  /* Initial run for mobile page load */
   if (isMobile()) {
-    /* Try immediately after script runs, then again after paint */
     tryCenter();
     setTimeout(tryCenter, 80);
     setTimeout(tryCenter, 300);
