@@ -16,7 +16,7 @@
 
 <style>
   #shopify-section-{{ sid }} .pe-section {
-   background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%);
+    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%);
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.text_color | default: '#000000' }};
     transition: background 400ms ease;
@@ -228,17 +228,19 @@
     #shopify-section-{{ sid }} .pe-heading em { color: #000000; }
     #shopify-section-{{ sid }} .pe-tab-icon { width: 28px; height: 28px; }
     #shopify-section-{{ sid }} .pe-tab { padding: 14px 16px; gap: 14px; font-size: 20px; }
-    #shopify-section-{{ sid }} .pe-pill {         max-width: 100%;
-        margin: 0;
-        padding: 0;
-        background: unset !important; }
+    #shopify-section-{{ sid }} .pe-pill {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      background: unset !important;
+    }
     #shopify-section-{{ sid }} .pe-protip {
       font-size: 12.6px;
       line-height: 18.8px;
       letter-spacing: -0.03em;
       text-align: center;
       max-width: 100%;
-          margin: 4px 0 0;
+      margin: 4px 0 0;
     }
     #shopify-section-{{ sid }} .pe-visual { max-width: 100%; }
     #shopify-section-{{ sid }} .pe-stat {
@@ -253,19 +255,77 @@
     #shopify-section-{{ sid }} .pe-stat-body { font-size: 11.8px; line-height: 16.4px; letter-spacing: -0.03em; }
     #shopify-section-{{ sid }} .pe-tabs { gap: 16px; }
     #shopify-section-{{ sid }} .main-pepill-peprotip {
-    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%) !important;
-    color: #000000;
-    border-radius: 0;
-    padding: 6px 12px;
-    margin: 0 16px;
-    text-align: center;
-}
+      background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%) !important;
+      color: #000000;
+      border-radius: 0;
+      padding: 6px 12px;
+      margin: 0 16px;
+      text-align: center;
+    }
+  }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════
+     Heading  → fade up (scroll trigger via theme.liquid JS)
+     Tabs row → fade up, slight delay
+     Panel    → CSS keyframe fires every time a tab activates
+                (works on page load AND on tab switch)
+  ═════════════════════════════════════════════════════════════ */
+
+  /* 1 ── Scroll-trigger system (heading + tabs) */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]   { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="scale"] {
+    transform: scale(0.96) translateY(10px);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    will-change: auto;
+  }
+
+  /* 2 ── Panel keyframe — fires on every tab activate */
+  @keyframes pe-panel-in-{{ sid }} {
+    0%   { opacity: 0; transform: translateY(18px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] {
+    animation: pe-panel-in-{{ sid }} 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* 3 ── Stat card subtle scale-in inside the panel */
+  @keyframes pe-stat-in-{{ sid }} {
+    0%   { opacity: 0; transform: scale(0.92) translateY(12px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] .pe-stat {
+    animation: pe-stat-in-{{ sid }} 0.65s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* 4 ── Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important; transform: none !important; transition: none !important;
+    }
+    #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"],
+    #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] .pe-stat {
+      animation: none !important;
+    }
   }
 </style>
 
 <section class="pe-section" data-pe-root {{ section.shopify_attributes }}>
   <div class="pe-wrap">
-    <h2 class="pe-heading">
+
+    <h2
+      class="pe-heading"
+      data-pb-anim="up"
+      data-pb-delay="0"
+    >
       {%- if s.heading_italic_text != blank -%}
         <em>{{ s.heading_italic_text }}</em>
       {%- endif -%}
@@ -273,7 +333,12 @@
     </h2>
 
     {%- if phase_count > 0 -%}
-      <div class="pe-tabs" role="tablist">
+      <div
+        class="pe-tabs"
+        role="tablist"
+        data-pb-anim="up"
+        data-pb-delay="120"
+      >
         {%- for block in section.blocks -%}
           {%- if block.type == 'phase' -%}
             <button type="button"
@@ -305,16 +370,16 @@
         {%- if block.type == 'phase' -%}
           <div class="pe-panel" role="tabpanel" data-pe-panel="{{ forloop.index }}" data-pe-active="{% if forloop.first %}true{% else %}false{% endif %}">
             <div class="main-pepill-peprotip">
-            {%- if block.settings.pill_richtext != blank -%}
-              <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">
-                {{ block.settings.pill_richtext }}
-              </div>
-            {%- endif -%}
+              {%- if block.settings.pill_richtext != blank -%}
+                <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">
+                  {{ block.settings.pill_richtext }}
+                </div>
+              {%- endif -%}
+              {%- if block.settings.protip_richtext != blank -%}
+                <div class="pe-protip">{{ block.settings.protip_richtext }}</div>
+              {%- endif -%}
+            </div>
 
-            {%- if block.settings.protip_richtext != blank -%}
-            <div class="pe-protip">{{ block.settings.protip_richtext }}</div>
-           {%- endif -%}
-        </div>
             <div class="pe-visual">
               {%- if block.settings.visual_image != blank -%}
                 {{ block.settings.visual_image | image_url: width: 1200 | image_tag:
@@ -442,7 +507,7 @@
         { "type": "color",        "id": "tab_active_bg",       "label": "Active tab bg",               "default": "#fff2a0" },
         { "type": "color",        "id": "tab_active_border",   "label": "Active tab border",           "default": "#f5d04a" },
         { "type": "richtext",     "id": "pill_richtext",       "label": "Main text (rich text)", "default": "<p>Take 1 capsule with water upon waking, <strong>before breakfast</strong>.</p>" },
-       { "type": "richtext", "id": "protip_richtext", "label": "Pro Tip text (rich text)", "default": "<p>Pro Tip: For Better Absorption Take It With Warm Water.</p>" },
+        { "type": "richtext",     "id": "protip_richtext",     "label": "Pro Tip text (rich text)", "default": "<p>Pro Tip: For Better Absorption Take It With Warm Water.</p>" },
         { "type": "image_picker", "id": "visual_image",        "label": "Main image — Desktop" },
         { "type": "image_picker", "id": "visual_image_mobile", "label": "Main image — Mobile (falls back to desktop if empty)" },
         { "type": "header",       "content": "Stat card" },
