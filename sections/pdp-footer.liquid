@@ -409,10 +409,7 @@
   font-weight: 500;
   white-space: nowrap;
 }
-#shopify-section-{{ sid }} .pf-wrap{
-      display: flex;
-    flex-direction: column;
-}
+
 
 /* ── PAYMENT — Mobile only ── */
 #shopify-section-{{ sid }} .pf-payment {
@@ -445,6 +442,16 @@
     align-items: center;
   }
   #shopify-section-{{ sid }} .pf-social-label { font-size: 14px; }
+  #shopify-section-{{ sid }} .pf-wrap{
+    display: flex;
+    flex-direction: column;
+  }
+  #shopify-section-{{ sid }} .pf-newsletter{
+    order: 1;
+  }
+  #shopify-section-{{ sid }} .pf-row2 {
+    order: 2;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
