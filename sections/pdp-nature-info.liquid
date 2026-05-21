@@ -534,8 +534,17 @@
             </div>
           {%- endif -%}
         {%- endfor -%}
-        {%- if s.dv_note != blank -%}
-          <p class="ni-dv-note">{{ s.dv_note }}</p>
+        {%- if s.dv_note != blank or s.table_image != blank -%}
+          <div class="ni-dv-row">
+            {%- if s.dv_note != blank -%}
+              <p class="ni-dv-note">{{ s.dv_note }}</p>
+            {%- endif -%}
+            {%- if s.table_image != blank -%}
+              <div class="ni-table-img">
+                {{ s.table_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '80,120,200', alt: '' }}
+              </div>
+            {%- endif -%}
+          </div>
         {%- endif -%}
       </div>
 
@@ -570,6 +579,7 @@
     { "type": "text",     "id": "amount_header", "label": "Amount header", "default": "Amount Per Serving" },
     { "type": "text",     "id": "dv_header",     "label": "DV header",     "default": "%DV" },
     { "type": "text",     "id": "dv_note",       "label": "DV note (inside card, below ingredients)", "default": "*Daily value not established" },
+    { "type": "image_picker", "id": "table_image", "label": "Product image (mobile only, beside DV note)" },
     { "type": "textarea", "id": "disclaimer",    "label": "Disclaimer",    "default": "* These supplements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease." }
   ],
   "blocks": [
