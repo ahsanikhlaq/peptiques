@@ -1,5 +1,5 @@
 {% comment %}
-  Frequently Asked Questions — accordion section.
+  Frequently Asked Questions — smooth accordion section.
 {% endcomment %}
 
 {%- liquid
@@ -73,20 +73,19 @@
   }
   #shopify-section-{{ sid }} .pq-avatars img:first-child{ margin-left: 0; }
 
-  /* ── FAQ list: gap between boxes ── */
+  /* ── FAQ list ── */
   #shopify-section-{{ sid }} .pq-list{
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
-  /* ── Each item: box style ── */
+  /* ── Each item box ── */
   #shopify-section-{{ sid }} .pq-item{
     border: 1px solid rgba(71, 24, 77, 0.25);
     border-radius: 8px;
     overflow: hidden;
   }
-  #shopify-section-{{ sid }} .pq-item details{ width: 100%; }
 
   #shopify-section-{{ sid }} .pq-summary{
     display: flex;
@@ -98,10 +97,11 @@
     list-style: none;
     font-family: 'DM Sans', system-ui, sans-serif;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 19.6px;
-    letter-spacing: -3%;
+    letter-spacing: -0.02em;
     color: inherit;
+    user-select: none;
   }
   #shopify-section-{{ sid }} .pq-summary::-webkit-details-marker{ display: none; }
 
@@ -112,25 +112,40 @@
     justify-content: center;
     color: {{ s.toggle_color | default: '#000000' }};
     flex-shrink: 0;
+    transition: transform 300ms ease;
   }
-  #shopify-section-{{ sid }} .pq-item details[open] .pq-toggle .pq-v-line{ display: none; }
   #shopify-section-{{ sid }} .pq-toggle svg{ width: 18px; height: 18px; }
+  #shopify-section-{{ sid }} .pq-toggle .pq-v-line{
+    transition: opacity 200ms ease;
+  }
+  #shopify-section-{{ sid }} .pq-item.is-open .pq-toggle .pq-v-line{
+    opacity: 0;
+  }
 
-  /* ── Answer typography ── */
+  /* ── Smooth answer reveal (grid trick) ── */
   #shopify-section-{{ sid }} .pq-answer{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #shopify-section-{{ sid }} .pq-item.is-open .pq-answer{
+    grid-template-rows: 1fr;
+  }
+  #shopify-section-{{ sid }} .pq-answer-inner{
+    overflow: hidden;
+  }
+  #shopify-section-{{ sid }} .pq-answer-body{
     padding: 0 12px 16px;
-    margin: 0;
     font-family: 'DM Sans', system-ui, sans-serif;
     font-weight: 400;
     font-size: 14.6px;
     line-height: 18.8px;
     letter-spacing: -0.03em;
     color: rgba(0, 0, 0, 1);
-    max-width: 70ch;
   }
-  #shopify-section-{{ sid }} .pq-answer p{
-    padding: 0;
+  #shopify-section-{{ sid }} .pq-answer-body p{
     margin: 0;
+    padding: 0;
   }
 
   /* ── Mobile ── */
@@ -146,29 +161,26 @@
       line-height: 18.8px;
       letter-spacing: -0.03em;
     }
-    #shopify-section-{{ sid }} .pq-avatars{
-      display: inline-flex;
-      margin-top: 0;
-    }
-    #shopify-section-{{ sid }} .pq-avatars img{
-      width: 43px;
-      height: 43px;
-    }
-    #shopify-section-{{ sid }} .pq-wrap{
-      gap: 24px;
-    }
+    #shopify-section-{{ sid }} .pq-avatars{ margin-top: 0; }
+    #shopify-section-{{ sid }} .pq-avatars img{ width: 43px; height: 43px; }
+    #shopify-section-{{ sid }} .pq-wrap{ gap: 24px; }
     #shopify-section-{{ sid }} .pq-summary{
       font-size: 14px;
       line-height: 20.3px;
       letter-spacing: -0.03em;
       padding: 14px 12px;
     }
-    #shopify-section-{{ sid }} .pq-answer{
+    #shopify-section-{{ sid }} .pq-answer-body{
       font-size: 14.6px;
       line-height: 18.8px;
       letter-spacing: -0.03em;
       padding: 0 12px 14px;
     }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #shopify-section-{{ sid }} .pq-answer{ transition: none; }
+    #shopify-section-{{ sid }} .pq-toggle .pq-v-line{ transition: none; }
   }
 </style>
 
@@ -192,21 +204,23 @@
       <div class="pq-list">
         {% for block in section.blocks %}
           {% if block.type == 'faq' %}
-            <div class="pq-item" {{ block.shopify_attributes }} itemscope itemtype="https://schema.org/Question">
-              <details {% if block.settings.open_by_default %}open{% endif %}>
-                <summary class="pq-summary">
-                  <span itemprop="name">{{ block.settings.question }}</span>
-                  <span class="pq-toggle" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                      <path class="pq-v-line" d="M12 5v14"/>
-                      <path d="M5 12h14"/>
-                    </svg>
-                  </span>
-                </summary>
-                <div class="pq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                  <div itemprop="text">{{ block.settings.answer }}</div>
+            <div class="pq-item{% if block.settings.open_by_default %} is-open{% endif %}"
+                 {{ block.shopify_attributes }}
+                 itemscope itemtype="https://schema.org/Question">
+              <div class="pq-summary" role="button" tabindex="0" aria-expanded="{% if block.settings.open_by_default %}true{% else %}false{% endif %}">
+                <span itemprop="name">{{ block.settings.question }}</span>
+                <span class="pq-toggle" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path class="pq-v-line" d="M12 5v14"/>
+                    <path d="M5 12h14"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="pq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="pq-answer-inner">
+                  <div class="pq-answer-body" itemprop="text">{{ block.settings.answer }}</div>
                 </div>
-              </details>
+              </div>
             </div>
           {% endif %}
         {% endfor %}
@@ -237,6 +251,29 @@
 }
 </script>
 
+<script>
+(function(){
+  var root = document.getElementById('shopify-section-{{ sid }}');
+  if (!root) return;
+
+  root.querySelectorAll('.pq-item').forEach(function(item){
+    var btn = item.querySelector('.pq-summary');
+    if (!btn) return;
+
+    function toggle(){
+      var open = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !open);
+      btn.setAttribute('aria-expanded', String(!open));
+    }
+
+    btn.addEventListener('click', toggle);
+    btn.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+})();
+</script>
+
 {% schema %}
 {
   "name": "FAQs",
@@ -245,26 +282,26 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background",    "label": "Section background", "default": "#fffffc" },
-    { "type": "color", "id": "text_color",    "label": "Text color",         "default": "#000000" },
-    { "type": "color", "id": "sub_color",     "label": "Subtle text color",  "default": "#000000" },
-    { "type": "color", "id": "toggle_color",  "label": "Toggle icon color",  "default": "#000000" },
+    { "type": "color", "id": "background",   "label": "Section background", "default": "#fffffc" },
+    { "type": "color", "id": "text_color",   "label": "Text color",         "default": "#000000" },
+    { "type": "color", "id": "sub_color",    "label": "Subtle text color",  "default": "#000000" },
+    { "type": "color", "id": "toggle_color", "label": "Toggle icon color",  "default": "#000000" },
 
     { "type": "header", "content": "Content" },
-    { "type": "text",     "id": "heading_text",        "label": "Heading",    "default": "Frequently Asked Questions" },
-    { "type": "textarea", "id": "sub_text",            "label": "Subheading", "default": "Got questions? We've got answers. Find everything you need to know below." },
-    { "type": "image_picker", "id": "avatar_1",        "label": "Avatar 1" },
-    { "type": "image_picker", "id": "avatar_2",        "label": "Avatar 2" },
-    { "type": "image_picker", "id": "avatar_3",        "label": "Avatar 3" },
+    { "type": "text",         "id": "heading_text",        "label": "Heading",    "default": "Frequently Asked Questions" },
+    { "type": "textarea",     "id": "sub_text",            "label": "Subheading", "default": "Got questions? We've got answers. Find everything you need to know below." },
+    { "type": "image_picker", "id": "avatar_1",            "label": "Avatar 1" },
+    { "type": "image_picker", "id": "avatar_2",            "label": "Avatar 2" },
+    { "type": "image_picker", "id": "avatar_3",            "label": "Avatar 3" },
     { "type": "text",         "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Spacing (px)" },
-    { "type": "range", "id": "section_padding_top",           "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_bottom",        "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x",             "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "section_padding_top_desktop",   "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",     "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+    { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",         "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",              "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",    "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop", "label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",      "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
   ],
   "blocks": [
     {
