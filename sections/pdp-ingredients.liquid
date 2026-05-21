@@ -1,5 +1,8 @@
 {% comment %}
   Ingredients That Just Do More — PDP section.
+  ── Animation System ──────────────────────────────────────────────
+  Uses the global pb-js / data-pb-anim system — JS lives in theme.liquid.
+  Bar-fill animation JS (IntersectionObserver) stays as-is below.
 {% endcomment %}
 
 {%- liquid
@@ -40,10 +43,8 @@
     position: relative;
 
     {% if mobile_bg_image != blank %}
-      /* IMAGE SET: show image only, no gradient overlay */
       background: url('{{ mobile_bg_image | image_url: width: 1200 }}') center center / cover no-repeat;
     {% else %}
-      /* NO IMAGE: show purple gradient */
       background-color: {{ s.card_background | default: '#47184d' }};
       background-image:
         radial-gradient(ellipse 60% 50% at 20% 0%, rgba(255,255,255,0.08), transparent 60%),
@@ -86,7 +87,7 @@
     letter-spacing: -0.03em;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
-    font-weight:400;
+    font-weight: 400;
   }
 
   /* ─── Ingredient cards ──────────────────────────────────────── */
@@ -103,6 +104,7 @@
     -webkit-overflow-scrolling: touch;
   }
   #shopify-section-{{ sid }} .pi-cards::-webkit-scrollbar { display: none; }
+
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pi-cards {
       grid-auto-flow: row;
@@ -114,6 +116,8 @@
       gap: 12px;
     }
   }
+
+  /* ─── Ingredient card ───────────────────────────────────────── */
   #shopify-section-{{ sid }} .pi-card {
     scroll-snap-align: start;
     background: {{ s.card_color | default: '#ffffff' }};
@@ -123,7 +127,15 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+    /* Consistent hover — same style as pb-item / uv-card */
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
   }
+  #shopify-section-{{ sid }} .pi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.10);
+  }
+
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pi-card {
       display: grid;
@@ -133,6 +145,7 @@
       align-items: stretch;
     }
   }
+
   #shopify-section-{{ sid }} .pi-card-title {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     font-weight: 400;
@@ -147,10 +160,8 @@
     flex-direction: column;
     justify-content: space-between;
     max-width: 356px;
-}
-  #shopify-section-{{ sid }} .pi-card-title p{
-    margin:0;
   }
+  #shopify-section-{{ sid }} .pi-card-title p { margin: 0; }
   #shopify-section-{{ sid }} .pi-card-body {
     font-size: 16px;
     line-height: 1.4;
@@ -280,7 +291,6 @@
     pointer-events: none;
     z-index: 1;
   }
-
   #shopify-section-{{ sid }} .pi-bar { padding: 0; z-index: 1; }
   #shopify-section-{{ sid }} .pi-bar-label {
     color: rgba(227, 227, 227, 1);
@@ -300,8 +310,6 @@
     background: transparent;
     overflow: hidden;
   }
-
-  /* Fill — starts at 0, JS animates to data-w value */
   #shopify-section-{{ sid }} .pi-bar-fill {
     display: block !important;
     position: absolute;
@@ -312,8 +320,6 @@
     border-radius: 3px;
     transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  /* Striped: white base + black diagonal lines */
   #shopify-section-{{ sid }} .pi-bar-fill--striped {
     background-color: #ffffff;
     background-image: repeating-linear-gradient(
@@ -323,106 +329,163 @@
     );
   }
 
+  /* ─── Mobile ────────────────────────────────────────────────── */
   @media (max-width: 768px) {
     #shopify-section-{{ sid }} .pi-footer { display: none; }
-    #shopify-section-{{ sid }} .pi-badges { margin-bottom: 0; gap: 4px;
-        background: unset;
-        border-radius: unset;
-        padding: unset; }
-    #shopify-section-{{ sid }} .pi-heading{
+    #shopify-section-{{ sid }} .pi-badges {
+      margin-bottom: 0;
+      gap: 4px;
+      background: unset;
+      border-radius: unset;
+      padding: unset;
+    }
+    #shopify-section-{{ sid }} .pi-heading {
       font-size: 30px;
-      line-height: 110.00000000000001%;
+      line-height: 110%;
       letter-spacing: -4%;
       margin: 0 auto 10px;
       max-width: 250px;
     }
-    #shopify-section-{{ sid }} .pi-sub{
+    #shopify-section-{{ sid }} .pi-sub {
       font-size: 14.6px;
       line-height: 18.8px;
       letter-spacing: -3%;
       text-align: center;
-      Color:#FFFFFF;
+      color: #FFFFFF;
       max-width: 358px;
       margin: 0 auto 24px;
     }
-    #shopify-section-{{ sid }} .pi-badge{
+    #shopify-section-{{ sid }} .pi-badge {
       background: #FFFFFF;
       padding: 8px 12px;
       border-radius: 4px;
       font-size: 14px;
       gap: 8px;
     }
-    #shopify-section-{{ sid }} .pi-badge-x{
-      width: 18px;
-    height: 18px;
-    }
-     #shopify-section-{{ sid }} .pi-cards{
+    #shopify-section-{{ sid }} .pi-badge-x { width: 18px; height: 18px; }
+    #shopify-section-{{ sid }} .pi-cards {
       margin: 0 0px 8px 0px;
       padding: 0 0px 0px 0px;
       gap: 8px;
       grid-auto-columns: unset;
     }
-    #shopify-section-{{ sid }} .pi-badge-x svg {
-    width: 12px;
-    height: 12px;
-    }
-    #shopify-section-{{ sid }} .pi-card{
+    #shopify-section-{{ sid }} .pi-badge-x svg { width: 12px; height: 12px; }
+    #shopify-section-{{ sid }} .pi-card {
       border-radius: 10px;
       padding: 8px;
       gap: 12px;
     }
-    #shopify-section-{{ sid }} .pi-card-image {
-    order: -1;
-    border-radius: 10px;
-    }
+    #shopify-section-{{ sid }} .pi-card-image { order: -1; border-radius: 10px; }
     #shopify-section-{{ sid }} .pi-card-title {
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -3%;
-    margin: 0 0 6px;
-    color:#000000;
-   }
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: -3%;
+      margin: 0 0 6px;
+      color: #000000;
+    }
     #shopify-section-{{ sid }} .pi-card-body {
-    font-size: 12.8px;
-    line-height: 15.4px;
-    letter-spacing: -3%;
-    color: #665169;
-    margin: 0;
-    font-family: 'DM Sans', sans-serif;
-            font-weight: 400;
-   }
+      font-size: 12.8px;
+      line-height: 15.4px;
+      letter-spacing: -3%;
+      color: #665169;
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ sid }} .pi-bar-fill { transition: none !important; }
   }
+
+  /* ══ SCROLL ANIMATION SYSTEM ══════════════════════════════════════
+     Same system as benefits-section + ugc-video-reviews.
+     Default: fully visible (SEO / no-JS safe).
+     theme.liquid JS adds .pb-js → animations activate.
+     IntersectionObserver adds .pb-visible → elements show.
+  ═════════════════════════════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]    { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"]  { transform: translateX(-36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] { transform: translateX(36px); }
+
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
-<section class="pi-section" {{ section.shopify_attributes }}>
+<section
+  class="pi-section"
+  {{ section.shopify_attributes }}
+  aria-labelledby="pi-heading-{{ sid }}"
+  itemscope
+  itemtype="https://schema.org/ItemList"
+>
   <div class="pi-wrap">
 
-    <h2 class="pi-heading">{{ s.heading_text | default: 'Ingredients That Just Do More' }}</h2>
+    <h2
+      id="pi-heading-{{ sid }}"
+      class="pi-heading"
+      data-pb-anim="up"
+      data-pb-delay="0"
+      itemprop="name"
+    >{{ s.heading_text | default: 'Ingredients That Just Do More' }}</h2>
 
     {%- if s.subheading_text != blank -%}
-      <p class="pi-sub">{{ s.subheading_text }}</p>
+      <p
+        class="pi-sub"
+        data-pb-anim="up"
+        data-pb-delay="80"
+      >{{ s.subheading_text }}</p>
     {%- endif -%}
 
     {%- if ingredient_count > 0 -%}
-      <div class="pi-cards">
+      <div
+        class="pi-cards"
+        role="list"
+        aria-label="Ingredient details"
+        data-pb-anim="up"
+        data-pb-delay="160"
+      >
         {%- for block in section.blocks -%}
           {%- if block.type == 'ingredient' -%}
-            <article class="pi-card" {{ block.shopify_attributes }}>
+            <article
+              class="pi-card"
+              {{ block.shopify_attributes }}
+              role="listitem"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <meta itemprop="position" content="{{ forloop.index }}">
               <div class="main-pi-block-title-des">
-                <h3 class="pi-card-title">{{ block.settings.title_text }}</h3>
-                <p class="pi-card-body">{{ block.settings.body_text }}</p>
+                <h3 class="pi-card-title" itemprop="name">{{ block.settings.title_text }}</h3>
+                <p class="pi-card-body" itemprop="description">{{ block.settings.body_text }}</p>
               </div>
-              <div class="pi-card-image">
+              <div class="pi-card-image" aria-hidden="true">
                 {%- if block.settings.image != blank -%}
-                  {{ block.settings.image | image_url: width: 400 | image_tag:
-                       loading: 'lazy',
-                       widths: '200,280,400',
-                       sizes: '(min-width: 1024px) 170px, 130px',
-                       alt: block.settings.title_text }}
+                  {{ block.settings.image
+                      | image_url: width: 400
+                      | image_tag:
+                          loading: 'lazy',
+                          decoding: 'async',
+                          widths: '200,280,400',
+                          sizes: '(min-width: 1024px) 170px, 130px',
+                          alt: block.settings.title_text | strip_html }}
                 {%- endif -%}
               </div>
             </article>
@@ -432,14 +495,20 @@
     {%- endif -%}
 
     {%- if badge_count > 0 -%}
-      <div class="pi-badges" role="list">
+      <div
+        class="pi-badges"
+        role="list"
+        aria-label="Quality certifications"
+        data-pb-anim="up"
+        data-pb-delay="100"
+      >
         {%- for block in section.blocks -%}
           {%- if block.type == 'badge' -%}
             <span class="pi-badge" role="listitem" {{ block.shopify_attributes }}>
               <span class="pi-badge-x" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
               </span>
               <span class="pi-badge-label">{{ block.settings.label_text }}</span>
             </span>
@@ -451,14 +520,21 @@
     {%- if s.footer_image != blank or stat_count > 0 -%}
       <div class="pi-footer">
 
-        <div class="pi-footer-left">
+        <div
+          class="pi-footer-left"
+          data-pb-anim="left"
+          data-pb-delay="80"
+        >
           {%- if s.footer_image != blank -%}
-            {{ s.footer_image | image_url: width: 800 | image_tag:
-                 class: 'pi-footer-image',
-                 loading: 'lazy',
-                 widths: '300,500,800',
-                 sizes: '(min-width: 1024px) 38vw, 100vw',
-                 alt: s.footer_image_alt | default: '' }}
+            {{ s.footer_image
+                | image_url: width: 800
+                | image_tag:
+                    class: 'pi-footer-image',
+                    loading: 'lazy',
+                    decoding: 'async',
+                    widths: '300,500,800',
+                    sizes: '(min-width: 1024px) 38vw, 100vw',
+                    alt: s.footer_image_alt | default: '' }}
           {%- endif -%}
           {%- if s.stat_label != blank -%}
             <p class="pi-stat-label">{{ s.stat_label }}</p>
@@ -466,13 +542,20 @@
         </div>
 
         {%- if stat_count > 0 -%}
-          <div class="pi-bars" id="pi-bars-{{ sid }}">
+          <div
+            class="pi-bars"
+            id="pi-bars-{{ sid }}"
+            role="list"
+            aria-label="Ingredient benefits"
+            data-pb-anim="right"
+            data-pb-delay="160"
+          >
             <span class="pi-bars-center" aria-hidden="true"></span>
             {%- for block in section.blocks -%}
               {%- if block.type == 'stat_bar' -%}
-                <div class="pi-bar" {{ block.shopify_attributes }}>
+                <div class="pi-bar" {{ block.shopify_attributes }} role="listitem">
                   <p class="pi-bar-label">{{ block.settings.label_text }}</p>
-                  <div class="pi-bar-track">
+                  <div class="pi-bar-track" role="progressbar" aria-label="{{ block.settings.label_text | escape }}" aria-valuenow="{{ block.settings.fill_percent | default: 100 }}" aria-valuemin="0" aria-valuemax="100">
                     <div
                       class="pi-bar-fill{% if block.settings.striped %} pi-bar-fill--striped{% endif %}"
                       data-w="{{ block.settings.fill_percent | default: 100 }}"
@@ -491,6 +574,7 @@
 </section>
 
 <script>
+/* ── Bar-fill scroll animation — unchanged ── */
 (function () {
   var sId    = '{{ sid }}';
   var barsEl = document.getElementById('pi-bars-' + sId);
@@ -585,7 +669,7 @@
       "type": "ingredient",
       "name": "Ingredient card",
       "settings": [
-        { "type": "richtext",         "id": "title_text", "label": "Title" },
+        { "type": "richtext",     "id": "title_text", "label": "Title" },
         { "type": "textarea",     "id": "body_text",  "label": "Body" },
         { "type": "image_picker", "id": "image",      "label": "Image" }
       ]
