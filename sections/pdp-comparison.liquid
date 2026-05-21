@@ -123,11 +123,10 @@
     text-transform: uppercase;
     background: transparent;
   }
-  /* Header cells match their column colors */
   #shopify-section-{{ sid }} .pc-table thead .pc-col-us {
     background: {{ s.our_column_background | default: '#47184d' }};
     color: {{ s.our_column_color | default: '#ffffff' }};
-     padding: 0 12px;
+    padding: 0 12px;
   }
   #shopify-section-{{ sid }} .pc-table thead .pc-col-them {
     background: transparent;
@@ -142,7 +141,7 @@
     color: {{ s.our_column_color | default: '#ffffff' }};
     text-align: center;
     width: 100px;
-        border-bottom: 0.56px solid #FFFFFF;
+    border-bottom: 0.56px solid #FFFFFF;
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pc-col-us { width: 140px; }
@@ -156,7 +155,6 @@
     #shopify-section-{{ sid }} .pc-col-them { width: 120px; }
   }
 
-  /* Row icon image (check / cross) */
   #shopify-section-{{ sid }} .pc-row-icon {
     display: block;
     width: 24px;
@@ -164,8 +162,6 @@
     object-fit: contain;
     margin: 0 auto;
   }
-
-  /* Column header image */
   #shopify-section-{{ sid }} .pc-col-header-img {
     display: block;
     width: auto;
@@ -192,82 +188,142 @@
   #shopify-section-{{ sid }} .pc-mark svg { width: 14px; height: 14px; }
   #shopify-section-{{ sid }} .pc-mark--cross svg { width: 18px; height: 18px; }
 
-  /* Row dividers */
   #shopify-section-{{ sid }} .pc-table tbody tr + tr th,
   #shopify-section-{{ sid }} .pc-table tbody tr + tr td {
-    border-top: 0.56px solid #A2A0A0;;
+    border-top: 0.56px solid #A2A0A0;
   }
   #shopify-section-{{ sid }} .pc-table tbody tr + tr .pc-col-us {
     border-top: 1px solid {{ s.our_row_divider_color | default: '#5a2a78' }};
   }
-  @media (max-width:768px){
-    #shopify-section-{{ sid }} .pc-wrap{
-      gap: 24px;
-    }
-    #shopify-section-{{ sid }} .main-pc-h-d{
-      align-items: center;
-    }
-    #shopify-section-{{ sid }} .pc-heading{
+
+  @media (max-width:768px) {
+    #shopify-section-{{ sid }} .pc-wrap { gap: 24px; }
+    #shopify-section-{{ sid }} .main-pc-h-d { align-items: center; }
+    #shopify-section-{{ sid }} .pc-heading {
       font-size: 30px;
-      line-height: 110.00000000000001%;
+      line-height: 110%;
       letter-spacing: -4%;
       text-align: center;
       margin: 0;
     }
-     #shopify-section-{{ sid }} .pc-table {
-    background: rgba(255, 255, 255, 1);
-    border-radius: 12px;
-    overflow: hidden;
-    color: #000000;
-    width: 100%;
-}
+    #shopify-section-{{ sid }} .pc-table {
+      background: rgba(255, 255, 255, 1);
+      border-radius: 12px;
+      overflow: hidden;
+      color: #000000;
+      width: 100%;
+    }
     #shopify-section-{{ sid }} .pc-desc {
       font-size: 14.6px;
       line-height: 18.8px;
       letter-spacing: -3%;
       text-align: center;
       font-weight: 400;
-              display: none;
+      display: none;
     }
-      #shopify-section-{{ sid }} .pc-table th,
-      #shopify-section-{{ sid }} .pc-table td {
-      padding:0 12px;
+    #shopify-section-{{ sid }} .pc-table th,
+    #shopify-section-{{ sid }} .pc-table td {
+      padding: 0 12px;
       font-size: 16px;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-    #shopify-section-{{ sid }} .pc-table thead th{
-      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
     }
+    #shopify-section-{{ sid }} .pc-table thead th { font-size: 14px; }
     #shopify-section-{{ sid }} .pc-row-icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    margin: 0 auto;
-}
-  #shopify-section-{{ sid }} .pc-table thead .pc-col-us {
-     padding: 0 6px;
+      display: block;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+    #shopify-section-{{ sid }} .pc-table thead .pc-col-us { padding: 0 6px; }
   }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════
+     1. Left col  → slides in from left   (data-pb-anim="left")
+     2. Table     → slides in from right  (data-pb-anim="right")
+     3. Table rows → CSS cascade stagger  (fires when table gets pb-visible)
+  ═════════════════════════════════════════════════════════════ */
+
+  /* 1 + 2 — scroll trigger system */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"]  { transform: translateX(-40px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] { transform: translateX(40px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0);
+    will-change: auto;
+  }
+
+  /* 3 — row cascade: hidden until table is visible */
+  @keyframes pc-row-in-{{ sid }} {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  #shopify-section-{{ sid }}.pb-js .pc-table tbody tr {
+    opacity: 0;
+  }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr {
+    animation: pc-row-in-{{ sid }} 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  /* Stagger delays per row */
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(1)  { animation-delay: 0.08s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(2)  { animation-delay: 0.14s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(3)  { animation-delay: 0.20s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(4)  { animation-delay: 0.26s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(5)  { animation-delay: 0.32s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(6)  { animation-delay: 0.38s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(7)  { animation-delay: 0.44s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(8)  { animation-delay: 0.50s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(9)  { animation-delay: 0.56s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(10) { animation-delay: 0.62s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(11) { animation-delay: 0.68s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(12) { animation-delay: 0.74s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(13) { animation-delay: 0.80s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(14) { animation-delay: 0.86s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(15) { animation-delay: 0.92s; }
+  #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr:nth-child(16) { animation-delay: 0.98s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important; transform: none !important; transition: none !important;
+    }
+    #shopify-section-{{ sid }}.pb-js .pc-table tbody tr { opacity: 1 !important; }
+    #shopify-section-{{ sid }}.pb-js .pc-table.pb-visible tbody tr { animation: none !important; }
   }
 </style>
 
 <section class="pc-section" {{ section.shopify_attributes }}>
   <div class="pc-wrap">
-    <div class="main-pc-h-d">
+
+    <div
+      class="main-pc-h-d"
+      data-pb-anim="left"
+      data-pb-delay="0"
+    >
       <h2 class="pc-heading">{{ s.heading_text | default: 'Why Trypeptiques Is Different' }}</h2>
       {%- if s.description_text != blank -%}
         <p class="pc-desc">{{ s.description_text }}</p>
       {%- endif -%}
     </div>
 
-    <div class="pc-table" role="region" aria-label="{{ s.table_aria_label | default: 'Comparison table' }}">
+    <div
+      class="pc-table"
+      role="region"
+      aria-label="{{ s.table_aria_label | default: 'Comparison table' }}"
+      data-pb-anim="right"
+      data-pb-delay="120"
+    >
       <table>
         <thead>
           <tr>
             <th scope="col">{{ s.features_column_label | default: 'FEATURES' }}</th>
 
-            {%- comment -%} Our column header: image OR text {%- endcomment -%}
             <th scope="col" class="pc-col-us">
               {%- if s.our_column_header_image != blank -%}
                 {{ s.our_column_header_image | image_url: width: 200 | image_tag:
@@ -280,7 +336,6 @@
               {%- endif -%}
             </th>
 
-            {%- comment -%} Others column header: image OR text {%- endcomment -%}
             <th scope="col" class="pc-col-them">
               {%- if s.them_column_header_image != blank -%}
                 {{ s.them_column_header_image | image_url: width: 200 | image_tag:
@@ -343,6 +398,7 @@
         </tbody>
       </table>
     </div>
+
   </div>
 </section>
 
@@ -367,12 +423,12 @@
     { "type": "color",    "id": "desc_color",          "label": "Description color",   "default": "#ffffff" },
 
     { "type": "header", "content": "Table column headers" },
-    { "type": "text",         "id": "features_column_label",      "label": "Features column label",                          "default": "FEATURES" },
-    { "type": "text",         "id": "our_column_label",           "label": "Our brand column label (shown if no image)",     "default": "PEPTIQUES®" },
-    { "type": "image_picker", "id": "our_column_header_image",    "label": "Our brand column — header image (optional)" },
-    { "type": "text",         "id": "them_column_label",          "label": "Others column label (shown if no image)",        "default": "OTHERS" },
-    { "type": "image_picker", "id": "them_column_header_image",   "label": "Others column — header image (optional)" },
-    { "type": "text",         "id": "table_aria_label",           "label": "Table aria-label",                               "default": "Comparison table" },
+    { "type": "text",         "id": "features_column_label",    "label": "Features column label",                      "default": "FEATURES" },
+    { "type": "text",         "id": "our_column_label",         "label": "Our brand column label (shown if no image)", "default": "PEPTIQUES®" },
+    { "type": "image_picker", "id": "our_column_header_image",  "label": "Our brand column — header image (optional)" },
+    { "type": "text",         "id": "them_column_label",        "label": "Others column label (shown if no image)",    "default": "OTHERS" },
+    { "type": "image_picker", "id": "them_column_header_image", "label": "Others column — header image (optional)" },
+    { "type": "text",         "id": "table_aria_label",         "label": "Table aria-label",                           "default": "Comparison table" },
 
     { "type": "header", "content": "Row icons" },
     { "type": "image_picker", "id": "our_check_icon",  "label": "Check / tick icon image (used in both columns)" },
