@@ -143,10 +143,7 @@
     letter-spacing: -0.03em;
     color: rgba(0, 0, 0, 1);
   }
-  #shopify-section-{{ sid }} .pq-answer-body p{
-    margin: 0;
-    padding: 0;
-  }
+  #shopify-section-{{ sid }} .pq-answer-body p{ margin: 0; padding: 0; }
 
   /* ── Mobile ── */
   @media (max-width: 768px){
@@ -181,11 +178,58 @@
     #shopify-section-{{ sid }} .pq-answer{ transition: none; }
     #shopify-section-{{ sid }} .pq-toggle .pq-v-line{ transition: none; }
   }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════
+     Left col  → slide from left
+     FAQ list  → slide from right
+     FAQ items → stagger fade-up when list gets pb-visible
+  ═════════════════════════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"]  { transform: translateX(-36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] { transform: translateX(36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1; transform: none; will-change: auto;
+  }
+
+  /* FAQ item stagger — fires when .pq-list gets pb-visible */
+  @keyframes pq-item-in-{{ sid }} {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item {
+    animation: pq-item-in-{{ sid }} 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(1)  { animation-delay: 0.04s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(2)  { animation-delay: 0.09s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(3)  { animation-delay: 0.14s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(4)  { animation-delay: 0.19s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(5)  { animation-delay: 0.24s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(6)  { animation-delay: 0.29s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(7)  { animation-delay: 0.34s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(8)  { animation-delay: 0.39s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(9)  { animation-delay: 0.44s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(10) { animation-delay: 0.49s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(11) { animation-delay: 0.54s; }
+  #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item:nth-child(12) { animation-delay: 0.59s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] { opacity: 1 !important; transform: none !important; transition: none !important; }
+    #shopify-section-{{ sid }}.pb-js .pq-list.pb-visible .pq-item { animation: none !important; }
+  }
 </style>
 
 <section class="pq-section" {{ section.shopify_attributes }}>
   <div class="pq-wrap">
-    <div>
+
+    <div
+      data-pb-anim="left"
+      data-pb-delay="0"
+    >
       <h2 class="pq-heading">{{ s.heading_text | default: 'Frequently Asked Questions' }}</h2>
       {% if s.sub_text != blank %}
         <p class="pq-sub">{{ s.sub_text }}</p>
@@ -200,7 +244,11 @@
     </div>
 
     {% if faq_count > 0 %}
-      <div class="pq-list">
+      <div
+        class="pq-list"
+        data-pb-anim="right"
+        data-pb-delay="100"
+      >
         {% for block in section.blocks %}
           {% if block.type == 'faq' %}
             <div class="pq-item{% if block.settings.open_by_default %} is-open{% endif %}"
@@ -225,6 +273,7 @@
         {% endfor %}
       </div>
     {% endif %}
+
   </div>
 </section>
 
