@@ -2678,6 +2678,36 @@
             "icon_image": "shopify://shop_images/SVG_17.svg",
             "text": "Refills Ship Every 30 days"
           }
+        },
+        "tabproduct_hTiHKx": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_ng4n6H": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_fbYFUN": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_T8bmgW": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_qxAyKj": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
         }
       },
       "block_order": [
@@ -2711,7 +2741,12 @@
         "bullet_item_EFpRRj",
         "bullet_item_tzkzPE",
         "footer_item_8nRgpc",
-        "footer_item_RayMyd"
+        "footer_item_RayMyd",
+        "tabproduct_hTiHKx",
+        "tabproduct_ng4n6H",
+        "tabproduct_fbYFUN",
+        "tabproduct_T8bmgW",
+        "tabproduct_qxAyKj"
       ],
       "name": "Choose Daily Practice",
       "settings": {
