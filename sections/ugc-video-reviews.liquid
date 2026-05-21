@@ -24,6 +24,79 @@
 
 <style>
   /* ============================================ */
+  /* ANIMATIONS                                   */
+  /* ============================================ */
+  @keyframes uv-fade-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes uv-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes uv-scale-in {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  #shopify-section-{{ sid }} .uv-eyebrow,
+  #shopify-section-{{ sid }} .uv-heading,
+  #shopify-section-{{ sid }} .uv-carousel-wrap,
+  #shopify-section-{{ sid }} .uv-stats {
+    opacity: 0;
+  }
+  #shopify-section-{{ sid }}.uv-animated .uv-eyebrow {
+    animation: uv-fade-up 0.55s cubic-bezier(.22,.68,0,1.2) 0.05s forwards;
+  }
+  #shopify-section-{{ sid }}.uv-animated .uv-heading {
+    animation: uv-fade-up 0.6s cubic-bezier(.22,.68,0,1.2) 0.18s forwards;
+  }
+  #shopify-section-{{ sid }}.uv-animated .uv-carousel-wrap {
+    animation: uv-fade-up 0.65s cubic-bezier(.22,.68,0,1.2) 0.32s forwards;
+  }
+  #shopify-section-{{ sid }}.uv-animated .uv-stats {
+    animation: uv-scale-in 0.55s cubic-bezier(.22,.68,0,1.2) 0.5s forwards;
+  }
+
+  /* Slide cards stagger on entry */
+  #shopify-section-{{ sid }} .swiper-slide {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+  }
+  #shopify-section-{{ sid }}.uv-animated .swiper-slide {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #shopify-section-{{ sid }}.uv-animated .swiper-slide:nth-child(1) { transition-delay: 0.38s; }
+  #shopify-section-{{ sid }}.uv-animated .swiper-slide:nth-child(2) { transition-delay: 0.48s; }
+  #shopify-section-{{ sid }}.uv-animated .swiper-slide:nth-child(3) { transition-delay: 0.58s; }
+  #shopify-section-{{ sid }}.uv-animated .swiper-slide:nth-child(4) { transition-delay: 0.68s; }
+  #shopify-section-{{ sid }}.uv-animated .swiper-slide:nth-child(n+5) { transition-delay: 0.72s; }
+
+  /* Card hover lift */
+  #shopify-section-{{ sid }} .uv-card {
+    transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease;
+  }
+  #shopify-section-{{ sid }} .uv-card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 20px 48px rgba(90, 42, 120, 0.22);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }} .uv-eyebrow,
+    #shopify-section-{{ sid }} .uv-heading,
+    #shopify-section-{{ sid }} .uv-carousel-wrap,
+    #shopify-section-{{ sid }} .uv-stats,
+    #shopify-section-{{ sid }} .swiper-slide {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  /* ============================================ */
   /* DESKTOP                                      */
   /* ============================================ */
 
@@ -52,51 +125,56 @@
     margin-inline: auto;
   }
 
+  /* ── Eyebrow (richtext) ── */
   #shopify-section-{{ sid }} .uv-eyebrow{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     font-family: {{ body_font }};
-   color: var(--Black, #000);
+    color: var(--Black, #000);
     text-align: center;
     font-size: 16px;
-    font-style: normal;
     font-weight: 500;
     line-height: normal;
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    text-decoration-skip-ink: none;
-    text-decoration-thickness: auto;
-    text-underline-offset: auto;
-    text-underline-position: from-font;
-    margin: 0;
-    letter-spacing: 0;
     margin: 0 0 16px;
   }
-  #shopify-section-{{ sid }} .uv-eyebrow a{ color: inherit; text-decoration: underline; }
+  #shopify-section-{{ sid }} .uv-eyebrow-richtext {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-family: {{ body_font }};
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    text-align: center;
+  }
+  #shopify-section-{{ sid }} .uv-eyebrow-richtext p { margin: 0; }
+  #shopify-section-{{ sid }} .uv-eyebrow-richtext a { color: inherit; text-decoration: underline; }
+  #shopify-section-{{ sid }} .uv-eyebrow-richtext strong { font-weight: 700; }
+
   #shopify-section-{{ sid }} .uv-stars{ display: inline-flex; gap: 1px; color: {{ s.starsColor_color | default: '#f5b301' }}; }
   #shopify-section-{{ sid }} .uv-stars svg{ width: 16px; height: 16px; }
 
   #shopify-section-{{ sid }} .uv-heading{
     font-family: {{ heading_font }};
-   color: var(--Black, #000);
-text-align: center;
-font-size: 46px;
-font-style: normal;
-font-weight: 400;
-line-height: 100%; /* 46px */
-letter-spacing: -3.22px;
+    color: var(--Black, #000);
+    text-align: center;
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -3.22px;
     margin: 0 auto 52px;
   }
 
   #shopify-section-{{ sid }} .uv-carousel-wrap{
     position: relative;
-    /* Allow the side peeks to extend past the container edges */
     margin-inline: calc(var(--uv-{{ sid }}-pl) * -1) calc(var(--uv-{{ sid }}-pr) * -1);
   }
 
-  /* Swiper container */
   #shopify-section-{{ sid }} .uv-swiper{
     overflow: hidden;
     padding: 0 var(--uv-{{ sid }}-pl);
@@ -108,8 +186,6 @@ letter-spacing: -3.22px;
     align-items: stretch;
   }
 
-  /* Each slide: width controlled by Swiper JS via slidesPerView,
-     but we set a fallback flex-basis for safety. */
   #shopify-section-{{ sid }} .swiper-slide{
     height: auto;
     box-sizing: border-box;
@@ -132,9 +208,13 @@ letter-spacing: -3.22px;
     object-fit: cover;
     display: block;
     z-index: 0;
+    transition: transform 0.45s cubic-bezier(.22,.68,0,1.2);
+  }
+  #shopify-section-{{ sid }} .uv-card:hover .uv-card-media {
+    transform: scale(1.04);
   }
 
-  /* Inline video element (shown after click) */
+  /* Inline video element */
   #shopify-section-{{ sid }} .uv-card-video{
     position: absolute; inset: 0;
     width: 100%; height: 100%;
@@ -149,8 +229,6 @@ letter-spacing: -3.22px;
   }
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-media,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-play,
-  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-quote,
-  #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-meta,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"] .uv-card-overlay,
   #shopify-section-{{ sid }} .uv-card[data-playing="true"]::before{
     display: none;
@@ -158,97 +236,61 @@ letter-spacing: -3.22px;
 
   #shopify-section-{{ sid }} .uv-card-overlay{
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.45) 100%);
     pointer-events: none;
     z-index: 2;
+    transition: opacity 0.3s ease;
+  }
+  #shopify-section-{{ sid }} .uv-card:hover .uv-card-overlay {
+    opacity: 0.7;
   }
 
   #shopify-section-{{ sid }} .uv-card::before {
     content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.00) 42.48%);
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.00) 42%);
     pointer-events: none;
     border-radius: inherit;
     z-index: 1;
   }
 
+  /* Play button with pulse ring */
   #shopify-section-{{ sid }} .uv-play{
     position: absolute;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    width: 44px; height: 44px;
+    width: 48px; height: 48px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.92);
     border: 0;
     display: inline-flex; align-items: center; justify-content: center;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    transition: transform 180ms ease, background 180ms ease;
-    z-index: 2;
-    pointer-events: none; /* card itself is clickable */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+    transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), background 0.2s ease;
+    z-index: 4;
+    pointer-events: none;
   }
-  #shopify-section-{{ sid }} .uv-card:hover .uv-play{ transform: translate(-50%, -50%) scale(1.06); background: #fff; }
-  #shopify-section-{{ sid }} .uv-play svg{ width: 22px; height: 22px; color: #1d1027; margin-left: 3px; }
-  @media (prefers-reduced-motion: reduce){
-    #shopify-section-{{ sid }} .uv-play{ transition: none; }
-  }
-
-  #shopify-section-{{ sid }} .uv-meta{
-    position: absolute; left: 19px; right: 19px; bottom: 70px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 8px;
-    color: #fff;
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: -3%;
-    z-index: 2;
-  }
-  #shopify-section-{{ sid }} .uv-name{ 
-   color: #FFF;
-
-/* Georgia/Georgia/dm sans semibold */
-font-family: "DM Sans";
-font-size: 16px;
-font-style: normal;
-font-weight: 600;
-line-height: 120%; /* 19.2px */
-margin: 0;
-   }
-  #shopify-section-{{ sid }} .uv-quote{
+  #shopify-section-{{ sid }} .uv-play::after {
+    content: '';
     position: absolute;
-    left: 19px;
-    right: 18px;
-    bottom: 16px;
-    margin: 0;
-    color: #fff;
-   font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: -3%;
-    overflow: hidden;
-    z-index: 2;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  #shopify-section-{{ sid }} .uv-badge{
-   color: var(--white, #FFF);
-
-/* Georgia/Georgia/dm sans bold */
-font-family: "DM Sans";
-font-size: 12px;
-font-style: normal;
-font-weight: 700;
-line-height: 120%; /* 14.4px */
-margin: 0;
-display: flex;
-align-items: center;
-gap: 6px;
+  #shopify-section-{{ sid }} .uv-card:hover .uv-play {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #fff;
   }
-  #shopify-section-{{ sid }} .uv-badge svg{ width: 14px; height: 14px; color: #c1a0f0; }
+  #shopify-section-{{ sid }} .uv-card:hover .uv-play::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  #shopify-section-{{ sid }} .uv-play svg{ width: 22px; height: 22px; color: #1d1027; margin-left: 3px; }
 
-  /* Navigation buttons */
+  /* Nav buttons */
   #shopify-section-{{ sid }} .uv-nav{
     position: absolute; top: 50%;
     transform: translateY(-50%);
@@ -261,7 +303,10 @@ gap: 6px;
     align-items: center; justify-content: center;
     cursor: pointer;
     z-index: 10;
-    transition: opacity 180ms ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  #shopify-section-{{ sid }} .uv-nav:hover {
+    transform: translateY(-50%) scale(1.08);
   }
   #shopify-section-{{ sid }} .uv-nav.swiper-button-disabled{
     opacity: 0.35;
@@ -271,6 +316,7 @@ gap: 6px;
   #shopify-section-{{ sid }} .uv-nav--prev{ left: 8px; }
   #shopify-section-{{ sid }} .uv-nav--next{ right: 8px; }
 
+  /* Stats bar */
   #shopify-section-{{ sid }} .uv-stats{
     margin: {{ s.statsMarginTop_number | default: 52 }}px auto 0;
     max-width: 800px;
@@ -284,6 +330,13 @@ gap: 6px;
     text-align: center;
     font-family: {{ body_font }};
     align-items: center;
+  }
+  #shopify-section-{{ sid }} .uv-stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    margin: auto;
+    display: none;
   }
   #shopify-section-{{ sid }} .uv-stat-value{
     font-family: "Georgia";
@@ -314,54 +367,42 @@ gap: 6px;
     #shopify-section-{{ sid }} .uv-nav{
       width: 36px; height: 36px;
     }
-    #shopify-section-{{ sid }} .uv-eyebrow{
+    #shopify-section-{{ sid }} .uv-eyebrow,
+    #shopify-section-{{ sid }} .uv-eyebrow-richtext{
       font-size: 14px;
-       margin: 0 0 10px;
+      margin: 0 0 10px;
     }
     #shopify-section-{{ sid }} .uv-heading{
       font-size: 30px;
-    font-weight: 400;
-    line-height: 110%;
-    letter-spacing: -4%;
-    max-width: 272px;
-    margin: 0 auto 24px;
+      font-weight: 400;
+      line-height: 110%;
+      letter-spacing: -4%;
+      max-width: 272px;
+      margin: 0 auto 24px;
     }
-    #shopify-section-{{ sid }}  .uv-card{
+    #shopify-section-{{ sid }} .uv-card{
       border-radius: 12px;
     }
-    #shopify-section-{{ sid }} .uv-quote{
-      font-size: 13px;
-      line-height: 130%;
-      letter-spacing: -3%;
-      bottom: 12px;
-    }
-    #shopify-section-{{ sid }} .uv-meta{
-      bottom: 56px;
-    }
-    #shopify-section-{{ sid }} .uv-name{
-    font-size: 13px;
-    }
-     #shopify-section-{{ sid }} .uv-stats{
-     margin: 16px 16px 0;
-     padding: 15px 12px;
+    #shopify-section-{{ sid }} .uv-stats{
+      margin: 16px 16px 0;
+      padding: 15px 12px;
       border-radius: 12px;
     }
     #shopify-section-{{ sid }} .uv-stat-value{
       font-size: 20px;
-    line-height: 22.7px;
-    letter-spacing: -3%;
+      line-height: 22.7px;
+      letter-spacing: -3%;
     }
     #shopify-section-{{ sid }} .uv-stat-label {
-    font-size: 12px;
-    font-weight: 400;
-    color: #ffffff;
-    margin-top: 8px;
-    line-height: 1.2;
-   }
+      font-size: 12px;
+      font-weight: 400;
+      color: #ffffff;
+      margin-top: 8px;
+      line-height: 1.2;
+    }
   }
 </style>
 
-{%- comment -%} Swiper CSS + JS from CDN {%- endcomment -%}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <div
@@ -371,7 +412,8 @@ gap: 6px;
   {{ section.shopify_attributes }}
 >
   <div class="uv-container">
-    {%- if s.eyebrow_text != blank or s.show_stars_checkbox -%}
+
+    {%- if s.eyebrow_richtext != blank or s.show_stars_checkbox -%}
       <p class="uv-eyebrow">
         {%- if s.show_stars_checkbox -%}
           <span class="uv-stars" aria-hidden="true">
@@ -380,10 +422,8 @@ gap: 6px;
             {%- endfor -%}
           </span>
         {%- endif -%}
-        {%- if s.eyebrow_link != blank -%}
-          <a href="{{ s.eyebrow_link }}">{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</a>
-        {%- else -%}
-          <span>{{ s.eyebrow_text | default: '10,500+ 5-Star Reviews' }}</span>
+        {%- if s.eyebrow_richtext != blank -%}
+          <span class="uv-eyebrow-richtext">{{ s.eyebrow_richtext }}</span>
         {%- endif -%}
       </p>
     {%- endif -%}
@@ -431,7 +471,7 @@ gap: 6px;
                     data-mp4="{{ mp4_url }}"
                     role="button"
                     tabindex="0"
-                    aria-label="Play video by {{ b.reviewer_name | default: 'reviewer' }}"
+                    aria-label="Play video"
                 >
                   {%- if thumb_img != blank -%}
                     {{ thumb_img
@@ -458,23 +498,6 @@ gap: 6px;
                   <span class="uv-play" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg>
                   </span>
-
-                  
-
-                  <div class="uv-meta">
-                    <span class="uv-name">{{ b.reviewer_name | default: 'Verified Customer' }}</span>
-                    {%- if b.verified_checkbox -%}
-                      <span class="uv-badge">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-  <path d="M12.5772 6.2641L11.7838 5.34243C11.6322 5.16743 11.5097 4.84077 11.5097 4.60743V3.61577C11.5097 2.99743 11.0022 2.48993 10.3838 2.48993H9.39215C9.16465 2.48993 8.83215 2.36743 8.65715 2.21576L7.73548 1.42243C7.33298 1.07826 6.67382 1.07826 6.26548 1.42243L5.34963 2.2216C5.17463 2.36743 4.84213 2.48993 4.61463 2.48993H3.60546C2.98713 2.48993 2.47963 2.99743 2.47963 3.61577V4.61327C2.47963 4.84077 2.35713 5.16743 2.21129 5.34243L1.42379 6.26994C1.08546 6.67244 1.08546 7.32577 1.42379 7.72827L2.21129 8.65577C2.35713 8.83077 2.47963 9.15744 2.47963 9.38494V10.3824C2.47963 11.0008 2.98713 11.5083 3.60546 11.5083H4.61463C4.84213 11.5083 5.17463 11.6308 5.34963 11.7824L6.27132 12.5758C6.67382 12.9199 7.33298 12.9199 7.74132 12.5758L8.66298 11.7824C8.83798 11.6308 9.16465 11.5083 9.39798 11.5083H10.3897C11.008 11.5083 11.5155 11.0008 11.5155 10.3824V9.39077C11.5155 9.16327 11.638 8.83077 11.7897 8.65577L12.583 7.7341C12.9213 7.3316 12.9213 6.6666 12.5772 6.2641ZM9.42715 5.8966L6.60965 8.7141C6.52798 8.79577 6.41715 8.84244 6.30048 8.84244C6.18382 8.84244 6.07298 8.79577 5.99132 8.7141L4.57963 7.30244C4.41046 7.13327 4.41046 6.85327 4.57963 6.6841C4.74879 6.51494 5.02879 6.51494 5.19796 6.6841L6.30048 7.7866L8.80882 5.27826C8.97798 5.1091 9.25798 5.1091 9.42715 5.27826C9.59632 5.44743 9.59632 5.72743 9.42715 5.8966Z" fill="#9473F5"/>
-</svg>
-                        {{ b.badge_text | default: 'Verified Buyer' }}
-                      </span>
-                    {%- endif -%}
-                  </div>
-                  {%- if b.review_quote != blank -%}
-                    <p class="uv-quote">{{ b.review_quote }}</p>
-                  {%- endif -%}
 
                   {%- comment -%} Inline player placeholder — filled on click {%- endcomment -%}
                   <div class="uv-card-video" data-uv-video-slot></div>
@@ -514,19 +537,14 @@ gap: 6px;
   </div>
 </div>
 
-{%- comment -%} Load Swiper library {%- endcomment -%}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
-
-
-{%- comment -%} ─── 1. SWIPER (carousel) ─── {%- endcomment -%}
 <script>
   var swiper = new Swiper(".uv-swiper", {
     slidesPerView: 2.6,
     spaceBetween: 16,
     centeredSlides: true,
-     loop: true,
+    loop: true,
     navigation: {
       nextEl: ".uv-nav--next",
       prevEl: ".uv-nav--prev",
@@ -539,8 +557,27 @@ gap: 6px;
   });
 </script>
 
+<script>
+  /* ── Intersection Observer: trigger animations on scroll-in ── */
+  (function(){
+    var section = document.getElementById('shopify-section-{{ sid }}');
+    if (!section) return;
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            entry.target.classList.add('uv-animated');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      io.observe(section);
+    } else {
+      section.classList.add('uv-animated');
+    }
+  })();
+</script>
 
-{%- comment -%} ─── 2. VIDEO PLAY (inline play on card click) ─── {%- endcomment -%}
 <script>
   (function(){
     function initVideoPlay(){
@@ -592,7 +629,6 @@ gap: 6px;
         card.setAttribute('data-playing', 'true');
       }
 
-      // Card click → play inline
       root.querySelectorAll('[data-uv-card]').forEach(function(card){
         card.addEventListener('click', function(){
           if (card.getAttribute('data-playing') === 'true') return;
@@ -605,20 +641,6 @@ gap: 6px;
           }
         });
       });
-
-      // Stop playing video when user slides — hook into Swiper if/when ready
-      function bindSwiperEvents(swiper){
-        if (!swiper) return;
-        swiper.on('slideChange', function(){ stopAllVideos(null); });
-      }
-
-      if (root._uvSwiper) {
-        bindSwiperEvents(root._uvSwiper);
-      } else {
-        root.addEventListener('uv:swiper-ready', function(e){
-          bindSwiperEvents(e.detail.swiper);
-        });
-      }
     }
 
     if (document.readyState === 'loading'){
@@ -650,36 +672,29 @@ gap: 6px;
 
     { "type": "header", "content": "Background" },
     { "type": "color",        "id": "sectionBackground_color",       "label": "Background color",  "default": "#ffffff" },
-    { "type": "color",        "id": "sectionGradientFrom_color",     "label": "Gradient edge color (both sides)", "default": "#f5e1ff" },
-    { "type": "color",        "id": "sectionGradientTo_color",       "label": "Gradient end (unused — kept for back-compat)", "default": "#f5e1ff" },
-    { "type": "image_picker", "id": "sectionBackgroundImage_picker", "label": "Background image (optional)", "info": "When set, replaces the gradient. ≥ 2000px wide recommended." },
+    { "type": "color",        "id": "sectionGradientFrom_color",     "label": "Gradient edge color", "default": "#f5e1ff" },
+    { "type": "image_picker", "id": "sectionBackgroundImage_picker", "label": "Background image (optional)" },
     { "type": "text",         "id": "sectionBackgroundPosition_text","label": "Background position", "default": "center center" },
 
     { "type": "header", "content": "Typography" },
     { "type": "text",  "id": "headingFontFamily_text", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
     { "type": "text",  "id": "bodyFontFamily_text",    "label": "Body font-family",    "default": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif" },
-    { "type": "range", "id": "headingSize_desktop_number", "label": "Heading size (Desktop, px)", "min": 24, "max": 64, "step": 1, "unit": "px", "default": 46 },
-    { "type": "color", "id": "headingTextColor_color", "label": "Heading color",       "default": "#000000" },
-    { "type": "color", "id": "eyebrowTextColor_color","label": "Eyebrow text color",   "default": "#1d1027" },
-    { "type": "color", "id": "starsColor_color",      "label": "Stars color",          "default": "#f5b301" },
+    { "type": "color", "id": "starsColor_color",       "label": "Stars color",         "default": "#f5b301" },
 
     { "type": "header", "content": "Eyebrow & Heading" },
-    { "type": "checkbox", "id": "show_stars_checkbox", "label": "Show stars",   "default": true },
-    { "type": "text",     "id": "eyebrow_text",       "label": "Eyebrow text", "default": "10,500+ 5-Star Reviews" },
-    { "type": "url",      "id": "eyebrow_link",       "label": "Eyebrow link (optional)" },
-    { "type": "text",     "id": "heading_text",       "label": "Heading",      "default": "Wellness creators, mindful users," },
+    { "type": "checkbox",  "id": "show_stars_checkbox", "label": "Show stars",    "default": true },
+    { "type": "richtext",  "id": "eyebrow_richtext",    "label": "Eyebrow text (rich text)", "default": "<p><strong>22,926+</strong> 4.8 / 5-Star Reviews</p>" },
+    { "type": "text",      "id": "heading_text",        "label": "Heading",       "default": "Wellness creators, mindful users," },
 
     { "type": "header", "content": "Layout" },
-    { "type": "range",    "id": "containerMaxWidth_number","label": "Container max width", "min": 800, "max": 1600, "step": 20, "unit": "px", "default": 1340 },
-    { "type": "range",    "id": "cardGap_number",          "label": "Card gap",            "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range",    "id": "cardRadius_number",       "label": "Card radius",         "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "cardRadius_number",       "label": "Card radius",  "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
     { "type": "checkbox", "id": "show_nav_checkbox",       "label": "Show prev / next arrows", "default": true },
 
     { "type": "header", "content": "Stats bar" },
-    { "type": "checkbox", "id": "show_stats_checkbox", "label": "Show stats bar", "default": true },
-    { "type": "color",    "id": "statsBackground_color","label": "Background",    "default": "#47184d" },
-    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",   "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "checkbox", "id": "show_stats_checkbox",  "label": "Show stats bar",  "default": true },
+    { "type": "color",    "id": "statsBackground_color","label": "Background",      "default": "#47184d" },
+    { "type": "range",    "id": "statsRadius_number",   "label": "Border radius",   "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range",    "id": "statsMarginTop_number","label": "Top spacing",     "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
     { "type": "text",     "id": "stat1_value", "label": "Stat 1 value", "default": "22,926+" },
     { "type": "text",     "id": "stat1_label", "label": "Stat 1 label", "default": "Verified Reviews" },
     { "type": "text",     "id": "stat2_value", "label": "Stat 2 value", "default": "4.8/5" },
@@ -692,14 +707,11 @@ gap: 6px;
       "type": "video",
       "name": "Video review",
       "settings": [
-        { "type": "image_picker", "id": "thumbnail_image", "label": "Thumbnail image", "info": "Optional. If you upload a video below, its first frame is used as the thumbnail automatically." },
-        { "type": "url",          "id": "video_url",       "label": "Video URL (YouTube / Vimeo)" },
-        { "type": "video",        "id": "video_file",      "label": "Or upload a video (Shopify-hosted)", "info": "If both this and a video URL are set, the YouTube / Vimeo URL takes priority." },
-        { "type": "text",         "id": "reviewer_name",   "label": "Reviewer name",     "default": "Ana Williams" },
-        { "type": "textarea",     "id": "review_quote",    "label": "Review quote",      "default": "Quick delivery! Taking it every morning and evening with tea. Thanks!" },
-        { "type": "checkbox",     "id": "verified_checkbox","label": "Show verified badge","default": true },
-        { "type": "text",         "id": "badge_text",      "label": "Badge text",        "default": "Verified Buyer" },
-        { "type": "text",         "id": "upload_date",     "label": "Upload date (YYYY-MM-DD, for SEO)", "info": "Used in VideoObject schema." }
+        { "type": "image_picker", "id": "thumbnail_image",  "label": "Thumbnail image" },
+        { "type": "url",          "id": "video_url",        "label": "Video URL (YouTube / Vimeo)" },
+        { "type": "video",        "id": "video_file",       "label": "Or upload a video (Shopify-hosted)" },
+        { "type": "text",         "id": "reviewer_name",    "label": "Reviewer name (SEO only)", "default": "Ana Williams" },
+        { "type": "text",         "id": "upload_date",      "label": "Upload date (YYYY-MM-DD, for SEO)" }
       ]
     }
   ],
@@ -709,10 +721,10 @@ gap: 6px;
       "name": "UGC Video Reviews",
       "category": "Custom",
       "blocks": [
-        { "type": "video", "settings": { "reviewer_name": "Ana Williams",   "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!", "verified_checkbox": true, "badge_text": "Verified Buyer" } },
-        { "type": "video", "settings": { "reviewer_name": "Marcus Chen",    "review_quote": "Three weeks in and my sleep is deeper than it's been in years.",          "verified_checkbox": true, "badge_text": "Verified Buyer" } },
-        { "type": "video", "settings": { "reviewer_name": "Priya Sharma",   "review_quote": "My dreams are so much more vivid. I feel sharper through the day.",      "verified_checkbox": true, "badge_text": "Verified Buyer" } },
-        { "type": "video", "settings": { "reviewer_name": "Sofia Martinez", "review_quote": "Genuinely the only supplement that's made a noticeable difference.",     "verified_checkbox": true, "badge_text": "Verified Buyer" } }
+        { "type": "video", "settings": { "reviewer_name": "Ana Williams" } },
+        { "type": "video", "settings": { "reviewer_name": "Marcus Chen" } },
+        { "type": "video", "settings": { "reviewer_name": "Priya Sharma" } },
+        { "type": "video", "settings": { "reviewer_name": "Sofia Martinez" } }
       ]
     }
   ]
