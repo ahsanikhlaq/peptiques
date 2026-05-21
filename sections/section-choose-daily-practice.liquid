@@ -388,22 +388,17 @@
   opacity: 1; transform: none; will-change: auto;
 }
 
-/* 3 — panel left slides in from left */
-@keyframes cdp-left-in-{{ sid }} {
-  from { opacity: 0; transform: translateX(-32px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-/* 4 — panel right slides in from right */
-@keyframes cdp-right-in-{{ sid }} {
-  from { opacity: 0; transform: translateX(32px); }
-  to   { opacity: 1; transform: translateX(0); }
+/* 3+4 — panel fade-in: clean opacity + subtle lift, no side-slide */
+@keyframes cdp-col-in-{{ sid }} {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 #shopify-section-{{ sid }} .cdp-panel.cdp-active .cdp-left {
-  animation: cdp-left-in-{{ sid }} 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: cdp-col-in-{{ sid }} 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 #shopify-section-{{ sid }} .cdp-panel.cdp-active .cdp-right {
-  animation: cdp-right-in-{{ sid }} 0.55s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: cdp-col-in-{{ sid }} 0.38s 0.06s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
