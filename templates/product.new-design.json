@@ -2233,7 +2233,7 @@
         "font_weight": 500,
         "letter_spacing": 0,
         "text_transform": "uppercase",
-        "bar_height": 82,
+        "bar_height": 84,
         "item_gap": 30,
         "icon_size": 20,
         "aria_label": "Free from"
