@@ -334,6 +334,29 @@
     #shopify-section-{{ sid }} .pm-sub { margin: 0; }
     #shopify-section-{{ sid }} .pm-footer-text { font-size: 12px; line-height: 14.4px; letter-spacing: -3%; }
   }
+
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]    { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"]  { transform: translateX(-36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] { transform: translateX(36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
 <section class="pm-section" {{ section.shopify_attributes }}>
@@ -348,6 +371,8 @@
       role="button"
       tabindex="0"
       aria-label="Play video"
+      data-pb-anim="left"
+      data-pb-delay="0"
     >
       {%- if thumb != blank -%}
         {{ thumb | image_url: width: 1200 | image_tag:
@@ -376,7 +401,11 @@
     </div>
 
     {%- comment -%} RIGHT: content card {%- endcomment -%}
-    <div class="pm-content">
+    <div
+      class="pm-content"
+      data-pb-anim="right"
+      data-pb-delay="100"
+    >
 
       <h2 class="pm-heading">{{ s.heading_text | default: 'Monks knew 5,000 years ago, now you do too' }}</h2>
 
