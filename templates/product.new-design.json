@@ -1522,9 +1522,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/UGC 2.mov",
             "reviewer_name": "Ana Williams",
-            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1534,9 +1531,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/UGC 3 Fix .mov",
             "reviewer_name": "Marcus Chen",
-            "review_quote": "Three weeks in and my sleep is deeper than it's been in years.",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1546,9 +1540,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/UGC 1.mov",
             "reviewer_name": "Priya Sharma",
-            "review_quote": "My dreams are so much more vivid. I feel sharper through the day.",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1558,9 +1549,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/UGC 4 Fixed  (1).mov",
             "reviewer_name": "Sofia Martinez",
-            "review_quote": "Genuinely the only supplement that's made a noticeable difference.",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1570,9 +1558,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/Let's Fight Fluoride Together!.mp4",
             "reviewer_name": "Ana Williams",
-            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1582,9 +1567,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/CANCELLATION VIDEO.mp4",
             "reviewer_name": "Ana Williams",
-            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1594,9 +1576,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/UGC 4 Fixed  (1).mov",
             "reviewer_name": "Ana Williams",
-            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         },
@@ -1606,9 +1585,6 @@
             "video_url": "",
             "video_file": "shopify://files/videos/education video 2.mp4",
             "reviewer_name": "Ana Williams",
-            "review_quote": "Quick delivery! Taking it every morning and evening with tea. Thanks!",
-            "verified_checkbox": true,
-            "badge_text": "Verified Buyer",
             "upload_date": ""
           }
         }
@@ -1634,21 +1610,13 @@
         "sectionPaddingLeft_responsive_range_mobile": 0,
         "sectionPaddingRight_responsive_range_mobile": 0,
         "sectionBackground_color": "#fbf5ff",
-        "sectionGradientFrom_color": "#f7eefe",
-        "sectionGradientTo_color": "#ece1f8",
         "sectionBackgroundPosition_text": "center center",
         "headingFontFamily_text": "Georgia, \"Times New Roman\", serif",
         "bodyFontFamily_text": "\"DM Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
-        "headingSize_desktop_number": 40,
-        "headingTextColor_color": "#1d1027",
-        "eyebrowTextColor_color": "#1d1027",
         "starsColor_color": "#f5b301",
         "show_stars_checkbox": true,
-        "eyebrow_text": "22,926+ 4.8 / 5-Star Reviews",
-        "eyebrow_link": "",
+        "eyebrow_richtext": "<p><strong>22,926+</strong> 4.8 / 5-Star Reviews</p>",
         "heading_text": "Wellness creators, mindful users,",
-        "containerMaxWidth_number": 1400,
-        "cardGap_number": 16,
         "cardRadius_number": 16,
         "show_nav_checkbox": false,
         "show_stats_checkbox": true,
@@ -1758,7 +1726,7 @@
         "subheading_color": "#e8dcef",
         "card_color": "#ffffff",
         "badges_background": "#ffffff",
-        "badge_text_color": "#1d1027",
+        "badge_text_color": "#1e0346",
         "badge_x_color": "#d23a3a",
         "heading_text": "Ingredients That Just Do More",
         "subheading_text": "Unlike complex formulas with dozens of ingredients, Haritaki™ contains just ONE powerful ingredient:",
