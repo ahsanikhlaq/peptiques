@@ -658,5 +658,66 @@
     {% if settings.display_store_languages %}
       {% render 'enabled-languages-modal' %}
     {% endif %}
+    <script>
+(function () {
+  'use strict';
+
+  /* 1 ── If IntersectionObserver is not supported → show everything */
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+      el.classList.add('pb-visible');
+    });
+    return;
+  }
+
+  /* 2 ── For every element that has data-pb-anim:
+          → mark its #shopify-section-* ancestor with pb-js
+             so the section's scoped CSS activates the hidden state */
+  document.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+    var wrap = el.closest('[id^="shopify-section-"]');
+    if (wrap && !wrap.classList.contains('pb-js')) {
+      wrap.classList.add('pb-js');
+    }
+  });
+
+  /* 3 ── Observer: add pb-visible when element enters viewport */
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el    = entry.target;
+        var delay = parseInt(el.getAttribute('data-pb-delay') || '0', 10);
+        if (delay > 0) {
+          setTimeout(function () { el.classList.add('pb-visible'); }, delay);
+        } else {
+          el.classList.add('pb-visible');
+        }
+        observer.unobserve(el);          /* fire once only */
+      });
+    },
+    {
+      threshold:  0.10,                  /* 10% visible triggers animation */
+      rootMargin: '0px 0px -40px 0px'   /* 40px before bottom edge */
+    }
+  );
+
+  document.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+    observer.observe(el);
+  });
+
+  /* 4 ── Re-init after Shopify section updates in the Theme Editor */
+  if (window.Shopify && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function (e) {
+      var section = e.target;
+      section.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+        var wrap = el.closest('[id^="shopify-section-"]');
+        if (wrap) wrap.classList.add('pb-js');
+        el.classList.remove('pb-visible');
+        observer.observe(el);
+      });
+    });
+  }
+})();
+</script>
   </body>
 </html>
