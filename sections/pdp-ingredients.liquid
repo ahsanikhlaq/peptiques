@@ -401,7 +401,7 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'ingredient' -%}
             <article class="pi-card" {{ block.shopify_attributes }}>
-              <div>
+              <div class="main-pi-block-title-des">
                 <h3 class="pi-card-title">{{ block.settings.title_text }}</h3>
                 <p class="pi-card-body">{{ block.settings.body_text }}</p>
               </div>
