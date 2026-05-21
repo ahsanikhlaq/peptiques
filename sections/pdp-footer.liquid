@@ -216,13 +216,9 @@
   }
 }
 
-/* ── Col — no border-left, just bottom divider ── */
-#shopify-section-{{ sid }} .pf-col {
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-@media (min-width: 769px) {
-  #shopify-section-{{ sid }} .pf-col { border-bottom: none; }
-}
+/* ── Col ── */
+#shopify-section-{{ sid }} .pf-col { border-bottom: 1px solid rgba(255,255,255,0.2); }
+@media (min-width: 769px) { #shopify-section-{{ sid }} .pf-col { border-bottom: none; } }
 
 #shopify-section-{{ sid }} .pf-col-title {
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -261,7 +257,7 @@
 }
 #shopify-section-{{ sid }} .pf-col-title.open .pf-plus .pf-v-line { display: none; }
 
-/* ── Accordion — smooth grid trick ── */
+/* ── Accordion ── */
 #shopify-section-{{ sid }} .pf-col-links {
   list-style: none;
   margin: 0; padding: 0;
@@ -272,10 +268,7 @@
   padding-bottom: 0;
 }
 #shopify-section-{{ sid }} .pf-col-links-inner { overflow: hidden; }
-#shopify-section-{{ sid }} .pf-col-links.open {
-  grid-template-rows: 1fr;
-  padding-bottom: 16px;
-}
+#shopify-section-{{ sid }} .pf-col-links.open { grid-template-rows: 1fr; padding-bottom: 16px; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .pf-col-links {
     display: flex !important;
@@ -287,11 +280,7 @@
   }
   #shopify-section-{{ sid }} .pf-col-links-inner { overflow: visible; }
 }
-#shopify-section-{{ sid }} .pf-col-links-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+#shopify-section-{{ sid }} .pf-col-links-inner { display: flex; flex-direction: column; gap: 6px; }
 
 /* ── Links — left border slide on hover ── */
 #shopify-section-{{ sid }} .pf-col-links a {
@@ -319,13 +308,8 @@
   border-radius: 2px;
   transition: height 250ms ease;
 }
-#shopify-section-{{ sid }} .pf-col-links a:hover {
-  padding-left: 10px;
-  text-decoration: none;
-}
-#shopify-section-{{ sid }} .pf-col-links a:hover::after {
-  height: 100%;
-}
+#shopify-section-{{ sid }} .pf-col-links a:hover { padding-left: 10px; text-decoration: none; }
+#shopify-section-{{ sid }} .pf-col-links a:hover::after { height: 100%; }
 
 /* ══════════════════════
    ROW 3 — BOTTOM
@@ -361,13 +345,8 @@
   color: #fff;
 }
 
-/* ── Social — pill style on both mobile & desktop ── */
-#shopify-section-{{ sid }} .pf-social {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
+/* ── Social ── */
+#shopify-section-{{ sid }} .pf-social { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
 #shopify-section-{{ sid }} .pf-social-label {
   font-family: 'DM Sans';
   font-weight: 400;
@@ -377,12 +356,7 @@
   color: #fff;
   white-space: nowrap;
 }
-#shopify-section-{{ sid }} .pf-social-list {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+#shopify-section-{{ sid }} .pf-social-list { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 #shopify-section-{{ sid }} .pf-soc-a {
   width: 123px;
   height: auto;
@@ -410,54 +384,23 @@
   white-space: nowrap;
 }
 
-
-/* ── PAYMENT — Mobile only ── */
-#shopify-section-{{ sid }} .pf-payment {
-  padding-top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
+/* ── PAYMENT ── */
+#shopify-section-{{ sid }} .pf-payment { padding-top: 20px; width: 100%; display: flex; justify-content: center; }
 #shopify-section-{{ sid }} .pf-payment img { max-width: 100%; height: auto; display: block; }
 @media (min-width: 769px) { #shopify-section-{{ sid }} .pf-payment { display: none; } }
 
 /* ── MOBILE overrides ── */
 @media (max-width: 768px) {
-  #shopify-section-{{ sid }} .pf-nl-heading {
-    font-size: 30px;
-    line-height: 110%;
-    letter-spacing: -0.04em;
-    margin: 0 0 15px;
-  }
-  #shopify-section-{{ sid }} .pf-nl-sub {
-    font-size: 14.6px;
-    line-height: 18.8px;
-    letter-spacing: -0.03em;
-    margin: 0 0 25px;
-  }
+  #shopify-section-{{ sid }} .pf-nl-heading { font-size: 30px; line-height: 110%; letter-spacing: -0.04em; margin: 0 0 15px; }
+  #shopify-section-{{ sid }} .pf-nl-sub { font-size: 14.6px; line-height: 18.8px; letter-spacing: -0.03em; margin: 0 0 25px; }
   #shopify-section-{{ sid }} .pf-disclaimer { display: none; }
-  #shopify-section-{{ sid }} .pf-social {
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
-  }
+  #shopify-section-{{ sid }} .pf-social { flex-direction: column; gap: 14px; align-items: center; }
   #shopify-section-{{ sid }} .pf-social-label { font-size: 14px; display: none; }
-  #shopify-section-{{ sid }} .pf-wrap{
-    display: flex;
-    flex-direction: column;
-  }
-  #shopify-section-{{ sid }} .pf-newsletter{
-    order: 1;
-  }
-  #shopify-section-{{ sid }} .pf-row2 {
-    order: 2;
-  }
-  #shopify-section-{{ sid }} .pf-bottom{
-    order: 4;
-  }
-  #shopify-section-{{ sid }} .pf-payment {
-     order: 3;
-  }
+  #shopify-section-{{ sid }} .pf-wrap { display: flex; flex-direction: column; }
+  #shopify-section-{{ sid }} .pf-newsletter { order: 1; }
+  #shopify-section-{{ sid }} .pf-row2 { order: 2; }
+  #shopify-section-{{ sid }} .pf-bottom { order: 4; }
+  #shopify-section-{{ sid }} .pf-payment { order: 3; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -465,13 +408,38 @@
   #shopify-section-{{ sid }} .pf-col-links a,
   #shopify-section-{{ sid }} .pf-col-links a::after { transition: none; }
 }
+
+/* ══ SCROLL ANIMATIONS ════════════════════════════════════════
+   Newsletter → fade-up delay 0
+   Row 2      → fade-up delay 100ms
+   Bottom     → fade-up delay 180ms
+═════════════════════════════════════════════════════════════ */
+#shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#shopify-section-{{ sid }}.pb-js [data-pb-anim="up"] { transform: translateY(24px); }
+#shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
+  opacity: 1; transform: none; will-change: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+}
 </style>
 
 <section class="pf-section" {{ section.shopify_attributes }}>
   <div class="pf-wrap">
 
     {%- comment -%}── ROW 1: NEWSLETTER ──{%- endcomment -%}
-    <div class="pf-newsletter">
+    <div
+      class="pf-newsletter"
+      data-pb-anim="up"
+      data-pb-delay="0"
+    >
       <div>
         {%- if s.news_heading != blank -%}
           <h2 class="pf-nl-heading">{{ s.news_heading }}</h2>
@@ -520,7 +488,11 @@
     </div>
 
     {%- comment -%}── ROW 2: LOGO + COLUMNS ──{%- endcomment -%}
-    <div class="pf-row2">
+    <div
+      class="pf-row2"
+      data-pb-anim="up"
+      data-pb-delay="100"
+    >
       <div class="pf-logo-wrap">
         {%- if s.logo_image != blank -%}
           <a href="{{ routes.root_url }}" class="pf-logo" aria-label="{{ shop.name }}">
@@ -562,7 +534,11 @@
     </div>
 
     {%- comment -%}── ROW 3: DISCLAIMER + SOCIAL ──{%- endcomment -%}
-    <div class="pf-bottom">
+    <div
+      class="pf-bottom"
+      data-pb-anim="up"
+      data-pb-delay="180"
+    >
       <p class="pf-disclaimer">
         {{ s.disclaimer_text | default: "These statements have not been reviewed by the FDA. This product is not meant to diagnose, treat, cure, or prevent any disease." }}
       </p>
@@ -699,9 +675,9 @@
       "type": "social_link",
       "name": "Social link",
       "settings": [
-        { "type": "text",         "id": "label",     "label": "Label",         "default": "Facebook" },
-        { "type": "url",          "id": "url",        "label": "URL" },
-        { "type": "image_picker", "id": "icon_image", "label": "Icon image (32x32)" }
+        { "type": "text",         "id": "label",      "label": "Label",             "default": "Facebook" },
+        { "type": "url",          "id": "url",         "label": "URL" },
+        { "type": "image_picker", "id": "icon_image",  "label": "Icon image (32x32)" }
       ]
     }
   ],
