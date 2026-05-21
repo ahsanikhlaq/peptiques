@@ -296,7 +296,7 @@
       {%- for block in section.blocks -%}
         {%- if block.type == 'phase' -%}
           <div class="pe-panel" role="tabpanel" data-pe-panel="{{ forloop.index }}" data-pe-active="{% if forloop.first %}true{% else %}false{% endif %}">
-
+            <div class="main-pepill-peprotip">
             {%- if block.settings.pill_richtext != blank -%}
               <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">
                 {{ block.settings.pill_richtext }}
@@ -305,8 +305,8 @@
 
             {%- if block.settings.protip_richtext != blank -%}
             <div class="pe-protip">{{ block.settings.protip_richtext }}</div>
-          {%- endif -%}
-
+           {%- endif -%}
+        </div>
             <div class="pe-visual">
               {%- if block.settings.visual_image != blank -%}
                 {{ block.settings.visual_image | image_url: width: 1200 | image_tag:
