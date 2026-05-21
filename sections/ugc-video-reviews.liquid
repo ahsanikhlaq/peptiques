@@ -275,7 +275,7 @@
   <div class="uv-container">
 
     {%- if s.eyebrow_richtext != blank or s.show_stars_checkbox -%}
-      <p class="uv-eyebrow">
+      <div class="uv-eyebrow">
         {%- if s.show_stars_checkbox -%}
           <span class="uv-stars" aria-hidden="true">
             {%- for i in (1..5) -%}
@@ -284,9 +284,9 @@
           </span>
         {%- endif -%}
         {%- if s.eyebrow_richtext != blank -%}
-          <span class="uv-eyebrow-richtext">{{ s.eyebrow_richtext }}</span>
+          <div class="uv-eyebrow-richtext">{{ s.eyebrow_richtext }}</div>
         {%- endif -%}
-      </p>
+      </div>
     {%- endif -%}
 
     <h2 id="uv-heading-{{ sid }}" class="uv-heading">
