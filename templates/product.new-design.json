@@ -2756,6 +2756,20 @@
             "label": "Gluten Free"
           }
         },
+        "badge_xRw7kx": {
+          "type": "badge",
+          "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243172_1.svg",
+            "label": "No Vegetable Oil"
+          }
+        },
+        "badge_JKiGiF": {
+          "type": "badge",
+          "settings": {
+            "icon_image": "shopify://shop_images/Frame_2147243172_2.svg",
+            "label": "No aluminum"
+          }
+        },
         "ing_1": {
           "type": "ingredient",
           "settings": {
@@ -2773,6 +2787,8 @@
         "badge_4",
         "badge_5",
         "badge_6",
+        "badge_xRw7kx",
+        "badge_JKiGiF",
         "ing_1"
       ],
       "settings": {
