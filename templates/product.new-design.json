@@ -542,9 +542,7 @@
           "settings": {
             "title_text": "Pineal Gland Cleansing",
             "subtitle_text": "Supports natural detox and inner clarity.",
-            "body_text": "Used in Ayurveda for 5,000+ years, Haritaki is positioned here to support pineal cleansing, clarity, and spiritual awareness.",
-            "icon_image": "shopify://shop_images/Component_323_2.png",
-            "open_by_default": false
+            "icon_image": "shopify://shop_images/Component_323_2.png"
           }
         },
         "benefit_2": {
@@ -552,9 +550,7 @@
           "settings": {
             "title_text": "Third Eye Activation",
             "subtitle_text": "Supports vivid dreams and deeper connection.",
-            "body_text": "Used in Ayurveda for 5,000+ years, Haritaki is positioned here to support pineal cleansing, clarity, and spiritual awareness.",
-            "icon_image": "shopify://shop_images/Component_323_5.png",
-            "open_by_default": false
+            "icon_image": "shopify://shop_images/Component_323_5.png"
           }
         },
         "benefit_3": {
@@ -562,9 +558,7 @@
           "settings": {
             "title_text": "Mental Clarity & Focus",
             "subtitle_text": "Helps clear brain fog and sharpen awareness.",
-            "body_text": "Used in Ayurveda for 5,000+ years, Haritaki is positioned here to support pineal cleansing, clarity, and spiritual awareness.",
-            "icon_image": "shopify://shop_images/Component_323_1.png",
-            "open_by_default": false
+            "icon_image": "shopify://shop_images/Component_323_1.png"
           }
         },
         "benefit_4": {
@@ -572,9 +566,7 @@
           "settings": {
             "title_text": "Gut-Brain Connection",
             "subtitle_text": "Helps improve clarity and concentration.",
-            "body_text": "Used in Ayurveda for 5,000+ years, Haritaki is positioned here to support pineal cleansing, clarity, and spiritual awareness.",
-            "icon_image": "shopify://shop_images/Component_323_3.png",
-            "open_by_default": false
+            "icon_image": "shopify://shop_images/Component_323_3.png"
           }
         },
         "benefit_5": {
@@ -582,9 +574,7 @@
           "settings": {
             "title_text": "Sustained Natural Energy",
             "subtitle_text": "All-day clean energy without the crash.",
-            "body_text": "Used in Ayurveda for 5,000+ years, Haritaki is positioned here to support pineal cleansing, clarity, and spiritual awareness.",
-            "icon_image": "shopify://shop_images/Component_323_4.png",
-            "open_by_default": false
+            "icon_image": "shopify://shop_images/Component_323_4.png"
           }
         },
         "benefit_6": {
@@ -592,9 +582,7 @@
           "settings": {
             "title_text": "Deeper, More Restorative Sleep",
             "subtitle_text": "Supports deeper sleep and more vivid dreams.",
-            "body_text": "Used in Ayurveda for 5,000+ years, Haritaki is positioned here to support pineal cleansing, clarity, and spiritual awareness.",
-            "icon_image": "shopify://shop_images/Component_323_5.png",
-            "open_by_default": false
+            "icon_image": "shopify://shop_images/Component_323_5.png"
           }
         }
       },
@@ -1656,7 +1644,7 @@
         "eyebrowTextColor_color": "#1d1027",
         "starsColor_color": "#f5b301",
         "show_stars_checkbox": true,
-        "eyebrow_text": "10,500+ 5-Star Reviews",
+        "eyebrow_text": "22,926+ 4.8 / 5-Star Reviews",
         "eyebrow_link": "",
         "heading_text": "Wellness creators, mindful users,",
         "containerMaxWidth_number": 1400,
