@@ -2439,6 +2439,115 @@
     "section_choose_daily_practice_7Db6tQ": {
       "type": "section-choose-daily-practice",
       "blocks": {
+        "tab_cbiApH": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "The Pineal Reset Kit",
+            "tab_subtitle": "Full activation",
+            "tab_image": "shopify://shop_images/Background_8.webp",
+            "l_heading": "Why your reset routine matters",
+            "l_desc": "<p>Modern daily routines can expose your body to artificial light, EMF, fluoride, and poor sleep signals. These small exposures may build up over time and affect rest, clarity, and your natural reset rhythm. This kit helps support a cleaner environment, better nighttime habits, and a more balanced daily routine.</p>",
+            "l_sub": "How our kit will help you Daily",
+            "btn_text": "START YOUR CLEAN ROUTINE",
+            "btn_url": "",
+            "r_heading": "The Pineal Reset Kit",
+            "items_label": "<p>8 items ++<strong> Free shipping</strong></p>",
+            "gifts_label": "",
+            "kitprice": "",
+            "products_2col": true,
+            "bottom_image": "shopify://shop_images/Frame_2147241360.webp"
+          }
+        },
+        "bullet_item_LNb7tH": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Everything from both kits fluoride stopped, sleep protected. Nothing left to chance."
+          }
+        },
+        "bullet_item_tPL6Cy": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Complete pineal cleanse water, shower, sleep & EMF protection in one order."
+          }
+        },
+        "bullet_item_NiW4Uw": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "3 exclusive free gifts worth $80 + free priority shipping. 90-day money-back guarantee."
+          }
+        },
+        "footer_item_YKP3Rr": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_63.svg",
+            "text": "Stop or Cancel Anytime"
+          }
+        },
+        "footer_item_KqDTKe": {
+          "type": "footer_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/SVG_17.svg",
+            "text": "Refills Ship Every 30 days"
+          }
+        },
+        "tabproduct_L4aYAP": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_9RdYjP": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_yCmhCq": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_qXfKhC": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_LACY6g": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_mJChNf": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_EdhBXA": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "tabproduct_eDhmix": {
+          "type": "tabproduct",
+          "settings": {
+            "product": "bibhitaki-seven-chakras-capsules"
+          }
+        },
+        "free_item_7LkCGz": {
+          "type": "free_item",
+          "settings": {
+            "product_1": "free-detox-spiritual-guidance-e-book",
+            "product_2": "free-worldwide-shipping-1",
+            "product_3": "free-worldwide-shipping-1",
+            "product_4": "",
+            "show_on_desktop": true
+          }
+        },
         "tab_FicyAU": {
           "type": "tab",
           "settings": {
@@ -2455,7 +2564,7 @@
             "gifts_label": "",
             "kitprice": "",
             "products_2col": false,
-            "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
+            "bottom_image": "shopify://shop_images/Frame_2147241360_1.webp"
           }
         },
         "bullet_item_QHqmw8": {
@@ -2510,6 +2619,7 @@
         },
         "free_item_XFJgDi": {
           "type": "free_item",
+          "disabled": true,
           "settings": {
             "product_1": "free-detox-spiritual-guidance-e-book",
             "product_2": "free-worldwide-shipping-1",
@@ -2524,23 +2634,35 @@
             "tab_title": "The Vivid Dreams Kit",
             "tab_subtitle": "Optimize your sleep | Full activation",
             "tab_image": "shopify://shop_images/Background_8.webp",
-            "l_heading": "Why sleep quality matters",
-            "l_desc": "<p>What feels like a normal daily routine may actually include repeated exposure to fluoride, aluminum, plastic, and harsh chemicals. From your shower water to your toothpaste and deodorant, small daily choices can add up over time.</p>",
-            "l_sub": "How our kit will help you with Detox",
+            "l_heading": "Why your sleep routine matters",
+            "l_desc": "<p>Your sleep environment can affect how deeply your body rests at night. Light, noise, stress, and poor nighttime habits may disturb your natural sleep rhythm. This kit helps create a calmer, darker, and cleaner sleep setup so your body can relax, recover, and wake up feeling more refreshed.</p>",
+            "l_sub": "How our kit will help you with sleep",
             "btn_text": "START YOUR CLEAN ROUTINE",
             "btn_url": "",
-            "r_heading": "What's inside the Vivid Dreams Kit",
+            "r_heading": "The Vivid Dreams Kit",
             "items_label": "",
             "gifts_label": "",
             "kitprice": "",
             "products_2col": true,
-            "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
+            "bottom_image": "shopify://shop_images/Frame_2147241359_1.webp"
           }
         },
         "bullet_item_rR7qAx": {
           "type": "bullet_item",
           "settings": {
-            "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying."
+            "text": "Haritaki restores your DMT and melatonin production. This kit makes sure your bedroom doesn't suppress them again."
+          }
+        },
+        "bullet_item_EFpRRj": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Haritaki restores your DMT and melatonin production. This kit makes sure your bedroom doesn't suppress them again."
+          }
+        },
+        "bullet_item_tzkzPE": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Free worldwide shipping. 60-day pineal cleanse guarantee."
           }
         },
         "footer_item_8nRgpc": {
@@ -2556,136 +2678,24 @@
             "icon_image": "shopify://shop_images/SVG_17.svg",
             "text": "Refills Ship Every 30 days"
           }
-        },
-        "tabproduct_PijyVM": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_7mdbb7": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_cCTXVM": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_diKYdD": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_bLzja4": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tab_cbiApH": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "The Pineal Reset Kit",
-            "tab_subtitle": "Full activation",
-            "tab_image": "shopify://shop_images/Background_8.webp",
-            "l_heading": "Reset and activate your pineal gland",
-            "l_desc": "<p>What feels like a normal daily routine may actually include repeated exposure to fluoride, aluminum, plastic, and harsh chemicals. From your shower water to your toothpaste and deodorant, small daily choices can add up over time.</p>",
-            "l_sub": "How our kit will help you with Detox",
-            "btn_text": "START YOUR CLEAN ROUTINE",
-            "btn_url": "",
-            "r_heading": "What's inside the Pineal Reset Kit",
-            "items_label": "<p>8 items ++<strong> Free shipping</strong></p>",
-            "gifts_label": "",
-            "kitprice": "",
-            "products_2col": true,
-            "bottom_image": "shopify://shop_images/Frame_2147241359.webp"
-          }
-        },
-        "bullet_item_LNb7tH": {
-          "type": "bullet_item",
-          "settings": {
-            "text": "Haritaki decalcifies your pineal gland. This kit stops it from recalcifying."
-          }
-        },
-        "footer_item_YKP3Rr": {
-          "type": "footer_item",
-          "settings": {
-            "icon_image": "shopify://shop_images/Vector_63.svg",
-            "text": "Stop or Cancel Anytime"
-          }
-        },
-        "footer_item_KqDTKe": {
-          "type": "footer_item",
-          "settings": {
-            "icon_image": "shopify://shop_images/SVG_17.svg",
-            "text": "Refills Ship Every 30 days"
-          }
-        },
-        "tabproduct_DqFXJX": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_Un9aeb": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_jgYgKM": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_R7dLy7": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_WDiVGp": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_3hBVHG": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_W7TE9w": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "tabproduct_4nD9g6": {
-          "type": "tabproduct",
-          "settings": {
-            "product": "bibhitaki-seven-chakras-capsules"
-          }
-        },
-        "free_item_7LkCGz": {
-          "type": "free_item",
-          "settings": {
-            "product_1": "free-detox-spiritual-guidance-e-book",
-            "product_2": "free-worldwide-shipping-1",
-            "product_3": "free-worldwide-shipping-1",
-            "product_4": "",
-            "show_on_desktop": true
-          }
         }
       },
       "block_order": [
+        "tab_cbiApH",
+        "bullet_item_LNb7tH",
+        "bullet_item_tPL6Cy",
+        "bullet_item_NiW4Uw",
+        "footer_item_YKP3Rr",
+        "footer_item_KqDTKe",
+        "tabproduct_L4aYAP",
+        "tabproduct_9RdYjP",
+        "tabproduct_yCmhCq",
+        "tabproduct_qXfKhC",
+        "tabproduct_LACY6g",
+        "tabproduct_mJChNf",
+        "tabproduct_EdhBXA",
+        "tabproduct_eDhmix",
+        "free_item_7LkCGz",
         "tab_FicyAU",
         "bullet_item_QHqmw8",
         "bullet_item_TEegtN",
@@ -2698,26 +2708,10 @@
         "free_item_XFJgDi",
         "tab_FTwLP3",
         "bullet_item_rR7qAx",
+        "bullet_item_EFpRRj",
+        "bullet_item_tzkzPE",
         "footer_item_8nRgpc",
-        "footer_item_RayMyd",
-        "tabproduct_PijyVM",
-        "tabproduct_7mdbb7",
-        "tabproduct_cCTXVM",
-        "tabproduct_diKYdD",
-        "tabproduct_bLzja4",
-        "tab_cbiApH",
-        "bullet_item_LNb7tH",
-        "footer_item_YKP3Rr",
-        "footer_item_KqDTKe",
-        "tabproduct_DqFXJX",
-        "tabproduct_Un9aeb",
-        "tabproduct_jgYgKM",
-        "tabproduct_R7dLy7",
-        "tabproduct_WDiVGp",
-        "tabproduct_3hBVHG",
-        "tabproduct_W7TE9w",
-        "tabproduct_4nD9g6",
-        "free_item_7LkCGz"
+        "footer_item_RayMyd"
       ],
       "name": "Choose Daily Practice",
       "settings": {
