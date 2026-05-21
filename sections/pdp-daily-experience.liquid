@@ -1,7 +1,5 @@
 {% comment %}
   Daily Experience — Morning / Evening tab section.
-  Each block represents a phase (Morning, Evening, ...). Switching
-  tabs swaps the visible panel AND the section background color.
 {% endcomment %}
 
 {%- liquid
@@ -91,6 +89,7 @@
   }
   #shopify-section-{{ sid }} .pe-tab-icon svg { width: 100%; height: 100%; }
 
+  /* ── Pill (richtext) ── */
   #shopify-section-{{ sid }} .pe-pill {
     background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%) !important;
     color: #000000;
@@ -104,7 +103,26 @@
     text-align: center;
     max-width: 90%;
   }
+  #shopify-section-{{ sid }} .pe-pill p { margin: 0; }
   #shopify-section-{{ sid }} .pe-pill strong { font-weight: 700; }
+  #shopify-section-{{ sid }} .pe-pill a { color: inherit; }
+
+  /* ── Pro Tip ── */
+  #shopify-section-{{ sid }} .pe-protip {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 14.6px;
+    line-height: 18.8px;
+    letter-spacing: -0.03em;
+    text-align: center;
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 1);
+    margin: -28px 0 0;
+    padding: 0 12px;
+    max-width: 90%;
+  }
+  #shopify-section-{{ sid }} .pe-protip p { margin: 0; }
+  #shopify-section-{{ sid }} .pe-protip strong { font-weight: 700; }
 
   #shopify-section-{{ sid }} .pe-panel {
     display: none;
@@ -124,19 +142,14 @@
     margin: 0 auto;
     aspect-ratio: 1 / 1;
   }
-  /* Both images: same base positioning */
   #shopify-section-{{ sid }} .pe-visual > img {
     position: absolute;
     inset: 0;
     width: 100%; height: 100%;
     object-fit: contain;
   }
-
-  /* Desktop: show desktop, hide mobile — high specificity */
   #shopify-section-{{ sid }} .pe-visual img.pe-visual-desktop { display: block; }
   #shopify-section-{{ sid }} .pe-visual img.pe-visual-mobile  { display: none; }
-
-  /* Mobile: show mobile, hide desktop */
   @media (max-width: 768px) {
     #shopify-section-{{ sid }} .pe-visual img.pe-visual-desktop { display: none; }
     #shopify-section-{{ sid }} .pe-visual img.pe-visual-mobile  { display: block; }
@@ -153,7 +166,6 @@
     margin: 28% auto 0;
     border: 1px solid #E1DCF4;
   }
-
   #shopify-section-{{ sid }} .pe-stat-figure {
     font-family: 'DM Sans', system-ui, sans-serif;
     color: {{ s.stat_figure_color | default: '#47184d' }};
@@ -163,8 +175,6 @@
     font-weight: 900;
     margin: 0 0 10px;
   }
-
-  /* ─── Avatars row ───────────────────────────────────────────── */
   #shopify-section-{{ sid }} .pe-stat-avatars {
     display: flex;
     flex-direction: row;
@@ -174,8 +184,7 @@
     gap: 3px;
   }
   #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar {
-    width: 26px;
-    height: 26px;
+    width: 26px; height: 26px;
     border-radius: 50%;
     border: 2.5px solid #ffffff;
     overflow: hidden;
@@ -183,17 +192,11 @@
     margin-left: -10px;
     background: #e8d5f5;
   }
-  #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar:first-child {
-    margin-left: 0;
-  }
+  #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar:first-child { margin-left: 0; }
   #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 50%;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block; border-radius: 50%;
   }
-
   #shopify-section-{{ sid }} .pe-stat-caption {
     font-family: 'DM Sans';
     font-weight: 400;
@@ -230,19 +233,25 @@
     #shopify-section-{{ sid }} .pe-tab-icon { width: 28px; height: 28px; }
     #shopify-section-{{ sid }} .pe-tab { padding: 14px 16px; gap: 14px; font-size: 20px; }
     #shopify-section-{{ sid }} .pe-pill { max-width: 100%; margin: 0 16px; }
+    #shopify-section-{{ sid }} .pe-protip {
+      font-size: 12.6px;
+      line-height: 18.8px;
+      letter-spacing: -0.03em;
+      margin: -28px 16px 0;
+    }
     #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] { gap: 35px; }
     #shopify-section-{{ sid }} .pe-visual { max-width: 100%; }
-    #shopify-section-{{ sid }} .pe-stat { padding: 16px;
-        text-align: center;
-        max-width: 196px;
-        margin: 24% auto 0; }
+    #shopify-section-{{ sid }} .pe-stat {
+      padding: 16px;
+      text-align: center;
+      max-width: 196px;
+      margin: 24% auto 0;
+    }
     #shopify-section-{{ sid }} .pe-stat-figure { font-size: 34px; letter-spacing: -0.018em; margin: 0 0 6px; }
     #shopify-section-{{ sid }} .pe-stat-avatars { margin: 0 0 6px; }
     #shopify-section-{{ sid }} .pe-stat-caption { margin: 0 0 8px; }
     #shopify-section-{{ sid }} .pe-stat-body { font-size: 11.8px; line-height: 16.4px; letter-spacing: -0.03em; }
-    #shopify-section-{{ sid }} .pe-tabs {
-    gap: 16px;
-  }
+    #shopify-section-{{ sid }} .pe-tabs { gap: 16px; }
   }
 </style>
 
@@ -288,12 +297,17 @@
         {%- if block.type == 'phase' -%}
           <div class="pe-panel" role="tabpanel" data-pe-panel="{{ forloop.index }}" data-pe-active="{% if forloop.first %}true{% else %}false{% endif %}">
 
-            {%- if block.settings.pill_text != blank -%}
-              <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">{{ block.settings.pill_text }}</div>
+            {%- if block.settings.pill_richtext != blank -%}
+              <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">
+                {{ block.settings.pill_richtext }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.protip_text != blank -%}
+              <p class="pe-protip">{{ block.settings.protip_text }}</p>
             {%- endif -%}
 
             <div class="pe-visual">
-              {%- comment -%} Desktop image — hidden on mobile {%- endcomment -%}
               {%- if block.settings.visual_image != blank -%}
                 {{ block.settings.visual_image | image_url: width: 1200 | image_tag:
                      class: 'pe-visual-desktop',
@@ -302,7 +316,6 @@
                      alt: block.settings.tab_label }}
               {%- endif -%}
 
-              {%- comment -%} Mobile image — hidden on desktop. Falls back to desktop image if not set {%- endcomment -%}
               {%- if block.settings.visual_image_mobile != blank -%}
                 {{ block.settings.visual_image_mobile | image_url: width: 800 | image_tag:
                      class: 'pe-visual-mobile',
@@ -327,18 +340,10 @@
                   {%- endif -%}
                   {%- if has_avatar -%}
                     <div class="pe-stat-avatars" aria-hidden="true">
-                      {%- if block.settings.avatar_1 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
-                      {%- endif -%}
-                      {%- if block.settings.avatar_2 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
-                      {%- endif -%}
-                      {%- if block.settings.avatar_3 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
-                      {%- endif -%}
-                      {%- if block.settings.avatar_4 != blank -%}
-                        <div class="pe-avatar">{{ block.settings.avatar_4 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>
-                      {%- endif -%}
+                      {%- if block.settings.avatar_1 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
+                      {%- if block.settings.avatar_2 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
+                      {%- if block.settings.avatar_3 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
+                      {%- if block.settings.avatar_4 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_4 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
                     </div>
                   {%- endif -%}
 
@@ -361,7 +366,7 @@
 
 <script>
 (function () {
-  var root   = document.getElementById('shopify-section-{{ sid }}');
+  var root = document.getElementById('shopify-section-{{ sid }}');
   if (!root) return;
   var sec    = root.querySelector('[data-pe-root]');
   var tabs   = root.querySelectorAll('[data-pe-tab]');
@@ -371,13 +376,9 @@
   function apply(tab) {
     var idx       = tab.getAttribute('data-pe-tab');
     var bg        = tab.getAttribute('data-pe-bg');
-    var pillBg    = tab.getAttribute('data-pe-pill-bg');
-    var tabBg     = tab.getAttribute('data-pe-tab-bg');
     var tabBorder = tab.getAttribute('data-pe-tab-border');
 
     if (bg)        sec.style.setProperty('--pe-bg-{{ sid }}', bg);
-    if (pillBg)    sec.style.setProperty('--pe-pill-bg-{{ sid }}', pillBg);
-    if (tabBg)     sec.style.setProperty('--pe-tab-bg-{{ sid }}', tabBg);
     if (tabBorder) sec.style.setProperty('--pe-tab-border-{{ sid }}', tabBorder);
 
     tabs.forEach(function (t) {
@@ -425,21 +426,22 @@
       "type": "phase",
       "name": "Phase tab",
       "settings": [
-        { "type": "text",         "id": "tab_label",           "label": "Tab label",                       "default": "Morning" },
+        { "type": "text",         "id": "tab_label",           "label": "Tab label",                   "default": "Morning" },
         { "type": "image_picker", "id": "icon_image",          "label": "Tab icon image (optional)" },
-        { "type": "color",        "id": "icon_color",          "label": "Icon color (default SVG)",        "default": "#f5b301" },
-        { "type": "color",        "id": "bg_color",            "label": "Section bg when active",          "default": "#fff8d6" },
-        { "type": "color",        "id": "pill_bg",             "label": "Pill bg when active",             "default": "#fff2a0" },
-        { "type": "color",        "id": "tab_active_bg",       "label": "Active tab bg",                   "default": "#fff2a0" },
-        { "type": "color",        "id": "tab_active_border",   "label": "Active tab border",               "default": "#f5d04a" },
-        { "type": "text",         "id": "pill_text",           "label": "Pill text (supports HTML)",       "default": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>." },
+        { "type": "color",        "id": "icon_color",          "label": "Icon color (default SVG)",    "default": "#f5b301" },
+        { "type": "color",        "id": "bg_color",            "label": "Section bg when active",      "default": "#fff8d6" },
+        { "type": "color",        "id": "pill_bg",             "label": "Pill bg when active",         "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_bg",       "label": "Active tab bg",               "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_border",   "label": "Active tab border",           "default": "#f5d04a" },
+        { "type": "richtext",     "id": "pill_richtext",       "label": "Main text (rich text)", "default": "<p>Take 1 capsule with water upon waking, <strong>before breakfast</strong>.</p>" },
+        { "type": "text",         "id": "protip_text",         "label": "Pro Tip text",                "default": "Pro Tip: For Better Absorption Take It With Warm Water." },
         { "type": "header",       "content": "Visual images" },
         { "type": "image_picker", "id": "visual_image",        "label": "Main image — Desktop" },
         { "type": "image_picker", "id": "visual_image_mobile", "label": "Main image — Mobile (falls back to desktop if empty)" },
         { "type": "header",       "content": "Stat card" },
-        { "type": "text",         "id": "stat_figure_text",    "label": "Stat figure",                    "default": "97%" },
-        { "type": "text",         "id": "stat_caption",        "label": "Stat caption",                   "default": "Of people Like You" },
-        { "type": "textarea",     "id": "stat_body",           "label": "Stat body",                      "default": "Experience the simplicity of complete daily nutrition in just two capsules." },
+        { "type": "text",         "id": "stat_figure_text",    "label": "Stat figure",                "default": "97%" },
+        { "type": "text",         "id": "stat_caption",        "label": "Stat caption",               "default": "Of people Like You" },
+        { "type": "textarea",     "id": "stat_body",           "label": "Stat body",                  "default": "Experience the simplicity of complete daily nutrition in just two capsules." },
         { "type": "image_picker", "id": "avatar_1",            "label": "Avatar 1" },
         { "type": "image_picker", "id": "avatar_2",            "label": "Avatar 2" },
         { "type": "image_picker", "id": "avatar_3",            "label": "Avatar 3" },
@@ -462,10 +464,11 @@
             "pill_bg": "#ffffe1",
             "tab_active_bg": "#ffffe1",
             "tab_active_border": "#ffce2f",
-            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
+            "pill_richtext": "<p>Take 1 capsule with water upon waking, <strong>before breakfast</strong>.</p>",
+            "protip_text": "Pro Tip: For Better Absorption Take It With Warm Water.",
             "stat_figure_text": "97%",
             "stat_caption": "Of people Like You",
-            "stat_body": "Experience the simplicity of complete daily nutrition in just two capsules. Everything your body needs, nothing it doesn't."
+            "stat_body": "Experience the simplicity of complete Pineal Cleansing & Third Eye Activation in just two capsules."
           }
         },
         {
@@ -477,7 +480,8 @@
             "pill_bg": "#e0d0f6",
             "tab_active_bg": "#e0d0f6",
             "tab_active_border": "#bba0d4",
-            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
+            "pill_richtext": "<p>Take 1 capsule with water before bed, <strong>after dinner</strong>.</p>",
+            "protip_text": "Pro Tip: For Best Results Take It At Least 30 Minutes Before Sleep.",
             "stat_figure_text": "93%",
             "stat_caption": "Of people Like You",
             "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
