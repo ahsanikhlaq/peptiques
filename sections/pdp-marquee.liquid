@@ -1,8 +1,5 @@
 {% comment %}
   Marquee — horizontal running text bar.
-  Glitch-free: the track contains the items twice. The keyframe
-  translates by exactly -50% so item N+1 lands where item 1 started,
-  producing a seamless loop with no jump.
 {% endcomment %}
 
 {%- liquid
@@ -26,7 +23,6 @@
     background: {{ s.background_color | default: '#3f1c5c' }};
     color: {{ s.text_color | default: '#ffffff' }};
     overflow: hidden;
-    /* Min-height keeps the bar stable while the track animates. */
     min-height: {{ s.bar_height | default: 56 }}px;
     display: flex;
     align-items: center;
@@ -35,7 +31,6 @@
     display: flex;
     flex-wrap: nowrap;
     width: max-content;
-    /* will-change reduces sub-pixel jitter during transform. */
     will-change: transform;
     animation: pm-marquee-{{ sid }} {{ s.duration_seconds | default: 30 }}s linear infinite;
   }
@@ -62,22 +57,21 @@
     display: inline-flex;
     align-items: center;
     gap: 12px;
-        color: #FFFFFF;
+    color: #FFFFFF;
   }
   #shopify-section-{{ sid }} .pm-item-icon{
-    width: {{ s.icon_size | default: 18 }}px;
-    height: {{ s.icon_size | default: 18 }}px;
+    width: {{ s.icon_size | default: 20 }}px;
+    height: {{ s.icon_size | default: 20 }}px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     color: {{ s.icon_color | default: '#ffffff' }};
   }
   #shopify-section-{{ sid }} .pm-item-icon svg{ width: 100%; height: 100%; }
   #shopify-section-{{ sid }} .pm-item-icon img{ width: 100%; height: 100%; object-fit: contain; display: block; }
   @media (max-width:768px){
-    #shopify-section-{{ sid }} .pm-bar {
-     min-height: 57px;
-    }
+    #shopify-section-{{ sid }} .pm-bar { min-height: 57px; }
     #shopify-section-{{ sid }} .pm-item {
       padding: 0 10px;
       font-size: 14px;
@@ -98,6 +92,14 @@
               </span>
             {% elsif block.settings.icon_svg != blank %}
               <span class="pm-item-icon">{{ block.settings.icon_svg }}</span>
+            {% else %}
+              <span class="pm-item-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.5" y="0.5" width="19" height="19" rx="9.5" fill="white"/>
+                  <rect x="0.5" y="0.5" width="19" height="19" rx="9.5" stroke="#47184D"/>
+                  <path d="M14 7L8.5 12.5L6 10" stroke="#47184D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             {% endif %}
             <span>{{ block.settings.label }}</span>
           </span>
@@ -124,23 +126,23 @@
     { "type": "checkbox", "id": "pause_on_hover",   "label": "Pause on hover", "default": true },
 
     { "type": "header", "content": "Typography" },
-    { "type": "text",  "id": "font_family",     "label": "Font-family", "default": "inherit" },
-    { "type": "range", "id": "font_size",       "label": "Font size",   "min": 10, "max": 28, "step": 1, "unit": "px", "default": 16 },
-    { "type": "range", "id": "font_weight",     "label": "Font weight", "min": 300, "max": 900, "step": 100, "default": 500 },
-    { "type": "range", "id": "letter_spacing",  "label": "Letter spacing", "min": 0,  "max": 20, "step": 1, "unit": "%", "default": 0, "info": "Stored as 0.0X em" },
-    { "type": "select","id": "text_transform",  "label": "Text transform",
+    { "type": "text",  "id": "font_family",    "label": "Font-family", "default": "inherit" },
+    { "type": "range", "id": "font_size",      "label": "Font size",   "min": 10, "max": 28, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "font_weight",    "label": "Font weight", "min": 300, "max": 900, "step": 100, "default": 500 },
+    { "type": "range", "id": "letter_spacing", "label": "Letter spacing", "min": 0, "max": 20, "step": 1, "unit": "%", "default": 0 },
+    { "type": "select","id": "text_transform", "label": "Text transform",
       "options": [
-        { "value": "uppercase", "label": "UPPERCASE" },
-        { "value": "none",      "label": "Normal" },
-        { "value": "capitalize","label": "Capitalize" }
+        { "value": "uppercase",  "label": "UPPERCASE" },
+        { "value": "none",       "label": "Normal" },
+        { "value": "capitalize", "label": "Capitalize" }
       ],
       "default": "uppercase"
     },
 
     { "type": "header", "content": "Layout" },
-    { "type": "range", "id": "bar_height", "label": "Bar height",   "min": 32, "max": 120, "step": 2, "unit": "px", "default": 64 },
-    { "type": "range", "id": "item_gap",   "label": "Item gap (padding around each item)", "min": 8, "max": 120, "step": 2, "unit": "px", "default": 60 },
-    { "type": "range", "id": "icon_size",  "label": "Icon size", "min": 10, "max": 40, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "bar_height", "label": "Bar height",  "min": 32, "max": 120, "step": 2, "unit": "px", "default": 64 },
+    { "type": "range", "id": "item_gap",   "label": "Item gap",    "min": 8,  "max": 120, "step": 2, "unit": "px", "default": 60 },
+    { "type": "range", "id": "icon_size",  "label": "Icon size",   "min": 10, "max": 40,  "step": 1, "unit": "px", "default": 20 },
 
     { "type": "header", "content": "Accessibility" },
     { "type": "text", "id": "aria_label", "label": "ARIA label", "default": "Free from" }
