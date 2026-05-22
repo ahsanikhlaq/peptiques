@@ -113,21 +113,11 @@
     }
   }
 
-  /* Mobile swiper overflow visible taaki side slides dikhein */
-  @media (max-width: 1023px) {
-    #shopify-section-{{ sid }} .ps-swiper-wrap {
-      overflow: hidden;
-      padding: 0 40px;
-    }
-    #shopify-section-{{ sid }} .ps-swiper-wrap .swiper {
-      overflow: visible;
-    }
-  }
-
   #shopify-section-{{ sid }} .ps-review {
     padding: 24px 16px;
     color: inherit;
     text-align: center;
+    box-sizing: border-box;
   }
   #shopify-section-{{ sid }} .ps-review-quote {
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
@@ -293,30 +283,28 @@
 
   {%- if review_count > 0 -%}
     <div class="ps-reviews-wrap" data-pb-anim="up" data-pb-delay="160">
-      <div class="ps-swiper-wrap">
-        <div class="swiper ps-swiper-{{ sid }}">
-          <div class="swiper-wrapper">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'review' -%}
-                <article class="swiper-slide ps-review" {{ block.shopify_attributes }}>
-                  <p class="ps-review-quote">"{{ block.settings.quote_text }}"</p>
-                  {%- if block.settings.body_text != blank -%}
-                    <p class="ps-review-body">{{ block.settings.body_text }}</p>
-                  {%- endif -%}
-                  <p class="ps-review-meta">{{ block.settings.author_label | default: 'Verified Review' }}</p>
-                  <span class="ps-stars" aria-label="{{ block.settings.stars | default: 5 }} out of 5 stars">
-                    {%- for i in (1..5) -%}
-                      {%- if i <= block.settings.stars -%}
-                        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
-                      {%- else -%}
-                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
-                      {%- endif -%}
-                    {%- endfor -%}
-                  </span>
-                </article>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
+      <div class="swiper ps-swiper-{{ sid }}">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'review' -%}
+              <article class="swiper-slide ps-review" {{ block.shopify_attributes }}>
+                <p class="ps-review-quote">"{{ block.settings.quote_text }}"</p>
+                {%- if block.settings.body_text != blank -%}
+                  <p class="ps-review-body">{{ block.settings.body_text }}</p>
+                {%- endif -%}
+                <p class="ps-review-meta">{{ block.settings.author_label | default: 'Verified Review' }}</p>
+                <span class="ps-stars" aria-label="{{ block.settings.stars | default: 5 }} out of 5 stars">
+                  {%- for i in (1..5) -%}
+                    {%- if i <= block.settings.stars -%}
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 15.27 16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
       </div>
 
@@ -342,21 +330,25 @@
   var PREV_BG = '{{ s.nav_prev_background | default: "#bba0d4" }}';
   var NEXT_BG = '{{ s.nav_next_background | default: "#3f1c5c" }}';
 
+  // Initial colors
   if (prevBtn) prevBtn.style.background = PREV_BG;
   if (nextBtn) nextBtn.style.background = NEXT_BG;
 
-  var isMobile = window.innerWidth < 1024;
-
   var swiper = new Swiper('.ps-swiper-' + sid, {
-    centeredSlides: isMobile ? true : false,
-    slidesPerView: isMobile ? 1.2 : {{ s.reviews_per_view | default: 4 }},
-    spaceBetween: isMobile ? 12 : {{ s.review_gap | default: 16 }},
+    slidesPerView: 4,
+    spaceBetween: {{ s.review_gap | default: 16 }},
+    centeredSlides: false,
     navigation: {
       prevEl: prevBtn,
       nextEl: nextBtn,
       disabledClass: 'ps-nav-disabled',
     },
     breakpoints: {
+      0: {
+        slidesPerView: 1.2,
+        centeredSlides: true,
+        spaceBetween: 12
+      },
       1024: {
         slidesPerView: {{ s.reviews_per_view | default: 4 }},
         centeredSlides: false,
@@ -364,7 +356,7 @@
       }
     },
     on: {
-      init: updateNavColors,
+      init:        updateNavColors,
       slideChange: updateNavColors,
     }
   });
@@ -372,25 +364,15 @@
   function updateNavColors() {
     if (!prevBtn || !nextBtn) return;
     if (swiper.isEnd) {
+      // Slides khatam — colors swap
       prevBtn.style.setProperty('background', NEXT_BG, 'important');
       nextBtn.style.setProperty('background', PREV_BG, 'important');
     } else {
+      // Normal state
       prevBtn.style.setProperty('background', PREV_BG, 'important');
       nextBtn.style.setProperty('background', NEXT_BG, 'important');
     }
   }
-
-  window.addEventListener('resize', function () {
-    var nowMobile = window.innerWidth < 1024;
-    if (nowMobile !== isMobile) {
-      isMobile = nowMobile;
-      swiper.params.centeredSlides = isMobile;
-      swiper.params.slidesPerView  = isMobile ? 1.2 : {{ s.reviews_per_view | default: 4 }};
-      swiper.params.spaceBetween   = isMobile ? 12 : {{ s.review_gap | default: 16 }};
-      swiper.update();
-      updateNavColors();
-    }
-  });
 
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === sid) {
