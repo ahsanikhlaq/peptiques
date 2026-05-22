@@ -1,6 +1,103 @@
+<style>
+.new-pro .new-container{
+      display: flex;
+    max-width: 1440px;
+    padding: 0px 50px;
+    margin: 0 auto;
+}
+.new-pro .main-prodcut{
+  display: flex;
+  justify-content: center;
+ gap: 40px !important;
+ max-width: 100%;
+    width: 100%;
+        flex-wrap: nowrap;
+}
+ .new-pro .new-grid-con{
+  max-width: 50% !important;
+  width: 100% !important;
+  flex: 1;
+  padding: 0;
+
+}
+
+ .new-pro .main-prodcut .product__title h1{
+  margin: 0;
+      color: var(--Black, #000);
+    font-family: Georgia;
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -3.22px;
+}
+
+.new-pro .new-grid-con .rating-stars__label{
+  color: var(--Black, #000);
+    text-align: center;
+    font-family: 'DM Sans';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+        padding-left: 6px;
+        letter-spacing: 0px;
+}
+.new-pro .new-grid-con .rating-stars-and-text{
+  border-radius: 100px;
+    border: 0.5px solid rgba(0, 0, 0, 0.12);
+    background: var(--9, linear-gradient(90deg, #F5E1FF 0%, #FFF 50%, #F5E1FF 100%));
+    padding: 6px 12px;
+    width: max-content;
+    margin-bottom: 16px;
+}
+
+@media screen and (max-width: 749px) {
+
+.new-pro .main-prodcut {
+      flex-direction: column;
+      gap: 36px !important;
+}
+. new-pro .new-container {
+      padding: 0px 0px 0px 6px;
+}
+.new-pro .new-grid-con {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+.new-pro .product__info-wrapper{
+  padding: 0px 16px 0px 10px !important;
+}
+. new-pro .new-grid-con .rating-stars__label{
+  font-size: 12px;
+  font-weight: 500;
+}
+.new-pro .main-prodcut .product__title h1 {
+      margin: 0;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+}
+.new-pro .new-grid-con .rating-stars-and-text {
+  margin-bottom: 12px;
+}
+.new-pro .main-prodcut .rich-text-block {
+          margin-top: 16px !important;
+    }
+}
+
+
+
+</style>
+
+
+
+
+
+
 <section
   id="MainProduct-{{ section.id }}"
-  class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+  class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding {% if section.settings.new_class %}  new-pro {% endif %}"
   data-section="{{ section.id }}"
 >
   {%- style -%}
@@ -107,12 +204,21 @@
       assign has_mobile_thumbnails = true
     endif
   -%}
-  <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-      <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
-        {% render 'product-media-gallery', variant_images: variant_images, has_filtering: has_filtering, section %}
-      </div>
-      <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}{% if section.settings.mobile_pagination == 'dots_overlay' or section.settings.mobile_pagination == 'hidden' or hide_mobile_slider %} product__info-wrapper--top-padding{% endif %}{% if has_mobile_thumbnails %} product__info-wrapper--top-padding-small{% endif %}">
+  <div class="page-width new-container">
+    <div class="product main-prodcut product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+     <div class="grid__item new-grid-con product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
+  {% if section.settings.use_custom_gallery %}
+    {% render 'custom-product-gallery' %}
+  {% else %}
+    {% render 'product-media-gallery', variant_images: variant_images, has_filtering: has_filtering, section %}
+  {% endif %}
+
+  {% comment %} Render benefits-list block(s) BELOW the gallery {% endcomment %}
+  {% content_for 'block', type: 'benefits-list', id: 'benefits-list-below-gallery' %}
+    {% content_for 'block', type: 'product-accordion', id: 'product-accordion-below-benefits' %}
+
+</div>
+      <div class="product__info-wrapper new-grid-con grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}{% if section.settings.mobile_pagination == 'dots_overlay' or section.settings.mobile_pagination == 'hidden' or hide_mobile_slider %} product__info-wrapper--top-padding{% endif %}{% if has_mobile_thumbnails %} product__info-wrapper--top-padding-small{% endif %}">
         <product-info
           id="ProductInfo-{{ section.id }}"
           data-section="{{ section.id }}"
@@ -130,11 +236,14 @@
         </product-info>
       </div>
       {%- if section.settings.media_position == 'right' -%}
-        {% comment %} Duplicate gallery to display after product content on tablet/desktop breakpoint {% endcomment %}
-        <div class="grid__item product__media-wrapper small-hide">
-          {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}
-        </div>
-      {%- endif -%}
+  <div class="grid__item product__media-wrapper small-hide">
+    {% if section.settings.use_custom_gallery %}
+      {% render 'custom-product-gallery' %}
+    {% else %}
+      {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}
+    {% endif %}
+  </div>
+{%- endif -%}
     </div>
   </div>
 
@@ -411,7 +520,18 @@
     },
     {
       "type": "product_custom-product-field"
-    }
+    },
+    { 
+      "type": "feature-pills"
+     },
+     { "type": "offer-banner" },
+     { "type": "info-banners" },
+     { "type": "benefits-list" },
+     { "type": "product-accordion" },
+     { "type": "community-video-slider" },
+     { "type": "bundle-selector" },
+     { "type": "ritual-kit-tabs" },
+      { "type": "icon_text" }
   ],
   "settings": [
     {
@@ -419,6 +539,12 @@
       "id": "display_id",
       "label": "Display section ID",
       "info": "ID can be put inside any button link and the button will scroll to this section.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "new_class",
+      "label": "new design",
       "default": false
     },
     {
@@ -598,16 +724,23 @@
       "default": 80,
       "visible_if": "{{ section.settings.pattern_bg != 'none' and section.settings.pattern_opacity_mode == 'normal' }}"
     },
-    {
-      "type": "header",
-      "content": "Media"
-    },
-    {
-      "type": "checkbox",
-      "id": "display_variant_image_first",
-      "default": false,
-      "label": "Display first variant image as featured image"
-    },
+   {
+  "type": "header",
+  "content": "Media"
+},
+{
+  "type": "checkbox",
+  "id": "use_custom_gallery",
+  "label": "Use custom Swiper gallery",
+  "info": "Replaces the default theme gallery with a custom Swiper slider + thumbnails layout.",
+  "default": false
+},
+{
+  "type": "checkbox",
+  "id": "display_variant_image_first",
+  "default": false,
+  "label": "Display first variant image as featured image"
+},
     {
       "type": "checkbox",
       "id": "disable_prepend",
@@ -1307,3 +1440,291 @@
   ]
 }
 {% endschema %}
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    function updateCtaButtonsWithSaveText() {
+      var selectedBundle = document.querySelector('.bundle-option.is-selected');
+      if (!selectedBundle) return;
+      var saveEl = selectedBundle.querySelector('.bundle-option__save');
+      var saveText = saveEl ? saveEl.textContent.trim() : '';
+      var percentMatch = saveText.match(/(\d+)\s*%/);
+      var percent = percentMatch ? percentMatch[1] : null;
+
+      var ctaButtons = document.querySelectorAll('.ritual-kit__cta-btn');
+      ctaButtons.forEach(function (btn) {
+        if (!btn.dataset.originalText) {
+          btn.dataset.originalText = btn.textContent.trim();
+        }
+        if (percent) {
+          btn.textContent = 'SAVE ' + percent + '% + FREE GIFTS';
+        } else {
+          btn.textContent = btn.dataset.originalText;
+        }
+      });
+    }
+
+    updateCtaButtonsWithSaveText();
+
+    document.querySelectorAll('.bundle-option').forEach(function (option) {
+      option.addEventListener('click', function () {
+        setTimeout(updateCtaButtonsWithSaveText, 10);
+      });
+    });
+
+    document.querySelectorAll('.ritual-kit__cta-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        var items = [];
+
+        var selectedBundle = document.querySelector('.bundle-option.is-selected');
+        if (selectedBundle) {
+          var bundleRadio = selectedBundle.querySelector('input[type="radio"]');
+          var bundleVariantId = bundleRadio ? bundleRadio.getAttribute('id') : null;
+          var bundleQty = parseInt(selectedBundle.getAttribute('data-all-qty'), 10) || 1;
+          if (bundleVariantId) {
+            items.push({ id: parseInt(bundleVariantId, 10), quantity: bundleQty });
+          }
+        }
+
+        var kitProductsRaw = btn.getAttribute('data-kit-products');
+        if (kitProductsRaw) {
+          try {
+            var decoded = kitProductsRaw
+              .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+              .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+            var kitProducts = JSON.parse(decoded);
+            kitProducts.forEach(function (kp) {
+              if (!kp.variant_id) return;
+              var item = { id: parseInt(kp.variant_id, 10), quantity: 1 };
+              if (kp.selling_plan) item.selling_plan = parseInt(kp.selling_plan, 10);
+              items.push(item);
+            });
+          } catch (err) {
+            console.error('[CTA] Could not parse kit products', err);
+          }
+        }
+
+        if (items.length === 0) {
+          alert('Nothing to add to cart');
+          return;
+        }
+
+        var cartDrawer = document.querySelector('cart-drawer');
+
+        var formData = new FormData();
+        items.forEach(function (item, index) {
+          formData.append('items[' + index + '][id]', item.id);
+          formData.append('items[' + index + '][quantity]', item.quantity);
+          if (item.selling_plan) {
+            formData.append('items[' + index + '][selling_plan]', item.selling_plan);
+          }
+        });
+
+        formData.append('sections', 'cart-drawer,cart-icon-bubble');
+        formData.append('sections_url', window.location.pathname);
+
+        btn.disabled = true;
+        var originalText = btn.textContent;
+        btn.textContent = 'Adding...';
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/javascript',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: formData
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (response) {
+            console.log('[CTA] Cart response:', response);
+
+            if (response.status && response.status !== 200) {
+              alert(response.description || response.message || 'Could not add to cart');
+              btn.disabled = false;
+              btn.textContent = originalText;
+              return;
+            }
+
+            // Update sections
+            if (response.sections) {
+              if (response.sections['cart-drawer']) {
+                var drawerContainer = document.getElementById('CartDrawer');
+                var parsedDrawer = new DOMParser().parseFromString(response.sections['cart-drawer'], 'text/html');
+                var newDrawerContent = parsedDrawer.querySelector('#CartDrawer');
+                if (drawerContainer && newDrawerContent) {
+                  drawerContainer.innerHTML = newDrawerContent.innerHTML;
+                }
+              }
+              if (response.sections['cart-icon-bubble']) {
+                var bubbleContainer = document.getElementById('cart-icon-bubble');
+                var parsedBubble = new DOMParser().parseFromString(response.sections['cart-icon-bubble'], 'text/html');
+                var newBubbleContent = parsedBubble.querySelector('.shopify-section') || parsedBubble.body;
+                if (bubbleContainer && newBubbleContent) {
+                  bubbleContainer.innerHTML = newBubbleContent.innerHTML;
+                }
+              }
+            }
+
+            // ===== Remove ALL empty-state classes so the new items show =====
+            var drawerEl = document.querySelector('cart-drawer');
+            if (drawerEl) {
+              drawerEl.classList.remove('is-empty');
+              drawerEl.classList.remove('cart-empty');
+              drawerEl.classList.remove('drawer--empty');
+            }
+            var cartItemsEl = document.querySelector('cart-drawer-items');
+            if (cartItemsEl) {
+              cartItemsEl.classList.remove('is-empty');
+            }
+            var cartDrawerInner = document.querySelector('.cart-drawer');
+            if (cartDrawerInner) {
+              cartDrawerInner.classList.remove('is-empty');
+              cartDrawerInner.classList.remove('cart-drawer--empty');
+            }
+            document.body.classList.remove('cart-empty');
+
+            // Open the drawer
+            if (cartDrawer && typeof cartDrawer.open === 'function') {
+              cartDrawer.open();
+            } else if (cartDrawer) {
+              cartDrawer.classList.add('animate', 'active');
+              document.body.classList.add('overflow-hidden');
+            }
+
+            btn.disabled = false;
+            btn.textContent = originalText;
+          })
+          .catch(function (err) {
+            console.error('[CTA] Error:', err);
+            alert('Error: ' + (err.message || 'Unknown error'));
+            btn.disabled = false;
+            btn.textContent = originalText;
+          });
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var continueLinks = document.querySelectorAll('.ritual-kit__continue-without');
+    if (continueLinks.length === 0) return;
+
+    continueLinks.forEach(function (continueBtn) {
+      continueBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Find the currently selected bundle option
+        var selectedOption = document.querySelector('.bundle-option.is-selected');
+        if (!selectedOption) {
+          alert('Please select a bundle option');
+          return;
+        }
+
+        var radio = selectedOption.querySelector('input[type="radio"]');
+        var variantId = radio ? radio.getAttribute('id') : null;
+        var qty = parseInt(selectedOption.getAttribute('data-all-qty'), 10) || 1;
+
+        if (!variantId) {
+          alert('Product variant not found');
+          return;
+        }
+
+        var cartDrawer = document.querySelector('cart-drawer');
+
+        // Build FormData
+        var formData = new FormData();
+        formData.append('items[0][id]', parseInt(variantId, 10));
+        formData.append('items[0][quantity]', qty);
+        formData.append('sections', 'cart-drawer,cart-icon-bubble');
+        formData.append('sections_url', window.location.pathname);
+
+        // Disable while processing
+        continueBtn.style.pointerEvents = 'none';
+        var originalText = continueBtn.innerHTML;
+        continueBtn.innerHTML = 'Adding...';
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/javascript',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: formData
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (response) {
+            console.log('[Continue] Cart response:', response);
+
+            if (response.status && response.status !== 200) {
+              alert(response.description || response.message || 'Could not add to cart');
+              continueBtn.style.pointerEvents = '';
+              continueBtn.innerHTML = originalText;
+              return;
+            }
+
+            // Update sections
+            if (response.sections) {
+              if (response.sections['cart-drawer']) {
+                var drawerContainer = document.getElementById('CartDrawer');
+                var parsedDrawer = new DOMParser().parseFromString(response.sections['cart-drawer'], 'text/html');
+                var newDrawerContent = parsedDrawer.querySelector('#CartDrawer');
+                if (drawerContainer && newDrawerContent) {
+                  drawerContainer.innerHTML = newDrawerContent.innerHTML;
+                }
+              }
+              if (response.sections['cart-icon-bubble']) {
+                var bubbleContainer = document.getElementById('cart-icon-bubble');
+                var parsedBubble = new DOMParser().parseFromString(response.sections['cart-icon-bubble'], 'text/html');
+                var newBubbleContent = parsedBubble.querySelector('.shopify-section') || parsedBubble.body;
+                if (bubbleContainer && newBubbleContent) {
+                  bubbleContainer.innerHTML = newBubbleContent.innerHTML;
+                }
+              }
+            }
+
+            // Remove empty-state classes
+            var drawerEl = document.querySelector('cart-drawer');
+            if (drawerEl) {
+              drawerEl.classList.remove('is-empty');
+              drawerEl.classList.remove('cart-empty');
+              drawerEl.classList.remove('drawer--empty');
+            }
+            var cartItemsEl = document.querySelector('cart-drawer-items');
+            if (cartItemsEl) {
+              cartItemsEl.classList.remove('is-empty');
+            }
+            var cartDrawerInner = document.querySelector('.cart-drawer');
+            if (cartDrawerInner) {
+              cartDrawerInner.classList.remove('is-empty');
+              cartDrawerInner.classList.remove('cart-drawer--empty');
+            }
+            document.body.classList.remove('cart-empty');
+
+            // Open the drawer
+            if (cartDrawer && typeof cartDrawer.open === 'function') {
+              cartDrawer.open();
+            } else if (cartDrawer) {
+              cartDrawer.classList.add('animate', 'active');
+              document.body.classList.add('overflow-hidden');
+            }
+
+            continueBtn.style.pointerEvents = '';
+            continueBtn.innerHTML = originalText;
+          })
+          .catch(function (err) {
+            console.error('[Continue] Error:', err);
+            alert('Error: ' + (err.message || 'Unknown error'));
+            continueBtn.style.pointerEvents = '';
+            continueBtn.innerHTML = originalText;
+          });
+      });
+    });
+  });
+</script>
