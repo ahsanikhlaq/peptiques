@@ -46,65 +46,74 @@
   color: rgba(0,0,0,1); margin: 0 auto; max-width: 442px;
 }
 
-/* DESKTOP TABS */
-#shopify-section-{{ sid }} .cdp-tabs-d { display: none; }
-@media (min-width: 769px) {
-  #shopify-section-{{ sid }} .cdp-tabs-d {
-    display: flex; gap: 0; margin-bottom: 22px; padding: 10px;
-    border-radius: 12px; overflow: hidden; background: rgba(234,221,255,1);
-    list-style: none; margin-top: 0;
-  }
-  #shopify-section-{{ sid }} .cdp-tab-btn {
-    flex: 1 1 0; display: flex; flex-direction: column; align-items: center;
-    padding: 20px 0; border: none; background: transparent; cursor: pointer;
-    text-align: left; transition: background 0.2s; border-radius: 12px;
-  }
-  #shopify-section-{{ sid }} .cdp-tab-btn:last-child { border-right: none; }
-  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active { background: rgba(71,24,77,1); }
-  #shopify-section-{{ sid }} .cdp-tab-name {
-    font-family: 'Georgia'; font-weight: 700; font-size: 19px;
-    line-height: 22.8px; text-align: center; margin-bottom: 4px; color: rgba(0,0,0,1);
-  }
-  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-name { color: rgba(255,255,255,1); }
-  #shopify-section-{{ sid }} .cdp-tab-note {
-    font-family: 'DM Sans'; font-weight: 400; font-size: 14px;
-    line-height: 100%; letter-spacing: -3%; text-align: center; color: rgba(0,0,0,1);
-  }
-  #shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-note { color: rgba(255,255,255,1); }
+/* ── SHARED TAB STYLE (desktop + mobile same) ── */
+#shopify-section-{{ sid }} .cdp-tabs-d,
+#shopify-section-{{ sid }} .cdp-tabs-m {
+  display: flex; gap: 0; padding: 10px;
+  border-radius: 12px; overflow: hidden; background: rgba(234,221,255,1);
+  list-style: none; margin-top: 0;
 }
 
-/* MOBILE TAB CARDS */
+/* DESKTOP TABS */
+#shopify-section-{{ sid }} .cdp-tabs-d {
+  display: none;
+  margin-bottom: 22px;
+}
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-tabs-d { display: flex; }
+  #shopify-section-{{ sid }} .cdp-tabs-m { display: none; }
+}
+
+/* MOBILE TABS — same container style as desktop */
 #shopify-section-{{ sid }} .cdp-tabs-m {
-  display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none;
-  padding-bottom: 4px; margin-bottom: 20px; list-style: none; padding-left: 0; margin-top: 0;
+  display: flex;
+  margin-bottom: 12px;
 }
-#shopify-section-{{ sid }} .cdp-tabs-m::-webkit-scrollbar { display: none; }
-@media (min-width: 769px) { #shopify-section-{{ sid }} .cdp-tabs-m { display: none; } }
+
+/* SHARED TAB BUTTON STYLE */
+#shopify-section-{{ sid }} .cdp-tab-btn,
 #shopify-section-{{ sid }} .cdp-card-btn {
-  flex: 0 0 130px; border-radius: 12px; overflow: hidden; position: relative;
-  border: 2.5px solid transparent; cursor: pointer; padding: 0;
-  background: #e8d5f0; transition: border-color 0.2s; flex-shrink: 0; display: flex; flex-direction: column;
+  flex: 1 1 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 14px 8px;
+  border: none; background: transparent; cursor: pointer;
+  text-align: center; transition: background 0.2s; border-radius: 8px;
 }
-#shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: #3e1047; }
-#shopify-section-{{ sid }} .cdp-card-img-wrap { flex: 0 0 110px; height: 110px; position: relative; overflow: hidden; }
-#shopify-section-{{ sid }} .cdp-card-img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1;
+#shopify-section-{{ sid }} .cdp-tab-btn.cdp-active,
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active {
+  background: rgba(71,24,77,1);
 }
-#shopify-section-{{ sid }} .cdp-card-text {
-  padding: 8px 9px 10px; text-align: left; flex-shrink: 0;
-  background: rgba(220,195,238,0.9); transition: background 0.2s;
-}
-#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-text { background: #3e1047; }
+
+/* Tab name */
+#shopify-section-{{ sid }} .cdp-tab-name,
 #shopify-section-{{ sid }} .cdp-card-name {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700;
-  color: #1a0a2e; display: block; line-height: 1.25;
+  font-family: 'Georgia'; font-weight: 700; font-size: 14px;
+  line-height: 1.3; text-align: center; margin-bottom: 3px; color: rgba(0,0,0,1);
+  display: block;
 }
-#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-name { color: #fff; }
+#shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-name,
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-name { color: rgba(255,255,255,1); }
+
+/* Tab note/subtitle */
+#shopify-section-{{ sid }} .cdp-tab-note,
 #shopify-section-{{ sid }} .cdp-card-note {
-  font-family: 'DM Sans', system-ui, sans-serif; font-size: 10px; color: #5a2872;
-  display: block; margin-top: 2px; line-height: 1.2;
+  font-family: 'DM Sans'; font-weight: 400; font-size: 11px;
+  line-height: 1.2; letter-spacing: -3%; text-align: center; color: rgba(0,0,0,0.7);
+  display: block;
 }
-#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-note { color: rgba(255,255,255,1); }
+#shopify-section-{{ sid }} .cdp-tab-btn.cdp-active .cdp-tab-note,
+#shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-note { color: rgba(255,255,255,0.85); }
+
+/* Desktop tab larger font */
+@media (min-width: 769px) {
+  #shopify-section-{{ sid }} .cdp-tab-btn { padding: 20px 0; }
+  #shopify-section-{{ sid }} .cdp-tab-name { font-size: 19px; margin-bottom: 4px; }
+  #shopify-section-{{ sid }} .cdp-tab-note { font-size: 14px; }
+}
+
+/* Hide mobile card image — not needed */
+#shopify-section-{{ sid }} .cdp-card-img-wrap { display: none; }
+#shopify-section-{{ sid }} .cdp-card-text { padding: 0; text-align: center; background: transparent; }
 
 /* PANELS */
 #shopify-section-{{ sid }} .cdp-panel { display: none; }
@@ -290,8 +299,9 @@
   line-height: 20.15px; letter-spacing: -7%; color: rgba(0,0,0,1);
 }
 
-/* BOTTOM IMAGE */
+/* BOTTOM IMAGE + DESC */
 #shopify-section-{{ sid }} .cdp-btm-img { display: none; }
+#shopify-section-{{ sid }} .cdp-btm-desc { display: none; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
 }
@@ -310,23 +320,6 @@
   }
   #shopify-section-{{ sid }} .cdp-header { text-align: center; margin-bottom: 24px; }
   #shopify-section-{{ sid }} .cdp-sub { font-size: 14.6px; line-height: 18.8px; letter-spacing: -3%; text-align: center; }
-  #shopify-section-{{ sid }} .cdp-tabs-m {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; overflow-x: auto;
-    scrollbar-width: none; padding-bottom: 0; margin-bottom: 12px; list-style: none; padding-left: 0; margin-top: 0;
-  }
-  #shopify-section-{{ sid }} .cdp-card-btn {
-    background: rgba(234,221,255,1); border-radius: 6px; overflow: hidden;
-    position: relative; border: unset; cursor: pointer; padding: 5px;
-  }
-  #shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: unset; background: rgba(71,24,77,1); }
-  #shopify-section-{{ sid }} .cdp-card-text { padding: 8px 0 0; text-align: left; flex-shrink: 0; background: unset; }
-  #shopify-section-{{ sid }} .cdp-card-img-wrap { flex: 0 0 65px; position: relative; overflow: hidden; border-radius: 4px; }
-  #shopify-section-{{ sid }} .cdp-card-name {
-    font-family: 'Georgia'; font-weight: 400; font-size: 12px; line-height: 15.6px; letter-spacing: -5%; color: rgba(0,0,0,1);
-  }
-  #shopify-section-{{ sid }} .cdp-card-note {
-    font-family: 'DM Sans'; font-weight: 400; font-size: 10px; line-height: 14.4px; letter-spacing: -3%; color: rgba(0,0,0,1);
-  }
   #shopify-section-{{ sid }} .cdp-r-heading { margin: 0; }
   #shopify-section-{{ sid }} .cdp-prod-scroll-wrap { margin: 0px 0 0; border-top: 0; padding-top: 12px; }
   #shopify-section-{{ sid }} .cdp-prod-list,
@@ -351,6 +344,17 @@
   #shopify-section-{{ sid }} .cdp-pprice {
     font-size: 10px; line-height: 100%; letter-spacing: 0;
     padding: 0; margin-top: 0; display: inline;
+  }
+  /* Mobile desc above bottom image */
+  #shopify-section-{{ sid }} .cdp-btm-desc {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15.4px;
+    letter-spacing: -0.04em;
+    color: rgba(0,0,0,1);
+    margin: 0 0 8px;
   }
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; margin-top: 0; }
   #shopify-section-{{ sid }} .cdp-total { margin-top: 8px; }
@@ -379,14 +383,7 @@
   #shopify-section-{{ sid }} .cdp-free-body { flex-direction: column; align-items: start; gap: 8px; }
 }
 
-/* ══ SCROLL ANIMATIONS ════════════════════════════════════════
-   1. Header     → fade-up (scroll trigger, theme.liquid JS)
-   2. Tabs row   → fade-up, slight delay
-   3. Panel left → slide from left  (CSS keyframe, fires on every tab activate)
-   4. Panel right→ slide from right (CSS keyframe, fires on every tab activate)
-═════════════════════════════════════════════════════════════ */
-
-/* 1 + 2 — scroll trigger */
+/* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
 #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
   opacity: 0;
   will-change: opacity, transform;
@@ -397,21 +394,14 @@
 #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
   opacity: 1; transform: none; will-change: auto;
 }
-
-/* 3+4 — panel cols: JS sets start state then triggers this transition */
 #shopify-section-{{ sid }} .cdp-left,
 #shopify-section-{{ sid }} .cdp-right {
   transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 @media (prefers-reduced-motion: reduce) {
   #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
     opacity: 1 !important; transform: none !important; transition: none !important;
-  }
-  #shopify-section-{{ sid }} .cdp-panel.cdp-active .cdp-left,
-  #shopify-section-{{ sid }} .cdp-panel.cdp-active .cdp-right {
-    animation: none !important;
   }
 }
 </style>
@@ -420,34 +410,18 @@
   <div class="cdp-wrap">
 
     {%- comment -%}── HEADER ──{%- endcomment -%}
-    <header
-      class="cdp-header"
-      data-pb-anim="up"
-      data-pb-delay="0"
-    >
-      {%- if s.heading != blank -%}
-        <h2 class="cdp-title">{{ s.heading }}</h2>
-      {%- endif -%}
-      {%- if s.subtext != blank -%}
-        <p class="cdp-sub">{{ s.subtext }}</p>
-      {%- endif -%}
+    <header class="cdp-header" data-pb-anim="up" data-pb-delay="0">
+      {%- if s.heading != blank -%}<h2 class="cdp-title">{{ s.heading }}</h2>{%- endif -%}
+      {%- if s.subtext != blank -%}<p class="cdp-sub">{{ s.subtext }}</p>{%- endif -%}
     </header>
 
     {%- comment -%}── DESKTOP TABS ──{%- endcomment -%}
-    <nav
-      class="cdp-tabs-d"
-      aria-label="Kit tabs"
-      role="tablist"
-      data-pb-anim="up"
-      data-pb-delay="100"
-    >
+    <nav class="cdp-tabs-d" aria-label="Kit tabs" role="tablist" data-pb-anim="up" data-pb-delay="100">
       {%- assign tab_i = 0 -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'tab' -%}
-          <button
-            class="cdp-tab-btn{% if tab_i == 0 %} cdp-active{% endif %}"
-            data-idx="{{ tab_i }}"
-            type="button" role="tab"
+          <button class="cdp-tab-btn{% if tab_i == 0 %} cdp-active{% endif %}"
+            data-idx="{{ tab_i }}" type="button" role="tab"
             aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
             aria-controls="cdp-panel-{{ sid }}-{{ tab_i }}"
             id="cdp-tab-{{ sid }}-{{ tab_i }}"
@@ -462,29 +436,16 @@
       {%- endfor -%}
     </nav>
 
-    {%- comment -%}── MOBILE TAB CARDS ──{%- endcomment -%}
-    <div
-      class="cdp-tabs-m"
-      role="tablist"
-      aria-label="Kit tabs mobile"
-      data-pb-anim="up"
-      data-pb-delay="100"
-    >
+    {%- comment -%}── MOBILE TABS ──{%- endcomment -%}
+    <div class="cdp-tabs-m" role="tablist" aria-label="Kit tabs mobile" data-pb-anim="up" data-pb-delay="100">
       {%- assign tab_i = 0 -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'tab' -%}
-          <button
-            class="cdp-card-btn{% if tab_i == 0 %} cdp-active{% endif %}"
-            data-idx="{{ tab_i }}"
-            type="button" role="tab"
+          <button class="cdp-card-btn{% if tab_i == 0 %} cdp-active{% endif %}"
+            data-idx="{{ tab_i }}" type="button" role="tab"
             aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
             aria-controls="cdp-panel-{{ sid }}-{{ tab_i }}"
             aria-label="{{ block.settings.tab_title | default: 'Kit Tab' | escape }}">
-            <div class="cdp-card-img-wrap">
-              {%- if block.settings.tab_image != blank -%}
-                {{ block.settings.tab_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'cdp-card-img', alt: block.settings.tab_title | escape }}
-              {%- endif -%}
-            </div>
             <div class="cdp-card-text">
               <span class="cdp-card-name">{{ block.settings.tab_title | default: 'Kit Tab' }}</span>
               {%- if block.settings.tab_subtitle != blank -%}
@@ -505,14 +466,10 @@
         {%- assign ts     = ts_arr[tab_counter] | plus: 0 -%}
         {%- assign tc_nxt = tab_counter | plus: 1 -%}
         {%- assign te_raw = ts_arr[tc_nxt] -%}
-        {%- if te_raw == blank -%}
-          {%- assign te = section.blocks.size -%}
-        {%- else -%}
-          {%- assign te = te_raw | plus: 0 -%}
-        {%- endif -%}
+        {%- if te_raw == blank -%}{%- assign te = section.blocks.size -%}
+        {%- else -%}{%- assign te = te_raw | plus: 0 -%}{%- endif -%}
 
-        <div
-          class="cdp-panel{% if tab_counter == 0 %} cdp-active{% endif %}"
+        <div class="cdp-panel{% if tab_counter == 0 %} cdp-active{% endif %}"
           data-panel="{{ tab_counter }}"
           id="cdp-panel-{{ sid }}-{{ tab_counter }}"
           role="tabpanel"
@@ -537,9 +494,7 @@
                   {%- if bci > ts and bci < te and b.type == 'bullet_item' -%}
                     <li {{ b.shopify_attributes }}>
                       <span class="cdp-check" aria-hidden="true">
-                        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                          <polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6.5 5,9.5 10,3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       </span>
                       {{ b.settings.text }}
                     </li>
@@ -550,9 +505,7 @@
             </div>
             <div>
               {%- if outer_block.settings.btn_text != blank -%}
-                <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">
-                  {{ outer_block.settings.btn_text }}
-                </a>
+                <a href="{{ outer_block.settings.btn_url | default: '#' }}" class="cdp-cta">{{ outer_block.settings.btn_text }}</a>
               {%- endif -%}
               <div class="cdp-foot" role="list" aria-label="Guarantees">
                 {%- assign fci = 0 -%}
@@ -562,11 +515,7 @@
                       {%- if b.settings.icon_image != blank -%}
                         {{ b.settings.icon_image | image_url: width: 40 | image_tag: loading: 'lazy', class: 'cdp-foot-icon', width: 14, height: 14, alt: '' }}
                       {%- else -%}
-                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                          <circle cx="10" cy="10" r="7.5"/>
-                          <line x1="10" y1="7" x2="10" y2="10.5"/>
-                          <circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/>
-                        </svg>
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><line x1="10" y1="7" x2="10" y2="10.5"/><circle cx="10" cy="13" r="0.7" fill="currentColor" stroke="none"/></svg>
                       {%- endif -%}
                       {{ b.settings.text }}
                     </span>
@@ -609,9 +558,7 @@
                               {{ prod.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: prod.title | escape }}
                             {%- endif -%}
                           </div>
-                          <div class="cdp-pinfo">
-                            <span class="cdp-ptitle">{{ prod.title }}</span>
-                          </div>
+                          <div class="cdp-pinfo"><span class="cdp-ptitle">{{ prod.title }}</span></div>
                           <div class="cdp-pprice-wrap">
                             {%- if prod.compare_at_price > prod.price -%}
                               <s class="cdp-pprice-compare" aria-label="Original price">{{ prod.compare_at_price | money_without_trailing_zeros }}</s>
@@ -645,61 +592,20 @@
                     {%- if fp1 != blank -%}
                       <li class="cdp-free-row" {{ b.shopify_attributes }}>
                         <div class="cdp-free-badge" aria-label="Free gift">
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clip-path="url(#clip0_426_27608)"><g clip-path="url(#clip1_426_27608)">
-                          <path d="M11.8125 4.375H2.1875C1.94587 4.375 1.75 4.57087 1.75 4.8125V6.5625C1.75 6.80413 1.94587 7 2.1875 7H11.8125C12.0541 7 12.25 6.80413 12.25 6.5625V4.8125C12.25 4.57087 12.0541 4.375 11.8125 4.375Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M11.375 7V10.9375C11.375 11.0536 11.3289 11.1648 11.2468 11.2468C11.1648 11.3289 11.0536 11.375 10.9375 11.375H3.0625C2.94647 11.375 2.83519 11.3289 2.75314 11.2468C2.67109 11.1648 2.625 11.0536 2.625 10.9375V7" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M7 4.375V11.375" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M9.66819 1.70695C10.179 2.21773 10.2091 3.07741 9.66819 3.55648C8.74342 4.37515 7 4.37515 7 4.37515C7 4.37515 7 2.63171 7.82033 1.70695C8.29773 1.16609 9.1574 1.19616 9.66819 1.70695Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M4.33195 1.70695C3.82116 2.21773 3.79109 3.07741 4.33195 3.55648C5.25671 4.37515 7.00015 4.37515 7.00015 4.37515C7.00015 4.37515 7.00015 2.63171 6.17984 1.70695C5.70241 1.16609 4.84273 1.19616 4.33195 1.70695Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
-                          </g></g>
-                          <defs>
-                          <clipPath id="clip0_426_27608"><rect width="14" height="14" fill="white"/></clipPath>
-                          <clipPath id="clip1_426_27608"><rect width="14" height="14" fill="white"/></clipPath>
-                          </defs>
-                          </svg>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_426_27608)"><g clip-path="url(#clip1_426_27608)"><path d="M11.8125 4.375H2.1875C1.94587 4.375 1.75 4.57087 1.75 4.8125V6.5625C1.75 6.80413 1.94587 7 2.1875 7H11.8125C12.0541 7 12.25 6.80413 12.25 6.5625V4.8125C12.25 4.57087 12.0541 4.375 11.8125 4.375Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.375 7V10.9375C11.375 11.0536 11.3289 11.1648 11.2468 11.2468C11.1648 11.3289 11.0536 11.375 10.9375 11.375H3.0625C2.94647 11.375 2.83519 11.3289 2.75314 11.2468C2.67109 11.1648 2.625 11.0536 2.625 10.9375V7" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 4.375V11.375" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.66819 1.70695C10.179 2.21773 10.2091 3.07741 9.66819 3.55648C8.74342 4.37515 7 4.37515 7 4.37515C7 4.37515 7 2.63171 7.82033 1.70695C8.29773 1.16609 9.1574 1.19616 9.66819 1.70695Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.33195 1.70695C3.82116 2.21773 3.79109 3.07741 4.33195 3.55648C5.25671 4.37515 7.00015 4.37515 7.00015 4.37515C7.00015 4.37515 7.00015 2.63171 6.17984 1.70695C5.70241 1.16609 4.84273 1.19616 4.33195 1.70695Z" stroke="white" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/></g></g><defs><clipPath id="clip0_426_27608"><rect width="14" height="14" fill="white"/></clipPath><clipPath id="clip1_426_27608"><rect width="14" height="14" fill="white"/></clipPath></defs></svg>
                           Free
                         </div>
                         <div class="cdp-free-body">
                           <div class="cdp-free-imgs" aria-hidden="true">
                             <div class="cdp-img-wrap">
-                              <div class="cdp-pimg free-mob">
-                                {%- if fp1.featured_image != blank -%}
-                                  {{ fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
-                                {%- endif -%}
-                              </div>
+                              <div class="cdp-pimg free-mob">{%- if fp1.featured_image != blank -%}{{ fp1.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</div>
                               {%- if fp2 != blank -%}<span class="cdp-plus-icon" aria-hidden="true">+</span>{%- endif -%}
                             </div>
-                            {%- if fp2 != blank -%}
-                              <div class="cdp-img-wrap">
-                                <div class="cdp-pimg free-mob">
-                                  {%- if fp2.featured_image != blank -%}{{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
-                                </div>
-                                {%- if fp3 != blank -%}<span class="cdp-plus-icon" aria-hidden="true">+</span>{%- endif -%}
-                              </div>
-                            {%- endif -%}
-                            {%- if fp3 != blank -%}
-                              <div class="cdp-img-wrap">
-                                <div class="cdp-pimg free-mob">
-                                  {%- if fp3.featured_image != blank -%}{{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
-                                </div>
-                                {%- if fp4 != blank -%}<span class="cdp-plus-icon" aria-hidden="true">+</span>{%- endif -%}
-                              </div>
-                            {%- endif -%}
-                            {%- if fp4 != blank -%}
-                              <div class="cdp-img-wrap">
-                                <div class="cdp-pimg free-mob">
-                                  {%- if fp4.featured_image != blank -%}{{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
-                                </div>
-                              </div>
-                            {%- endif -%}
+                            {%- if fp2 != blank -%}<div class="cdp-img-wrap"><div class="cdp-pimg free-mob">{%- if fp2.featured_image != blank -%}{{ fp2.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</div>{%- if fp3 != blank -%}<span class="cdp-plus-icon" aria-hidden="true">+</span>{%- endif -%}</div>{%- endif -%}
+                            {%- if fp3 != blank -%}<div class="cdp-img-wrap"><div class="cdp-pimg free-mob">{%- if fp3.featured_image != blank -%}{{ fp3.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</div>{%- if fp4 != blank -%}<span class="cdp-plus-icon" aria-hidden="true">+</span>{%- endif -%}</div>{%- endif -%}
+                            {%- if fp4 != blank -%}<div class="cdp-img-wrap"><div class="cdp-pimg free-mob">{%- if fp4.featured_image != blank -%}{{ fp4.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</div></div>{%- endif -%}
                           </div>
-                          <span class="cdp-free-title">
-                            {{ fp1.title }}
-                            {%- if fp2 != blank -%} + {{ fp2.title }}{%- endif -%}
-                            {%- if fp3 != blank -%} + {{ fp3.title }}{%- endif -%}
-                            {%- if fp4 != blank -%} + {{ fp4.title }}{%- endif -%}
-                          </span>
+                          <span class="cdp-free-title">{{ fp1.title }}{%- if fp2 != blank -%} + {{ fp2.title }}{%- endif -%}{%- if fp3 != blank -%} + {{ fp3.title }}{%- endif -%}{%- if fp4 != blank -%} + {{ fp4.title }}{%- endif -%}</span>
                         </div>
                       </li>
                     {%- endif -%}
@@ -717,10 +623,7 @@
                   {%- assign tp = b.settings.product -%}
                   {%- if tp != blank -%}
                     {%- assign sum_p = sum_p | plus: tp.price -%}
-                    {%- if tp.compare_at_price > 0 -%}
-                      {%- assign sum_c = sum_c | plus: tp.compare_at_price -%}
-                      {%- assign has_cmp = true -%}
-                    {%- endif -%}
+                    {%- if tp.compare_at_price > 0 -%}{%- assign sum_c = sum_c | plus: tp.compare_at_price -%}{%- assign has_cmp = true -%}{%- endif -%}
                   {%- endif -%}
                 {%- endif -%}
                 {%- assign tbi = tbi | plus: 1 -%}
@@ -730,9 +633,7 @@
                 <div class="cdp-total">
                   <span class="cdp-total-lbl">Total kit value</span>
                   <div class="cdp-total-vals">
-                    {%- if has_cmp -%}
-                      <s class="cdp-cmp-val" aria-label="Original price">{{ sum_c | money_without_trailing_zeros }}</s>
-                    {%- endif -%}
+                    {%- if has_cmp -%}<s class="cdp-cmp-val" aria-label="Original price">{{ sum_c | money_without_trailing_zeros }}</s>{%- endif -%}
                     {%- if outer_block.settings.kitprice != blank -%}
                       <strong class="cdp-kit-price">{{ outer_block.settings.kitprice }}</strong>
                     {%- elsif sum_p > 0 -%}
@@ -744,10 +645,15 @@
 
             </div>
 
-            {%- if outer_block.settings.bottom_image != blank -%}
-              <div class="cdp-btm-img">
-                {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
-              </div>
+            {%- if outer_block.settings.btm_desc != blank or outer_block.settings.bottom_image != blank -%}
+              {%- if outer_block.settings.btm_desc != blank -%}
+                <p class="cdp-btm-desc">{{ outer_block.settings.btm_desc }}</p>
+              {%- endif -%}
+              {%- if outer_block.settings.bottom_image != blank -%}
+                <div class="cdp-btm-img">
+                  {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
+                </div>
+              {%- endif -%}
             {%- endif -%}
 
           </div>
@@ -773,65 +679,38 @@
     function animateIn(panel) {
       var left  = panel.querySelector('.cdp-left');
       var right = panel.querySelector('.cdp-right');
-
-      /* 1. Set invisible start state instantly (no transition yet) */
-      if (left)  {
-        left.style.transition  = 'none';
-        left.style.opacity     = '0';
-        left.style.transform   = 'translateY(20px)';
-      }
-      if (right) {
-        right.style.transition = 'none';
-        right.style.opacity    = '0';
-        right.style.transform  = 'translateY(20px)';
-      }
-
-      /* 2. Two rAF — ensures browser paints the start state before transitioning */
+      if (left)  { left.style.transition = 'none'; left.style.opacity = '0'; left.style.transform = 'translateY(20px)'; }
+      if (right) { right.style.transition = 'none'; right.style.opacity = '0'; right.style.transform = 'translateY(20px)'; }
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           if (left) {
             left.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)';
-            left.style.opacity    = '1';
-            left.style.transform  = 'translateY(0)';
+            left.style.opacity = '1'; left.style.transform = 'translateY(0)';
           }
           if (right) {
-            /* Right col comes in 70ms after left */
             setTimeout(function () {
               right.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)';
-              right.style.opacity    = '1';
-              right.style.transform  = 'translateY(0)';
+              right.style.opacity = '1'; right.style.transform = 'translateY(0)';
             }, 70);
           }
         });
       });
     }
 
-    function activate(idx, animated) {
+    function activate(idx) {
       btnsD.forEach(function(b) { b.classList.remove('cdp-active'); b.setAttribute('aria-selected', 'false'); });
       btnsM.forEach(function(b) { b.classList.remove('cdp-active'); b.setAttribute('aria-selected', 'false'); });
       panels.forEach(function(p) { p.classList.remove('cdp-active'); p.setAttribute('hidden', ''); });
-
       var dBtn  = sec.querySelector('.cdp-tab-btn[data-idx="'  + idx + '"]');
       var mBtn  = sec.querySelector('.cdp-card-btn[data-idx="' + idx + '"]');
       var panel = sec.querySelector('.cdp-panel[data-panel="'  + idx + '"]');
-
       if (dBtn)  { dBtn.classList.add('cdp-active');  dBtn.setAttribute('aria-selected', 'true'); }
       if (mBtn)  { mBtn.classList.add('cdp-active');  mBtn.setAttribute('aria-selected', 'true'); }
-      if (panel) {
-        panel.classList.add('cdp-active');
-        panel.removeAttribute('hidden');
-        if (animated !== false) animateIn(panel);
-      }
+      if (panel) { panel.classList.add('cdp-active'); panel.removeAttribute('hidden'); animateIn(panel); }
     }
 
-    btnsD.forEach(function(btn) {
-      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
-    });
-    btnsM.forEach(function(btn) {
-      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
-    });
-
-    /* Animate first panel on load */
+    btnsD.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
+    btnsM.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
     activate(0);
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
@@ -873,11 +752,12 @@
         { "type": "url",          "id": "btn_url",       "label": "Button URL" },
         { "type": "header",       "content": "Right Panel" },
         { "type": "text",         "id": "r_heading",     "label": "Right heading", "default": "What's inside the kit" },
-        { "type": "richtext", "id": "items_label", "label": "Items label (optional, e.g. '8 items + Free shipping')", "info": "Leave blank to hide.", "default": "<p>8 items + Free shipping</p>" },
+        { "type": "richtext",     "id": "items_label",   "label": "Items label (optional)", "info": "Leave blank to hide.", "default": "<p>8 items + Free shipping</p>" },
         { "type": "richtext",     "id": "gifts_label",   "label": "Gifts label",   "default": "<p>6 items + 2 Free Gifts worth $69</p>" },
         { "type": "text",         "id": "kitprice",      "label": "Kit price (e.g. $280)", "default": "$280" },
-        { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns (1fr 1fr)", "default": false, "info": "Unchecked = 1 column. Checked = 2 columns side by side. Works on desktop. Mobile always shows horizontal scroll." },
-        { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image (shows on both mobile and desktop)" }
+        { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns", "default": false },
+        { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image" },
+        { "type": "textarea",     "id": "btm_desc",      "label": "Description above bottom image (Mobile only)" }
       ]
     },
     {
