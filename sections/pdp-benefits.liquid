@@ -1,17 +1,5 @@
 {% comment %}
   Benefits — PDP benefits section (Haritaki accordion + image).
-  Built from Figma. Keep this section minimal and resilient — schema
-  uses only standard types, all Liquid logic stays in the top liquid
-  block, no fancy filter chains.
-
-  ── Animation System ──────────────────────────────────────────────
-  JS lives in theme.liquid (paste the snippet provided separately).
-  This section only uses CSS + data-pb-anim / data-pb-delay attrs.
-  • data-pb-anim="up"    → fade + slide up   (default)
-  • data-pb-anim="left"  → fade + slide from left
-  • data-pb-anim="right" → fade + slide from right
-  • data-pb-delay="150"  → delay in ms (optional)
-  When JS is absent, all elements stay fully visible (progressive enhancement).
 {% endcomment %}
 
 {%- liquid
@@ -30,8 +18,7 @@
     assign mobile_bg_image = bg_image
   endif
 
-  assign heading_text  = s.heading_text     | default: "Haritaki™ isn't just a supplement"
-  assign description   = s.description_text | default: "It's the ancient Ayurvedic secret called 'The King of Medicines' — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye."
+  assign heading_text = s.heading_text | default: "Haritaki™ isn't just a supplement"
 -%}
 
 <style>
@@ -106,7 +93,6 @@
   @media (max-width: 768px) {
     #shopify-section-{{ sid }} .pb-heading {
       font-size: 30px;
-      font-style: normal;
       font-weight: 400;
       line-height: 110%;
       letter-spacing: -4%;
@@ -114,25 +100,26 @@
     }
   }
 
-  /* ── Description ──────────────────────────────────────────────── */
-  .pb-text {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  /* ── Description (richtext) ───────────────────────────────────── */
   #shopify-section-{{ sid }} .pb-desc {
     color: #fff;
     font-family: "DM Sans";
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.48px;
     max-width: 600px;
     width: 100%;
-    margin: 0;
-    margin-bottom: 42px;
+    margin: 0 0 42px;
   }
+  #shopify-section-{{ sid }} .pb-desc p {
+    margin: 0 0 8px;
+  }
+  #shopify-section-{{ sid }} .pb-desc p:last-child {
+    margin-bottom: 0;
+  }
+  #shopify-section-{{ sid }} .pb-desc strong { font-weight: 700; }
+  #shopify-section-{{ sid }} .pb-desc a { color: inherit; }
   @media (max-width: 768px) {
     #shopify-section-{{ sid }} .pb-desc {
       font-size: 14.6px;
@@ -161,7 +148,6 @@
     color: #1d1027;
     border-radius: 12px;
     overflow: hidden;
-    /* Consistent hover across all sections */
     transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
     cursor: default;
@@ -183,11 +169,6 @@
       padding: 10px;
       gap: 10px;
       align-items: start;
-    }
-    .pb-text {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
     }
   }
 
@@ -214,7 +195,6 @@
     color: var(--Black, #000);
     font-family: 'Georgia';
     font-size: 18.8px;
-    font-style: normal;
     font-weight: 400;
     line-height: 120%;
     letter-spacing: -0.564px;
@@ -233,12 +213,21 @@
     color: #665169;
     font-family: "DM Sans";
     font-size: 12.8px;
-    font-style: normal;
     font-weight: 400;
     line-height: 15.4px;
     letter-spacing: -0.384px;
     margin: 0;
     display: block;
+  }
+
+  /* ── pb-text ──────────────────────────────────────────────────── */
+  .pb-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  @media (max-width: 768px) {
+    .pb-text { gap: 6px; }
   }
 
   /* ── Media / image col ────────────────────────────────────────── */
@@ -276,37 +265,21 @@
     .main-img-faq { gap: 10px; }
   }
 
-  /* ══ SCROLL ANIMATION SYSTEM ══════════════════════════════════════
-     Default: fully visible (no JS / SEO fallback).
-     When theme.liquid JS runs → section wrapper gets `.pb-js` class
-     → animations activate.  Elements get `.pb-visible` when in view.
-  ═════════════════════════════════════════════════════════════════ */
-
-  /* Invisible initial states — only when JS is active */
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
   #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
     opacity: 0;
     will-change: opacity, transform;
     transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"] {
-    transform: translateY(28px);
-  }
-  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"] {
-    transform: translateX(-36px);
-  }
-  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] {
-    transform: translateX(36px);
-  }
-
-  /* Visible state — added by IntersectionObserver */
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]    { transform: translateY(28px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="left"]  { transform: translateX(-36px); }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="right"] { transform: translateX(36px); }
   #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
     opacity: 1;
     transform: translateX(0) translateY(0);
     will-change: auto;
   }
-
-  /* Respect reduced-motion preference */
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
       opacity: 1 !important;
@@ -315,9 +288,6 @@
     }
   }
 </style>
-
-{%- comment -%} ── SEO: schema.org BreadcrumbList / ItemList is handled
-    at page level. Here we use semantic landmark + aria. {%- endcomment -%}
 
 <div
   class="pb-section"
@@ -336,12 +306,12 @@
           data-pb-delay="0"
         >{{ heading_text }}</h2>
 
-        {%- if description != blank -%}
-          <p
+        {%- if s.description_text != blank -%}
+          <div
             class="pb-desc"
             data-pb-anim="left"
             data-pb-delay="80"
-          >{{ description }}</p>
+          >{{ s.description_text }}</div>
         {%- endif -%}
 
         <ul class="pb-list" role="list" aria-label="Product benefits">
@@ -415,23 +385,22 @@
     { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
 
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "outer_background", "label": "Outer background",   "default": "#ffffff" },
-    { "type": "color", "id": "card_background",  "label": "Card background",    "default": "#3f1c5c" },
-
-    { "type": "color", "id": "heading_color",    "label": "Heading color",      "default": "#ffffff" },
-    { "type": "color", "id": "description_color","label": "Description color",  "default": "#e8dcef" },
-    { "type": "color", "id": "icon_color",       "label": "Icon color",         "default": "#5a2a78" },
-    { "type": "color", "id": "icon_background",  "label": "Icon background",    "default": "#f3eaf9" },
+    { "type": "color", "id": "outer_background",  "label": "Outer background",  "default": "#ffffff" },
+    { "type": "color", "id": "card_background",   "label": "Card background",   "default": "#3f1c5c" },
+    { "type": "color", "id": "heading_color",     "label": "Heading color",     "default": "#ffffff" },
+    { "type": "color", "id": "description_color", "label": "Description color", "default": "#e8dcef" },
+    { "type": "color", "id": "icon_color",        "label": "Icon color",        "default": "#5a2a78" },
+    { "type": "color", "id": "icon_background",   "label": "Icon background",   "default": "#f3eaf9" },
 
     { "type": "header", "content": "Content" },
     { "type": "text",     "id": "heading_text",        "label": "Heading",             "default": "Haritaki™ isn't just a supplement" },
-    { "type": "textarea", "id": "description_text",    "label": "Description",         "default": "It's the ancient Ayurvedic secret called \"The King of Medicines\" — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye." },
+    { "type": "richtext", "id": "description_text",    "label": "Description",         "default": "<p>It's the ancient Ayurvedic secret called \"The King of Medicines\" — now in a convenient daily capsule designed to cleanse your pineal gland and awaken your Third Eye.</p>" },
     { "type": "text",     "id": "heading_font_family", "label": "Heading font-family", "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Image" },
-    { "type": "image_picker", "id": "image",     "label": "Capsules image" },
-    { "type": "text",         "id": "image_alt", "label": "Image alt text", "default": "Haritaki capsules" },
-    { "type": "checkbox",     "id": "hide_image_on_mobile", "label": "Hide image on mobile", "default": true },
+    { "type": "image_picker", "id": "image",              "label": "Capsules image" },
+    { "type": "text",         "id": "image_alt",          "label": "Image alt text",       "default": "Haritaki capsules" },
+    { "type": "checkbox",     "id": "hide_image_on_mobile","label": "Hide image on mobile", "default": true },
 
     { "type": "header", "content": "Spacing (px)" },
     { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
