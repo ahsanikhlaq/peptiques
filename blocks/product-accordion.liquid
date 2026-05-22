@@ -1,0 +1,355 @@
+{% comment %} /blocks/product-accordion.liquid {% endcomment %}
+
+<div class="product-accordion-block {% if block.settings.mobile_view == true %} mobile-class {% else %} desktop-view {% endif %}" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank %}
+    <h2 class="product-accordion__heading">{{ block.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="product-accordion-list">
+    {% for i in (1..8) %}
+      {% assign title_key = 'title_' | append: i %}
+      {% assign content_key = 'content_' | append: i %}
+      {% assign show_key = 'show_' | append: i %}
+      {% assign open_key = 'open_' | append: i %}
+
+      {% assign title = block.settings[title_key] %}
+      {% assign content = block.settings[content_key] %}
+      {% assign show_item = block.settings[show_key] %}
+      {% assign open_by_default = block.settings[open_key] %}
+
+      {% if show_item and title != blank %}
+        <div class="accordion-item{% if open_by_default %} is-open{% endif %}">
+          <button type="button" class="accordion-item__summary" aria-expanded="{% if open_by_default %}true{% else %}false{% endif %}">
+            <span class="accordion-item__title">{{ title }}</span>
+            <span class="accordion-item__icon" aria-hidden="true">
+              <svg class="icon-plus" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <svg class="icon-minus" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="accordion-item__content-wrap">
+            <div class="accordion-item__content">
+              {{ content }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }} .product-accordion-block {
+    width: 100%;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px;
+  }
+
+  .section-{{ section.id }} .product-accordion__heading {
+    margin: 0 0 {{ block.settings.heading_margin_bottom }}px;
+    text-align: {{ block.settings.heading_align }};
+    color: {{ block.settings.heading_color }};
+    font-family: 'DM Sans', sans-serif;
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  /* ========= YOUR CUSTOM STYLES (kept as-is) ========= */
+  .product-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .accordion-item {
+    border-radius: 8px;
+    border: 1px solid rgba(71, 24, 77, 0.25);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: {{ block.settings.item_bg_color }};
+    transition: border-color 0.3s ease;
+  }
+
+  .accordion-item.is-open {
+    border-color: {{ block.settings.border_color_open }};
+  }
+
+  .accordion-item__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+  }
+
+  .accordion-item__summary:focus {
+    outline: none;
+  }
+
+  .accordion-item__summary:focus-visible {
+    outline: 2px solid {{ block.settings.border_color_open }};
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .accordion-item__title {
+    color: #1A1A1A;
+    font-family: "DM Sans";
+    font-size: 14.6px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18.8px;
+    letter-spacing: -0.438px;
+  }
+
+  .accordion-item__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: {{ block.settings.icon_color }};
+    position: relative;
+  }
+
+  /* Icon toggle — only one visible at a time */
+  .accordion-item__icon .icon-plus,
+  .accordion-item__icon .icon-minus {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .accordion-item__icon .icon-minus {
+    display: none;
+  }
+
+  .accordion-item.is-open .icon-plus {
+    display: none;
+  }
+
+  .accordion-item.is-open .icon-minus {
+    display: block;
+  }
+
+  /* ========= SMOOTH HEIGHT ANIMATION ========= */
+  .accordion-item__content-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+
+  .accordion-item.is-open .accordion-item__content-wrap {
+    grid-template-rows: 1fr;
+  }
+
+  .accordion-item__content {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .accordion-item__content p {
+    margin: 0;
+    color: var(--Black, #000);
+    font-family: "DM Sans";
+    font-size: 14.6px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18.8px;
+    letter-spacing: -0.438px;
+    padding-top: 10px;
+  }
+  .desktop-view{
+  display: none;
+}
+.accordion-item__content ul{
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.accordion-item__content ul li{
+ color: var(--Black, #000);
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    list-style: none;
+    letter-spacing: 0px;
+     position: relative;
+     padding-left: 20px;
+}
+.accordion-item__content ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 13px;
+  height: 10px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 13 10' fill='none'><path d='M8.88705e-05 5.13752L1.7025 3.42907L4.4976 6.17587L10.6975 8.88705e-05L12.412 1.70854L4.4976 9.5807L8.88705e-05 5.13752Z' fill='%239473F5'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }} .product-accordion__heading {
+      font-size: {{ block.settings.mobile_heading_size }}px;
+    }
+
+    .section-{{ section.id }} .accordion-item__title {
+      font-size: {{ block.settings.mobile_title_size }}px;
+    }
+
+    .section-{{ section.id }} .accordion-item__content p {
+      font-size: {{ block.settings.mobile_text_size }}px;
+    }
+    .mobile-class{
+    display: none;
+  }
+  .desktop-view{
+  display: block;
+}
+  }
+</style>
+
+<script>
+  (function () {
+    var blockEl = document.currentScript.previousElementSibling;
+    while (blockEl && !blockEl.classList.contains('product-accordion-block')) {
+      blockEl = blockEl.previousElementSibling;
+    }
+    if (!blockEl) return;
+
+    var items = blockEl.querySelectorAll('.accordion-item');
+    items.forEach(function (item) {
+      var summary = item.querySelector('.accordion-item__summary');
+      if (!summary) return;
+
+      summary.addEventListener('click', function () {
+        var isOpen = item.classList.contains('is-open');
+        item.classList.toggle('is-open');
+        summary.setAttribute('aria-expanded', !isOpen);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Accordion",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    {
+      "type": "checkbox",
+      "id": "mobile_view",
+      "label": "mobile view"
+    },
+    { "type": "text", "id": "heading", "label": "Heading (optional)" },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#1A1A1A" },
+    { "type": "range", "id": "heading_size", "min": 14, "max": 36, "step": 1, "unit": "px", "label": "Heading size (desktop)", "default": 22 },
+    { "type": "range", "id": "mobile_heading_size", "min": 12, "max": 28, "step": 1, "unit": "px", "label": "Heading size (mobile)", "default": 18 },
+    { "type": "range", "id": "heading_margin_bottom", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Heading bottom spacing", "default": 16 },
+
+    { "type": "header", "content": "Item 1" },
+    { "type": "checkbox", "id": "show_1", "label": "Show this item", "default": true },
+    { "type": "checkbox", "id": "open_1", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_1", "label": "Title", "default": "Description" },
+    { "type": "richtext", "id": "content_1", "label": "Content", "default": "<p>Add your description here.</p>" },
+
+    { "type": "header", "content": "Item 2" },
+    { "type": "checkbox", "id": "show_2", "label": "Show this item", "default": true },
+    { "type": "checkbox", "id": "open_2", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_2", "label": "Title", "default": "Why Try Peptiques®?" },
+    { "type": "richtext", "id": "content_2", "label": "Content", "default": "<p>Add your content here.</p>" },
+
+    { "type": "header", "content": "Item 3" },
+    { "type": "checkbox", "id": "show_3", "label": "Show this item", "default": true },
+    { "type": "checkbox", "id": "open_3", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_3", "label": "Title", "default": "Benefits" },
+    { "type": "richtext", "id": "content_3", "label": "Content", "default": "<p>Add your content here.</p>" },
+
+    { "type": "header", "content": "Item 4" },
+    { "type": "checkbox", "id": "show_4", "label": "Show this item", "default": true },
+    { "type": "checkbox", "id": "open_4", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_4", "label": "Title", "default": "Recommended Use" },
+    { "type": "richtext", "id": "content_4", "label": "Content", "default": "<p>Add your content here.</p>" },
+
+    { "type": "header", "content": "Item 5" },
+    { "type": "checkbox", "id": "show_5", "label": "Show this item", "default": true },
+    { "type": "checkbox", "id": "open_5", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_5", "label": "Title", "default": "Ingredients" },
+    { "type": "richtext", "id": "content_5", "label": "Content", "default": "<p>Add your content here.</p>" },
+
+    { "type": "header", "content": "Item 6" },
+    { "type": "checkbox", "id": "show_6", "label": "Show this item", "default": true },
+    { "type": "checkbox", "id": "open_6", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_6", "label": "Title", "default": "Do We Offer a Guarantee?" },
+    { "type": "richtext", "id": "content_6", "label": "Content", "default": "<p>Add your content here.</p>" },
+
+    { "type": "header", "content": "Item 7" },
+    { "type": "checkbox", "id": "show_7", "label": "Show this item", "default": false },
+    { "type": "checkbox", "id": "open_7", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_7", "label": "Title" },
+    { "type": "richtext", "id": "content_7", "label": "Content" },
+
+    { "type": "header", "content": "Item 8" },
+    { "type": "checkbox", "id": "show_8", "label": "Show this item", "default": false },
+    { "type": "checkbox", "id": "open_8", "label": "Open by default", "default": false },
+    { "type": "text", "id": "title_8", "label": "Title" },
+    { "type": "richtext", "id": "content_8", "label": "Content" },
+
+    { "type": "header", "content": "Item Style" },
+    { "type": "color", "id": "item_bg_color", "label": "Item background color", "default": "#FFFFFF" },
+    { "type": "color", "id": "border_color", "label": "Border color", "default": "#E5E5E5" },
+    { "type": "color", "id": "border_color_open", "label": "Border color (when open)", "default": "#47184D" },
+    { "type": "range", "id": "border_width", "min": 0, "max": 4, "step": 1, "unit": "px", "label": "Border width", "default": 1 },
+    { "type": "range", "id": "border_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Border radius", "default": 8 },
+    { "type": "range", "id": "item_gap", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Gap between items", "default": 12 },
+
+    { "type": "header", "content": "Icon" },
+    { "type": "color", "id": "icon_color", "label": "Icon color (+ / −)", "default": "#1A1A1A" },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "color", "id": "title_color", "label": "Title color", "default": "#1A1A1A" },
+    { "type": "range", "id": "title_size", "min": 12, "max": 24, "step": 1, "unit": "px", "label": "Title size (desktop)", "default": 15 },
+    { "type": "range", "id": "mobile_title_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Title size (mobile)", "default": 14 },
+    { "type": "color", "id": "text_color", "label": "Content text color", "default": "#4A4A4A" },
+    { "type": "range", "id": "text_size", "min": 10, "max": 20, "step": 1, "unit": "px", "label": "Content text size (desktop)", "default": 14 },
+    { "type": "range", "id": "mobile_text_size", "min": 10, "max": 18, "step": 1, "unit": "px", "label": "Content text size (mobile)", "default": 13 },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_x", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Horizontal padding (desktop)", "default": 20 },
+    { "type": "range", "id": "padding_y", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Vertical padding (desktop)", "default": 18 },
+    { "type": "range", "id": "mobile_padding_x", "min": 8, "max": 30, "step": 2, "unit": "px", "label": "Horizontal padding (mobile)", "default": 16 },
+    { "type": "range", "id": "mobile_padding_y", "min": 8, "max": 30, "step": 2, "unit": "px", "label": "Vertical padding (mobile)", "default": 14 },
+    { "type": "range", "id": "margin_top", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "Top margin", "default": 16 },
+    { "type": "range", "id": "margin_bottom", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "Bottom margin", "default": 16 }
+  ],
+  "presets": [
+    { "name": "Product Accordion" }
+  ]
+}
+{% endschema %}
