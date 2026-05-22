@@ -1,5 +1,7 @@
 {% comment %}
   Daily Experience — Morning / Evening tab section.
+  Each block represents a phase (Morning, Evening, ...). Switching
+  tabs swaps the visible panel AND the section background color.
 {% endcomment %}
 
 {%- liquid
@@ -15,28 +17,35 @@
 -%}
 
 <style>
-  #shopify-section-{{ sid }} .pe-section {
-    background: var(--pe-bg-{{ sid }}, linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%));
+  /* The section bg color is driven by a CSS variable that JS swaps
+     when the merchant clicks a tab. We default it to the first
+     phase's bg via inline style on the root. */
+  #shopify-section-{{ sid }} .pe-section{
+    background:
+      linear-gradient(to right,
+        var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#ffffe1' }}) 0%,
+        #ffffff 50%,
+        var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#ffffe1' }}) 100%);
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.text_color | default: '#000000' }};
     transition: background 400ms ease;
   }
-  @media (min-width: 1024px) {
-    #shopify-section-{{ sid }} .pe-section {
+  @media (min-width: 1024px){
+    #shopify-section-{{ sid }} .pe-section{
       padding: {{ s.section_padding_top_desktop | default: 80 }}px {{ s.section_padding_x_desktop | default: 50 }}px {{ s.section_padding_bottom_desktop | default: 80 }}px;
     }
   }
 
-  #shopify-section-{{ sid }} .pe-wrap {
+  #shopify-section-{{ sid }} .pe-wrap{
     max-width: 1340px;
     margin-inline: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 42px;
+    gap: 18px;
   }
 
-  #shopify-section-{{ sid }} .pe-heading {
+  #shopify-section-{{ sid }} .pe-heading{
     font-family: {{ s.heading_font_family | default: 'Georgia, "Times New Roman", serif' }};
     color: #000000;
     text-align: center;
@@ -45,20 +54,20 @@
     line-height: 54.4px;
     letter-spacing: -0.03em;
     font-size: clamp(1.75rem, 2.4vw + 1rem, 48px);
-    max-width: 14ch;
+    max-width: 22ch;
   }
-  #shopify-section-{{ sid }} .pe-heading em {
+  #shopify-section-{{ sid }} .pe-heading em{
     font-style: italic;
-    color: rgba(71, 24, 77, 1);
+    color: #47184d;
   }
 
-  #shopify-section-{{ sid }} .pe-tabs {
+  #shopify-section-{{ sid }} .pe-tabs{
     display: flex;
-    gap: 20px;
+    gap: 12px;
     justify-content: center;
-    margin: 0;
+    margin: 8px 0;
   }
-  #shopify-section-{{ sid }} .pe-tab {
+  #shopify-section-{{ sid }} .pe-tab{
     background: #ffffff;
     color: #000000;
     border: 2px solid {{ s.tab_border | default: '#e1dcf4' }};
@@ -75,19 +84,26 @@
     letter-spacing: -0.024em;
     transition: background 200ms ease, border-color 200ms ease;
   }
-  #shopify-section-{{ sid }} .pe-tab[aria-selected="true"] {
-    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%);
-    border-color: var(--pe-tab-border-{{ sid }}, #FFCE2F);
+  #shopify-section-{{ sid }} .pe-tab[aria-selected="true"]{
+    background:
+      linear-gradient(to right,
+        var(--pe-tab-bg-{{ sid }}, #ffffe1) 0%,
+        #ffffff 50%,
+        var(--pe-tab-bg-{{ sid }}, #ffffe1) 100%);
+    border-color: var(--pe-tab-border-{{ sid }}, #ffce2f);
   }
-  #shopify-section-{{ sid }} .pe-tab-icon {
-    width: 32px; height: 32px;
+  #shopify-section-{{ sid }} .pe-tab-icon{
+    width: 18px; height: 18px;
     display: inline-flex; align-items: center; justify-content: center;
   }
-  #shopify-section-{{ sid }} .pe-tab-icon svg { width: 100%; height: 100%; }
+  #shopify-section-{{ sid }} .pe-tab-icon svg{ width: 100%; height: 100%; }
 
-  /* ── Pill (richtext) ── */
-  #shopify-section-{{ sid }} .pe-pill {
-    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%) !important;
+  #shopify-section-{{ sid }} .pe-pill{
+    background:
+      linear-gradient(to right,
+        var(--pe-pill-bg-{{ sid }}, #ffffe1) 0%,
+        #ffffff 50%,
+        var(--pe-pill-bg-{{ sid }}, #ffffe1) 100%);
     color: #000000;
     border-radius: 0;
     padding: 6px 12px;
@@ -95,200 +111,102 @@
     font-size: 18px;
     line-height: 22.4px;
     letter-spacing: -0.03em;
-    margin-top: 0px;
+    margin-top: 4px;
     text-align: center;
     max-width: 90%;
   }
-  #shopify-section-{{ sid }} .pe-pill p { margin: 0; }
-  #shopify-section-{{ sid }} .pe-pill strong { font-weight: 700; }
-  #shopify-section-{{ sid }} .pe-pill a { color: inherit; }
+  #shopify-section-{{ sid }} .pe-pill strong{ font-weight: 700; }
 
-  /* ── Pro Tip ── */
-  #shopify-section-{{ sid }} .pe-protip {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-weight: 400;
-    font-size: 14.6px;
-    line-height: 18.8px;
-    letter-spacing: -0.03em;
-    text-align: center;
-    text-transform: capitalize;
-    color: rgba(0, 0, 0, 1);
-    margin: 10px 0 0;
-    padding: 0 0px;
-    max-width: 90%;
-  }
-  #shopify-section-{{ sid }} .pe-protip p { margin: 0; }
-  #shopify-section-{{ sid }} .pe-protip strong { font-weight: 700; }
-
-  #shopify-section-{{ sid }} .pe-panel {
+  #shopify-section-{{ sid }} .pe-panel{
     display: none;
     width: 100%;
   }
-  #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"] {
+  #shopify-section-{{ sid }} .pe-panel[data-pe-active="true"]{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 27px;
+    gap: 24px;
   }
 
-  #shopify-section-{{ sid }} .pe-visual {
+  #shopify-section-{{ sid }} .pe-visual{
     position: relative;
     width: 100%;
-    max-width: 600px;
-    margin: 0px auto 0;
+    max-width: 720px;
+    margin: 0 auto;
     aspect-ratio: 1 / 1;
   }
-  #shopify-section-{{ sid }} .pe-visual > img {
+  #shopify-section-{{ sid }} .pe-visual img{
     position: absolute;
     inset: 0;
     width: 100%; height: 100%;
     object-fit: contain;
-  }
-  #shopify-section-{{ sid }} .pe-visual img.pe-visual-desktop { display: block; }
-  #shopify-section-{{ sid }} .pe-visual img.pe-visual-mobile  { display: none; }
-  @media (max-width: 768px) {
-    #shopify-section-{{ sid }} .pe-visual img.pe-visual-desktop { display: none; }
-    #shopify-section-{{ sid }} .pe-visual img.pe-visual-mobile  { display: block; }
+    display: block;
   }
 
-  /* ─── Stat card ─────────────────────────────────────────────── */
-  #shopify-section-{{ sid }} .pe-stat {
+  #shopify-section-{{ sid }} .pe-stat{
     position: relative;
-    z-index: 1;
+    z-index: 2;
     background: {{ s.stat_card_background | default: '#ffffff' }};
-    padding: 24px 0px;
+    box-shadow: 0 12px 32px rgba(60,20,90,0.12);
+    border-radius: 12px;
+    padding: 22px 26px;
     text-align: center;
-    max-width: 251px;
-    margin: 28% auto 0;
-    border: 1px solid #E1DCF4;
+    max-width: 280px;
+    margin: 18% auto 0;
   }
-  #shopify-section-{{ sid }} .pe-stat-figure {
+  #shopify-section-{{ sid }} .pe-stat-figure{
     font-family: 'DM Sans', system-ui, sans-serif;
     color: {{ s.stat_figure_color | default: '#47184d' }};
     font-size: 48px;
-    line-height: 100%;
+    line-height: 1.2;
     letter-spacing: -0.018em;
     font-weight: 900;
-    margin: 0 0 10px;
+    margin: 0;
   }
-  #shopify-section-{{ sid }} .pe-stat-avatars {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 8px;
-    gap: 3px;
+  #shopify-section-{{ sid }} .pe-stat-avatars{
+    display: inline-flex;
+    margin: 10px 0 4px;
   }
-  #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar {
-    width: 26px; height: 26px;
+  #shopify-section-{{ sid }} .pe-stat-avatars img{
+    width: 22px; height: 22px;
     border-radius: 50%;
-    border: 2.5px solid #ffffff;
-    overflow: hidden;
-    flex-shrink: 0;
-    margin-left: -10px;
-    background: #e8d5f5;
+    border: 2px solid #fff;
+    margin-left: -6px;
+    object-fit: cover;
   }
-  #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar:first-child { margin-left: 0; }
-  #shopify-section-{{ sid }} .pe-stat-avatars .pe-avatar img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block; border-radius: 50%;
-  }
-  #shopify-section-{{ sid }} .pe-stat-caption {
-    font-family: 'DM Sans';
-    font-weight: 400;
+  #shopify-section-{{ sid }} .pe-stat-avatars img:first-child{ margin-left: 0; }
+  #shopify-section-{{ sid }} .pe-stat-caption{
     font-size: 12px;
-    line-height: 120%;
-    letter-spacing: -0.04em;
-    text-align: center;
-    margin: 0 0 12px;
-    color: #47184D;
+    color: #4d3f59;
+    margin: 0 0 8px;
   }
-  #shopify-section-{{ sid }} .pe-stat-body {
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 12.8px;
-    line-height: 16.4px;
-    letter-spacing: -0.03em;
-    text-align: center;
-    color: #000000;
-    margin: 0 auto;
-    max-width: 203px;
-  }
-
-  /* ─── Mobile overrides ──────────────────────────────────────── */
-  @media (max-width: 768px) {
-    #shopify-section-{{ sid }} .pe-wrap { gap: 22px; }
-    #shopify-section-{{ sid }} .pe-heading {
-      font-size: 30px;
-      line-height: 110%;
-      letter-spacing: -0.04em;
-      text-align: center;
-      color: #000000;
-    }
-    #shopify-section-{{ sid }} .pe-heading em { color: #000000; }
-    #shopify-section-{{ sid }} .pe-tab-icon { width: 28px; height: 28px; }
-    #shopify-section-{{ sid }} .pe-tab { padding: 14px 16px; gap: 14px; font-size: 20px; }
-    #shopify-section-{{ sid }} .pe-pill {
-      max-width: 100%;
-      margin: 0;
-      padding: 0;
-      background: unset !important;
-    }
-    #shopify-section-{{ sid }} .pe-protip {
-      font-size: 12.6px;
-      line-height: 18.8px;
-      letter-spacing: -0.03em;
-      text-align: center;
-      max-width: 100%;
-      margin: 4px 0 0;
-    }
-    #shopify-section-{{ sid }} .pe-visual { max-width: 100%; }
-    #shopify-section-{{ sid }} .pe-stat {
-      padding: 16px;
-      text-align: center;
-      max-width: 196px;
-      margin: 24% auto 0;
-    }
-    #shopify-section-{{ sid }} .pe-stat-figure { font-size: 34px; letter-spacing: -0.018em; margin: 0 0 6px; }
-    #shopify-section-{{ sid }} .pe-stat-avatars { margin: 0 0 6px; }
-    #shopify-section-{{ sid }} .pe-stat-caption { margin: 0 0 8px; }
-    #shopify-section-{{ sid }} .pe-stat-body { font-size: 11.8px; line-height: 16.4px; letter-spacing: -0.03em; }
-    #shopify-section-{{ sid }} .pe-tabs { gap: 16px; }
-    #shopify-section-{{ sid }} .main-pepill-peprotip {
-      background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%) !important;
-      color: #000000;
-      border-radius: 0;
-      padding: 6px 12px;
-      margin: 0 16px;
-      text-align: center;
-    }
+  #shopify-section-{{ sid }} .pe-stat-body{
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4d3f59;
+    margin: 0;
   }
 
   /* ══ SCROLL ANIMATIONS ════════════════════════════════════════
-     Heading  → fade up (scroll trigger via theme.liquid JS)
-     Tabs row → fade up, slight delay
-     Panel    → CSS keyframe fires every time a tab activates
-                (works on page load AND on tab switch)
+     1. Heading  → fade-up (scroll trigger via theme.liquid JS)
+     2. Tabs row → fade-up, slight delay
+     3. Panel    → CSS keyframe fires every time a tab activates
+     4. Stat card → scale-in with delay inside panel
   ═════════════════════════════════════════════════════════════ */
 
-  /* 1 ── Scroll-trigger system (heading + tabs) */
+  /* 1+2 — scroll trigger system */
   #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
     opacity: 0;
     will-change: opacity, transform;
     transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]   { transform: translateY(28px); }
-  #shopify-section-{{ sid }}.pb-js [data-pb-anim="scale"] {
-    transform: scale(0.96) translateY(10px);
-  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"] { transform: translateY(28px); }
   #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    will-change: auto;
+    opacity: 1; transform: none; will-change: auto;
   }
 
-  /* 2 ── Panel keyframe — fires on every tab activate */
+  /* 3 — panel fade-up on every tab activate */
   @keyframes pe-panel-in-{{ sid }} {
     0%   { opacity: 0; transform: translateY(18px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -297,7 +215,7 @@
     animation: pe-panel-in-{{ sid }} 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  /* 3 ── Stat card subtle scale-in inside the panel */
+  /* 4 — stat card scale-in */
   @keyframes pe-stat-in-{{ sid }} {
     0%   { opacity: 0; transform: scale(0.92) translateY(12px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -306,7 +224,6 @@
     animation: pe-stat-in-{{ sid }} 0.65s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  /* 4 ── Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
       opacity: 1 !important; transform: none !important; transition: none !important;
@@ -329,18 +246,18 @@
       {%- if s.heading_italic_text != blank -%}
         <em>{{ s.heading_italic_text }}</em>
       {%- endif -%}
-      {%- if s.heading_text != blank %} {{ s.heading_text }}{%- endif -%}
+      {% if s.heading_text != blank %} {{ s.heading_text }}{% endif %}
     </h2>
 
-    {%- if phase_count > 0 -%}
+    {% if phase_count > 0 %}
       <div
         class="pe-tabs"
         role="tablist"
         data-pb-anim="up"
         data-pb-delay="120"
       >
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'phase' -%}
+        {% for block in section.blocks %}
+          {% if block.type == 'phase' %}
             <button type="button"
                     class="pe-tab"
                     role="tab"
@@ -352,119 +269,92 @@
                     aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                     {{ block.shopify_attributes }}>
               <span class="pe-tab-icon" aria-hidden="true">
-                {%- if block.settings.icon_image != blank -%}
+                {% if block.settings.icon_image != blank %}
                   {{ block.settings.icon_image | image_url: width: 40 | image_tag: loading: 'lazy', widths: '18,36', alt: '' }}
-                {%- elsif block.settings.tab_label contains 'Morning' or block.settings.tab_label contains 'morning' -%}
+                {% elsif block.settings.tab_label contains 'Morning' or block.settings.tab_label contains 'morning' %}
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: {{ block.settings.icon_color | default: '#f5b301' }};"><circle cx="12" cy="12" r="4" fill="currentColor"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
-                {%- else -%}
+                {% else %}
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: {{ block.settings.icon_color | default: '#5a2a78' }};"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                {%- endif -%}
+                {% endif %}
               </span>
               <span>{{ block.settings.tab_label }}</span>
             </button>
-          {%- endif -%}
-        {%- endfor -%}
+          {% endif %}
+        {% endfor %}
       </div>
 
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'phase' -%}
+      {% for block in section.blocks %}
+        {% if block.type == 'phase' %}
           <div class="pe-panel" role="tabpanel" data-pe-panel="{{ forloop.index }}" data-pe-active="{% if forloop.first %}true{% else %}false{% endif %}">
-            <div class="main-pepill-peprotip">
-              {%- if block.settings.pill_richtext != blank -%}
-                <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">
-                  {{ block.settings.pill_richtext }}
-                </div>
-              {%- endif -%}
-              {%- if block.settings.protip_richtext != blank -%}
-                <div class="pe-protip">{{ block.settings.protip_richtext }}</div>
-              {%- endif -%}
-            </div>
-
+            {% if block.settings.pill_text != blank %}
+              <div class="pe-pill">{{ block.settings.pill_text }}</div>
+            {% endif %}
             <div class="pe-visual">
-              {%- if block.settings.visual_image != blank -%}
+              {% if block.settings.visual_image != blank %}
                 {{ block.settings.visual_image | image_url: width: 1200 | image_tag:
-                     class: 'pe-visual-desktop',
                      loading: 'lazy',
                      widths: '400,600,800,1200',
                      alt: block.settings.tab_label }}
-              {%- endif -%}
-
-              {%- if block.settings.visual_image_mobile != blank -%}
-                {{ block.settings.visual_image_mobile | image_url: width: 800 | image_tag:
-                     class: 'pe-visual-mobile',
-                     loading: 'lazy',
-                     widths: '360,480,640,800',
-                     alt: block.settings.tab_label }}
-              {%- elsif block.settings.visual_image != blank -%}
-                {{ block.settings.visual_image | image_url: width: 800 | image_tag:
-                     class: 'pe-visual-mobile',
-                     loading: 'lazy',
-                     widths: '360,480,640,800',
-                     alt: block.settings.tab_label }}
-              {%- endif -%}
-
-              {%- if block.settings.stat_figure_text != blank -%}
+              {% endif %}
+              {% if block.settings.stat_figure_text != blank %}
                 <div class="pe-stat">
                   <p class="pe-stat-figure">{{ block.settings.stat_figure_text }}</p>
-
-                  {%- assign has_avatar = false -%}
-                  {%- if block.settings.avatar_1 != blank or block.settings.avatar_2 != blank or block.settings.avatar_3 != blank or block.settings.avatar_4 != blank -%}
-                    {%- assign has_avatar = true -%}
-                  {%- endif -%}
-                  {%- if has_avatar -%}
-                    <div class="pe-stat-avatars" aria-hidden="true">
-                      {%- if block.settings.avatar_1 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
-                      {%- if block.settings.avatar_2 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
-                      {%- if block.settings.avatar_3 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
-                      {%- if block.settings.avatar_4 != blank -%}<div class="pe-avatar">{{ block.settings.avatar_4 | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', widths: '36,72,80' }}</div>{%- endif -%}
-                    </div>
-                  {%- endif -%}
-
-                  {%- if block.settings.stat_caption != blank -%}
+                  {% if block.settings.avatar_1 != blank or block.settings.avatar_2 != blank or block.settings.avatar_3 != blank or block.settings.avatar_4 != blank %}
+                    <span class="pe-stat-avatars" aria-hidden="true">
+                      {% if block.settings.avatar_1 != blank %}{{ block.settings.avatar_1 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                      {% if block.settings.avatar_2 != blank %}{{ block.settings.avatar_2 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                      {% if block.settings.avatar_3 != blank %}{{ block.settings.avatar_3 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                      {% if block.settings.avatar_4 != blank %}{{ block.settings.avatar_4 | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}{% endif %}
+                    </span>
+                  {% endif %}
+                  {% if block.settings.stat_caption != blank %}
                     <p class="pe-stat-caption">{{ block.settings.stat_caption }}</p>
-                  {%- endif -%}
-                  {%- if block.settings.stat_body != blank -%}
+                  {% endif %}
+                  {% if block.settings.stat_body != blank %}
                     <p class="pe-stat-body">{{ block.settings.stat_body }}</p>
-                  {%- endif -%}
+                  {% endif %}
                 </div>
-              {%- endif -%}
+              {% endif %}
             </div>
-
           </div>
-        {%- endif -%}
-      {%- endfor -%}
-    {%- endif -%}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
   </div>
 </section>
 
 <script>
-(function () {
-  var root = document.getElementById('shopify-section-{{ sid }}');
-  if (!root) return;
-  var sec    = root.querySelector('[data-pe-root]');
-  var tabs   = root.querySelectorAll('[data-pe-tab]');
-  var panels = root.querySelectorAll('[data-pe-panel]');
-  if (!sec || !tabs.length) return;
+  (function(){
+    var root = document.getElementById('shopify-section-{{ sid }}');
+    if (!root) return;
+    var sec   = root.querySelector('[data-pe-root]');
+    var tabs  = root.querySelectorAll('[data-pe-tab]');
+    var panels= root.querySelectorAll('[data-pe-panel]');
+    if (!sec || !tabs.length) return;
 
-  function apply(tab) {
-    var idx       = tab.getAttribute('data-pe-tab');
-    var bg        = tab.getAttribute('data-pe-bg');
-    var tabBorder = tab.getAttribute('data-pe-tab-border');
+    function apply(tab){
+      var idx       = tab.getAttribute('data-pe-tab');
+      var bg        = tab.getAttribute('data-pe-bg');
+      var pillBg    = tab.getAttribute('data-pe-pill-bg');
+      var tabBg     = tab.getAttribute('data-pe-tab-bg');
+      var tabBorder = tab.getAttribute('data-pe-tab-border');
 
-    if (bg)        sec.style.setProperty('--pe-bg-{{ sid }}', bg);
-    if (tabBorder) sec.style.setProperty('--pe-tab-border-{{ sid }}', tabBorder);
+      if (bg)        sec.style.setProperty('--pe-bg-{{ sid }}', bg);
+      if (pillBg)    sec.style.setProperty('--pe-pill-bg-{{ sid }}', pillBg);
+      if (tabBg)     sec.style.setProperty('--pe-tab-bg-{{ sid }}', tabBg);
+      if (tabBorder) sec.style.setProperty('--pe-tab-border-{{ sid }}', tabBorder);
 
-    tabs.forEach(function (t) {
-      t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
-    });
-    panels.forEach(function (p) {
-      p.setAttribute('data-pe-active', p.getAttribute('data-pe-panel') === idx ? 'true' : 'false');
-    });
-  }
-
-  tabs.forEach(function (t) { t.addEventListener('click', function () { apply(t); }); });
-  if (tabs[0]) apply(tabs[0]);
-})();
+      tabs.forEach(function(t){
+        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+      });
+      panels.forEach(function(p){
+        p.setAttribute('data-pe-active', p.getAttribute('data-pe-panel') === idx ? 'true' : 'false');
+      });
+    }
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ apply(t); }); });
+    if (tabs[0]) apply(tabs[0]);
+  })();
 </script>
 
 {% schema %}
@@ -476,48 +366,45 @@
   "settings": [
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "fallback_background", "label": "Fallback background (gradient edges)", "default": "#ffffe1" },
-    { "type": "color", "id": "text_color",           "label": "Text color",           "default": "#000000" },
-    { "type": "color", "id": "tab_border",           "label": "Tab inactive border",  "default": "#e1dcf4" },
-    { "type": "color", "id": "stat_card_background", "label": "Stat card background", "default": "#ffffff" },
-    { "type": "color", "id": "stat_figure_color",    "label": "Stat figure color",    "default": "#47184d" },
+    { "type": "color", "id": "text_color",          "label": "Text color",          "default": "#000000" },
+    { "type": "color", "id": "tab_border",          "label": "Tab inactive border", "default": "#e1dcf4" },
+    { "type": "color", "id": "stat_card_background","label": "Stat card background","default": "#ffffff" },
+    { "type": "color", "id": "stat_figure_color",   "label": "Stat figure color",   "default": "#47184d" },
 
     { "type": "header", "content": "Heading" },
     { "type": "text", "id": "heading_italic_text", "label": "Heading — italic part",  "default": "Compact visual" },
     { "type": "text", "id": "heading_text",        "label": "Heading — regular part", "default": "of the daily experience." },
-    { "type": "text", "id": "heading_font_family", "label": "Heading font-family",    "default": "Georgia, \"Times New Roman\", serif" },
+    { "type": "text", "id": "heading_font_family", "label": "Heading font-family",     "default": "Georgia, \"Times New Roman\", serif" },
 
     { "type": "header", "content": "Spacing (px)" },
-    { "type": "range", "id": "section_padding_top",            "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_bottom",         "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "section_padding_x",              "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "section_padding_top_desktop",    "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_bottom_desktop", "label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "section_padding_x_desktop",      "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
+    { "type": "range", "id": "section_padding_top",           "label": "Padding top (Mobile)",     "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom",        "label": "Padding bottom (Mobile)",  "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "section_padding_x",             "label": "Padding sides (Mobile)",   "min": 0, "max": 80,  "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "section_padding_top_desktop",   "label": "Padding top (Desktop)",    "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_bottom_desktop","label": "Padding bottom (Desktop)", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "section_padding_x_desktop",     "label": "Padding sides (Desktop)",  "min": 0, "max": 200, "step": 2, "unit": "px", "default": 50 }
   ],
   "blocks": [
     {
       "type": "phase",
       "name": "Phase tab",
       "settings": [
-        { "type": "text",         "id": "tab_label",           "label": "Tab label",                   "default": "Morning" },
-        { "type": "image_picker", "id": "icon_image",          "label": "Tab icon image (optional)" },
-        { "type": "color",        "id": "icon_color",          "label": "Icon color (default SVG)",    "default": "#f5b301" },
-        { "type": "color",        "id": "bg_color",            "label": "Section bg when active",      "default": "#fff8d6" },
-        { "type": "color",        "id": "pill_bg",             "label": "Pill bg when active",         "default": "#fff2a0" },
-        { "type": "color",        "id": "tab_active_bg",       "label": "Active tab bg",               "default": "#fff2a0" },
-        { "type": "color",        "id": "tab_active_border",   "label": "Active tab border",           "default": "#f5d04a" },
-        { "type": "richtext",     "id": "pill_richtext",       "label": "Main text (rich text)", "default": "<p>Take 1 capsule with water upon waking, <strong>before breakfast</strong>.</p>" },
-        { "type": "richtext",     "id": "protip_richtext",     "label": "Pro Tip text (rich text)", "default": "<p>Pro Tip: For Better Absorption Take It With Warm Water.</p>" },
-        { "type": "image_picker", "id": "visual_image",        "label": "Main image — Desktop" },
-        { "type": "image_picker", "id": "visual_image_mobile", "label": "Main image — Mobile (falls back to desktop if empty)" },
-        { "type": "header",       "content": "Stat card" },
-        { "type": "text",         "id": "stat_figure_text",    "label": "Stat figure",                "default": "97%" },
-        { "type": "text",         "id": "stat_caption",        "label": "Stat caption",               "default": "Of people Like You" },
-        { "type": "textarea",     "id": "stat_body",           "label": "Stat body",                  "default": "Experience the simplicity of complete daily nutrition in just two capsules." },
-        { "type": "image_picker", "id": "avatar_1",            "label": "Avatar 1" },
-        { "type": "image_picker", "id": "avatar_2",            "label": "Avatar 2" },
-        { "type": "image_picker", "id": "avatar_3",            "label": "Avatar 3" },
-        { "type": "image_picker", "id": "avatar_4",            "label": "Avatar 4" }
+        { "type": "text",         "id": "tab_label",         "label": "Tab label",                    "default": "Morning" },
+        { "type": "image_picker", "id": "icon_image",        "label": "Tab icon (image, optional)" },
+        { "type": "color",        "id": "icon_color",        "label": "Icon color (for default SVG)", "default": "#f5b301" },
+        { "type": "color",        "id": "bg_color",          "label": "Section bg when active",       "default": "#fff8d6" },
+        { "type": "color",        "id": "pill_bg",           "label": "Pill bg when active",          "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_bg",     "label": "Active tab bg",                "default": "#fff2a0" },
+        { "type": "color",        "id": "tab_active_border", "label": "Active tab border",            "default": "#f5d04a" },
+        { "type": "text",         "id": "pill_text",         "label": "Pill text (supports HTML)",    "default": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>." },
+        { "type": "image_picker", "id": "visual_image",      "label": "Main visual image" },
+        { "type": "text",         "id": "stat_figure_text",  "label": "Stat figure",                 "default": "97%" },
+        { "type": "text",         "id": "stat_caption",      "label": "Stat caption",                "default": "Of people Like You" },
+        { "type": "textarea",     "id": "stat_body",         "label": "Stat body",                   "default": "Experience the simplicity of complete daily nutrition in just two capsules." },
+        { "type": "image_picker", "id": "avatar_1",          "label": "Avatar 1" },
+        { "type": "image_picker", "id": "avatar_2",          "label": "Avatar 2" },
+        { "type": "image_picker", "id": "avatar_3",          "label": "Avatar 3" },
+        { "type": "image_picker", "id": "avatar_4",          "label": "Avatar 4" }
       ]
     }
   ],
@@ -536,8 +423,7 @@
             "pill_bg": "#ffffe1",
             "tab_active_bg": "#ffffe1",
             "tab_active_border": "#ffce2f",
-            "pill_richtext": "<p>Take 1 capsule with water upon waking, <strong>before breakfast</strong>.</p>",
-            "protip_richtext": "<p>Pro Tip: For Better Absorption Take It With Warm Water.</p>",
+            "pill_text": "Take 1 capsule with water upon waking, <strong>before breakfast</strong>.",
             "stat_figure_text": "97%",
             "stat_caption": "Of people Like You",
             "stat_body": "Experience the simplicity of complete Pineal Cleansing & Third Eye Activation in just two capsules."
@@ -552,8 +438,7 @@
             "pill_bg": "#e0d0f6",
             "tab_active_bg": "#e0d0f6",
             "tab_active_border": "#bba0d4",
-            "pill_richtext": "<p>Take 1 capsule with water before bed, <strong>after dinner</strong>.</p>",
-            "protip_richtext": "<p>Pro Tip: For Best Results Take It At Least 30 Minutes Before Sleep.</p>",
+            "pill_text": "Take 1 capsule with water before bed, <strong>after dinner</strong>.",
             "stat_figure_text": "93%",
             "stat_caption": "Of people Like You",
             "stat_body": "Wind down the day with the second capsule — supports restorative sleep and overnight cellular renewal."
