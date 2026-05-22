@@ -58,10 +58,6 @@
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-image:
-      radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 10% 85%, rgba(255,255,255,0.06), transparent 65%),
-      linear-gradient(135deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
   }
   {% if mobile_bg_image != blank %}
   @media (max-width: 1023px) {
@@ -74,14 +70,7 @@
     #shopify-section-{{ sid }} .pb-card {
       padding: 80px 0px;
       {% if bg_image != blank %}
-        background-image:
-          linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
-          url({{ bg_image | image_url: width: 1800 }});
-      {% else %}
-        background-image:
-          radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
-          radial-gradient(ellipse 70% 50% at 10% 85%, rgba(255,255,255,0.06), transparent 65%),
-          linear-gradient(135deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
+        background-image: url({{ bg_image | image_url: width: 1800 }});
       {% endif %}
     }
   }
@@ -424,13 +413,11 @@
     { "type": "header", "content": "Background image" },
     { "type": "image_picker", "id": "bg_image_desktop", "label": "Background image — Desktop" },
     { "type": "image_picker", "id": "bg_image_mobile",  "label": "Background image — Mobile (falls back to desktop)" },
-    { "type": "color",        "id": "overlay_color",    "label": "Overlay color (over image)", "default": "#2a1442" },
 
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "outer_background", "label": "Outer background",   "default": "#ffffff" },
     { "type": "color", "id": "card_background",  "label": "Card background",    "default": "#3f1c5c" },
-    { "type": "color", "id": "gradient_from",    "label": "Gradient start",     "default": "#5a2a78" },
-    { "type": "color", "id": "gradient_to",      "label": "Gradient end",       "default": "#2a1442" },
+
     { "type": "color", "id": "heading_color",    "label": "Heading color",      "default": "#ffffff" },
     { "type": "color", "id": "description_color","label": "Description color",  "default": "#e8dcef" },
     { "type": "color", "id": "icon_color",       "label": "Icon color",         "default": "#5a2a78" },
