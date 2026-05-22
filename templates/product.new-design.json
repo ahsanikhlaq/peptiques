@@ -612,10 +612,10 @@
         "image": "shopify://shop_images/Mask_group_1.jpg_2.webp",
         "image_alt": "Haritaki capsules",
         "hide_image_on_mobile": true,
-        "section_padding_top": 40,
+        "section_padding_top": 0,
         "section_padding_bottom": 0,
         "section_padding_x": 0,
-        "section_padding_top_desktop": 80,
+        "section_padding_top_desktop": 0,
         "section_padding_bottom_desktop": 0,
         "section_padding_x_desktop": 0,
         "card_radius": 0
