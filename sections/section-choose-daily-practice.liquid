@@ -140,11 +140,11 @@
   list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px;
 }
 #shopify-section-{{ sid }} .cdp-bullets li {
-  display: flex; align-items:start; gap: 12px;
+  display: flex; align-items: center; gap: 12px;
   font-family: 'DM Sans'; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: -3%;
 }
 #shopify-section-{{ sid }} .cdp-check {
-  flex-shrink: 0; width: 20px; height: 20px; background: rgba(148, 115, 245, 1); border-radius: 50%;
+  flex-shrink: 0; width: 20px; height: 20px; background: rgba(52,199,89,1); border-radius: 50%;
   display: flex; align-items: center; justify-content: center; margin-top: 1px;
   border: 1px solid rgba(71,24,77,1);
 }
@@ -221,11 +221,11 @@
   #shopify-section-{{ sid }} .cdp-free-list.cdp-show-desktop { display: flex; }
 }
 #shopify-section-{{ sid }} .cdp-free-row {
-  position: relative; border: 1px dashed rgba(148, 115, 245, 1); border-radius: 8px;
-  padding: 8px 12px; background: rgba(52,199,89,0.2); margin-bottom: 10px;
+  position: relative; border: 1px dashed rgba(52,199,89,1); border-radius: 8px;
+  padding: 6px; background: rgba(52,199,89,0.2); margin-bottom: 10px;
 }
 #shopify-section-{{ sid }} .cdp-free-badge {
-  position: absolute; top: -12px; right: 10px; background: rgba(148, 115, 245, 1); color: #fff;
+  position: absolute; top: -12px; right: 10px; background: rgba(52,199,89,1); color: #fff;
   font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; line-height: 100%;
   font-weight: 500; padding: 3px 5px; border-radius: 3px; display: flex; align-items: center; gap: 4px;
 }
@@ -290,8 +290,9 @@
   line-height: 20.15px; letter-spacing: -7%; color: rgba(0,0,0,1);
 }
 
-/* BOTTOM IMAGE */
+/* BOTTOM IMAGE + DESC */
 #shopify-section-{{ sid }} .cdp-btm-img { display: none; }
+#shopify-section-{{ sid }} .cdp-btm-desc { display: none; }
 @media (min-width: 769px) {
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
 }
@@ -315,18 +316,22 @@
     scrollbar-width: none; padding-bottom: 0; margin-bottom: 12px; list-style: none; padding-left: 0; margin-top: 0;
   }
   #shopify-section-{{ sid }} .cdp-card-btn {
-    background: rgba(234,221,255,1); border-radius: 6px; overflow: hidden;
-    position: relative; border: unset; cursor: pointer; padding: 5px;
+    background: rgba(234,221,255,1); border-radius: 8px; overflow: hidden;
+    position: relative; border: unset; cursor: pointer; padding: 12px 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
   }
   #shopify-section-{{ sid }} .cdp-card-btn.cdp-active { border-color: unset; background: rgba(71,24,77,1); }
-  #shopify-section-{{ sid }} .cdp-card-text { padding: 8px 0 0; text-align: left; flex-shrink: 0; background: unset; }
-  #shopify-section-{{ sid }} .cdp-card-img-wrap { flex: 0 0 65px; position: relative; overflow: hidden; border-radius: 4px; }
+  #shopify-section-{{ sid }} .cdp-card-img-wrap { display: none; }
+  #shopify-section-{{ sid }} .cdp-card-text { padding: 0; text-align: center; flex-shrink: 0; background: unset; width: 100%; }
   #shopify-section-{{ sid }} .cdp-card-name {
-    font-family: 'Georgia'; font-weight: 400; font-size: 12px; line-height: 15.6px; letter-spacing: -5%; color: rgba(0,0,0,1);
+    font-family: 'Georgia'; font-weight: 700; font-size: 12px; line-height: 15.6px; letter-spacing: -3%; color: rgba(0,0,0,1); display: block;
   }
+  #shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-name { color: rgba(255,255,255,1); }
   #shopify-section-{{ sid }} .cdp-card-note {
-    font-family: 'DM Sans'; font-weight: 400; font-size: 10px; line-height: 14.4px; letter-spacing: -3%; color: rgba(0,0,0,1);
+    font-family: 'DM Sans'; font-weight: 400; font-size: 10px; line-height: 14.4px; letter-spacing: -3%; color: rgba(0,0,0,0.7); display: block; margin-top: 3px;
   }
+  #shopify-section-{{ sid }} .cdp-card-btn.cdp-active .cdp-card-note { color: rgba(255,255,255,0.8); }
   #shopify-section-{{ sid }} .cdp-r-heading { margin: 0; }
   #shopify-section-{{ sid }} .cdp-prod-scroll-wrap { margin: 0px 0 0; border-top: 0; padding-top: 12px; }
   #shopify-section-{{ sid }} .cdp-prod-list,
@@ -351,6 +356,17 @@
   #shopify-section-{{ sid }} .cdp-pprice {
     font-size: 10px; line-height: 100%; letter-spacing: 0;
     padding: 0; margin-top: 0; display: inline;
+  }
+  #shopify-section-{{ sid }} .cdp-btm-desc {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15.4px;
+    letter-spacing: -0.04em;
+    color: rgba(0,0,0,1);
+    margin: 0 0 8px;
+    padding: 0;
   }
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; margin-top: 0; }
   #shopify-section-{{ sid }} .cdp-total { margin-top: 8px; }
@@ -744,9 +760,16 @@
 
             </div>
 
-            {%- if outer_block.settings.bottom_image != blank -%}
-              <div class="cdp-btm-img">
-                {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
+            {%- if outer_block.settings.btm_desc != blank or outer_block.settings.bottom_image != blank -%}
+              <div class="cdp-btm-img-wrap">
+                {%- if outer_block.settings.btm_desc != blank -%}
+                  <p class="cdp-btm-desc">{{ outer_block.settings.btm_desc }}</p>
+                {%- endif -%}
+                {%- if outer_block.settings.bottom_image != blank -%}
+                  <div class="cdp-btm-img">
+                    {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
+                  </div>
+                {%- endif -%}
               </div>
             {%- endif -%}
 
@@ -877,7 +900,8 @@
         { "type": "richtext",     "id": "gifts_label",   "label": "Gifts label",   "default": "<p>6 items + 2 Free Gifts worth $69</p>" },
         { "type": "text",         "id": "kitprice",      "label": "Kit price (e.g. $280)", "default": "$280" },
         { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns (1fr 1fr)", "default": false, "info": "Unchecked = 1 column. Checked = 2 columns side by side. Works on desktop. Mobile always shows horizontal scroll." },
-        { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image (shows on both mobile and desktop)" }
+        { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image (shows on both mobile and desktop)" },
+        { "type": "textarea",     "id": "btm_desc",      "label": "Description above bottom image (Mobile only)" }
       ]
     },
     {
