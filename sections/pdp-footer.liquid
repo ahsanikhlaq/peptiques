@@ -21,6 +21,7 @@
 /* ── SECTION ── */
 #shopify-section-{{ sid }} .pf-section {
   background-color: {{ s.bg_color | default: '#47184d' }};
+  overflow: hidden;
   color: {{ s.text_color | default: '#ffffff' }};
   {% if s.bg_image_desktop != blank %}
     background-image: url({{ s.bg_image_desktop | image_url: width: 2400 }});
