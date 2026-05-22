@@ -170,9 +170,19 @@
     transition: background 160ms ease, transform 160ms ease;
     color: #ffffff;
   }
+
+  /* ✅ Button colors CSS se — Customizer colors yahan apply honge */
+  #shopify-section-{{ sid }} #ps-prev-{{ sid }} {
+    background: {{ s.nav_prev_background | default: '#bba0d4' }};
+  }
+  #shopify-section-{{ sid }} #ps-next-{{ sid }} {
+    background: {{ s.nav_next_background | default: '#3f1c5c' }};
+  }
+
   #shopify-section-{{ sid }} .ps-nav-btn:hover { transform: translateY(-2px); }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
-  #shopify-section-{{ sid }} .ps-nav-btn.ps-nav-disabled {
+  #shopify-section-{{ sid }} .ps-nav-btn.swiper-button-disabled {
+    opacity: 0.4;
     cursor: not-allowed;
     transform: none;
   }
@@ -329,7 +339,7 @@
     navigation: {
       prevEl: '#ps-prev-' + sid,
       nextEl: '#ps-next-' + sid,
-      disabledClass: 'ps-nav-disabled',
+      disabledClass: 'swiper-button-disabled',
     },
     breakpoints: {
       0: {
