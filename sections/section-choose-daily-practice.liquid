@@ -303,12 +303,13 @@
 }
 
 /* BOTTOM IMAGE + DESC */
-#shopify-section-{{ sid }} .cdp-btm-img { display: none; }
+#shopify-section-{{ sid }} .cdp-btm-wrap { display: none; }
+#shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
+#shopify-section-{{ sid }} .cdp-btm-img img { width: 100%; height: auto; display: block; }
 #shopify-section-{{ sid }} .cdp-btm-desc { display: none; }
 @media (min-width: 769px) {
-  #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; }
+  #shopify-section-{{ sid }} .cdp-btm-wrap { display: block; }
 }
-#shopify-section-{{ sid }} .cdp-btm-img img { width: 100%; height: auto; display: block; }
 
 /* MOBILE OVERRIDES */
 @media (max-width: 768px) {
@@ -349,6 +350,7 @@
     padding: 0; margin-top: 0; display: inline;
   }
   /* Mobile desc above bottom image */
+  #shopify-section-{{ sid }} .cdp-btm-wrap { display: flex; flex-direction: column; gap: 8px; margin-top: 0; }
   #shopify-section-{{ sid }} .cdp-btm-desc {
     display: block;
     font-family: 'Inter', system-ui, sans-serif;
@@ -357,7 +359,7 @@
     line-height: 15.4px;
     letter-spacing: -0.04em;
     color: rgba(0,0,0,1);
-    margin: 0 0 8px;
+    margin: 0;
   }
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; margin-top: 0; }
   #shopify-section-{{ sid }} .cdp-total { margin-top: 8px; }
@@ -384,13 +386,6 @@
   }
   #shopify-section-{{ sid }} .cdp-free-list { margin: 10px 0 0; }
   #shopify-section-{{ sid }} .cdp-free-body { flex-direction: column; align-items: start; gap: 8px; }
-  #shopify-section-{{ sid }} .cdp-tabs-m {
-    padding: 4px;
-    border-radius: 8px;
-  }
-  #shopify-section-{{ sid }} .cdp-card-btn{
-    padding: 8px;
-  }
 }
 
 /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
@@ -656,14 +651,16 @@
             </div>
 
             {%- if outer_block.settings.btm_desc != blank or outer_block.settings.bottom_image != blank -%}
-              {%- if outer_block.settings.btm_desc != blank -%}
-                <p class="cdp-btm-desc">{{ outer_block.settings.btm_desc }}</p>
-              {%- endif -%}
-              {%- if outer_block.settings.bottom_image != blank -%}
-                <div class="cdp-btm-img">
-                  {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
-                </div>
-              {%- endif -%}
+              <div class="cdp-btm-wrap">
+                {%- if outer_block.settings.btm_desc != blank -%}
+                  <p class="cdp-btm-desc">{{ outer_block.settings.btm_desc }}</p>
+                {%- endif -%}
+                {%- if outer_block.settings.bottom_image != blank -%}
+                  <div class="cdp-btm-img">
+                    {{ outer_block.settings.bottom_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: outer_block.settings.tab_title | escape }}
+                  </div>
+                {%- endif -%}
+              </div>
             {%- endif -%}
 
           </div>
