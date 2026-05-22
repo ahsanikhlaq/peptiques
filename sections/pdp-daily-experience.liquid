@@ -217,15 +217,13 @@
     margin: 0 auto;
     max-width: 203px;
   }
-/* Inactive tab icon → grey */
 #shopify-section-{{ sid }} .pe-tab[aria-selected="false"] .pe-tab-icon {
   filter: grayscale(1) opacity(0.45);
   transition: filter 200ms ease;
 }
 
-/* Active tab icon → original color */
 #shopify-section-{{ sid }} .pe-tab[aria-selected="true"] .pe-tab-icon {
-  filter: none;
+  filter: none !important;
   transition: filter 200ms ease;
 }
   /* ─── Mobile overrides ──────────────────────────────────────── */
