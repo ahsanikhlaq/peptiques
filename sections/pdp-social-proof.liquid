@@ -169,15 +169,9 @@
     transition: background 160ms ease, transform 160ms ease;
     color: #ffffff;
   }
-  #shopify-section-{{ sid }} .ps-nav-btn--prev {
-    background: {{ s.nav_prev_background | default: '#bba0d4' }};
-  }
-  #shopify-section-{{ sid }} .ps-nav-btn--next {
-    background: {{ s.nav_next_background | default: '#3f1c5c' }};
-  }
   #shopify-section-{{ sid }} .ps-nav-btn:hover { transform: translateY(-2px); }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
-  #shopify-section-{{ sid }} .ps-nav-btn.swiper-button-disabled {
+  #shopify-section-{{ sid }} .ps-nav-btn.ps-nav-disabled {
     cursor: not-allowed;
     transform: none;
   }
@@ -314,10 +308,10 @@
       </div>
 
       <div class="ps-nav">
-        <button type="button" class="ps-nav-btn ps-nav-btn--prev" id="ps-prev-{{ sid }}" aria-label="Previous review">
+        <button type="button" class="ps-nav-btn" id="ps-prev-{{ sid }}" aria-label="Previous review">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         </button>
-        <button type="button" class="ps-nav-btn ps-nav-btn--next" id="ps-next-{{ sid }}" aria-label="Next review">
+        <button type="button" class="ps-nav-btn" id="ps-next-{{ sid }}" aria-label="Next review">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
@@ -335,6 +329,10 @@
   var PREV_BG = '{{ s.nav_prev_background | default: "#bba0d4" }}';
   var NEXT_BG = '{{ s.nav_next_background | default: "#3f1c5c" }}';
 
+  // Initial colors
+  if (prevBtn) prevBtn.style.background = PREV_BG;
+  if (nextBtn) nextBtn.style.background = NEXT_BG;
+
   var swiper = new Swiper('.ps-swiper-' + sid, {
     slidesPerView: 4,
     spaceBetween: {{ s.review_gap | default: 16 }},
@@ -342,7 +340,7 @@
     navigation: {
       prevEl: prevBtn,
       nextEl: nextBtn,
-      disabledClass: 'swiper-button-disabled',
+      disabledClass: 'ps-nav-disabled',
     },
     breakpoints: {
       0: {
@@ -365,11 +363,13 @@
   function updateNavColors() {
     if (!prevBtn || !nextBtn) return;
     if (swiper.isEnd) {
-      prevBtn.style.background = NEXT_BG;
-      nextBtn.style.background = PREV_BG;
+      // Slides khatam — colors swap
+      prevBtn.style.setProperty('background', NEXT_BG, 'important');
+      nextBtn.style.setProperty('background', PREV_BG, 'important');
     } else {
-      prevBtn.style.background = PREV_BG;
-      nextBtn.style.background = NEXT_BG;
+      // Normal state
+      prevBtn.style.setProperty('background', PREV_BG, 'important');
+      nextBtn.style.setProperty('background', NEXT_BG, 'important');
     }
   }
 
