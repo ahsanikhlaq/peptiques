@@ -359,25 +359,25 @@
     }
   });
 
-  function updateNavColors() {
-    if (!prevBtn || !nextBtn) return;
-    var isStart = swiper.isBeginning;
-    var isEnd   = swiper.isEnd;
+function updateNavColors() {
+  if (!prevBtn || !nextBtn) return;
+  var isStart = swiper.isBeginning;
+  var isEnd   = swiper.isEnd;
 
-    // Normal default colors
+  if (isEnd) {
+    // Aakhri slide pe — colors swap
+    prevBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
+    nextBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
+  } else if (isStart) {
+    // Pehli slide pe — normal colors
     prevBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
     nextBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
-
-    // Jab pehli slide pe → next ko bhi light (prev) color
-    if (isStart) {
-      nextBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
-    }
-
-    // Jab aakhri slide pe → prev ko bhi dark (next) color
-    if (isEnd) {
-      prevBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
-    }
+  } else {
+    // Beech mein — normal colors
+    prevBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
+    nextBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
   }
+}
 
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === sid) {
