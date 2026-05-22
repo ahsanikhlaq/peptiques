@@ -166,20 +166,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 160ms ease, transform 160ms ease, opacity 160ms ease;
-  }
-  #shopify-section-{{ sid }} .ps-nav-btn--prev {
-    background: {{ s.nav_prev_background | default: '#bba0d4' }};
-    color: #ffffff;
-  }
-  #shopify-section-{{ sid }} .ps-nav-btn--next {
-    background: {{ s.nav_next_background | default: '#3f1c5c' }};
-    color: #ffffff;
+    transition: background 160ms ease, transform 160ms ease;
   }
   #shopify-section-{{ sid }} .ps-nav-btn:hover { transform: translateY(-2px); }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
   #shopify-section-{{ sid }} .ps-nav-btn.swiper-button-disabled {
-    opacity: 0.4;
     cursor: not-allowed;
     transform: none;
   }
@@ -316,10 +307,10 @@
       </div>
 
       <div class="ps-nav">
-        <button type="button" class="ps-nav-btn ps-nav-btn--prev" data-ps-prev-{{ sid }} aria-label="Previous review">
+        <button type="button" class="ps-nav-btn ps-nav-btn--prev" id="ps-prev-{{ sid }}" aria-label="Previous review">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         </button>
-        <button type="button" class="ps-nav-btn ps-nav-btn--next" data-ps-next-{{ sid }} aria-label="Next review">
+        <button type="button" class="ps-nav-btn ps-nav-btn--next" id="ps-next-{{ sid }}" aria-label="Next review">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
@@ -330,11 +321,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 <script>
 (function () {
-  var sid = '{{ sid }}';
-  var prevBtn = document.querySelector('[data-ps-prev-' + sid + ']');
-  var nextBtn = document.querySelector('[data-ps-next-' + sid + ']');
-  var PREV_COLOR = '{{ s.nav_prev_background | default: "#bba0d4" }}';
-  var NEXT_COLOR = '{{ s.nav_next_background | default: "#3f1c5c" }}';
+  var sid     = '{{ sid }}';
+  var prevBtn = document.getElementById('ps-prev-' + sid);
+  var nextBtn = document.getElementById('ps-next-' + sid);
+
+  // Yeh colors Shopify settings se aate hain
+  var PREV_COLOR = '{{ s.nav_prev_background | default: "#bba0d4" }}';  // light purple
+  var NEXT_COLOR = '{{ s.nav_next_background | default: "#3f1c5c" }}';  // dark purple
 
   var swiper = new Swiper('.ps-swiper-' + sid, {
     slidesPerView: 4,
@@ -367,10 +360,22 @@
     if (!prevBtn || !nextBtn) return;
     var isStart = swiper.isBeginning;
     var isEnd   = swiper.isEnd;
-    // Jab next end pe ho (disabled) → prev ko next wala color do
-    prevBtn.style.background = isEnd ? NEXT_COLOR : PREV_COLOR;
-    // Jab prev start pe ho (disabled) → next ko prev wala color do
-    nextBtn.style.background = isStart ? PREV_COLOR : NEXT_COLOR;
+
+    // Normal state
+    prevBtn.style.background = PREV_COLOR;  // light
+    nextBtn.style.background = NEXT_COLOR;  // dark
+    prevBtn.style.color = '#ffffff';
+    nextBtn.style.color = '#ffffff';
+
+    // Jab bilkul pehli slide pe (prev disabled) → next ko bhi PREV (light) color
+    if (isStart) {
+      nextBtn.style.background = PREV_COLOR;
+    }
+
+    // Jab bilkul aakhri slide pe (next disabled) → prev ko bhi NEXT (dark) color
+    if (isEnd) {
+      prevBtn.style.background = NEXT_COLOR;
+    }
   }
 
   document.addEventListener('shopify:section:load', function (e) {
