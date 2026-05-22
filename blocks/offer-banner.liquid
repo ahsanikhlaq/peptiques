@@ -1,0 +1,431 @@
+<style>
+.offer-banner{
+        border-radius: 8px;
+    border: 1px solid rgba(71, 24, 77, 0.25);
+    background: var(--9, linear-gradient(90deg, #F5E1FF 0%, #FFF 50%, #F5E1FF 100%));
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+.offer-banner__text{
+    color: var(--Black, #000);
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.42px;
+}
+.offer-banner__item{
+        display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+.offer-banner__icon{
+    display: flex;
+}
+  @media (max-width: 767px) {
+    
+.offer-banner {
+        border-radius: 6px;
+            padding: 8px 12px;
+  }
+  .offer-banner__text {
+    font-size: 13px;
+    letter-spacing: -0.39px;
+}
+.offer-banner__item {
+  gap: 6px;
+}
+.offer-banner__icon {
+    display: flex;
+    width: 20px;
+    height: 20px;
+}
+}
+</style>
+
+
+
+
+
+
+
+{% comment %} /blocks/offer-banner.liquid {% endcomment %}
+
+
+
+
+
+<div class="offer-banner-block" {{ block.shopify_attributes }}>
+  <div class="offer-banner">
+    {% if block.settings.text_1 != blank %}
+      <div class="offer-banner__item">
+        {% if block.settings.icon_1 != blank %}
+          <div class="offer-banner__icon">
+            <img
+              src="{{ block.settings.icon_1 | image_url: width: 60 }}"
+              alt="{{ block.settings.text_1 | escape }}"
+              width="24"
+              height="24"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+        <span class="offer-banner__text">{{ block.settings.text_1 }}</span>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_divider and block.settings.text_1 != blank and block.settings.text_2 != blank %}
+      <div class="offer-banner__divider"></div>
+    {% endif %}
+
+    {% if block.settings.text_2 != blank %}
+      <div class="offer-banner__item">
+        {% if block.settings.icon_2 != blank %}
+          <div class="offer-banner__icon">
+            <img
+              src="{{ block.settings.icon_2 | image_url: width: 60 }}"
+              alt="{{ block.settings.text_2 | escape }}"
+              width="24"
+              height="24"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+        <span class="offer-banner__text">{{ block.settings.text_2 }}</span>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }} .offer-banner-block {
+    width: 100%;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px;
+  }
+
+  .section-{{ section.id }} .offer-banner {
+    display: flex;
+    align-items: center;
+    justify-content: {{ block.settings.content_align }};
+    gap: {{ block.settings.gap }}px;
+    padding: {{ block.settings.padding_y }}px {{ block.settings.padding_x }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    background: {{ block.settings.bg_color }};
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .offer-banner__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: {{ block.settings.equal_width }};
+  }
+
+  .section-{{ section.id }} .offer-banner__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+  }
+
+  .section-{{ section.id }} .offer-banner__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .section-{{ section.id }} .offer-banner__text {
+    color: {{ block.settings.text_color }};
+    font-family: 'DM Sans', sans-serif;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    line-height: 1.3;
+  }
+
+  .section-{{ section.id }} .offer-banner__divider {
+    width: 1px;
+    height: 24px;
+    background: {{ block.settings.divider_color }};
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }} .offer-banner {
+      padding: {{ block.settings.mobile_padding_y }}px {{ block.settings.mobile_padding_x }}px;
+      gap: {{ block.settings.mobile_gap }}px;
+      flex-wrap: {{ block.settings.mobile_wrap }};
+    }
+
+    .section-{{ section.id }} .offer-banner__text {
+      font-size: {{ block.settings.mobile_font_size }}px;
+    }
+
+    {% if block.settings.mobile_wrap == 'wrap' %}
+      .section-{{ section.id }} .offer-banner__divider {
+        display: none;
+      }
+    {% endif %}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Offer Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_1",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text",
+      "default": "Choose your offer"
+    },
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_2",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text",
+      "default": "Free shipping on all bundles"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Content alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "space-between", "label": "Space between (edges)" },
+        { "value": "space-around", "label": "Space around" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "space-between"
+    },
+    {
+      "type": "select",
+      "id": "equal_width",
+      "label": "Item width",
+      "options": [
+        { "value": "0 0 auto", "label": "Auto (fit content)" },
+        { "value": "1", "label": "Equal (split 50/50)" }
+      ],
+      "default": "0 0 auto"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between items",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider between items",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#D4B8E0"
+    },
+    {
+      "type": "header",
+      "content": "Banner Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#F5E1FF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E5D4ED"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding (desktop)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_x",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding (mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_y",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding (mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap (mobile)",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "mobile_wrap",
+      "label": "Mobile behavior",
+      "options": [
+        { "value": "nowrap", "label": "Keep in one row" },
+        { "value": "wrap", "label": "Stack on small screens" }
+      ],
+      "default": "nowrap"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (mobile)",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Offer Banner"
+    }
+  ]
+}
+{% endschema %}
