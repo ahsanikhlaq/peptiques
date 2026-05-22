@@ -356,10 +356,10 @@
         spaceBetween: {{ s.review_gap | default: 16 }}
       }
     },
-    on: {
+    {% comment %} on: {
       init:        updateNavColors,
       slideChange: updateNavColors,
-    }
+    } {% endcomment %}
   });
 
   {% comment %} function updateNavColors() {
