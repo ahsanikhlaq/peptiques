@@ -332,6 +332,9 @@
   var prevBtn = document.getElementById('ps-prev-' + sid);
   var nextBtn = document.getElementById('ps-next-' + sid);
 
+  var PREV_BG = '{{ s.nav_prev_background | default: "#bba0d4" }}';
+  var NEXT_BG = '{{ s.nav_next_background | default: "#3f1c5c" }}';
+
   var swiper = new Swiper('.ps-swiper-' + sid, {
     slidesPerView: 4,
     spaceBetween: {{ s.review_gap | default: 16 }},
@@ -354,30 +357,21 @@
       }
     },
     on: {
-      init: updateNavColors,
+      init:        updateNavColors,
       slideChange: updateNavColors,
     }
   });
 
-function updateNavColors() {
-  if (!prevBtn || !nextBtn) return;
-  var isStart = swiper.isBeginning;
-  var isEnd   = swiper.isEnd;
-
-  if (isEnd) {
-    // Aakhri slide pe — colors swap
-    prevBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
-    nextBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
-  } else if (isStart) {
-    // Pehli slide pe — normal colors
-    prevBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
-    nextBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
-  } else {
-    // Beech mein — normal colors
-    prevBtn.style.background = '{{ s.nav_prev_background | default: "#bba0d4" }}';
-    nextBtn.style.background = '{{ s.nav_next_background | default: "#3f1c5c" }}';
+  function updateNavColors() {
+    if (!prevBtn || !nextBtn) return;
+    if (swiper.isEnd) {
+      prevBtn.style.background = NEXT_BG;
+      nextBtn.style.background = PREV_BG;
+    } else {
+      prevBtn.style.background = PREV_BG;
+      nextBtn.style.background = NEXT_BG;
+    }
   }
-}
 
   document.addEventListener('shopify:section:load', function (e) {
     if (e.detail && e.detail.sectionId === sid) {
