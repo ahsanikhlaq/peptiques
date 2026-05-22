@@ -322,7 +322,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 <script>
-{% comment %} (function () {
+(function () {
   var sid     = '{{ sid }}';
   var prevBtn = document.getElementById('ps-prev-' + sid);
   var nextBtn = document.getElementById('ps-next-' + sid);
@@ -330,11 +330,10 @@
   var PREV_BG = '{{ s.nav_prev_background | default: "#bba0d4" }}';
   var NEXT_BG = '{{ s.nav_next_background | default: "#3f1c5c" }}';
 
-  // Initial colors
   if (prevBtn) prevBtn.style.background = PREV_BG;
-  if (nextBtn) nextBtn.style.background = NEXT_BG; {% endcomment %}
+  if (nextBtn) nextBtn.style.background = NEXT_BG;
 
-  var swiper = new Swiper('.ps-swiper-{{ sid }}, {
+  var swiper = new Swiper('.ps-swiper-' + sid, {
     slidesPerView: 4,
     spaceBetween: {{ s.review_gap | default: 16 }},
     centeredSlides: false,
@@ -356,20 +355,18 @@
         spaceBetween: {{ s.review_gap | default: 16 }}
       }
     },
-    {% comment %} on: {
+    on: {
       init:        updateNavColors,
       slideChange: updateNavColors,
-    } {% endcomment %}
+    }
   });
 
-  {% comment %} function updateNavColors() {
+  function updateNavColors() {
     if (!prevBtn || !nextBtn) return;
     if (swiper.isEnd) {
-      // Slides khatam — colors swap
       prevBtn.style.setProperty('background', NEXT_BG, 'important');
       nextBtn.style.setProperty('background', PREV_BG, 'important');
     } else {
-      // Normal state
       prevBtn.style.setProperty('background', PREV_BG, 'important');
       nextBtn.style.setProperty('background', NEXT_BG, 'important');
     }
@@ -381,7 +378,27 @@
       updateNavColors();
     }
   });
-})(); {% endcomment %}
+
+  /* ── Scroll animations ── */
+  var section = document.getElementById('shopify-section-' + sid);
+  if (section && 'IntersectionObserver' in window) {
+    section.classList.add('pb-js');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var delay = parseInt(entry.target.dataset.pbDelay || 0, 10);
+          setTimeout(function () {
+            entry.target.classList.add('pb-visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    section.querySelectorAll('[data-pb-anim]').forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+})();
 </script>
 
 {% schema %}
