@@ -47,7 +47,7 @@
   }
 
   /* ── Card ─────────────────────────────────────────────────────── */
-  #shopify-section-{{ sid }} .pb-card {
+#shopify-section-{{ sid }} .pb-card {
     max-width: 100%;
     margin-inline: auto;
     border-radius: {{ s.card_radius | default: 0 }}px;
@@ -74,6 +74,11 @@
         background-image:
           linear-gradient({{ s.overlay_color | default: '#2a1442' }}cc, {{ s.overlay_color | default: '#2a1442' }}cc),
           url({{ bg_image | image_url: width: 1800 }});
+      {% else %}
+        background-image:
+          radial-gradient(ellipse 80% 60% at 85% 30%, rgba(255,255,255,0.10), transparent 60%),
+          radial-gradient(ellipse 70% 50% at 10% 85%, rgba(255,255,255,0.06), transparent 65%),
+          linear-gradient(135deg, {{ s.gradient_from | default: '#5a2a78' }} 0%, {{ s.card_background | default: '#3f1c5c' }} 55%, {{ s.gradient_to | default: '#2a1442' }} 100%);
       {% endif %}
     }
   }
