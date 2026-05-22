@@ -322,7 +322,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 <script>
-(function () {
+{% comment %} (function () {
   var sid     = '{{ sid }}';
   var prevBtn = document.getElementById('ps-prev-' + sid);
   var nextBtn = document.getElementById('ps-next-' + sid);
@@ -332,7 +332,7 @@
 
   // Initial colors
   if (prevBtn) prevBtn.style.background = PREV_BG;
-  if (nextBtn) nextBtn.style.background = NEXT_BG;
+  if (nextBtn) nextBtn.style.background = NEXT_BG; {% endcomment %}
 
   var swiper = new Swiper('.ps-swiper-' + sid, {
     slidesPerView: 4,
@@ -362,7 +362,7 @@
     }
   });
 
-  function updateNavColors() {
+  {% comment %} function updateNavColors() {
     if (!prevBtn || !nextBtn) return;
     if (swiper.isEnd) {
       // Slides khatam — colors swap
@@ -381,7 +381,7 @@
       updateNavColors();
     }
   });
-})();
+})(); {% endcomment %}
 </script>
 
 {% schema %}
