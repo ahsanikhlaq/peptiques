@@ -2963,7 +2963,7 @@
           "type": "phase",
           "settings": {
             "tab_label": "Evening",
-            "icon_image": "shopify://shop_images/Component_318_1.svg",
+            "icon_image": "shopify://shop_images/Component_317.svg",
             "icon_color": "rgba(0,0,0,0)",
             "tab_active_border": "#e1dcf4",
             "pill_richtext": "<p>Take 1 capsule with water <strong>before bed.</strong></p>",
