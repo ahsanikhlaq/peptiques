@@ -335,9 +335,8 @@
   if (nextBtn) nextBtn.style.background = NEXT_BG;
 
   var swiper = new Swiper('.ps-swiper-' + sid, {
-    slidesPerView: 4,
+    // ⚠️ DO NOT set centeredSlides here — let breakpoints control it
     spaceBetween: {{ s.review_gap | default: 16 }},
-    centeredSlides: false,
     navigation: {
       prevEl: prevBtn,
       nextEl: nextBtn,
@@ -346,29 +345,33 @@
     breakpoints: {
       0: {
         slidesPerView: 1.2,
-        centeredSlides: true,
+        centeredSlides: true,   // ✅ mobile: centered
         spaceBetween: 12
       },
       1024: {
         slidesPerView: {{ s.reviews_per_view | default: 4 }},
-        centeredSlides: false,
+        centeredSlides: false,  // ✅ desktop: normal
         spaceBetween: {{ s.review_gap | default: 16 }}
       }
     },
     on: {
-      init:        updateNavColors,
-      slideChange: updateNavColors,
+      init:            updateNavColors,
+      slideChange:     updateNavColors,
+      reachEnd:        updateNavColors,   // ✅ fires when last slide reached
+      reachBeginning:  updateNavColors,   // ✅ fires when back to first slide
+      fromEdge:        updateNavColors,   // ✅ fires when leaving an edge
     }
   });
 
   function updateNavColors() {
     if (!prevBtn || !nextBtn) return;
+
     if (swiper.isEnd) {
-      // Slides khatam — colors swap
+      // Last slide — next is disabled, swap colors
       prevBtn.style.setProperty('background', NEXT_BG, 'important');
       nextBtn.style.setProperty('background', PREV_BG, 'important');
     } else {
-      // Normal state
+      // Normal / beginning — original colors
       prevBtn.style.setProperty('background', PREV_BG, 'important');
       nextBtn.style.setProperty('background', NEXT_BG, 'important');
     }
