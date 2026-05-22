@@ -41,6 +41,7 @@
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.heading_color | default: '#ffffff' }};
     position: relative;
+    overflow: hidden;
 
     {% if mobile_bg_image != blank %}
       background: url('{{ mobile_bg_image | image_url: width: 1200 }}') center center / cover no-repeat;
