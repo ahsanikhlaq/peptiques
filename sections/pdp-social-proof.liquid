@@ -167,18 +167,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 160ms ease, transform 160ms ease, opacity 160ms ease;
+    transition: background 160ms ease, transform 160ms ease;
     color: #ffffff;
   }
   #shopify-section-{{ sid }} .ps-nav-btn:hover { transform: translateY(-2px); }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
   #shopify-section-{{ sid }} .ps-nav-btn.ps-nav-disabled {
     cursor: not-allowed;
-    transform: none;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  #shopify-section-{{ sid }} .ps-nav-btn.ps-nav-disabled:hover {
     transform: none;
   }
   #shopify-section-{{ sid }} .ps-nav-btn svg { width: 19px; height: 19px; }
@@ -335,12 +330,14 @@
   var PREV_BG = '{{ s.nav_prev_background | default: "#bba0d4" }}';
   var NEXT_BG = '{{ s.nav_next_background | default: "#3f1c5c" }}';
 
+  // Initial colors
+  if (prevBtn) prevBtn.style.background = PREV_BG;
+  if (nextBtn) nextBtn.style.background = NEXT_BG;
+
   var swiper = new Swiper('.ps-swiper-' + sid, {
-    slidesPerView: {{ s.reviews_per_view | default: 4 }},
+    slidesPerView: 4,
     spaceBetween: {{ s.review_gap | default: 16 }},
     centeredSlides: false,
-    loop: false,
-    watchOverflow: true,
     navigation: {
       prevEl: prevBtn,
       nextEl: nextBtn,
@@ -348,44 +345,32 @@
     },
     breakpoints: {
       0: {
-        slidesPerView: 1.15,
+        slidesPerView: 1.2,
         centeredSlides: true,
-        spaceBetween: 12,
-        loop: false
+        spaceBetween: 12
       },
       1024: {
         slidesPerView: {{ s.reviews_per_view | default: 4 }},
         centeredSlides: false,
-        spaceBetween: {{ s.review_gap | default: 16 }},
-        loop: false
+        spaceBetween: {{ s.review_gap | default: 16 }}
       }
     },
     on: {
-      init:           updateNavColors,
-      slideChange:    updateNavColors,
-      reachEnd:       updateNavColors,
-      reachBeginning: updateNavColors,
-      fromEdge:       updateNavColors,
-      resize:         updateNavColors,
-      breakpoint:     updateNavColors,
+      init:        updateNavColors,
+      slideChange: updateNavColors,
     }
   });
 
   function updateNavColors() {
     if (!prevBtn || !nextBtn) return;
-
-    // Clear inline backgrounds first so the disabled class can take effect
-    prevBtn.style.background = '';
-    nextBtn.style.background = '';
-
-    if (swiper.isEnd && !swiper.isBeginning) {
-      // Next is disabled — swap colors
-      prevBtn.style.background = NEXT_BG;
-      nextBtn.style.background = PREV_BG;
+    if (swiper.isEnd) {
+      // Slides khatam — colors swap
+      prevBtn.style.setProperty('background', NEXT_BG, 'important');
+      nextBtn.style.setProperty('background', PREV_BG, 'important');
     } else {
-      // Normal state (or at beginning)
-      prevBtn.style.background = PREV_BG;
-      nextBtn.style.background = NEXT_BG;
+      // Normal state
+      prevBtn.style.setProperty('background', PREV_BG, 'important');
+      nextBtn.style.setProperty('background', NEXT_BG, 'important');
     }
   }
 
