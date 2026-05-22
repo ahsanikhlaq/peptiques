@@ -16,10 +16,7 @@
 
 <style>
   #shopify-section-{{ sid }} .pe-section {
-    background: linear-gradient(90deg,
-      var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#FFFFE1' }}) 0%,
-      #FFFFFF 50%,
-      var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#FFFFE1' }}) 100%);
+        background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%);
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.text_color | default: '#000000' }};
     transition: background 400ms ease;
