@@ -1,0 +1,179 @@
+{% comment %} /blocks/info-bar.liquid {% endcomment %}
+
+<div class="info-bar-block" {{ block.shopify_attributes }}>
+  <div class="info-bar__inner">
+
+    {% if block.settings.item_1_text != blank %}
+      <div class="info-bar__item">
+        {% if block.settings.item_1_icon != blank %}
+          <span class="info-bar__icon">
+            {{ block.settings.item_1_icon }}
+          </span>
+        {% endif %}
+        <span class="info-bar__text">{{ block.settings.item_1_text }}</span>
+      </div>
+    {% endif %}
+
+    {% if block.settings.item_1_text != blank and block.settings.item_2_text != blank %}
+      <span class="info-bar__divider" aria-hidden="true">|</span>
+    {% endif %}
+
+    {% if block.settings.item_2_text != blank %}
+      <div class="info-bar__item">
+        {% if block.settings.item_2_icon != blank %}
+          <span class="info-bar__icon">
+            {{ block.settings.item_2_icon }}
+          </span>
+        {% endif %}
+        <span class="info-bar__text">{{ block.settings.item_2_text }}</span>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+  .info-bar-block {
+    width: 100%;
+    margin: 0px 0 16px 0px;
+  }
+
+  .info-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .info-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: {{ block.settings.text_color }};
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
+
+  .info-bar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .info-bar__icon svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  .info-bar__divider {
+    color: {{ block.settings.divider_color }};
+    font-size: 14px;
+    font-weight: 400;
+    user-select: none;
+  }
+  .info-bar__text{
+    color: var(--Black, #000);
+    font-family: 'DM Sans';
+    font-size: 14.2px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.43px;
+}
+  @media screen and (max-width: 749px) {
+    .info-bar__inner {
+      gap: 10px;
+    }
+
+    .info-bar__item {
+      font-size: 11px;
+      gap: 6px;
+      letter-spacing: -0.22px;
+    }
+
+    .info-bar__icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .info-bar__divider {
+      font-size: 12px;
+    }
+    .info-bar__inner {
+        gap: 4px;
+    }
+    .info-bar__text {
+        font-size: 13px;
+    color: var(--Black, #000);
+    font-family: "DM Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.39px;
+    }
+    .info-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Info Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
+    {
+      "type": "html",
+      "id": "item_1_icon",
+      "label": "Icon (SVG)",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'><circle cx='9' cy='9' r='8' stroke='currentColor' stroke-width='1.2'/><rect x='6.5' y='6' width='1.5' height='6' fill='currentColor'/><rect x='10' y='6' width='1.5' height='6' fill='currentColor'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "item_1_text",
+      "label": "Text",
+      "default": "Stop or Cancel Anytime"
+    },
+
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "html",
+      "id": "item_2_icon",
+      "label": "Icon (SVG)",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'><path d='M2.25 9C2.25 5.27 5.27 2.25 9 2.25c2.07 0 3.93.93 5.18 2.4M15.75 9c0 3.73-3.02 6.75-6.75 6.75-2.07 0-3.93-.93-5.18-2.4' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><path d='M14.25 2.25v3h-3M3.75 15.75v-3h3' stroke='currentColor' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "item_2_text",
+      "label": "Text",
+      "default": "Haritaki Refills Ship Every 30 days"
+    },
+
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#47184D" },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#47184D" },
+    { "type": "color", "id": "divider_color", "label": "Divider color", "default": "#47184D" }
+  ],
+  "presets": [
+    { "name": "Info Bar" }
+  ]
+}
+{% endschema %}
