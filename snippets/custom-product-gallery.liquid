@@ -1,0 +1,142 @@
+{% comment %} /snippets/custom-product-gallery.liquid {% endcomment %}
+
+
+<style>
+.pg-wrap .swiper-slide{
+    border-radius: 8px;
+border: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+.pg-wrap .swiper-slide img{
+    border-radius: 8px;
+}
+.pg-thumbs{
+    margin-top: 8px;
+}
+.pg-thumbs .swiper-slide{
+     border-radius: 6px;
+     border: none !important;
+}
+.pg-thumbs  .swiper-slide-thumb-active{
+    border-radius: 6px;
+    border: 0.5px solid var(--Primary-2, #47184D) !important;
+}
+.pg-thumbs .swiper-slide{
+     border-radius: 6px;
+}
+.pg-thumbs .swiper-slide img{
+    border-radius: 6px; 
+}
+
+@media screen and (max-width: 749px) {
+  .pg-thumbs{
+    display: none !important;
+  }
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+<div class="media-gallery-grid">
+  <div class="pg-wrap">
+    <div class="swiper pg-main" id="pgMain-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' -%}
+            <div class="swiper-slide">
+              <img
+                src="{{ media | img_url: '800x800', crop: 'center' }}"
+                alt="{{ media.alt | escape | default: product.title }}"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+              >
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {% comment %} <div class="dental-slide cs-prev cs-prev-{{ section.id }}">
+        {% render 'gallery-prev' %}
+      </div>
+      <div class="dental-slide cs-next cs-next-{{ section.id }}">
+        {% render 'gallery-next' %}
+      </div> {% endcomment %}
+    </div>
+
+    <div class="swiper pg-thumbs" id="pgThumbs-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' -%}
+            <div class="swiper-slide">
+              <img
+                src="{{ media | img_url: '160x160', crop: 'center' }}"
+                alt="{{ media.alt | escape | default: product.title }}"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    function initCustomGallery() {
+      if (typeof Swiper === 'undefined') {
+        return setTimeout(initCustomGallery, 100);
+      }
+
+      var thumbsEl = document.getElementById('pgThumbs-{{ section.id }}');
+      var mainEl = document.getElementById('pgMain-{{ section.id }}');
+
+      if (!thumbsEl || !mainEl) return;
+      if (mainEl.dataset.swiperInit === 'true') return;
+      mainEl.dataset.swiperInit = 'true';
+
+      var thumbs = new Swiper(thumbsEl, {
+        slidesPerView: 5,
+        watchSlidesProgress: true,
+        slideToClickedSlide: true,
+        speed: 1000,
+        breakpoints: {
+          0:   { spaceBetween: 16 },
+          768: { spaceBetween: 16 }
+        }
+      });
+
+      new Swiper(mainEl, {
+        spaceBetween: 0,
+        speed: 1000,
+        thumbs: { swiper: thumbs },
+        navigation: {
+          nextEl: '.cs-next-{{ section.id }}',
+          prevEl: '.cs-prev-{{ section.id }}'
+        },
+         breakpoints: {
+          0:   {
+            slidesPerView: 1.1,
+             spaceBetween: 4 
+
+            },
+          768: {  slidesPerView: 1, spaceBetween: 0 }
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCustomGallery);
+    } else {
+      initCustomGallery();
+    }
+
+    document.addEventListener('shopify:section:load', function (e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        var mainEl = document.getElementById('pgMain-{{ section.id }}');
+        if (mainEl) mainEl.dataset.swiperInit = '';
+        initCustomGallery();
+      }
+    });
+  })();
+</script>
