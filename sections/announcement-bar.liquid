@@ -4,11 +4,42 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
-  @media screen and (min-width: 750px) {
+  .announcement-bar{
+        border-bottom: var(--stroke-weight-1, 1px) solid var(--color-rose-3125, rgba(139, 21, 56, 0.25));
+    background: var(--Primary-2, #47184D);
+    padding: 11px;
+  }
+    .announcement-bar span{
+      color: var(--white, #FFF);
+    font-family: 'DM Sans';
+    font-size: 10.5px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 10.5px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    }
+    .announcement-bar img{
+    width: auto;
+    height: auto;
+    }
+
+  @media screen and (max-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+
+    .announcement-bar span {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 10.5px;
+    letter-spacing: 0px;
+}
+.announcement-bar {
+  padding: 8px;
+}
   }
 
   .announcement-bar-{{ section.id }}.color-custom {
