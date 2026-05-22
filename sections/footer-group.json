@@ -93,7 +93,7 @@
           "type": "social_link",
           "settings": {
             "label": "Facebook",
-            "url": "https://facebook.com/",
+            "url": "https://www.facebook.com/profile.php?id=61584904350525",
             "icon_image": "shopify://shop_images/Group_1739331837.svg"
           }
         },
@@ -101,7 +101,7 @@
           "type": "social_link",
           "settings": {
             "label": "Tik Tok",
-            "url": "https://www.tiktok.com/",
+            "url": "https://www.tiktok.com/@yogi.wisdom",
             "icon_image": "shopify://shop_images/icon.svg_-_2026-05-11T180333.466_1.svg"
           }
         }
@@ -117,7 +117,6 @@
       "settings": {
         "bg_color": "#47184d",
         "text_color": "#ffffff",
-        "submit_bg_desktop": "#1a0a2e",
         "bg_image_desktop": "shopify://shop_images/Component_236.webp",
         "bg_image_mobile": "shopify://shop_images/Group_48096230_png.webp",
         "logo_image": "shopify://shop_images/Frame_2147242893_4.webp",
