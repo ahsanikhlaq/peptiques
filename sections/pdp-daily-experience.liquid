@@ -16,7 +16,10 @@
 
 <style>
   #shopify-section-{{ sid }} .pe-section {
-    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%);
+    background: linear-gradient(90deg,
+      var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#FFFFE1' }}) 0%,
+      #FFFFFF 50%,
+      var(--pe-bg-{{ sid }}, {{ s.fallback_background | default: '#FFFFE1' }}) 100%);
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     color: {{ s.text_color | default: '#000000' }};
     transition: background 400ms ease;
@@ -76,7 +79,10 @@
     transition: background 200ms ease, border-color 200ms ease;
   }
   #shopify-section-{{ sid }} .pe-tab[aria-selected="true"] {
-    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%);
+    background: linear-gradient(90deg,
+      var(--pe-tab-bg-{{ sid }}, #FFFFE1) 0%,
+      #FFFFFF 50%,
+      var(--pe-tab-bg-{{ sid }}, #FFFFE1) 100%);
     border-color: var(--pe-tab-border-{{ sid }}, #FFCE2F);
   }
   #shopify-section-{{ sid }} .pe-tab-icon {
@@ -87,7 +93,10 @@
 
   /* ── Pill (richtext) ── */
   #shopify-section-{{ sid }} .pe-pill {
-    background: linear-gradient(90deg, #FFFFE1 0%, #FFFFFF 50%, #FFFFE1 100%) !important;
+    background: linear-gradient(90deg,
+      var(--pe-pill-bg-{{ sid }}, #FFFFE1) 0%,
+      #FFFFFF 50%,
+      var(--pe-pill-bg-{{ sid }}, #FFFFE1) 100%) !important;
     color: #000000;
     border-radius: 0;
     padding: 6px 12px;
@@ -264,14 +273,7 @@
     }
   }
 
-  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════
-     Heading  → fade up (scroll trigger via theme.liquid JS)
-     Tabs row → fade up, slight delay
-     Panel    → CSS keyframe fires every time a tab activates
-                (works on page load AND on tab switch)
-  ═════════════════════════════════════════════════════════════ */
-
-  /* 1 ── Scroll-trigger system (heading + tabs) */
+  /* ══ SCROLL ANIMATIONS ════════════════════════════════════════ */
   #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
     opacity: 0;
     will-change: opacity, transform;
@@ -279,16 +281,11 @@
                 transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
   #shopify-section-{{ sid }}.pb-js [data-pb-anim="up"]   { transform: translateY(28px); }
-  #shopify-section-{{ sid }}.pb-js [data-pb-anim="scale"] {
-    transform: scale(0.96) translateY(10px);
-  }
+  #shopify-section-{{ sid }}.pb-js [data-pb-anim="scale"] { transform: scale(0.96) translateY(10px); }
   #shopify-section-{{ sid }}.pb-js [data-pb-anim].pb-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    will-change: auto;
+    opacity: 1; transform: translateY(0) scale(1); will-change: auto;
   }
 
-  /* 2 ── Panel keyframe — fires on every tab activate */
   @keyframes pe-panel-in-{{ sid }} {
     0%   { opacity: 0; transform: translateY(18px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -297,7 +294,6 @@
     animation: pe-panel-in-{{ sid }} 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  /* 3 ── Stat card subtle scale-in inside the panel */
   @keyframes pe-stat-in-{{ sid }} {
     0%   { opacity: 0; transform: scale(0.92) translateY(12px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -306,7 +302,6 @@
     animation: pe-stat-in-{{ sid }} 0.65s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  /* 4 ── Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ sid }}.pb-js [data-pb-anim] {
       opacity: 1 !important; transform: none !important; transition: none !important;
@@ -371,7 +366,7 @@
           <div class="pe-panel" role="tabpanel" data-pe-panel="{{ forloop.index }}" data-pe-active="{% if forloop.first %}true{% else %}false{% endif %}">
             <div class="main-pepill-peprotip">
               {%- if block.settings.pill_richtext != blank -%}
-                <div class="pe-pill" style="background: {{ block.settings.pill_bg | default: '#fff2a0' }};">
+                <div class="pe-pill">
                   {{ block.settings.pill_richtext }}
                 </div>
               {%- endif -%}
@@ -449,9 +444,13 @@
   function apply(tab) {
     var idx       = tab.getAttribute('data-pe-tab');
     var bg        = tab.getAttribute('data-pe-bg');
+    var pillBg    = tab.getAttribute('data-pe-pill-bg');
+    var tabBg     = tab.getAttribute('data-pe-tab-bg');
     var tabBorder = tab.getAttribute('data-pe-tab-border');
 
     if (bg)        sec.style.setProperty('--pe-bg-{{ sid }}', bg);
+    if (pillBg)    sec.style.setProperty('--pe-pill-bg-{{ sid }}', pillBg);
+    if (tabBg)     sec.style.setProperty('--pe-tab-bg-{{ sid }}', tabBg);
     if (tabBorder) sec.style.setProperty('--pe-tab-border-{{ sid }}', tabBorder);
 
     tabs.forEach(function (t) {
