@@ -258,6 +258,13 @@
   font-family: 'DM Sans'; font-weight: 500; font-size: 13.8px; line-height: 15.4px;
   letter-spacing: -5%; display: block; color: rgba(0,0,0,0.6); max-width: 114px;
 }
+#shopify-section-{{ sid }} .cdp-pprice-wrap {
+  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; white-space: nowrap;
+}
+#shopify-section-{{ sid }} .cdp-pprice-compare {
+  font-family: 'DM Sans'; font-weight: 400; font-size: 11px; line-height: 100%;
+  color: #9c5fa8; text-decoration: line-through; padding: 4px 0;
+}
 #shopify-section-{{ sid }} .cdp-pprice {
   font-family: 'DM Sans'; font-weight: 500; font-size: 11.9px; line-height: 100%;
   letter-spacing: -3%; color: rgba(0,0,0,1); white-space: nowrap; flex-shrink: 0;
@@ -338,9 +345,11 @@
     max-width: 100%; display: -webkit-box; -webkit-line-clamp: 2;
     -webkit-box-orient: vertical; overflow: hidden;
   }
+  #shopify-section-{{ sid }} .cdp-pprice-wrap { flex-direction: column; align-items: flex-start; gap: 2px; }
+  #shopify-section-{{ sid }} .cdp-pprice-compare { font-size: 9px; padding: 0; }
   #shopify-section-{{ sid }} .cdp-pprice {
     font-size: 10px; line-height: 100%; letter-spacing: 0;
-    padding: 3px 4px; margin-top: 2px; display: inline-block;
+    padding: 3px 4px; margin-top: 0; display: inline-block;
   }
   #shopify-section-{{ sid }} .cdp-btm-img { display: block; border-radius: 10px; overflow: hidden; margin-top: 0; }
   #shopify-section-{{ sid }} .cdp-total { margin-top: 8px; }
@@ -388,17 +397,11 @@
   opacity: 1; transform: none; will-change: auto;
 }
 
-/* 3+4 — panel fade-in: clean opacity + subtle lift, no side-slide */
-@keyframes cdp-col-in-{{ sid }} {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-#shopify-section-{{ sid }} .cdp-panel.cdp-active .cdp-left {
-  animation: cdp-col-in-{{ sid }} 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-#shopify-section-{{ sid }} .cdp-panel.cdp-active .cdp-right {
-  animation: cdp-col-in-{{ sid }} 0.38s 0.06s cubic-bezier(0.22, 1, 0.36, 1) both;
+/* 3+4 — panel cols: JS sets start state then triggers this transition */
+#shopify-section-{{ sid }} .cdp-left,
+#shopify-section-{{ sid }} .cdp-right {
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -608,7 +611,12 @@
                           <div class="cdp-pinfo">
                             <span class="cdp-ptitle">{{ prod.title }}</span>
                           </div>
-                          <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
+                          <div class="cdp-pprice-wrap">
+                            {%- if prod.compare_at_price > prod.price -%}
+                              <s class="cdp-pprice-compare" aria-label="Original price">{{ prod.compare_at_price | money_without_trailing_zeros }}</s>
+                            {%- endif -%}
+                            <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
+                          </div>
                         </li>
                       {%- endif -%}
                     {%- endif -%}
@@ -760,19 +768,70 @@
     var btnsD  = sec.querySelectorAll('.cdp-tab-btn');
     var btnsM  = sec.querySelectorAll('.cdp-card-btn');
     var panels = sec.querySelectorAll('.cdp-panel');
-    function activate(idx) {
+
+    function animateIn(panel) {
+      var left  = panel.querySelector('.cdp-left');
+      var right = panel.querySelector('.cdp-right');
+
+      /* 1. Set invisible start state instantly (no transition yet) */
+      if (left)  {
+        left.style.transition  = 'none';
+        left.style.opacity     = '0';
+        left.style.transform   = 'translateY(20px)';
+      }
+      if (right) {
+        right.style.transition = 'none';
+        right.style.opacity    = '0';
+        right.style.transform  = 'translateY(20px)';
+      }
+
+      /* 2. Two rAF — ensures browser paints the start state before transitioning */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          if (left) {
+            left.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)';
+            left.style.opacity    = '1';
+            left.style.transform  = 'translateY(0)';
+          }
+          if (right) {
+            /* Right col comes in 70ms after left */
+            setTimeout(function () {
+              right.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)';
+              right.style.opacity    = '1';
+              right.style.transform  = 'translateY(0)';
+            }, 70);
+          }
+        });
+      });
+    }
+
+    function activate(idx, animated) {
       btnsD.forEach(function(b) { b.classList.remove('cdp-active'); b.setAttribute('aria-selected', 'false'); });
       btnsM.forEach(function(b) { b.classList.remove('cdp-active'); b.setAttribute('aria-selected', 'false'); });
       panels.forEach(function(p) { p.classList.remove('cdp-active'); p.setAttribute('hidden', ''); });
+
       var dBtn  = sec.querySelector('.cdp-tab-btn[data-idx="'  + idx + '"]');
       var mBtn  = sec.querySelector('.cdp-card-btn[data-idx="' + idx + '"]');
       var panel = sec.querySelector('.cdp-panel[data-panel="'  + idx + '"]');
+
       if (dBtn)  { dBtn.classList.add('cdp-active');  dBtn.setAttribute('aria-selected', 'true'); }
       if (mBtn)  { mBtn.classList.add('cdp-active');  mBtn.setAttribute('aria-selected', 'true'); }
-      if (panel) { panel.classList.add('cdp-active'); panel.removeAttribute('hidden'); }
+      if (panel) {
+        panel.classList.add('cdp-active');
+        panel.removeAttribute('hidden');
+        if (animated !== false) animateIn(panel);
+      }
     }
-    btnsD.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
-    btnsM.forEach(function(btn) { btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); }); });
+
+    btnsD.forEach(function(btn) {
+      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
+    });
+    btnsM.forEach(function(btn) {
+      btn.addEventListener('click', function() { activate(parseInt(btn.dataset.idx, 10)); });
+    });
+
+    /* Animate first panel on load */
+    activate(0);
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
 })();
