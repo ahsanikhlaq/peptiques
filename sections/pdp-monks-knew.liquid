@@ -50,6 +50,7 @@
   #shopify-section-{{ sid }} .pm-section {
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     background: {{ s.section_background | default: '#ffffff' }};
+    overflow: hidden;
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pm-section {
@@ -325,7 +326,7 @@
     color: {{ s.footer_color | default: '#000000' }};
     font-family: 'DM Sans', sans-serif;
     font-size: 13px; line-height: 1.3;
-    letter-spacing: -0.02em; margin: 0; max-width: 120px;
+    letter-spacing: -0.43px; margin: 0; max-width: 120px;
   }
   @media (min-width: 1024px) {
     #shopify-section-{{ sid }} .pm-footer-text { font-size: 14.2px; max-width: none; white-space: nowrap; }
