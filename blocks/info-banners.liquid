@@ -1,0 +1,525 @@
+<style>
+.info-banner{
+    border-radius: 12px;
+border: 1px solid rgba(71, 24, 77, 0.25);
+background: #EADDFF;
+padding: 12px;
+display: flex;
+align-items: center;
+gap: 14px;
+}
+.info-banner__heading{
+        margin: 0;
+    color: var(--Black, #000);
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: 0px;
+}
+.info-banner__text{
+        color: var(--Black, #000);
+    font-family: "DM Sans";
+    font-size: 14.6px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18.8px;
+    letter-spacing: -0.438px;
+    margin: 0;
+    margin-top: 6px;
+}
+.info-banner--2{
+    border-radius: 8px;
+border: 2px dashed #FCA5A5;
+background: #FEF2F2;
+    margin-top: 24px;
+}
+@media screen and (max-width: 749px) {
+  .info-banner {
+    border-radius: 10px;
+    padding: 10px;
+    gap: 12px;
+}
+.info-banner__heading {
+  font-size: 14px;
+}
+.info-banner__text {
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.39px;
+    margin: 0;
+    margin-top: 6px;
+    margin-top: 4px;
+}
+.info-banner--2 {
+  border-radius: 8px;
+}
+}
+</style>
+<div class="info-banners-block" {{ block.shopify_attributes }}>
+  {% if block.settings.show_banner_1 %}
+    <div class="info-banner info-banner--1"
+    ">
+      {% if block.settings.icon_1 != blank %}
+        <div class="info-banner__icon">
+          <img
+            src="{{ block.settings.icon_1 | image_url: width: 120 }}"
+            alt="{{ block.settings.heading_1 | escape }}"
+            width="48"
+            height="48"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+
+      <div class="info-banner__content">
+        {% if block.settings.heading_1 != blank %}
+          <h3 class="info-banner__heading" style="color: {{ block.settings.heading_color_1 }};">
+            {{ block.settings.heading_1 }}
+          </h3>
+        {% endif %}
+        {% if block.settings.text_1 != blank %}
+          <p class="info-banner__text" style="color: {{ block.settings.text_color_1 }};">
+            {{ block.settings.text_1 }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_banner_2 %}
+    <div class="info-banner info-banner--2"
+    ">
+      {% if block.settings.icon_2 != blank %}
+        <div class="info-banner__icon">
+          <img
+            src="{{ block.settings.icon_2 | image_url: width: 120 }}"
+            alt="{{ block.settings.heading_2 | escape }}"
+            width="48"
+            height="48"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+
+      <div class="info-banner__content">
+        {% if block.settings.heading_2 != blank %}
+          <h3 class="info-banner__heading" style="color: {{ block.settings.heading_color_2 }};">
+            {{ block.settings.heading_2 }}
+          </h3>
+        {% endif %}
+        {% if block.settings.text_2 != blank %}
+          <p class="info-banner__text" style="color: {{ block.settings.text_color_2 }};">
+            {{ block.settings.text_2 }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .section-{{ section.id }} .info-banners-block {
+    width: 100%;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.gap_between }}px;
+  }
+
+  .section-{{ section.id }} .info-banner {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_gap }}px;
+    padding: {{ block.settings.padding_y }}px {{ block.settings.padding_x }}px;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .info-banner__icon {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-{{ section.id }} .info-banner__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .section-{{ section.id }} .info-banner__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .section-{{ section.id }} .info-banner__heading {
+    margin: 0 0 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .section-{{ section.id }} .info-banner__text {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: {{ block.settings.text_size }}px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }} .info-banner {
+      padding: {{ block.settings.mobile_padding_y }}px {{ block.settings.mobile_padding_x }}px;
+      gap: {{ block.settings.mobile_icon_gap }}px;
+    }
+
+    .section-{{ section.id }} .info-banner__icon {
+      width: {{ block.settings.mobile_icon_size }}px;
+      height: {{ block.settings.mobile_icon_size }}px;
+    }
+
+    .section-{{ section.id }} .info-banner__heading {
+      font-size: {{ block.settings.mobile_heading_size }}px;
+    }
+
+    .section-{{ section.id }} .info-banner__text {
+      font-size: {{ block.settings.mobile_text_size }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Info Banners",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner 1 — Guarantee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_1",
+      "label": "Show Banner 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_1",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading",
+      "default": "90-Day 100% Money Back Guarantee"
+    },
+    {
+      "type": "textarea",
+      "id": "text_1",
+      "label": "Description",
+      "default": "We're so confident you'll love it, take a full 90 days to decide"
+    },
+    {
+      "type": "color",
+      "id": "bg_1",
+      "label": "Background color",
+      "default": "#E8DAFF"
+    },
+    {
+      "type": "color",
+      "id": "border_color_1",
+      "label": "Border color",
+      "default": "#E8DAFF"
+    },
+    {
+      "type": "select",
+      "id": "border_style_1",
+      "label": "Border style",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "range",
+      "id": "border_width_1",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "heading_color_1",
+      "label": "Heading color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "text_color_1",
+      "label": "Text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "header",
+      "content": "Banner 2 — Warning"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_2",
+      "label": "Show Banner 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_2",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading",
+      "default": "Watch Out For Cheap Replicas."
+    },
+    {
+      "type": "textarea",
+      "id": "text_2",
+      "label": "Description",
+      "default": "Only our brand guarantees the highest quality product loved by thousands."
+    },
+    {
+      "type": "color",
+      "id": "bg_2",
+      "label": "Background color",
+      "default": "#FFF0EE"
+    },
+    {
+      "type": "color",
+      "id": "border_color_2",
+      "label": "Border color",
+      "default": "#E8A39A"
+    },
+    {
+      "type": "select",
+      "id": "border_style_2",
+      "label": "Border style",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "dashed"
+    },
+    {
+      "type": "range",
+      "id": "border_width_2",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "heading_color_2",
+      "label": "Heading color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "text_color_2",
+      "label": "Text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap_between",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between banners",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon-to-text gap (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_gap",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon-to-text gap (mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size (desktop)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding (desktop)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_x",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_y",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding (mobile)",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size (mobile)",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Info Banners"
+    }
+  ]
+}
+{% endschema %}
