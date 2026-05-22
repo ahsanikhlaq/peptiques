@@ -1,0 +1,1184 @@
+{% comment %} /blocks/ritual-kit-tabs.liquid {% endcomment %}
+
+<div class="ritual-kit-block" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank %}
+    <h3 class="ritual-kit__heading">{{ block.settings.heading }}</h3>
+  {% endif %}
+
+  {% if block.settings.description != blank %}
+    <p class="ritual-kit__description">{{ block.settings.description }}</p>
+  {% endif %}
+
+  {% comment %} =========== Hidden Radio Inputs (control tab switching with CSS only) =========== {% endcomment %}
+  {% for i in (1..3) %}
+    {%- assign show_key = 'tab_' | append: i | append: '_show' -%}
+    {% if block.settings[show_key] %}
+      <input
+        type="radio"
+        name="ritual-tab-{{ block.id }}"
+        id="ritual-tab-{{ block.id }}-{{ i }}"
+        class="ritual-kit__radio"
+        {% if i == block.settings.default_tab %}checked{% endif %}
+      >
+    {% endif %}
+  {% endfor %}
+
+  {% comment %} =========== Circle Tabs =========== {% endcomment %}
+  <div class="ritual-kit__tabs">
+    {% for i in (1..3) %}
+      {%- liquid
+        assign show_key = 'tab_' | append: i | append: '_show'
+        assign label_key = 'tab_' | append: i | append: '_label'
+        assign image_key = 'tab_' | append: i | append: '_circle_image'
+        assign badge_key = 'tab_' | append: i | append: '_top_badge'
+      -%}
+
+      {% if block.settings[show_key] %}
+        <label
+          for="ritual-tab-{{ block.id }}-{{ i }}"
+          class="ritual-kit__tab"
+          data-tab="{{ i }}"
+        >
+          <div class="ritual-kit__tab-circle">
+            {% if block.settings[badge_key] != blank %}
+              <span class="ritual-kit__tab-top-badge">{{ block.settings[badge_key] }}</span>
+            {% endif %}
+            {% if block.settings[image_key] %}
+              <img
+                src="{{ block.settings[image_key] | image_url: width: 200 }}"
+                alt="{{ block.settings[label_key] | escape }}"
+                width="80"
+                height="80"
+                loading="lazy"
+              >
+            {% endif %}
+          </div>
+          <span class="ritual-kit__tab-label">{{ block.settings[label_key] }}</span>
+        </label>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% comment %} =========== Tab Panels =========== {% endcomment %}
+  <div class="ritual-kit__panels">
+    {% for i in (1..3) %}
+      {%- liquid
+        assign show_key = 'tab_' | append: i | append: '_show'
+      -%}
+
+      {% if block.settings[show_key] %}
+        {%- liquid
+          assign title_key = 'tab_' | append: i | append: '_title'
+          assign price_key = 'tab_' | append: i | append: '_price'
+          assign compare_key = 'tab_' | append: i | append: '_compare_price'
+          assign price_label_key = 'tab_' | append: i | append: '_price_label'
+          assign subtitle_key = 'tab_' | append: i | append: '_subtitle'
+          assign save_badge_key = 'tab_' | append: i | append: '_save_badge'
+          assign benefits_key = 'tab_' | append: i | append: '_benefits'
+          assign contents_heading_key = 'tab_' | append: i | append: '_contents_heading'
+          assign kit_products_key = 'tab_' | append: i | append: '_products'
+          assign cta_text_key = 'tab_' | append: i | append: '_cta_text'
+          assign pack_dis_key = 'tab_' | append: i | append: '_pack_dis'
+
+          assign tab_title = block.settings[title_key]
+          assign tab_price = block.settings[price_key]
+          assign tab_compare = block.settings[compare_key]
+          assign tab_price_label = block.settings[price_label_key]
+          assign tab_subtitle = block.settings[subtitle_key]
+          assign tab_save_badge = block.settings[save_badge_key]
+          assign tab_benefits = block.settings[benefits_key]
+          assign tab_contents_heading = block.settings[contents_heading_key]
+          assign tab_cta_text = block.settings[cta_text_key]
+          assign tab_pack_dis = block.settings[pack_dis_key]
+          assign kit_products = block.settings[kit_products_key]
+        -%}
+
+        <div class="ritual-kit__panel" data-panel="{{ i }}">
+          <div class="ritual-kit__panel-inner">
+
+            {% comment %} {% if tab_save_badge != blank %}
+              <span class="ritual-kit__save-badge">{{ tab_save_badge }}</span>
+            {% endif %} {% endcomment %}
+
+            {% if tab_save_badge != blank %}
+            <div class='new-tag-wrapper-new'>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+<path d="M4 4L8 0V8H0L4 4Z" fill="#47184D"/>
+</svg>
+            </span>
+            <span class="ritual-kit__save-badge">{{ tab_save_badge }}</span>
+             <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+<path d="M4 4L0 0V8H8L4 4Z" fill="#47184D"/>
+</svg>
+             </span>
+            </div>
+          {% endif %}
+
+
+
+
+            <div class='new-title-tag'>
+              {% if tab_title != blank %}
+                <h4 class="ritual-kit__panel-title">{{ tab_title }}</h4>
+              {% endif %}
+
+              {% if tab_pack_dis != blank %}
+                <div class='price-discount'>
+                  {{ tab_pack_dis }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="ritual-kit__pricing">
+              {% if tab_price != blank %}
+                <span class="ritual-kit__price">{{ tab_price }}</span>
+              {% endif %}
+              {% if tab_compare != blank %}
+                <span class="ritual-kit__price-compare">{{ tab_compare }}</span>
+              {% endif %}
+              {% if tab_price_label != blank %}
+                <span class="ritual-kit__price-label">{{ tab_price_label }}</span>
+              {% endif %}
+            </div>
+
+            {% if tab_subtitle != blank %}
+              <p class="ritual-kit__subtitle">{{ tab_subtitle }}</p>
+            {% endif %}
+
+            {% if tab_benefits != blank %}
+              <div class="ritual-kit__divider"></div>
+              <div class="ritual-kit__benefits">
+                {%- assign benefit_lines = tab_benefits | newline_to_br | split: '<br />' -%}
+                {% for line in benefit_lines %}
+                  {%- assign clean_line = line | strip -%}
+                  {% if clean_line != blank %}
+                    <span>{{ clean_line }}</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {% comment %} ----- Kit Products Section ----- {% endcomment %}
+            {% if kit_products != blank and kit_products.count > 0 %}
+
+              {% if tab_contents_heading != blank %}
+                <h5 class="ritual-kit__contents-heading">{{ tab_contents_heading }}</h5>
+              {% endif %}
+
+              {% comment %} ----- Kit Contents Grid ----- {% endcomment %}
+              <div class="ritual-kit__product-grid">
+                {% for kit_product in kit_products %}
+                  {%- liquid
+                    assign first_variant = kit_product.selected_or_first_available_variant
+                    assign regular_price = first_variant.price
+
+                    comment
+                      Refill discount % comes from product metafield: custom.refill_discount
+                      If set, display_price = regular_price - (regular_price × discount%/100)
+                      Otherwise display_price = regular_price.
+                    endcomment
+
+                    assign refill_discount = kit_product.metafields.custom.refill_discount | default: 0 | plus: 0
+                    assign display_price = regular_price
+                    if refill_discount > 0
+                      assign discount_amount = regular_price | times: refill_discount | divided_by: 100.0
+                      assign display_price = regular_price | minus: discount_amount
+                    endif
+
+                    assign gift_tag = kit_product.metafields.custom.gift_tag
+                  -%}
+
+                  <div class="ritual-kit__product-card">
+                    {% if kit_product.featured_image %}
+                      <div class="ritual-kit__product-img">
+                        <img
+                          src="{{ kit_product.featured_image | image_url: width: 200 }}"
+                          alt="{{ kit_product.title | escape }}"
+                          width="100"
+                          height="100"
+                          loading="lazy"
+                        >
+                      </div>
+                    {% endif %}
+                    <div class="ritual-kit__product-title">{{ kit_product.title }}</div>
+
+                    <div class="ritual-kit__product-price">
+                      {% if refill_discount > 0 %}
+                        <span class="ritual-kit__product-price-compare">{{ regular_price | money_without_trailing_zeros }}</span>
+                      {% endif %}
+                      <span class="ritual-kit__product-price-current">{{ display_price | money_without_trailing_zeros }}</span>
+                    </div>
+
+                    {% if gift_tag != blank %}
+                      <div class="ritual-kit__product-gift-tag">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+                          <path d="M9.28125 3.4375H1.71875C1.5289 3.4375 1.375 3.5914 1.375 3.78125V5.15625C1.375 5.3461 1.5289 5.5 1.71875 5.5H9.28125C9.47111 5.5 9.625 5.3461 9.625 5.15625V3.78125C9.625 3.5914 9.47111 3.4375 9.28125 3.4375Z" stroke="#47184D" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M8.9375 5.5V8.59375C8.9375 8.68494 8.90131 8.77234 8.8368 8.8368C8.77234 8.90131 8.68494 8.9375 8.59375 8.9375H2.40625C2.31508 8.9375 2.22765 8.90131 2.16318 8.8368C2.09872 8.77234 2.0625 8.68494 2.0625 8.59375V5.5" stroke="#47184D" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M5.5 3.4375V8.9375" stroke="#47184D" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M7.59643 1.34117C7.99777 1.7425 8.02142 2.41797 7.59643 2.79438C6.86983 3.43762 5.5 3.43762 5.5 3.43762C5.5 3.43762 5.5 2.06777 6.14454 1.34117C6.51964 0.91621 7.1951 0.939844 7.59643 1.34117Z" stroke="#47184D" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M3.40367 1.34117C3.00234 1.7425 2.97871 2.41797 3.40367 2.79438C4.13027 3.43762 5.50012 3.43762 5.50012 3.43762C5.50012 3.43762 5.50012 2.06777 4.85558 1.34117C4.48047 0.91621 3.805 0.939844 3.40367 1.34117Z" stroke="#47184D" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{{ gift_tag }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+
+              {% comment %} ----- Future Refills Accordion (only products WITH a selling plan) ----- {% endcomment %}
+              {%- liquid
+                assign refill_count = 0
+                for kit_product in kit_products
+                  if kit_product.selling_plan_groups.size > 0
+                    assign first_group = kit_product.selling_plan_groups[0]
+                    if first_group.selling_plans.size > 0
+                      assign refill_count = refill_count | plus: 1
+                    endif
+                  endif
+                endfor
+              -%}
+
+              {% if refill_count > 0 %}
+                <details class="ritual-kit__refills">
+                  <summary class="ritual-kit__refills-summary">
+                    <span>{{ block.settings.refills_label | default: 'Future refills' }}</span>
+                    <svg class="ritual-kit__refills-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </summary>
+                  <div class="ritual-kit__refills-list">
+                    {% for kit_product in kit_products %}
+                      {%- liquid
+                        assign first_variant = kit_product.selected_or_first_available_variant
+                        assign selling_plan = nil
+                        assign has_plan = false
+
+                        if kit_product.selling_plan_groups.size > 0
+                          assign first_group = kit_product.selling_plan_groups[0]
+                          if first_group.selling_plans.size > 0
+                            assign selling_plan = first_group.selling_plans[0]
+                            assign has_plan = true
+                          endif
+                        endif
+
+                        comment
+                          Refill row pricing:
+                          - regular_price (strikethrough compare) = variant.price
+                          - current refill price = regular_price minus metafield discount %
+                          - Only show compare when discount > 0
+                        endcomment
+
+                        assign regular_price = first_variant.price
+                        assign refill_discount = kit_product.metafields.custom.refill_discount | default: 0 | plus: 0
+                        assign refill_price = regular_price
+                        if refill_discount > 0
+                          assign discount_amount = regular_price | times: refill_discount | divided_by: 100.0
+                          assign refill_price = regular_price | minus: discount_amount
+                        endif
+                      -%}
+
+                      {% if has_plan %}
+                        <div class="ritual-kit__refill-row">
+                          <div class="ritual-kit__refill-name">{{ kit_product.title }}</div>
+                          <div class='new-kit-wrapper'>
+                            <div class="ritual-kit__refill-price">
+                              {% if refill_discount > 0 %}
+                                <span class="ritual-kit__refill-compare">{{ regular_price | money_without_trailing_zeros }}</span>
+                              {% endif %}
+                              <span class="ritual-kit__refill-current">{{ refill_price | money_without_trailing_zeros }}</span>
+                            </div>
+                            <div class="ritual-kit__refill-freq">
+                              {{ selling_plan.name }}
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </details>
+              {% endif %}
+
+            {% endif %}
+
+          </div>
+
+          {% if block.settings.show_continue_without %}
+            <div href="{{ block.settings.continue_without_link | default: '#' }}" class="ritual-kit__continue-without">
+              {{ block.settings.continue_without_text | default: 'Continue Without Kit' }}
+            </div>
+            {% if block.settings.continue_without_subtitle != blank %}
+              <p class="ritual-kit__continue-subtitle">{{ block.settings.continue_without_subtitle }}</p>
+            {% endif %}
+          {% endif %}
+
+         {% if tab_cta_text != blank %}
+  {%- comment -%} Build a JSON array of products in this kit for JS to read {%- endcomment -%}
+  {%- capture kit_products_json -%}
+    [
+    {%- for kit_product in kit_products -%}
+      {%- liquid
+        assign first_variant = kit_product.selected_or_first_available_variant
+        assign sp_id = ''
+        if kit_product.selling_plan_groups.size > 0
+          assign first_group = kit_product.selling_plan_groups[0]
+          if first_group.selling_plans.size > 0
+            assign sp_id = first_group.selling_plans[0].id
+          endif
+        endif
+      -%}
+      {
+        "variant_id": {{ first_variant.id }},
+        "selling_plan": {% if sp_id != '' %}{{ sp_id }}{% else %}null{% endif %}
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+    ]
+  {%- endcapture -%}
+
+  <button
+    type="button"
+    class="ritual-kit__cta-btn"
+    data-kit-cta
+    data-kit-index="{{ i }}"
+    data-kit-products='{{ kit_products_json | strip_newlines | escape }}'
+  >
+    {{ tab_cta_text }}
+  </button>
+{% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .ritual-kit-block {
+    width: 100%;
+    margin: 24px 0 10px 0px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .ritual-kit__radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+  }
+
+  .ritual-kit__heading {
+    margin: 0 0 7px;
+    color: #47184D;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.76px;
+    text-transform: uppercase;
+  }
+
+  .ritual-kit__description {
+    margin: 0 0 24px;
+    color: rgba(71, 24, 77, 0.60);
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0px;
+  }
+
+  /* ===== Tabs ===== */
+  .ritual-kit__tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .ritual-kit__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .ritual-kit__tab-circle {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: #EADDFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    overflow: visible;
+  }
+
+  .ritual-kit__tab-circle img {
+    width: 75%;
+    object-fit: contain;
+    border-radius: 0px;
+  }
+
+  .ritual-kit__tab-top-badge {
+    position: absolute;
+    top: -8px;
+    left: 52%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    background: #8A38F5;
+    color: #FFF;
+    font-family: "DM Sans";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 10px;
+    letter-spacing: 0.8px;
+    padding: 4px 10px;
+  }
+
+  .ritual-kit__tab-label {
+    color: #47184D;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 13.8px;
+    letter-spacing: 0px;
+  }
+
+  /* Active tab state */
+  #ritual-tab-{{ block.id }}-1:checked ~ .ritual-kit__tabs .ritual-kit__tab[data-tab="1"] .ritual-kit__tab-circle,
+  #ritual-tab-{{ block.id }}-2:checked ~ .ritual-kit__tabs .ritual-kit__tab[data-tab="2"] .ritual-kit__tab-circle,
+  #ritual-tab-{{ block.id }}-3:checked ~ .ritual-kit__tabs .ritual-kit__tab[data-tab="3"] .ritual-kit__tab-circle {
+    border: 2px solid #47184D;
+  }
+
+  /* ===== Panels ===== */
+  .ritual-kit__panels {
+    position: relative;
+  }
+
+  .ritual-kit__panel {
+    display: none;
+  }
+
+  #ritual-tab-{{ block.id }}-1:checked ~ .ritual-kit__panels .ritual-kit__panel[data-panel="1"],
+  #ritual-tab-{{ block.id }}-2:checked ~ .ritual-kit__panels .ritual-kit__panel[data-panel="2"],
+  #ritual-tab-{{ block.id }}-3:checked ~ .ritual-kit__panels .ritual-kit__panel[data-panel="3"] {
+    display: block;
+  }
+
+  .ritual-kit__panel-inner {
+    position: relative;
+    background: #EDDFFB;
+    border-radius: 18px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #47184D;
+    background: #EDE1FF;
+  }
+
+  .ritual-kit__save-badge {
+    background: #7B3FA8;
+    padding: 6px 14px;
+    border-radius: 0 0 5px 5px;
+    background: #8A38F5;
+    letter-spacing: 0.4px;
+    color: #FFF;
+    font-family: "DM Sans";
+    font-size: 11.6px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 12px;
+    padding: 6px 8px;
+  }
+  .new-tag-wrapper-new{
+ position: absolute;
+    top: -10px;
+    right: 24px;
+    display: flex;
+        align-items: start;
+  }
+  .new-tag-wrapper-new span{
+    display: flex;
+  }
+
+  .ritual-kit__panel-title {
+    color: #47184D;
+    font-family: Georgia;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -1px;
+    margin: 0;
+  }
+  .price-discount{
+    border-radius: 999px;
+    border: 1px solid rgba(71, 24, 77, 0.40);
+    background: #FDEA46;
+    color: #47184D;
+    font-family: Inter;
+    font-size: 10.3px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 10.5px;
+    letter-spacing: 0.84px;
+    text-transform: uppercase;
+    padding: 3.5px 8px;
+    width: max-content;
+  }
+  .new-title-tag{
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 6px;
+  }
+
+  .ritual-kit__pricing {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .ritual-kit__price {
+    color: #47184D;
+    text-align: right;
+    font-family: Georgia;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33px;
+    letter-spacing: -0.3px;
+  }
+
+  .ritual-kit__price-compare {
+    text-decoration: line-through;
+    color: rgba(71, 24, 77, 0.62);
+    text-align: right;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: line-through;
+  }
+
+  .ritual-kit__price-label {
+    color: rgba(71, 24, 77, 0.62);
+    text-align: right;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15.4px;
+  }
+
+  .ritual-kit__subtitle {
+    padding: 0 0 16px;
+    margin: 0;
+    color: rgba(71, 24, 77, 0.60);
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-bottom: 1px solid rgba(71, 24, 77, 0.30);
+    letter-spacing: 0px;
+  }
+  .ritual-kit__benefits ul li{
+    color: #47184D;
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0px;
+    list-style: none;
+    position: relative;
+    padding-left: 20px;
+  }
+  .ritual-kit__benefits ul li strong{
+    font-weight: 700;
+  }
+  .ritual-kit__benefits ul li::before {
+    content: "";
+    width: 13px;
+    height: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 13 10' fill='none'><path d='M8.88705e-05 5.13752L1.7025 3.42907L4.4976 6.17587L10.6975 8.88705e-05L12.412 1.70854L4.4976 9.5807L8.88705e-05 5.13752Z' fill='%2347184D'/></svg>");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 0;
+    top: 3px;
+  }
+  .ritual-kit__benefits ul{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0;
+  }
+
+  .ritual-kit__divider {
+    height: 1px;
+    background: rgba(123, 63, 168, 0.2);
+    margin: 16px 0;
+  }
+
+  .ritual-kit__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .ritual-kit__benefit {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #1A1A1A;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .ritual-kit__check {
+    flex-shrink: 0;
+    color: #7B3FA8;
+    margin-top: 2px;
+  }
+
+  .ritual-kit__contents-heading {
+    margin: 0px 0px 8px 0px;
+    color: #47184D;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #47184D;
+    font-family: "DM Sans";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 8px;
+  }
+
+  /* ===== Product Grid ===== */
+  .ritual-kit__product-grid {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .ritual-kit__product-card{
+    max-width: 72px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ritual-kit__product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .ritual-kit__product-title {
+    margin-bottom: 2px;
+    color: #47184D;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 11.3px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.8px;
+    letter-spacing: -0.4px;
+    padding-top: 4px;
+  }
+
+  .ritual-kit__product-price {
+    color: #47184D;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 9.6px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.2px;
+    letter-spacing: -0.4px;
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .ritual-kit__product-price-compare {
+    text-decoration: line-through;
+    color: rgba(71, 24, 77, 0.55);
+  }
+
+  .ritual-kit__product-price-current {
+    color: #47184D;
+    font-weight: 500;
+  }
+
+  /* ===== Gift tag (from product metafield) ===== */
+  .ritual-kit__product-gift-tag {
+        border-radius: 3px;
+    background: #FDEA46;
+    padding: 4px;
+    color: #47184D;
+    text-align: center;
+    font-family: Inter;
+    font-size: 9.6px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.2px;
+    letter-spacing: -0.4px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .ritual-kit__product-gift-tag svg {
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+  }
+
+  /* ===== Future Refills Accordion ===== */
+  .ritual-kit__refills[open] {
+    border-radius: 18px;
+  }
+
+  .ritual-kit__refills-summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #1A1A1A;
+    font-size: 13px;
+    font-weight: 500;
+    user-select: none;
+    border-radius: 999px;
+    border: 1px solid rgba(71, 24, 77, 0.40);
+    background: #FFF;
+    color: var(--Primary-2, #47184D);
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 14.4px;
+    letter-spacing: -0.36px;
+  }
+
+  .ritual-kit__refills-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ritual-kit__refills-icon {
+    color: #1A1A1A;
+    transition: transform 0.3s ease;
+  }
+
+  .ritual-kit__refills[open] .ritual-kit__refills-icon {
+    transform: rotate(180deg);
+  }
+
+  .ritual-kit__refills-list {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  .ritual-kit__refill-row {
+    display: flex;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 0px;
+    justify-content: space-between;
+  }
+
+  .ritual-kit__refill-name {
+    color: #1A1A1A;
+    font-weight: 400;
+    color: #47184D;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0px;
+  }
+
+  .ritual-kit__refill-price {
+   display: flex;
+    gap: 4px;
+    align-items: baseline;
+    justify-content: center;
+    background: #FBF1FF;
+    padding: 4px;
+  }
+
+  .ritual-kit__refill-compare {
+    color: #8A8A8A;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: line-through;
+    letter-spacing: 0px;
+  }
+
+  .ritual-kit__refill-current {
+    color: #000;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    background: #FBF1FF;
+  }
+
+  .ritual-kit__refill-freq {
+    color: #4A4A4A;
+    color: #47184D;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0px;
+  }
+
+  /* ===== Continue Without ===== */
+  .ritual-kit__continue-without {
+    color: var(--Primary-2, #47184D);
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 14.4px;
+    letter-spacing: -0.36px;
+    text-decoration-line: underline !important;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    text-transform: capitalize;
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .ritual-kit__continue-subtitle {
+    margin: 8px 0 0;
+    text-align: center;
+    color: #4A4A4A;
+    font-size: 12px;
+    line-height: 1.4;
+    color: rgba(71, 24, 77, 0.60);
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0px;
+  }
+
+  /* ===== CTA Button ===== */
+  .ritual-kit__cta-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 20px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-radius: 100px;
+    background: #47184D;
+    color: var(--white, #FFF);
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    text-transform: uppercase;
+  }
+
+  .ritual-kit__cta-btn:hover {
+    background: #2E1346;
+  }
+  .ritual-kit__benefit span{
+    color: #47184D;
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .new-kit-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ritual-kit__panel-inner {
+      padding: 16px;
+    }
+
+    .ritual-kit__panel-title {
+      font-size: 18px;
+      letter-spacing: -0.9px;
+    }
+
+    .ritual-kit__price {
+      font-size: 24px;
+    }
+    .ritual-kit__price-compare {
+      font-size: 11.4px;
+    }
+
+    .ritual-kit__product-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .ritual-kit__refill-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      text-align: left;
+    }
+
+    .ritual-kit__refill-price,
+    .ritual-kit__refill-freq {
+      justify-content: flex-start;
+      text-align: left;
+    }
+    .ritual-kit__tabs{
+      margin-bottom: 16px;
+    }
+    .ritual-kit__subtitle {
+      padding: 0 0 11px;
+    }
+    .ritual-kit__refill-name {
+      max-width: 100px;
+    }
+    .ritual-kit__refill-freq {
+      max-width: 110px;
+    }
+    ritual-kit__continue-subtitle {
+      font-size: 13px;
+    }
+    .ritual-kit__refills-list{
+      gap: 0px;
+    }
+    .ritual-kit__refill-row{
+          border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+    padding: 6px 0px;
+    }
+    .ritual-kit__cta-btn {
+          padding: 14px 24px;
+    }
+    .new-title-tag {
+    display: flex;
+    align-items: start;
+    gap: 6px;
+    margin-bottom: 6px;
+    flex-direction: column-reverse;
+}
+    .ritual-kit__product-grid {
+                /* grid-template-columns: min-content; */
+        gap: 10px;
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+    }
+    .ritual-kit__product-card {
+    /* max-width: 100%; */
+    /* width: 25%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 167px;
+    flex: 0 0 auto;
+    max-width: 72px;
+    width: 72px;
+}
+  .new-tag-wrapper-new {
+    position: absolute;
+    top: -9px;
+  }
+  .ritual-kit__benefits ul {
+    gap: 8px;
+  }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ritual Kit Tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Heading"
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "CHOOSE YOUR RITUAL KIT:" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Haritaki is half the protocol. These kits are the other half — every daily fluoride source removed, at the input. Bundle one with your order and unlock $114 to $490 off, available only when added together." },
+
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "range",
+      "id": "default_tab",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Default selected tab",
+      "default": 1
+    },
+    { "type": "text", "id": "refills_label", "label": "Refills accordion label", "default": "Future refills" },
+    { "type": "checkbox", "id": "show_continue_without", "label": "Show 'Continue Without Kit' link", "default": true },
+    { "type": "text", "id": "continue_without_text", "label": "'Continue Without' text", "default": "Continue Without Kit" },
+    { "type": "url", "id": "continue_without_link", "label": "'Continue Without' link" },
+    { "type": "textarea", "id": "continue_without_subtitle", "label": "Subtitle under 'Continue Without' link", "default": "Your Haritaki cleanse will still work, but tomorrow's tap water will start recalcifying the gland from day one." },
+
+    {
+      "type": "header",
+      "content": "Product Metafields (set on each product)",
+      "info": "Create these in: Settings → Custom data → Products. Then fill them in on each product."
+    },
+    {
+      "type": "paragraph",
+      "content": "1) Gift tag — Namespace: custom · Key: gift_tag · Type: Single line text. Example value: Free"
+    },
+    {
+      "type": "paragraph",
+      "content": "2) Refill discount % — Namespace: custom · Key: refill_discount · Type: Integer. Example value: 30 (means 30% off regular price)."
+    },
+
+    {
+      "type": "header",
+      "content": "Tab 1"
+    },
+    { "type": "checkbox", "id": "tab_1_show", "label": "Show this tab", "default": true },
+    { "type": "text", "id": "tab_1_label", "label": "Tab label", "default": "Anti Fluoride" },
+    { "type": "image_picker", "id": "tab_1_circle_image", "label": "Circle image" },
+    { "type": "text", "id": "tab_1_top_badge", "label": "Top badge text (e.g., 'BEST')" },
+    { "type": "text", "id": "tab_1_save_badge", "label": "Save badge (top-right of panel)", "default": "SAVE 30%" },
+    { "type": "text", "id": "tab_1_title", "label": "Kit title", "default": "The Anti-Fluoride Kit" },
+    { "type": "text", "id": "tab_1_pack_dis", "label": "Pack discount text (next to title)", "info": "Shows in the .price-discount badge beside the kit title." },
+    { "type": "text", "id": "tab_1_price", "label": "Kit price", "default": "$280" },
+    { "type": "text", "id": "tab_1_compare_price", "label": "Compare-at price", "default": "$433" },
+    { "type": "text", "id": "tab_1_price_label", "label": "Price label", "default": "one-time" },
+    { "type": "textarea", "id": "tab_1_subtitle", "label": "Subtitle", "default": "$280 today + auto-refills for Reverse Osmosis Replacement Filter, replacement filtered showerhead, Fluoride-Free Toothpaste- cancel anytime." },
+    { "type": "richtext", "id": "tab_1_benefits", "label": "Benefits (one per line)" },
+    { "type": "text", "id": "tab_1_contents_heading", "label": "Contents heading", "default": "KIT CONTENTS — ARRIVES WITH YOUR ORDER" },
+    {
+      "type": "product_list",
+      "id": "tab_1_products",
+      "label": "Kit products",
+      "info": "Select subscription products. Each appears in the kit contents grid AND in 'Future refills' with its subscription frequency.",
+      "limit": 8
+    },
+    { "type": "text", "id": "tab_1_cta_text", "label": "CTA button text", "default": "SAVE 67% + FREE GIFTS" },
+
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    { "type": "checkbox", "id": "tab_2_show", "label": "Show this tab", "default": true },
+    { "type": "text", "id": "tab_2_label", "label": "Tab label", "default": "Vivid Dreams" },
+    { "type": "image_picker", "id": "tab_2_circle_image", "label": "Circle image" },
+    { "type": "text", "id": "tab_2_top_badge", "label": "Top badge text (e.g., 'BEST')" },
+    { "type": "text", "id": "tab_2_save_badge", "label": "Save badge", "default": "SAVE 35%" },
+    { "type": "text", "id": "tab_2_title", "label": "Kit title", "default": "The Vivid Dreams Kit" },
+    { "type": "text", "id": "tab_2_pack_dis", "label": "Pack discount text (next to title)", "info": "Shows in the .price-discount badge beside the kit title." },
+    { "type": "text", "id": "tab_2_price", "label": "Kit price", "default": "$320" },
+    { "type": "text", "id": "tab_2_compare_price", "label": "Compare-at price", "default": "$490" },
+    { "type": "text", "id": "tab_2_price_label", "label": "Price label", "default": "one-time" },
+    { "type": "textarea", "id": "tab_2_subtitle", "label": "Subtitle" },
+    { "type": "richtext", "id": "tab_2_benefits", "label": "Benefits (one per line)"},
+    { "type": "text", "id": "tab_2_contents_heading", "label": "Contents heading", "default": "KIT CONTENTS — ARRIVES WITH YOUR ORDER" },
+    {
+      "type": "product_list",
+      "id": "tab_2_products",
+      "label": "Kit products",
+      "info": "Select subscription products. Each appears in the kit contents grid AND in 'Future refills' with its subscription frequency.",
+      "limit": 8
+    },
+    { "type": "text", "id": "tab_2_cta_text", "label": "CTA button text", "default": "SAVE 70% + FREE GIFTS" },
+
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    { "type": "checkbox", "id": "tab_3_show", "label": "Show this tab", "default": true },
+    { "type": "text", "id": "tab_3_label", "label": "Tab label", "default": "Pineal Reset" },
+    { "type": "image_picker", "id": "tab_3_circle_image", "label": "Circle image" },
+    { "type": "text", "id": "tab_3_top_badge", "label": "Top badge text (e.g., 'BEST')", "default": "BEST" },
+    { "type": "text", "id": "tab_3_save_badge", "label": "Save badge", "default": "SAVE 40%" },
+    { "type": "text", "id": "tab_3_title", "label": "Kit title", "default": "The Pineal Reset Kit" },
+    { "type": "text", "id": "tab_3_pack_dis", "label": "Pack discount text (next to title)", "info": "Shows in the .price-discount badge beside the kit title." },
+    { "type": "text", "id": "tab_3_price", "label": "Kit price", "default": "$380" },
+    { "type": "text", "id": "tab_3_compare_price", "label": "Compare-at price", "default": "$620" },
+    { "type": "text", "id": "tab_3_price_label", "label": "Price label", "default": "one-time" },
+    { "type": "textarea", "id": "tab_3_subtitle", "label": "Subtitle" },
+    { "type": "richtext", "id": "tab_3_benefits", "label": "Benefits (one per line)"},
+    { "type": "text", "id": "tab_3_contents_heading", "label": "Contents heading", "default": "KIT CONTENTS — ARRIVES WITH YOUR ORDER" },
+    {
+      "type": "product_list",
+      "id": "tab_3_products",
+      "label": "Kit products",
+      "info": "Select subscription products. Each appears in the kit contents grid AND in 'Future refills' with its subscription frequency.",
+      "limit": 8
+    },
+    { "type": "text", "id": "tab_3_cta_text", "label": "CTA button text", "default": "SAVE 67% + FREE GIFTS" }
+  ],
+  "presets": [
+    {
+      "name": "Ritual Kit Tabs"
+    }
+  ]
+}
+{% endschema %}
