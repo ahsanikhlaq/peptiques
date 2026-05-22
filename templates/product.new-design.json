@@ -2455,7 +2455,8 @@
             "gifts_label": "",
             "kitprice": "",
             "products_2col": true,
-            "bottom_image": "shopify://shop_images/Frame_2147241360.webp"
+            "bottom_image": "shopify://shop_images/Frame_2147241360.webp",
+            "btm_desc": "Daily routines expose your body to light, EMF, fluoride, and poor sleep signals, disrupting rest and clarity. This kit supports a balanced routine."
           }
         },
         "bullet_item_LNb7tH": {
@@ -2564,7 +2565,8 @@
             "gifts_label": "",
             "kitprice": "",
             "products_2col": false,
-            "bottom_image": "shopify://shop_images/Frame_2147241360_1.webp"
+            "bottom_image": "shopify://shop_images/Frame_2147241360_1.webp",
+            "btm_desc": ""
           }
         },
         "bullet_item_QHqmw8": {
@@ -2644,7 +2646,8 @@
             "gifts_label": "",
             "kitprice": "",
             "products_2col": true,
-            "bottom_image": "shopify://shop_images/Frame_2147241359_1.webp"
+            "bottom_image": "shopify://shop_images/Frame_2147241359_1.webp",
+            "btm_desc": ""
           }
         },
         "bullet_item_rR7qAx": {
@@ -2845,6 +2848,7 @@
         "left_sub": "Real Ayurvedic wisdom designed to deliver clarity, balance, and results",
         "cta_text": "UNLOCK YOUR TRUE POWER",
         "cta_url": "",
+        "cta_hover_background": "#5a2a78",
         "footer_icon_1": "shopify://shop_images/SVG_15.svg",
         "footer_text_1": "Stop or Cancel Anytime",
         "footer_icon_2": "shopify://shop_images/SVG_16.svg",
