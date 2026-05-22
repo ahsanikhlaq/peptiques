@@ -179,10 +179,10 @@
       background-size: cover;
       background-position: {{ s.sectionBackgroundPosition_text | default: 'center center' }};
       background-repeat: no-repeat;
-      overflow: hidden;
     {%- else -%}
       background: linear-gradient(90deg, #F5E1FF 0%, #FFFFFF 50%, #F5E1FF 100%);
     {%- endif -%}
+    overflow: hidden;
   }
 
   #shopify-section-{{ sid }} .uv-container{
