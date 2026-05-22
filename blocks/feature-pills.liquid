@@ -1,0 +1,407 @@
+{% comment %} /blocks/feature-pills.liquid {% endcomment %}
+
+<div class="feature-pills-block" {{ block.shopify_attributes }}>
+  <div class="feature-pills-grid">
+    {% for i in (1..6) %}
+      {% assign icon_key = 'icon_' | append: i %}
+      {% assign text_key = 'text_' | append: i %}
+      {% assign icon = block.settings[icon_key] %}
+      {% assign text = block.settings[text_key] %}
+
+      {% if text != blank %}
+        <div class="feature-pill">
+          {% if icon != blank %}
+            <div class="feature-pill__icon">
+              <img
+                src="{{ icon | image_url: width: 60 }}"
+                alt="{{ text | escape }}"
+                width="24"
+                height="24"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+          <span class="feature-pill__text">{{ text }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }} .feature-pills-block {
+    width: 100%;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px;
+  }
+
+  .section-{{ section.id }} .feature-pills-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .section-{{ section.id }} .feature-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: {{ block.settings.padding_y }}px {{ block.settings.padding_x }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    background: {{ block.settings.bg_color }};
+  }
+
+ .feature-pill__text{
+  color: #47184D;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14.4px;
+    letter-spacing: -0.36px;
+    margin: 0;
+}
+.feature-pill{
+  border-radius: 999px;
+    border: 1px solid rgba(71, 24, 77, 0.25);
+    background: #FFF;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.feature-pills-grid{
+  display: grid;
+    /* row-gap: 10px; */
+    gap: 12px;
+    margin-top: 16px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.main-prodcut .rich-text-block{
+  margin: 0 !important;
+  margin-top: 24px !important;
+}
+
+.main-prodcut .rich-text-block p{
+  color: var(--Black, #000);
+
+/* Georgia/Georgia/dm sans regular */
+font-family: "DM Sans";
+font-size: 14.6px;
+font-style: normal;
+font-weight: 400;
+line-height: 18.8px; /* 128.767% */
+letter-spacing: -0.438px;
+}
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }} .feature-pills-grid {
+      grid-template-columns: repeat({{ block.settings.mobile_columns }}, 1fr) !important;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .section-{{ section.id }} .feature-pill {
+      padding: {{ block.settings.mobile_padding_y }}px {{ block.settings.mobile_padding_x }}px;
+    }
+
+    .section-{{ section.id }} .feature-pill__text {
+      font-size: {{ block.settings.mobile_font_size }}px;
+    }
+    .feature-pills-grid {
+       gap: 6px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 12px;
+    
+    }
+
+    .feature-pill__text {
+      font-size: 13px;
+          letter-spacing: -0.39px;
+    }
+    .feature-pill {
+          padding: 6px 8px;
+    }
+    .feature-pill__icon img{
+      width: 15px;
+      height: 15px
+    }
+    .feature-pill__icon{
+      display: flex;
+    }
+    
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Feature Pills",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Desktop columns",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "mobile_columns",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Mobile columns",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap (desktop)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap (mobile)",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Pill Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E5D4ED"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding (desktop)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding (desktop)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_x",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_y",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding (mobile)",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (mobile)",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_1",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text",
+      "default": "Supports natural detox"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_2",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text",
+      "default": "Boosts daily energy"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_3",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text",
+      "default": "Antiviral Defense"
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_4",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text",
+      "default": "Sharpens mental focus"
+    },
+    {
+      "type": "header",
+      "content": "Feature 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_5",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text",
+      "default": "Deep Focus & Intuition"
+    },
+    {
+      "type": "header",
+      "content": "Feature 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_6",
+      "label": "Icon (SVG/PNG)"
+    },
+    {
+      "type": "text",
+      "id": "text_6",
+      "label": "Text",
+      "default": "Supports gut health"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Pills"
+    }
+  ]
+}
+{% endschema %}
