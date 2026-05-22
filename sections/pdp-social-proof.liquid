@@ -171,7 +171,7 @@
     color: #ffffff;
   }
 
-  /* ✅ Button colors CSS se — Customizer colors yahan apply honge */
+  /* ─── Button colors (CSS via Liquid) ───────────────────────── */
   #shopify-section-{{ sid }} #ps-prev-{{ sid }} {
     background: {{ s.nav_prev_background | default: '#bba0d4' }};
   }
@@ -179,10 +179,18 @@
     background: {{ s.nav_next_background | default: '#3f1c5c' }};
   }
 
+  /* ✅ Last slide pe colors swap — pure CSS :has() */
+  #shopify-section-{{ sid }} .ps-nav:has(#ps-next-{{ sid }}.swiper-button-disabled) #ps-prev-{{ sid }} {
+    background: {{ s.nav_next_background | default: '#3f1c5c' }};
+  }
+  #shopify-section-{{ sid }} #ps-next-{{ sid }}.swiper-button-disabled {
+    background: {{ s.nav_prev_background | default: '#bba0d4' }};
+    opacity: 1;
+  }
+
   #shopify-section-{{ sid }} .ps-nav-btn:hover { transform: translateY(-2px); }
   #shopify-section-{{ sid }} .ps-nav-btn:active { transform: translateY(1px); }
   #shopify-section-{{ sid }} .ps-nav-btn.swiper-button-disabled {
-    opacity: 0.4;
     cursor: not-allowed;
     transform: none;
   }
@@ -343,7 +351,7 @@
     },
     breakpoints: {
       0: {
-        slidesPerView: 1.3,
+        slidesPerView: 1.2,
         centeredSlides: true,
         spaceBetween: 12,
         loop: true,
