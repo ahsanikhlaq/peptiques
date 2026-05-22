@@ -22,12 +22,13 @@
         "announcement_nwatY7": {
           "type": "announcement",
           "settings": {
-            "text": "✨ Free worldwide shipping on all orders, <a href=\"#BuyBox\" title=\"#BuyBox\"><span style=\"text-decoration:underline\">Shop Now</span></a> ✨",
+            "text": "Save 62 % + Get Free Welcome Gifts",
             "text_alignment": "center",
             "mobile_text_size": 14,
             "desktop_text_size": 18,
             "icon": "",
             "filled_icon": false,
+            "custom_icon": "shopify://shop_images/Background.svg",
             "mobile_icon_size": 15,
             "desktop_icon_size": 26,
             "desktop_layout": "horizontal",
