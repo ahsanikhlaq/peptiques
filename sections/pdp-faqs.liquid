@@ -19,6 +19,7 @@
     padding: {{ s.section_padding_top | default: 48 }}px {{ s.section_padding_x | default: 16 }}px {{ s.section_padding_bottom | default: 48 }}px;
     background: {{ s.background | default: '#fffffc' }};
     color: {{ s.text_color | default: '#000000' }};
+    overflow: hidden;
   }
   @media (min-width: 1024px){
     #shopify-section-{{ sid }} .pq-section{
