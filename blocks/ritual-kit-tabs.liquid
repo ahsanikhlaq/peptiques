@@ -174,21 +174,24 @@
                     assign first_variant = kit_product.selected_or_first_available_variant
 
                     comment
-                      ===== NEW PRICING LOGIC =====
-                      Base price source:
-                        - If product metafield custom.price is set (single line text),
-                          treat that as the base/regular price (in dollars, convert to cents).
-                        - Otherwise use variant.price (already in cents).
+                      ===== PRICING LOGIC =====
+                      Base price source (PER TAB):
+                        - Tab 1 -> product metafield custom.price
+                        - Tab 2 -> product metafield custom.price-tab2
+                        - Tab 3 -> product metafield custom.price-tab3
+                        If the matching metafield is set (single line text),
+                        treat it as the base/regular price (in dollars, convert to cents).
+                        Otherwise use variant.price (already in cents).
 
-                      Discount source:
+                      Discount source (same for all tabs):
                         - product metafield custom.refill_discountt (single line text)
-                        - This is a FIXED DOLLAR AMOUNT off (e.g., "10" = $10 off).
+                        - FIXED DOLLAR AMOUNT off (e.g., "10" = $10 off).
                         - Convert to cents by multiplying by 100.
 
                       Display rules:
                         - If refill_discountt > 0:
                             strikethrough = base_price
-                            current       = base_price - discount (in cents)
+                            current       = base_price - discount
                         - Else if variant.compare_at_price > base_price:
                             strikethrough = compare_at_price
                             current       = base_price
@@ -196,7 +199,14 @@
                             no strikethrough, just base_price.
                     endcomment
 
-                    assign price_override_raw = kit_product.metafields.custom.price
+                    if i == 2
+                      assign price_override_raw = kit_product.metafields.custom["price-tab2"]
+                    elsif i == 3
+                      assign price_override_raw = kit_product.metafields.custom["price-tab3"]
+                    else
+                      assign price_override_raw = kit_product.metafields.custom.price
+                    endif
+
                     assign base_price = first_variant.price
                     if price_override_raw != blank
                       assign price_override_num = price_override_raw | times: 1.0
@@ -303,9 +313,20 @@
 
                         comment
                           Same pricing logic as the kit contents grid above.
+                          Base price metafield depends on which tab this is:
+                            Tab 1 -> custom.price
+                            Tab 2 -> custom.price-tab2
+                            Tab 3 -> custom.price-tab3
                         endcomment
 
-                        assign price_override_raw = kit_product.metafields.custom.price
+                        if i == 2
+                          assign price_override_raw = kit_product.metafields.custom["price-tab2"]
+                        elsif i == 3
+                          assign price_override_raw = kit_product.metafields.custom["price-tab3"]
+                        else
+                          assign price_override_raw = kit_product.metafields.custom.price
+                        endif
+
                         assign base_price = first_variant.price
                         if price_override_raw != blank
                           assign price_override_num = price_override_raw | times: 1.0
@@ -1154,7 +1175,7 @@
     },
     {
       "type": "paragraph",
-      "content": "3) Price override — Namespace: custom · Key: price · Type: Single line text. Example value: 49.99 (if set, this is used as the base price instead of the product's variant price). Compare-at price still comes from the variant."
+      "content": "3) Price override (per tab) — Namespace: custom · Type: Single line text. Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). Example value: 49.99. If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
     },
 
     {
