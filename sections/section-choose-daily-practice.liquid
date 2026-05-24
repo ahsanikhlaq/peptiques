@@ -1,11 +1,33 @@
 {% comment %}
-  Choose Your Daily Practice v5
+  Choose Your Daily Practice v6
   - Products layout: checkbox per tab — unchecked = 1-col, checked = 2-col (1fr 1fr)
   - items_label: optional per-tab (e.g. "8 items + + Free shipping")
   - free_item: 4 products selectable
   - SEO: h2 for section, h3 for panels, proper aria labels
   - Mobile: product list becomes horizontal scroll (overflow-x auto), 4 cards visible
   - Mobile: bottom image visible (flex, not none)
+
+  ===== PRICING METAFIELDS (per product) =====
+  Namespace: custom
+    - price          (Single line text) -> base price override for Tab 1 (in dollars, e.g. "49.99")
+    - price-tab2     (Single line text) -> base price override for Tab 2
+    - price-tab3     (Single line text) -> base price override for Tab 3
+    - refill_discountt (Single line text) -> FIXED $ off (e.g. "10" = $10 off). Same for all tabs.
+
+  Display rules (per product):
+    base_price = tab-specific metafield (if set, dollars -> cents) OR prod.price
+    if refill_discountt > 0:
+      strikethrough = base_price
+      current       = base_price - discount (in cents)
+    elsif prod.compare_at_price > base_price:
+      strikethrough = compare_at_price
+      current       = base_price
+    else:
+      no strikethrough, just base_price
+
+  Total kit value (auto-summed from products):
+    - sums per-product display_price and strike_price using the SAME tab metafield
+    - outer_block.settings.kitprice manual override still wins if set
 {% endcomment %}
 
 {%- assign sid = section.id -%}
@@ -348,7 +370,7 @@
   #shopify-section-{{ sid }} .cdp-pprice-wrap { flex-direction: row; align-items: center; gap: 3px; padding: 3px 5px; }
   #shopify-section-{{ sid }} .cdp-pprice-compare { font-size: 9.6px; }
   #shopify-section-{{ sid }} .cdp-pprice {
-    font-size: 9.6px; 
+    font-size: 9.6px;
     padding: 0; margin-top: 0; display: inline;
   }
   /* Mobile desc above bottom image */
@@ -583,6 +605,46 @@
                     {%- if pri > ts and pri < te and b.type == 'tabproduct' -%}
                       {%- assign prod = b.settings.product -%}
                       {%- if prod != blank -%}
+
+                        {%- comment -%}── PER-PRODUCT PRICING (tab-specific metafield) ──{%- endcomment -%}
+                        {%- liquid
+                          if tab_counter == 1
+                            assign price_override_raw = prod.metafields.custom["price-tab2"]
+                          elsif tab_counter == 2
+                            assign price_override_raw = prod.metafields.custom["price-tab3"]
+                          else
+                            assign price_override_raw = prod.metafields.custom.price
+                          endif
+
+                          assign base_price = prod.price
+                          if price_override_raw != blank
+                            assign price_override_num = price_override_raw | times: 1.0
+                            assign base_price = price_override_num | times: 100 | round
+                          endif
+
+                          assign refill_discount_raw = prod.metafields.custom.refill_discountt
+                          assign refill_discount_cents = 0
+                          if refill_discount_raw != blank
+                            assign refill_discount_num = refill_discount_raw | times: 1.0
+                            assign refill_discount_cents = refill_discount_num | times: 100 | round
+                          endif
+
+                          assign compare_at = prod.compare_at_price | default: 0
+
+                          assign display_price = base_price
+                          assign strike_price = 0
+                          assign has_strike = false
+
+                          if refill_discount_cents > 0
+                            assign display_price = base_price | minus: refill_discount_cents
+                            assign strike_price = base_price
+                            assign has_strike = true
+                          elsif compare_at > base_price
+                            assign strike_price = compare_at
+                            assign has_strike = true
+                          endif
+                        -%}
+
                         <li class="cdp-prod-row" {{ b.shopify_attributes }}>
                           <div class="cdp-pimg">
                             {%- if prod.featured_image != blank -%}
@@ -591,10 +653,10 @@
                           </div>
                           <div class="cdp-pinfo"><span class="cdp-ptitle">{{ prod.title }}</span></div>
                           <div class="cdp-pprice-wrap">
-                            {%- if prod.compare_at_price > prod.price -%}
-                              <s class="cdp-pprice-compare" aria-label="Original price">{{ prod.compare_at_price | money_without_trailing_zeros }}</s>
+                            {%- if has_strike -%}
+                              <s class="cdp-pprice-compare" aria-label="Original price">{{ strike_price | money_without_trailing_zeros }}</s>
                             {%- endif -%}
-                            <span class="cdp-pprice">{{ prod.price | money_without_trailing_zeros }}</span>
+                            <span class="cdp-pprice">{{ display_price | money_without_trailing_zeros }}</span>
                           </div>
                         </li>
                       {%- endif -%}
@@ -645,6 +707,7 @@
                 {%- endfor -%}
               </ul>
 
+              {%- comment -%}── TOTAL: sum per-product display & strike using tab-specific metafield ──{%- endcomment -%}
               {%- assign sum_p = 0 -%}
               {%- assign sum_c = 0 -%}
               {%- assign has_cmp = false -%}
@@ -653,8 +716,51 @@
                 {%- if tbi > ts and tbi < te and b.type == 'tabproduct' -%}
                   {%- assign tp = b.settings.product -%}
                   {%- if tp != blank -%}
-                    {%- assign sum_p = sum_p | plus: tp.price -%}
-                    {%- if tp.compare_at_price > 0 -%}{%- assign sum_c = sum_c | plus: tp.compare_at_price -%}{%- assign has_cmp = true -%}{%- endif -%}
+                    {%- liquid
+                      if tab_counter == 1
+                        assign t_override_raw = tp.metafields.custom["price-tab2"]
+                      elsif tab_counter == 2
+                        assign t_override_raw = tp.metafields.custom["price-tab3"]
+                      else
+                        assign t_override_raw = tp.metafields.custom.price
+                      endif
+
+                      assign t_base = tp.price
+                      if t_override_raw != blank
+                        assign t_override_num = t_override_raw | times: 1.0
+                        assign t_base = t_override_num | times: 100 | round
+                      endif
+
+                      assign t_refill_raw = tp.metafields.custom.refill_discountt
+                      assign t_refill_cents = 0
+                      if t_refill_raw != blank
+                        assign t_refill_num = t_refill_raw | times: 1.0
+                        assign t_refill_cents = t_refill_num | times: 100 | round
+                      endif
+
+                      assign t_compare = tp.compare_at_price | default: 0
+
+                      assign t_display = t_base
+                      assign t_strike = 0
+                      assign t_has_strike = false
+
+                      if t_refill_cents > 0
+                        assign t_display = t_base | minus: t_refill_cents
+                        assign t_strike = t_base
+                        assign t_has_strike = true
+                      elsif t_compare > t_base
+                        assign t_strike = t_compare
+                        assign t_has_strike = true
+                      endif
+
+                      assign sum_p = sum_p | plus: t_display
+                      if t_has_strike
+                        assign sum_c = sum_c | plus: t_strike
+                        assign has_cmp = true
+                      else
+                        assign sum_c = sum_c | plus: t_display
+                      endif
+                    -%}
                   {%- endif -%}
                 {%- endif -%}
                 {%- assign tbi = tbi | plus: 1 -%}
@@ -759,6 +865,11 @@
     { "type": "header",   "content": "Section Header" },
     { "type": "text",     "id": "heading", "label": "Heading", "default": "Choose your daily practice" },
     { "type": "textarea", "id": "subtext", "label": "Subtext",  "default": "Haritaki works from the inside. These kits work from the outside." },
+
+    { "type": "header", "content": "Product Metafields (set on each product)", "info": "Create these in: Settings → Custom data → Products." },
+    { "type": "paragraph", "content": "1) Refill discount (fixed $) — Namespace: custom · Key: refill_discountt · Type: Single line text. Example: 10 (means $10 off the base price). Same metafield applies to all 3 tabs." },
+    { "type": "paragraph", "content": "2) Price override (per tab) — Namespace: custom · Type: Single line text. Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). Example value: 49.99. If set, that tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant." },
+
     { "type": "header", "content": "Mobile Padding" },
     { "type": "range", "id": "pt_m", "label": "Top",    "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
     { "type": "range", "id": "pb_m", "label": "Bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
@@ -787,7 +898,7 @@
         { "type": "text",         "id": "r_heading",     "label": "Right heading", "default": "What's inside the kit" },
         { "type": "richtext",     "id": "items_label",   "label": "Items label (optional)", "info": "Leave blank to hide.", "default": "<p>8 items + Free shipping</p>" },
         { "type": "richtext",     "id": "gifts_label",   "label": "Gifts label",   "default": "<p>6 items + 2 Free Gifts worth $69</p>" },
-        { "type": "text",         "id": "kitprice",      "label": "Kit price (e.g. $280)", "default": "$280" },
+        { "type": "text",         "id": "kitprice",      "label": "Kit price (manual override, e.g. $280)", "info": "Leave blank to auto-sum from the products in this tab.", "default": "$280" },
         { "type": "checkbox",     "id": "products_2col", "label": "Show products in 2 columns", "default": false },
         { "type": "image_picker", "id": "bottom_image",  "label": "Bottom image" },
         { "type": "textarea",     "id": "btm_desc",      "label": "Description above bottom image (Mobile only)" }
