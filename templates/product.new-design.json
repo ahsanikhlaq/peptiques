@@ -3289,21 +3289,10 @@
             "product": "filtered-showerhead"
           }
         },
-        "tabproduct_G8zYnA": {
+        "tabproduct_irUeXX": {
           "type": "tabproduct",
           "settings": {
-            "product": "fluoride-free-toothpaste"
-          }
-        },
-        "free_item_XFJgDi": {
-          "type": "free_item",
-          "disabled": true,
-          "settings": {
-            "product_1": "free-detox-spiritual-guidance-e-book",
-            "product_2": "free-worldwide-shipping-1",
-            "product_3": "",
-            "product_4": "",
-            "show_on_desktop": false
+            "product": "filtered-showerhead"
           }
         },
         "tab_FTwLP3": {
@@ -3413,8 +3402,7 @@
         "footer_item_PCcC4b",
         "tabproduct_aww3R8",
         "tabproduct_NjaW8M",
-        "tabproduct_G8zYnA",
-        "free_item_XFJgDi",
+        "tabproduct_irUeXX",
         "tab_FTwLP3",
         "bullet_item_rR7qAx",
         "bullet_item_EFpRRj",
