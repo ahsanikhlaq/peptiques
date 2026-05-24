@@ -172,19 +172,57 @@
                 {% for kit_product in kit_products %}
                   {%- liquid
                     assign first_variant = kit_product.selected_or_first_available_variant
-                    assign regular_price = first_variant.price
 
                     comment
-                      Refill discount % comes from product metafield: custom.refill_discount
-                      If set, display_price = regular_price - (regular_price × discount%/100)
-                      Otherwise display_price = regular_price.
+                      ===== NEW PRICING LOGIC =====
+                      Base price source:
+                        - If product metafield custom.price is set (single line text),
+                          treat that as the base/regular price (in dollars, convert to cents).
+                        - Otherwise use variant.price (already in cents).
+
+                      Discount source:
+                        - product metafield custom.refill_discountt (single line text)
+                        - This is a FIXED DOLLAR AMOUNT off (e.g., "10" = $10 off).
+                        - Convert to cents by multiplying by 100.
+
+                      Display rules:
+                        - If refill_discountt > 0:
+                            strikethrough = base_price
+                            current       = base_price - discount (in cents)
+                        - Else if variant.compare_at_price > base_price:
+                            strikethrough = compare_at_price
+                            current       = base_price
+                        - Else:
+                            no strikethrough, just base_price.
                     endcomment
 
-                    assign refill_discount = kit_product.metafields.custom.refill_discount | default: 0 | plus: 0
-                    assign display_price = regular_price
-                    if refill_discount > 0
-                      assign discount_amount = regular_price | times: refill_discount | divided_by: 100.0
-                      assign display_price = regular_price | minus: discount_amount
+                    assign price_override_raw = kit_product.metafields.custom.price
+                    assign base_price = first_variant.price
+                    if price_override_raw != blank
+                      assign price_override_num = price_override_raw | times: 1.0
+                      assign base_price = price_override_num | times: 100 | round
+                    endif
+
+                    assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
+                    assign refill_discount_cents = 0
+                    if refill_discount_raw != blank
+                      assign refill_discount_num = refill_discount_raw | times: 1.0
+                      assign refill_discount_cents = refill_discount_num | times: 100 | round
+                    endif
+
+                    assign compare_at = first_variant.compare_at_price | default: 0
+
+                    assign display_price = base_price
+                    assign strike_price = 0
+                    assign has_strike = false
+
+                    if refill_discount_cents > 0
+                      assign display_price = base_price | minus: refill_discount_cents
+                      assign strike_price = base_price
+                      assign has_strike = true
+                    elsif compare_at > base_price
+                      assign strike_price = compare_at
+                      assign has_strike = true
                     endif
 
                     assign gift_tag = kit_product.metafields.custom.gift_tag
@@ -205,8 +243,8 @@
                     <div class="ritual-kit__product-title">{{ kit_product.title }}</div>
 
                     <div class="ritual-kit__product-price">
-                      {% if refill_discount > 0 %}
-                        <span class="ritual-kit__product-price-compare">{{ regular_price | money_without_trailing_zeros }}</span>
+                      {% if has_strike %}
+                        <span class="ritual-kit__product-price-compare">{{ strike_price | money_without_trailing_zeros }}</span>
                       {% endif %}
                       <span class="ritual-kit__product-price-current">{{ display_price | money_without_trailing_zeros }}</span>
                     </div>
@@ -264,18 +302,36 @@
                         endif
 
                         comment
-                          Refill row pricing:
-                          - regular_price (strikethrough compare) = variant.price
-                          - current refill price = regular_price minus metafield discount %
-                          - Only show compare when discount > 0
+                          Same pricing logic as the kit contents grid above.
                         endcomment
 
-                        assign regular_price = first_variant.price
-                        assign refill_discount = kit_product.metafields.custom.refill_discount | default: 0 | plus: 0
-                        assign refill_price = regular_price
-                        if refill_discount > 0
-                          assign discount_amount = regular_price | times: refill_discount | divided_by: 100.0
-                          assign refill_price = regular_price | minus: discount_amount
+                        assign price_override_raw = kit_product.metafields.custom.price
+                        assign base_price = first_variant.price
+                        if price_override_raw != blank
+                          assign price_override_num = price_override_raw | times: 1.0
+                          assign base_price = price_override_num | times: 100 | round
+                        endif
+
+                        assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
+                        assign refill_discount_cents = 0
+                        if refill_discount_raw != blank
+                          assign refill_discount_num = refill_discount_raw | times: 1.0
+                          assign refill_discount_cents = refill_discount_num | times: 100 | round
+                        endif
+
+                        assign compare_at = first_variant.compare_at_price | default: 0
+
+                        assign refill_price = base_price
+                        assign refill_strike = 0
+                        assign refill_has_strike = false
+
+                        if refill_discount_cents > 0
+                          assign refill_price = base_price | minus: refill_discount_cents
+                          assign refill_strike = base_price
+                          assign refill_has_strike = true
+                        elsif compare_at > base_price
+                          assign refill_strike = compare_at
+                          assign refill_has_strike = true
                         endif
                       -%}
 
@@ -284,8 +340,8 @@
                           <div class="ritual-kit__refill-name">{{ kit_product.title }}</div>
                           <div class='new-kit-wrapper'>
                             <div class="ritual-kit__refill-price">
-                              {% if refill_discount > 0 %}
-                                <span class="ritual-kit__refill-compare">{{ regular_price | money_without_trailing_zeros }}</span>
+                              {% if refill_has_strike %}
+                                <span class="ritual-kit__refill-compare">{{ refill_strike | money_without_trailing_zeros }}</span>
                               {% endif %}
                               <span class="ritual-kit__refill-current">{{ refill_price | money_without_trailing_zeros }}</span>
                             </div>
@@ -1094,7 +1150,11 @@
     },
     {
       "type": "paragraph",
-      "content": "2) Refill discount % — Namespace: custom · Key: refill_discount · Type: Integer. Example value: 30 (means 30% off regular price)."
+      "content": "2) Refill discount (fixed $) — Namespace: custom · Key: refill_discountt · Type: Single line text. Example value: 10 (means $10 off the base price)."
+    },
+    {
+      "type": "paragraph",
+      "content": "3) Price override — Namespace: custom · Key: price · Type: Single line text. Example value: 49.99 (if set, this is used as the base price instead of the product's variant price). Compare-at price still comes from the variant."
     },
 
     {
