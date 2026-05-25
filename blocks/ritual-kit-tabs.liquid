@@ -252,12 +252,15 @@
                     {% endif %}
                     <div class="ritual-kit__product-title">{{ kit_product.title }}</div>
 
-                    <div class="ritual-kit__product-price">
-                      {% if has_strike %}
-                        <span class="ritual-kit__product-price-compare">{{ strike_price | money_without_trailing_zeros }}</span>
-                      {% endif %}
-                      <span class="ritual-kit__product-price-current">{{ display_price | money_without_trailing_zeros }}</span>
-                    </div>
+                    {% comment %} Hide price if product has a gift_tag (free item) {% endcomment %}
+                    {% if gift_tag == blank %}
+                      <div class="ritual-kit__product-price">
+                        {% if has_strike %}
+                          <span class="ritual-kit__product-price-compare">{{ strike_price | money_without_trailing_zeros }}</span>
+                        {% endif %}
+                        <span class="ritual-kit__product-price-current">{{ display_price | money_without_trailing_zeros }}</span>
+                      </div>
+                    {% endif %}
 
                     {% if gift_tag != blank %}
                       <div class="ritual-kit__product-gift-tag">
