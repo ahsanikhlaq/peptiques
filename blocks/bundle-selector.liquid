@@ -1,6 +1,22 @@
 {% comment %} /blocks/bundle-selector.liquid {% endcomment %}
 
-<div id="main-ancher-btn" class="bundle-selector-block" {{ block.shopify_attributes }}>
+{%- liquid
+  comment
+    Discount percentage from settings (default 25). We'll apply it on top of
+    the regular price to produce the final "discounted" price shown to the user.
+    Also used to compute the discounted total for the selected option.
+  endcomment
+  assign discount_percent = block.settings.discount_percent | default: 25
+  assign discount_multiplier = 100 | minus: discount_percent
+-%}
+
+<div
+  id="main-ancher-btn"
+  class="bundle-selector-block"
+  data-discount-percent="{{ discount_percent }}"
+  data-selling-plan-id="{{ block.settings.selling_plan_id }}"
+  {{ block.shopify_attributes }}
+>
   {% if block.settings.heading != blank %}
     <h3 class="bundle-selector__heading">{{ block.settings.heading }}</h3>
   {% endif %}
@@ -11,10 +27,22 @@
     {% if block.settings.mode == 'variant' %}
       {%- for variant in product.variants -%}
         {%- liquid
-          assign save_percent = 0
+          comment
+            Apply customer discount on top of variant.price to get the final price.
+            Compare-at is the original (pre-discount) variant.price OR the
+            variant.compare_at_price if higher.
+          endcomment
+          assign discounted_price = variant.price | times: discount_multiplier | divided_by: 100
+
+          assign original_for_compare = variant.price
           if variant.compare_at_price > variant.price
-            assign diff = variant.compare_at_price | minus: variant.price
-            assign save_percent = diff | times: 100.0 | divided_by: variant.compare_at_price | round
+            assign original_for_compare = variant.compare_at_price
+          endif
+
+          assign save_percent = 0
+          if original_for_compare > discounted_price
+            assign diff = original_for_compare | minus: discounted_price
+            assign save_percent = diff | times: 100.0 | divided_by: original_for_compare | round
           endif
 
           assign tag_label = ''
@@ -41,7 +69,12 @@
           endif
         -%}
 
-        <label class="bundle-option{% if is_selected %} is-selected{% endif %}{% if tag_label != blank %} has-tag{% endif %}" data-variant-id="{{ variant.id }}">
+        <label
+          class="bundle-option{% if is_selected %} is-selected{% endif %}{% if tag_label != blank %} has-tag{% endif %}"
+          data-variant-id="{{ variant.id }}"
+          data-qty="1"
+          data-selling-plan-id="{{ block.settings.selling_plan_id }}"
+        >
           <input
             type="radio"
             name="bundle-select-{{ block.id }}"
@@ -49,22 +82,22 @@
             class="bundle-option__radio visually-hidden"
             {% if is_selected %}checked{% endif %}
             data-variant-input
-            id = '{{ product.selected_or_first_available_variant.id }}'
+            id='{{ product.selected_or_first_available_variant.id }}'
           >
 
           {% if tag_label != blank %}
             <div class='new-tag-wrapper'>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-<path d="M4 4L8 0V8H0L4 4Z" fill="#47184D"/>
-</svg>
-            </span>
-            <span class="bundle-option__tag">{{ tag_label }}</span>
-             <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-<path d="M4 4L0 0V8H8L4 4Z" fill="#47184D"/>
-</svg>
-             </span>
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                  <path d="M4 4L8 0V8H0L4 4Z" fill="#47184D"/>
+                </svg>
+              </span>
+              <span class="bundle-option__tag">{{ tag_label }}</span>
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                  <path d="M4 4L0 0V8H8L4 4Z" fill="#47184D"/>
+                </svg>
+              </span>
             </div>
           {% endif %}
 
@@ -86,9 +119,9 @@
             </div>
 
             <div class="bundle-option__price">
-              <div class="bundle-option__price-current">{{ variant.price | money }}</div>
-              {% if variant.compare_at_price > variant.price %}
-                <div class="bundle-option__price-compare">{{ variant.compare_at_price | money }}</div>
+              <div class="bundle-option__price-current">{{ discounted_price | money }}</div>
+              {% if original_for_compare > discounted_price %}
+                <div class="bundle-option__price-compare">{{ original_for_compare | money }}</div>
               {% endif %}
             </div>
           </div>
@@ -124,14 +157,16 @@
             assign custom_image = block.settings[image_key]
 
             comment
-              Current price = base price × buy_qty (what customer pays for)
-              Compare-at    = compare_at_price × all_qty (full retail value of everything received)
-              If no compare_at_price on product, fall back to base_price × all_qty,
-              but only show compare/save block when all_qty > buy_qty (real savings).
-              Save % is always calculated from compare-at vs current price.
+              Original total (before customer discount):
+                If product has compare_at_price -> base_compare × all_qty
+                Else                            -> base_price   × all_qty
+              Final price (after customer discount):
+                base_price × buy_qty × (100 - discount_percent) / 100
+              Save % is calculated from original total vs final discounted price.
             endcomment
 
-            assign total_price = base_price | times: buy_qty
+            assign raw_total_price = base_price | times: buy_qty
+            assign total_price = raw_total_price | times: discount_multiplier | divided_by: 100
 
             assign has_compare = false
             assign total_compare = 0
@@ -142,8 +177,8 @@
                 assign has_compare = true
               endif
             else
-              if all_qty > buy_qty
-                assign total_compare = base_price | times: all_qty
+              assign total_compare = base_price | times: all_qty
+              if total_compare > total_price
                 assign has_compare = true
               endif
             endif
@@ -160,7 +195,12 @@
             endif
           -%}
 
-          <label class="bundle-option{% if is_selected %} is-selected{% endif %}{% if tag_label != blank %} has-tag{% endif %}" data-qty="{{ buy_qty }}" data-all-qty="{{ all_qty }}">
+          <label
+            class="bundle-option{% if is_selected %} is-selected{% endif %}{% if tag_label != blank %} has-tag{% endif %}"
+            data-qty="{{ buy_qty }}"
+            data-all-qty="{{ all_qty }}"
+            data-selling-plan-id="{{ block.settings.selling_plan_id }}"
+          >
             <input
               type="radio"
               name="bundle-select-{{ block.id }}"
@@ -168,24 +208,24 @@
               class="bundle-option__radio visually-hidden"
               {% if is_selected %}checked{% endif %}
               data-qty-input
-               id = '{{ product.selected_or_first_available_variant.id }}'
+              id='{{ product.selected_or_first_available_variant.id }}'
             >
 
             {% if tag_label != blank %}
-            <div class='new-tag-wrapper'>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-<path d="M4 4L8 0V8H0L4 4Z" fill="#47184D"/>
-</svg>
-            </span>
-            <span class="bundle-option__tag">{{ tag_label }}</span>
-             <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-<path d="M4 4L0 0V8H8L4 4Z" fill="#47184D"/>
-</svg>
-             </span>
-            </div>
-          {% endif %}
+              <div class='new-tag-wrapper'>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <path d="M4 4L8 0V8H0L4 4Z" fill="#47184D"/>
+                  </svg>
+                </span>
+                <span class="bundle-option__tag">{{ tag_label }}</span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <path d="M4 4L0 0V8H8L4 4Z" fill="#47184D"/>
+                  </svg>
+                </span>
+              </div>
+            {% endif %}
 
             <div class="bundle-option__inner">
               {%- liquid
@@ -277,7 +317,7 @@
     line-height: 12px;
   }
   .new-tag-wrapper{
-   position: absolute;
+    position: absolute;
     top: -8px;
     right: 16px;
     display: flex;
@@ -418,32 +458,69 @@
   document.addEventListener('DOMContentLoaded', function () {
     var blocks = document.querySelectorAll('.bundle-selector-block');
     blocks.forEach(function (block) {
+      var sellingPlanId = block.getAttribute('data-selling-plan-id') || '';
       var options = block.querySelectorAll('.bundle-option');
+
+      // Ensure the cart form has a selling_plan input we can update.
+      function ensureSellingPlanInput() {
+        var form = document.querySelector('form[action*="/cart/add"]');
+        if (!form) return null;
+        var input = form.querySelector('input[name="selling_plan"]');
+        if (!input) {
+          input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'selling_plan';
+          form.appendChild(input);
+        }
+        return input;
+      }
+
+      function applySelection(option) {
+        options.forEach(function (o) { o.classList.remove('is-selected'); });
+        option.classList.add('is-selected');
+
+        var radio = option.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        var variantId = option.getAttribute('data-variant-id');
+        var qty = option.getAttribute('data-qty');
+        var optionSellingPlan = option.getAttribute('data-selling-plan-id') || sellingPlanId;
+
+        if (variantId) {
+          var variantInput = document.querySelector('form[action*="/cart/add"] input[name="id"]');
+          if (variantInput) variantInput.value = variantId;
+        }
+
+        if (qty) {
+          var qtyInput = document.querySelector('form[action*="/cart/add"] input[name="quantity"]');
+          if (qtyInput) qtyInput.value = qty;
+        }
+
+        // Always sync the selling plan input so it gets submitted with the form.
+        var spInput = ensureSellingPlanInput();
+        if (spInput) {
+          spInput.value = optionSellingPlan && optionSellingPlan !== '' ? optionSellingPlan : '';
+        }
+      }
+
       options.forEach(function (option) {
         option.addEventListener('click', function () {
-          options.forEach(function (o) { o.classList.remove('is-selected'); });
-          option.classList.add('is-selected');
-
-          var radio = option.querySelector('input[type="radio"]');
-          if (radio) {
-            radio.checked = true;
-            radio.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-
-          var variantId = option.getAttribute('data-variant-id');
-          var qty = option.getAttribute('data-qty');
-
-          if (variantId) {
-            var variantInput = document.querySelector('form[action*="/cart/add"] input[name="id"]');
-            if (variantInput) variantInput.value = variantId;
-          }
-
-          if (qty) {
-            var qtyInput = document.querySelector('form[action*="/cart/add"] input[name="quantity"]');
-            if (qtyInput) qtyInput.value = qty;
-          }
+          applySelection(option);
         });
       });
+
+      // Initialise selling plan on page load using the currently selected option.
+      var preSelected = block.querySelector('.bundle-option.is-selected') || options[0];
+      if (preSelected) {
+        var optionSellingPlan = preSelected.getAttribute('data-selling-plan-id') || sellingPlanId;
+        var spInput = ensureSellingPlanInput();
+        if (spInput) {
+          spInput.value = optionSellingPlan && optionSellingPlan !== '' ? optionSellingPlan : '';
+        }
+      }
     });
   });
 </script>
@@ -472,6 +549,28 @@
       "id": "heading",
       "label": "Heading",
       "default": "CHOOSE YOUR HARITAKI SUPPLY:"
+    },
+
+    {
+      "type": "header",
+      "content": "Discount & Selling Plan",
+      "info": "Discount % is applied on top of the product price to calculate the final price shown. Selling Plan ID is passed to the cart so the customer is charged the subscription/discounted price."
+    },
+    {
+      "type": "range",
+      "id": "discount_percent",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Discount percentage",
+      "default": 25
+    },
+    {
+      "type": "text",
+      "id": "selling_plan_id",
+      "label": "Selling Plan ID",
+      "info": "Paste the Shopify Selling Plan ID that applies this discount. Leave blank for one-time purchase."
     },
 
     {
