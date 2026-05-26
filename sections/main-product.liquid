@@ -1488,11 +1488,16 @@
         if (selectedBundle) {
           var bundleRadio = selectedBundle.querySelector('input[type="radio"]');
           var bundleVariantId = bundleRadio ? bundleRadio.getAttribute('id') : null;
-          var bundleQty = parseInt(selectedBundle.getAttribute('data-all-qty'), 10) || 1;
+
+          // buyQty  = how many the customer PAYS for -> add WITH subscription
+          // allQty  = total items the customer RECEIVES
+          // freeQty = allQty - buyQty  -> add WITHOUT subscription (the "free" ones)
+          var buyQty = parseInt(selectedBundle.getAttribute('data-qty'), 10) || 1;
+          var allQty = parseInt(selectedBundle.getAttribute('data-all-qty'), 10) || buyQty;
+          var freeQty = allQty - buyQty;
+          if (freeQty < 0) freeQty = 0;
 
           // Pull the selling plan id from the bundle option (set by bundle-selector.liquid).
-          // We pass it as the NATIVE selling_plan field so Shopify actually attaches
-          // the subscription to the cart line item (not just a label/property).
           var bundleSellingPlanId =
             selectedBundle.getAttribute('data-selling-plan-id') ||
             (document.querySelector('.bundle-selector-block')
@@ -1500,15 +1505,31 @@
               : '');
 
           if (bundleVariantId) {
-            var bundleItem = {
-              id: parseInt(bundleVariantId, 10),
-              quantity: bundleQty
-            };
-            if (bundleSellingPlanId && bundleSellingPlanId.trim() !== '') {
-              // Native Shopify selling plan field — applies the real subscription/discount.
-              bundleItem.selling_plan = parseInt(bundleSellingPlanId, 10);
+            var parsedVariantId = parseInt(bundleVariantId, 10);
+
+            // 1) Paid items -> WITH subscription (native selling_plan)
+            if (buyQty > 0) {
+              var paidItem = {
+                id: parsedVariantId,
+                quantity: buyQty
+              };
+              if (bundleSellingPlanId && bundleSellingPlanId.trim() !== '') {
+                paidItem.selling_plan = parseInt(bundleSellingPlanId, 10);
+              }
+              items.push(paidItem);
             }
-            items.push(bundleItem);
+
+            // 2) Free items -> WITHOUT subscription (no selling_plan)
+            // We tag them as a property so they're clearly distinguishable in the cart/order.
+            if (freeQty > 0) {
+              items.push({
+                id: parsedVariantId,
+                quantity: freeQty,
+                properties: {
+                  '_bundle_gift': 'true'
+                }
+              });
+            }
           }
         }
 
