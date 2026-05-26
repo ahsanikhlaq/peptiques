@@ -1,6 +1,6 @@
 {% comment %} /blocks/ritual-kit-tabs.liquid {% endcomment %}
 
-<div class="ritual-kit-block" {{ block.shopify_attributes }}>
+<div class="ritual-kit-block" {{ block.shopify_attributes }} data-ritual-kit-block>
   {% if block.settings.heading != blank %}
     <h3 class="ritual-kit__heading">{{ block.settings.heading }}</h3>
   {% endif %}
@@ -18,6 +18,7 @@
         name="ritual-tab-{{ block.id }}"
         id="ritual-tab-{{ block.id }}-{{ i }}"
         class="ritual-kit__radio"
+        data-tab-index="{{ i }}"
         {% if i == block.settings.default_tab %}checked{% endif %}
       >
     {% endif %}
@@ -406,6 +407,60 @@
     {% endfor %}
   </div>
 </div>
+
+<script>
+  (function () {
+    var block = document.currentScript.previousElementSibling;
+    // Walk up to make sure we have the .ritual-kit-block wrapper
+    while (block && !block.matches('[data-ritual-kit-block]')) {
+      block = block.previousElementSibling || (block.parentElement && block.parentElement.querySelector('[data-ritual-kit-block]'));
+      if (!block) break;
+    }
+    if (!block) {
+      // Fallback: grab the last block on the page (covers theme editor edge cases)
+      var blocks = document.querySelectorAll('[data-ritual-kit-block]');
+      block = blocks[blocks.length - 1];
+    }
+    if (!block) return;
+
+    function syncCtaWithSelectedTab() {
+      // Find the checked radio inside THIS block
+      var checked = block.querySelector('.ritual-kit__radio:checked');
+      if (!checked) return;
+
+      var tabIndex = checked.getAttribute('data-tab-index');
+      if (!tabIndex) return;
+
+      // Find the matching panel
+      var panel = block.querySelector('.ritual-kit__panel[data-panel="' + tabIndex + '"]');
+      if (!panel) return;
+
+      // Read the save badge text from this panel
+      var badgeEl = panel.querySelector('.ritual-kit__save-badge');
+      var badgeText = badgeEl ? badgeEl.textContent.trim() : '';
+      if (!badgeText) return;
+
+      // Tab 1 -> "<badge> + FREE GIFTS", others -> just the badge text
+      var ctaText = (tabIndex === '1')
+        ? badgeText + ' + FREE GIFTS'
+        : badgeText;
+
+      // Update the CTA button inside this panel
+      var ctaBtn = panel.querySelector('.ritual-kit__cta-btn');
+      if (ctaBtn) {
+        ctaBtn.textContent = ctaText;
+      }
+    }
+
+    // Initial run
+    syncCtaWithSelectedTab();
+
+    // Listen for tab changes
+    block.querySelectorAll('.ritual-kit__radio').forEach(function (radio) {
+      radio.addEventListener('change', syncCtaWithSelectedTab);
+    });
+  })();
+</script>
 
 <style>
   .ritual-kit-block {
