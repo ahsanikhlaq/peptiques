@@ -80,6 +80,15 @@
           assign cta_text_key = 'tab_' | append: i | append: '_cta_text'
           assign pack_dis_key = 'tab_' | append: i | append: '_pack_dis'
 
+          comment
+            =========== HIDDEN MAIN PRODUCT (per tab) ===========
+            This is selected in the theme editor but NOT rendered in the UI.
+            We only expose its IDs (variant_id + optional selling_plan) via
+            data-attributes on the CTA so JS / cart can use it.
+          endcomment
+          assign main_product_key = 'tab_' | append: i | append: '_main_product'
+          assign main_product = block.settings[main_product_key]
+
           assign tab_title = block.settings[title_key]
           assign tab_price = block.settings[price_key]
           assign tab_compare = block.settings[compare_key]
@@ -96,10 +105,6 @@
         <div class="ritual-kit__panel" data-panel="{{ i }}">
           <div class="ritual-kit__panel-inner">
 
-            {% comment %} {% if tab_save_badge != blank %}
-              <span class="ritual-kit__save-badge">{{ tab_save_badge }}</span>
-            {% endif %} {% endcomment %}
-
             {% if tab_save_badge != blank %}
             <div class='new-tag-wrapper-new'>
             <span>
@@ -115,9 +120,6 @@
              </span>
             </div>
           {% endif %}
-
-
-
 
             <div class='new-title-tag'>
               {% if tab_title != blank %}
@@ -173,32 +175,6 @@
                   {%- liquid
                     assign first_variant = kit_product.selected_or_first_available_variant
 
-                    comment
-                      ===== PRICING LOGIC =====
-                      Base price source (PER TAB):
-                        - Tab 1 -> product metafield custom.price
-                        - Tab 2 -> product metafield custom.price-tab2
-                        - Tab 3 -> product metafield custom.price-tab3
-                        If the matching metafield is set (single line text),
-                        treat it as the base/regular price (in dollars, convert to cents).
-                        Otherwise use variant.price (already in cents).
-
-                      Discount source (same for all tabs):
-                        - product metafield custom.refill_discountt (single line text)
-                        - FIXED DOLLAR AMOUNT off (e.g., "10" = $10 off).
-                        - Convert to cents by multiplying by 100.
-
-                      Display rules:
-                        - If refill_discountt > 0:
-                            strikethrough = base_price
-                            current       = base_price - discount
-                        - Else if variant.compare_at_price > base_price:
-                            strikethrough = compare_at_price
-                            current       = base_price
-                        - Else:
-                            no strikethrough, just base_price.
-                    endcomment
-
                     if i == 2
                       assign price_override_raw = kit_product.metafields.custom["price-tab2"]
                     elsif i == 3
@@ -252,7 +228,6 @@
                     {% endif %}
                     <div class="ritual-kit__product-title">{{ kit_product.title }}</div>
 
-                    {% comment %} Hide price if product has a gift_tag (free item) {% endcomment %}
                     {% if gift_tag == blank %}
                       <div class="ritual-kit__product-price">
                         {% if has_strike %}
@@ -313,14 +288,6 @@
                             assign has_plan = true
                           endif
                         endif
-
-                        comment
-                          Same pricing logic as the kit contents grid above.
-                          Base price metafield depends on which tab this is:
-                            Tab 1 -> custom.price
-                            Tab 2 -> custom.price-tab2
-                            Tab 3 -> custom.price-tab3
-                        endcomment
 
                         if i == 2
                           assign price_override_raw = kit_product.metafields.custom["price-tab2"]
@@ -416,12 +383,46 @@
     ]
   {%- endcapture -%}
 
+  {%- comment -%}
+    Build hidden MAIN product data for this tab.
+    We expose:
+      - data-main-product-id    -> product.id
+      - data-main-product-handle-> product.handle
+      - data-main-variant-id    -> first/selected variant id
+      - data-main-selling-plan  -> first selling plan id (if any) or empty
+    These are only on the CTA so JS can read them; nothing is rendered on screen.
+  {%- endcomment -%}
+  {%- liquid
+    assign main_variant_id = ''
+    assign main_selling_plan_id = ''
+    assign main_product_id = ''
+    assign main_product_handle = ''
+    if main_product != blank
+      assign main_product_id = main_product.id
+      assign main_product_handle = main_product.handle
+      assign main_first_variant = main_product.selected_or_first_available_variant
+      if main_first_variant
+        assign main_variant_id = main_first_variant.id
+      endif
+      if main_product.selling_plan_groups.size > 0
+        assign main_first_group = main_product.selling_plan_groups[0]
+        if main_first_group.selling_plans.size > 0
+          assign main_selling_plan_id = main_first_group.selling_plans[0].id
+        endif
+      endif
+    endif
+  -%}
+
   <button
     type="button"
     class="ritual-kit__cta-btn"
     data-kit-cta
     data-kit-index="{{ i }}"
     data-kit-products='{{ kit_products_json | strip_newlines | escape }}'
+    data-main-product-id="{{ main_product_id }}"
+    data-main-product-handle="{{ main_product_handle }}"
+    data-main-variant-id="{{ main_variant_id }}"
+    data-main-selling-plan="{{ main_selling_plan_id }}"
   >
     {{ tab_cta_text }}
   </button>
@@ -1199,6 +1200,12 @@
     { "type": "richtext", "id": "tab_1_benefits", "label": "Benefits (one per line)" },
     { "type": "text", "id": "tab_1_contents_heading", "label": "Contents heading", "default": "KIT CONTENTS — ARRIVES WITH YOUR ORDER" },
     {
+      "type": "product",
+      "id": "tab_1_main_product",
+      "label": "Main product (hidden)",
+      "info": "Hidden product for this tab. Not shown in UI — only its variant ID (and first selling plan, if any) are exposed on the CTA via data-attributes for JS / cart use."
+    },
+    {
       "type": "product_list",
       "id": "tab_1_products",
       "label": "Kit products",
@@ -1224,6 +1231,12 @@
     { "type": "richtext", "id": "tab_2_benefits", "label": "Benefits (one per line)"},
     { "type": "text", "id": "tab_2_contents_heading", "label": "Contents heading", "default": "KIT CONTENTS — ARRIVES WITH YOUR ORDER" },
     {
+      "type": "product",
+      "id": "tab_2_main_product",
+      "label": "Main product (hidden)",
+      "info": "Hidden product for this tab. Not shown in UI — only its variant ID (and first selling plan, if any) are exposed on the CTA via data-attributes for JS / cart use."
+    },
+    {
       "type": "product_list",
       "id": "tab_2_products",
       "label": "Kit products",
@@ -1248,6 +1261,12 @@
     { "type": "textarea", "id": "tab_3_subtitle", "label": "Subtitle" },
     { "type": "richtext", "id": "tab_3_benefits", "label": "Benefits (one per line)"},
     { "type": "text", "id": "tab_3_contents_heading", "label": "Contents heading", "default": "KIT CONTENTS — ARRIVES WITH YOUR ORDER" },
+    {
+      "type": "product",
+      "id": "tab_3_main_product",
+      "label": "Main product (hidden)",
+      "info": "Hidden product for this tab. Not shown in UI — only its variant ID (and first selling plan, if any) are exposed on the CTA via data-attributes for JS / cart use."
+    },
     {
       "type": "product_list",
       "id": "tab_3_products",
