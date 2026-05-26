@@ -183,9 +183,8 @@
                         Tab 3 -> custom.price-tab3
 
                       Money metafield exposes the number at:
-                        metafield.value.amount  (standard)
-                        metafield.amount        (fallback)
-                      We try both.
+                        mf_money.value.amount  (object form - most common)
+                        mf_money.value         (fallback - some themes return number directly)
                     endcomment
 
                     if i == 2
@@ -197,21 +196,32 @@
                     endif
 
                     comment
-                      Money metafield in this theme is read as: mf.value
-                      That gives the dollar amount (e.g. 49.99). Multiply by 100 -> cents.
+                      ===== FIXED: Handle Money metafield correctly =====
+                      Money metafield .value is typically an object { amount, currency_code }
+                      We must read .value.amount to get the number.
+                      Fallback to .value in case theme returns it directly.
                     endcomment
                     assign has_price_override = false
-                    assign price_override_num_dollars = 0
-                    if mf_money != blank and mf_money.value != blank
-                      assign price_override_num_dollars = mf_money.value | times: 1.0
-                      if price_override_num_dollars > 0
+                    assign price_override_amount = 0
+                    if mf_money != blank
+                      if mf_money.value.amount != blank
+                        assign price_override_amount = mf_money.value.amount | times: 1.0
+                      elsif mf_money.value != blank
+                        assign price_override_amount = mf_money.value | times: 1.0
+                      endif
+
+                      if price_override_amount > 0
                         assign has_price_override = true
                       endif
                     endif
 
                     assign base_price = first_variant.price
                     if has_price_override
-                      assign base_price = price_override_num_dollars | times: 100 | round
+                      comment
+                        Convert dollars -> cents (Shopify prices internally are in cents)
+                        e.g. 49.99 dollars -> 4999 cents
+                      endcomment
+                      assign base_price = price_override_amount | times: 100 | round
                     endif
 
                     comment
@@ -278,13 +288,16 @@
                     tab i: {{ i }}
                     mf_money raw: {{ mf_money }}
                     mf_money.value: {{ mf_money.value }}
+                    mf_money.value.amount: {{ mf_money.value.amount }}
                     mf_money | json: {{ mf_money | json }}
                     has_price_override: {{ has_price_override }}
-                    price_override_num_dollars: {{ price_override_num_dollars }}
+                    price_override_amount: {{ price_override_amount }}
                     base_price (cents): {{ base_price }}
+                    variant_real_price: {{ variant_real_price }}
                     variant_compare_at: {{ variant_compare_at }}
                     strike_price: {{ strike_price }}
                     display_price: {{ display_price }}
+                    has_strike: {{ has_strike }}
                   -->
                   <div class="ritual-kit__product-card">
                     {% if kit_product.featured_image %}
@@ -377,18 +390,29 @@
                           assign mf_money = kit_product.metafields.custom.price
                         endif
 
+                        comment
+                          ===== FIXED: Handle Money metafield correctly =====
+                          Money metafield .value is typically an object { amount, currency_code }
+                          We must read .value.amount to get the number.
+                          Fallback to .value in case theme returns it directly.
+                        endcomment
                         assign has_price_override = false
-                        assign price_override_num_dollars = 0
-                        if mf_money != blank and mf_money.value != blank
-                          assign price_override_num_dollars = mf_money.value | times: 1.0
-                          if price_override_num_dollars > 0
+                        assign price_override_amount = 0
+                        if mf_money != blank
+                          if mf_money.value.amount != blank
+                            assign price_override_amount = mf_money.value.amount | times: 1.0
+                          elsif mf_money.value != blank
+                            assign price_override_amount = mf_money.value | times: 1.0
+                          endif
+
+                          if price_override_amount > 0
                             assign has_price_override = true
                           endif
                         endif
 
                         assign base_price = first_variant.price
                         if has_price_override
-                          assign base_price = price_override_num_dollars | times: 100 | round
+                          assign base_price = price_override_amount | times: 100 | round
                         endif
 
                         assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
