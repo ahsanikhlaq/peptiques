@@ -183,16 +183,23 @@
                       assign price_override_raw = kit_product.metafields.custom.price
                     endif
 
+                    comment
+                      Handle BOTH metafield types:
+                        - money type   -> object with .amount (e.g. 49.99)
+                        - single line  -> plain string/number (e.g. "49.99")
+                    endcomment
                     assign base_price = first_variant.price
                     if price_override_raw != blank
-                      assign price_override_num = price_override_raw | times: 1.0
+                      assign price_override_value = price_override_raw.amount | default: price_override_raw
+                      assign price_override_num = price_override_value | times: 1.0
                       assign base_price = price_override_num | times: 100 | round
                     endif
 
                     assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                     assign refill_discount_cents = 0
                     if refill_discount_raw != blank
-                      assign refill_discount_num = refill_discount_raw | times: 1.0
+                      assign refill_discount_value = refill_discount_raw.amount | default: refill_discount_raw
+                      assign refill_discount_num = refill_discount_value | times: 1.0
                       assign refill_discount_cents = refill_discount_num | times: 100 | round
                     endif
 
@@ -297,16 +304,23 @@
                           assign price_override_raw = kit_product.metafields.custom.price
                         endif
 
+                        comment
+                          Handle BOTH metafield types:
+                            - money type   -> object with .amount (e.g. 49.99)
+                            - single line  -> plain string/number (e.g. "49.99")
+                        endcomment
                         assign base_price = first_variant.price
                         if price_override_raw != blank
-                          assign price_override_num = price_override_raw | times: 1.0
+                          assign price_override_value = price_override_raw.amount | default: price_override_raw
+                          assign price_override_num = price_override_value | times: 1.0
                           assign base_price = price_override_num | times: 100 | round
                         endif
 
                         assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                         assign refill_discount_cents = 0
                         if refill_discount_raw != blank
-                          assign refill_discount_num = refill_discount_raw | times: 1.0
+                          assign refill_discount_value = refill_discount_raw.amount | default: refill_discount_raw
+                          assign refill_discount_num = refill_discount_value | times: 1.0
                           assign refill_discount_cents = refill_discount_num | times: 100 | round
                         endif
 
@@ -1179,7 +1193,7 @@
     },
     {
       "type": "paragraph",
-      "content": "3) Price override (per tab) — Namespace: custom · Type: Single line text. Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). Example value: 49.99. If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
+      "content": "3) Price override (per tab) — Namespace: custom · Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). Type can be Money OR Single line text — both work. Example value: 49.99. If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
     },
 
     {
