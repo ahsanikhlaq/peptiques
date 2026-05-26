@@ -207,6 +207,23 @@
                   -%}
 
                   <div class="ritual-kit__product-card">
+  
+                    <!-- 🔴 DEBUG START - remove later -->
+  <div style="background:yellow;border:2px solid red;padding:6px;font-size:9px;color:#000;font-family:monospace;width:100%;word-break:break-all;">
+    <strong>Tab:</strong> {{ i }}<br>
+    <strong>Product:</strong> {{ kit_product.title }}<br>
+    <strong>mf_money exists?:</strong> {% if mf_money != blank %}YES{% else %}NO / blank{% endif %}<br>
+    <strong>mf_money raw:</strong> [{{ mf_money }}]<br>
+    <strong>mf_money | json:</strong> {{ mf_money | json }}<br>
+    <strong>mf_money.value:</strong> [{{ mf_money.value }}]<br>
+    <strong>mf_money.type:</strong> {{ mf_money.type }}<br>
+    <strong>display_price_formatted:</strong> [{{ display_price_formatted }}]<br>
+    <strong>variant.price:</strong> {{ first_variant.price }}<br>
+    <strong>variant.price | money:</strong> {{ first_variant.price | money_without_trailing_zeros }}
+  </div>
+  <!-- 🔴 DEBUG END -->
+
+
                     {% if kit_product.featured_image %}
                       <div class="ritual-kit__product-img">
                         <img
