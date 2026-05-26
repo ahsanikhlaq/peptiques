@@ -258,7 +258,7 @@
                 endfor
               -%}
 
-              {% if refill_count > 0 %}
+              {% if refill_count > 100000 %}
                 <details class="ritual-kit__refills">
                   <summary class="ritual-kit__refills-summary">
                     <span>{{ block.settings.refills_label | default: 'Future refills' }}</span>
