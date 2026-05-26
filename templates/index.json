@@ -1,0 +1,373 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cfca4268-6358-426c-98ab-d292aeef11e5": {
+      "type": "slideshow",
+      "blocks": {
+        "template--21507361505575__cfca4268-6358-426c-98ab-d292aeef11e5-slide-1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/hf_20260131_075244_52b6da2d-0e0f-41c3-9a33-431326b1cd1c.png",
+            "mobile_image": "shopify:\/\/shop_images\/hf_20260131_075244_52b6da2d-0e0f-41c3-9a33-431326b1cd1c.png",
+            "image_overlay_opacity": 0,
+            "heading": "Ancient Ayurvedic clarity. Built for modern life",
+            "title_highlight_color": "#000000",
+            "heading_size": "h2",
+            "subheading": "Haritaki supports focus, digestion, and balance using a single, time-tested ingredient. Clean. Easy to take every day.",
+            "button_label": "Save 62% + Free Shipping",
+            "link": "shopify:\/\/products\/haritaki",
+            "button_style_secondary": false,
+            "atc_button_label": "",
+            "atc_product": "",
+            "atc_skip_cart": false,
+            "box_align": "middle-left",
+            "show_text_box": true,
+            "text_alignment": "left",
+            "color_scheme": "background-1",
+            "custom_colors_background": "#ffffff",
+            "custom_gradient_background": "",
+            "custom_colors_text": "#2e2a39",
+            "custom_colors_solid_button_background": "#dd1d1d",
+            "custom_colors_solid_button_text": "#ffffff",
+            "custom_colors_outline_button": "#dd1d1d",
+            "transparent_container_color": "white",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--21507361505575__cfca4268-6358-426c-98ab-d292aeef11e5-slide-1"
+      ],
+      "settings": {
+        "visibility": "desktop-hidden",
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "dots",
+        "desktop_pagination_position": "over",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": true,
+        "mobile_pagination_position": "under",
+        "accessibility_info": "Ancient clarity. Built for modern life"
+      }
+    },
+    "slideshow_dxyjpU": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_GUMyph": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/hf_20260131_080050_1affd319-4a33-4867-922f-7e57f4a72c4a.png",
+            "image_overlay_opacity": 0,
+            "heading": "Ancient Ayurvedic clarity. Built for modern life",
+            "title_highlight_color": "#000000",
+            "heading_size": "h2",
+            "subheading": "Haritaki supports focus, digestion, and balance using a single, time-tested ingredient. Clean. Consistent. Easy to take every day.",
+            "button_label": "Save 62% + Free Shipping",
+            "link": "shopify:\/\/products\/haritaki",
+            "button_style_secondary": false,
+            "atc_button_label": "",
+            "atc_product": "",
+            "atc_skip_cart": false,
+            "box_align": "middle-left",
+            "show_text_box": false,
+            "text_alignment": "left",
+            "color_scheme": "background-2",
+            "custom_colors_background": "#ffffff",
+            "custom_gradient_background": "",
+            "custom_colors_text": "#2e2a39",
+            "custom_colors_solid_button_background": "#dd1d1d",
+            "custom_colors_solid_button_text": "#ffffff",
+            "custom_colors_outline_button": "#dd1d1d",
+            "transparent_container_color": "white",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_GUMyph"
+      ],
+      "settings": {
+        "visibility": "mobile-hidden",
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "dots",
+        "desktop_pagination_position": "over",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": true,
+        "mobile_pagination_position": "under",
+        "accessibility_info": "Ancient clarity. Built for modern life"
+      }
+    },
+    "testimonials_rqYYmR": {
+      "type": "testimonials",
+      "blocks": {
+        "column_xNXDzX": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Emma L.",
+            "text": "<p>At 55, I was afraid my body would continue to deteriorate without me being able to do anything. Now I wake up with energy, I feel light, I recognize myself in the mirror. It's not just physical, it's an incredible emotional relief.<\/p>",
+            "author": "<em><strong>Verified Customer<\/strong><\/em>"
+          }
+        },
+        "column_iCqGmf": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "John T.",
+            "text": "<p>I avoided family photos, pool outings with my grandchildren. Today, I'm the first to suggest activities. It's not just that I feel 'less bloated', it's that I feel FREE to be myself again.<\/p>",
+            "author": "<em><strong>Verified Customer<\/strong><\/em>"
+          }
+        },
+        "column_VU6Y3K": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Sophie B.",
+            "text": "<p>I cried every morning in front of my mirror. 'Who is this woman?' I didn't recognize myself anymore. After 4 weeks, it's not just that my legs are lighter, it's that I found MYSELF again. The woman I was has returned.<\/p>",
+            "author": "<em><strong>Verified Customer<\/strong><\/em>"
+          }
+        }
+      },
+      "block_order": [
+        "column_xNXDzX",
+        "column_iCqGmf",
+        "column_VU6Y3K"
+      ],
+      "disabled": true,
+      "name": "Testimonials",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Testimonials",
+        "title_highlight_1": "solid-color",
+        "title_highlight_1_gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_1_bg-color": "#f9efff",
+        "title_highlight_1_color": "#6d388b",
+        "highlighted-1_border_radius": 8,
+        "highlighted-1_border_width": 0,
+        "highlighted-1_border": "solid",
+        "highlighted-1_border_color": "#6d388b",
+        "highlighted-1_padding-block": 0.3,
+        "highlighted-1_padding-inline": 0.3,
+        "title_highlight_1_underline-thickness": 2,
+        "title_highlight_1_underline-color": "#6d388b",
+        "title_highlight_1_underline-color--gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_1_underline-color-position": 25,
+        "title_highlight_1_handwritten-color": "#6d388b",
+        "title_highlight_1_handwritten-stroke-width": 3,
+        "title_highlight_1_handwritten-position": 60,
+        "title_highlight_2": "none",
+        "title_highlight_2_gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_2_bg-color": "#f9efff",
+        "title_highlight_2_color": "#6d388b",
+        "highlighted-2_border_radius": 8,
+        "highlighted-2_border_width": 0,
+        "highlighted-2_border": "solid",
+        "highlighted-2_border_color": "#6d388b",
+        "highlighted-2_padding-block": 0.3,
+        "highlighted-2_padding-inline": 0.3,
+        "title_highlight_2_underline-thickness": 2,
+        "title_highlight_2_underline-color": "#6d388b",
+        "title_highlight_2_underline-color--gradient": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+        "title_highlight_2_underline-color-position": 25,
+        "title_highlight_2_handwritten-color": "#6d388b",
+        "title_highlight_2_handwritten-stroke-width": 3,
+        "title_highlight_2_handwritten-position": 60,
+        "heading_size": "h1",
+        "custom_desktop_size": 39,
+        "custom_mobile_size": 28,
+        "text": "",
+        "color_scheme": "background-1",
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "pattern_bg": "none",
+        "pattern_color": "#6d388b",
+        "pattern_size": 20,
+        "pattern_thickness": 2,
+        "pattern_angle": 45,
+        "pattern_opacity_mode": "low",
+        "pattern_opacity_low": 7,
+        "pattern_opacity_normal": 80,
+        "image_width": "full",
+        "image_ratio": "square",
+        "column_alignment": "center",
+        "show_stars": true,
+        "inactive_stars_style": "solid",
+        "star_color": "#ffcc00",
+        "bg_star_color": "#ececec",
+        "show_quotes": true,
+        "quotes_color_scheme": "accent-2",
+        "cards_color_scheme": "bg-overlay",
+        "custom_cards_colors_background": "#f3f3f3",
+        "custom_cards_gradient_background": "",
+        "custom_cards_colors_text": "#2e2a39",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": true,
+        "columns_desktop": 3,
+        "slider_desktop": true,
+        "per_move_desktop": 1,
+        "desktop_spacing": 40,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "slider_mobile": true,
+        "enable_mobile_preview": true,
+        "mobile_adaptive_height": true,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_liquid_Bnr8gz": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "custom_liquid": "<style>\n  .ancient-wisdom-section {\n    position: relative;\n    padding: 80px 20px;\n    overflow: hidden;\n    \/* EXPLICIT BACKGROUND COLOR + GRADIENT *\/\n    background-color: #78350f;\n    background: linear-gradient(to bottom, #78350f, #7c2d12, #451a03);\n  }\n  \n  \/* Texture overlay *\/\n  .ancient-wisdom-texture {\n    position: absolute;\n    inset: 0;\n    background: radial-gradient(ellipse at 30% 20%, rgba(251, 191, 36, 0.08) 0%, transparent 50%),\n                radial-gradient(ellipse at 70% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 50%);\n    z-index: 0;\n    pointer-events: none;\n  }\n  \n  \/* Blur container - LOWEST z-index, stays behind everything *\/\n  .ancient-wisdom-blur-container {\n    position: absolute;\n    inset: 0;\n    overflow: hidden;\n    z-index: 0;\n    pointer-events: none;\n  }\n  \n  .ancient-wisdom-blur-1 {\n    position: absolute;\n    width: 400px;\n    height: 400px;\n    top: 10%;\n    left: -100px;\n    background: rgba(251, 191, 36, 0.15);\n    border-radius: 50%;\n    filter: blur(80px);\n  }\n  \n  .ancient-wisdom-blur-2 {\n    position: absolute;\n    width: 350px;\n    height: 350px;\n    bottom: 10%;\n    right: -80px;\n    background: rgba(245, 158, 11, 0.12);\n    border-radius: 50%;\n    filter: blur(70px);\n  }\n  \n  \/* ALL CONTENT - z-index: 1 so it's above blurs but NOT above header\/stickers *\/\n  .ancient-wisdom-content {\n    position: relative;\n    z-index: 1;\n    max-width: 1200px;\n    margin: 0 auto;\n  }\n  \n  .ancient-wisdom-badge {\n    display: inline-block;\n    background: rgba(254, 243, 199, 0.15);\n    backdrop-filter: blur(8px);\n    -webkit-backdrop-filter: blur(8px);\n    border: 1px solid rgba(251, 191, 36, 0.3);\n    border-radius: 9999px;\n    padding: 12px 28px;\n    font-size: 14px;\n    font-weight: 700;\n    color: #fcd34d;\n    letter-spacing: 2px;\n    text-transform: uppercase;\n    margin-bottom: 24px;\n  }\n  \n  .ancient-wisdom-title {\n    font-size: 42px;\n    font-weight: 800;\n    color: #fef3c7;\n    margin-bottom: 16px;\n    line-height: 1.1;\n  }\n  \n  .ancient-wisdom-subtitle {\n    font-size: 20px;\n    color: #fde68a;\n    opacity: 0.9;\n    margin-bottom: 48px;\n    max-width: 700px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  \n  .ancient-wisdom-image-container {\n    margin-bottom: 56px;\n    border-radius: 24px;\n    overflow: hidden;\n    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);\n    border: 1px solid rgba(251, 191, 36, 0.2);\n  }\n  \n  .ancient-wisdom-image {\n    width: 100%;\n    height: auto;\n    max-height: 500px;\n    object-fit: cover;\n    display: block;\n  }\n  \n  .ancient-wisdom-image-caption {\n    background: rgba(120, 53, 15, 0.8);\n    backdrop-filter: blur(8px);\n    -webkit-backdrop-filter: blur(8px);\n    padding: 16px 24px;\n    text-align: center;\n    color: #fde68a;\n    font-style: italic;\n    font-size: 15px;\n  }\n  \n  .ancient-stories-grid {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 28px;\n    margin-bottom: 56px;\n  }\n  \n  @media (max-width: 768px) {\n    .ancient-stories-grid {\n      grid-template-columns: 1fr;\n    }\n    .ancient-wisdom-title {\n      font-size: 32px;\n    }\n    .ancient-wisdom-subtitle {\n      font-size: 18px;\n    }\n  }\n  \n  .ancient-story-card {\n    position: relative;\n    background: rgba(254, 243, 199, 0.1);\n    backdrop-filter: blur(8px);\n    -webkit-backdrop-filter: blur(8px);\n    border: 1px solid rgba(251, 191, 36, 0.2);\n    border-radius: 20px;\n    padding: 32px 24px;\n    text-align: center;\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n  }\n  \n  .ancient-story-card:hover {\n    transform: translateY(-4px);\n    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);\n  }\n  \n  .ancient-story-emoji {\n    font-size: 56px;\n    margin-bottom: 20px;\n    display: block;\n  }\n  \n  .ancient-story-title {\n    font-size: 22px;\n    font-weight: 700;\n    color: #fcd34d;\n    margin-bottom: 14px;\n  }\n  \n  .ancient-story-text {\n    font-size: 15px;\n    color: #fef3c7;\n    opacity: 0.9;\n    line-height: 1.7;\n  }\n  \n  .ancient-quote-block {\n    background: rgba(254, 243, 199, 0.08);\n    backdrop-filter: blur(8px);\n    -webkit-backdrop-filter: blur(8px);\n    border-left: 4px solid #f59e0b;\n    border-radius: 0 16px 16px 0;\n    padding: 36px 40px;\n    margin-bottom: 56px;\n    max-width: 900px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  \n  .ancient-quote-emoji {\n    font-size: 48px;\n    margin-bottom: 16px;\n    display: block;\n  }\n  \n  .ancient-quote-text {\n    font-size: 22px;\n    font-style: italic;\n    color: #fef3c7;\n    margin-bottom: 16px;\n    line-height: 1.6;\n  }\n  \n  .ancient-quote-source {\n    font-size: 15px;\n    color: #fcd34d;\n    font-weight: 600;\n  }\n  \n  .ancient-timeline {\n    display: flex;\n    justify-content: space-between;\n    align-items: flex-start;\n    gap: 16px;\n    margin-bottom: 56px;\n    flex-wrap: wrap;\n  }\n  \n  @media (max-width: 768px) {\n    .ancient-timeline {\n      flex-direction: column;\n      align-items: center;\n    }\n  }\n  \n  .ancient-timeline-item {\n    text-align: center;\n    flex: 1;\n    min-width: 140px;\n  }\n  \n  .ancient-timeline-dot {\n    width: 16px;\n    height: 16px;\n    background: #f59e0b;\n    border-radius: 50%;\n    margin: 0 auto 12px;\n    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);\n  }\n  \n  .ancient-timeline-year {\n    font-size: 18px;\n    font-weight: 700;\n    color: #fcd34d;\n    margin-bottom: 6px;\n  }\n  \n  .ancient-timeline-text {\n    font-size: 14px;\n    color: #fef3c7;\n    opacity: 0.85;\n  }\n  \n  .ancient-closing-box {\n    background: rgba(254, 243, 199, 0.1);\n    backdrop-filter: blur(8px);\n    -webkit-backdrop-filter: blur(8px);\n    border: 1px solid rgba(251, 191, 36, 0.25);\n    border-radius: 20px;\n    padding: 36px 32px;\n    max-width: 800px;\n    margin: 0 auto;\n  }\n  \n  .ancient-closing-text {\n    font-size: 20px;\n    color: #fef3c7;\n    line-height: 1.7;\n    font-style: italic;\n  }\n<\/style>\n\n<section class=\"ancient-wisdom-section\">\n  <!-- Background texture -->\n  <div class=\"ancient-wisdom-texture\"><\/div>\n  \n  <!-- Decorative blurs - z-index: 0, stays BEHIND content -->\n  <div class=\"ancient-wisdom-blur-container\">\n    <div class=\"ancient-wisdom-blur-1\"><\/div>\n    <div class=\"ancient-wisdom-blur-2\"><\/div>\n  <\/div>\n  \n  <!-- Content - z-index: 1, above blurs but below header\/stickers -->\n  <div class=\"ancient-wisdom-content\" style=\"text-align: center;\">\n    \n    <!-- Badge -->\n    <span class=\"ancient-wisdom-badge\">🕉️ 5,000 YEARS OF SACRED WISDOM<\/span>\n    \n    <!-- Title -->\n    <h2 class=\"ancient-wisdom-title\">\"The King of Medicines\"<\/h2>\n    <p class=\"ancient-wisdom-subtitle\">\n      Why Buddhist monks, Ayurvedic healers, and spiritual seekers have treasured this single fruit for over 5,000 years\n    <\/p>\n    \n    <!-- Image -->\n    <div class=\"ancient-wisdom-image-container\">\n      <img \n        src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0698\/3532\/5616\/files\/36f6f3b8-2064-4d87-93c8-1b04c6b06b60.jpg?v=1765237753\" \n        alt=\"Ancient monks in meditation\"\n        class=\"ancient-wisdom-image\"\n        loading=\"lazy\"\n      >\n      <div class=\"ancient-wisdom-image-caption\">\n        Tibetan monks have used Haritaki for centuries to deepen meditation and enhance spiritual clarity\n      <\/div>\n    <\/div>\n    \n    <!-- Ancient Stories Grid -->\n    <div class=\"ancient-stories-grid\">\n      <div class=\"ancient-story-card\">\n        <span class=\"ancient-story-emoji\">🧘<\/span>\n        <h3 class=\"ancient-story-title\">The Monks' Secret<\/h3>\n        <p class=\"ancient-story-text\">\n          For centuries, Tibetan and Indian monks have used Haritaki before meditation. They believed it cleared the mind, sharpened intuition, and connected them to higher consciousness. It was their daily ritual for spiritual awakening.\n        <\/p>\n      <\/div>\n      \n      <div class=\"ancient-story-card\">\n        <span class=\"ancient-story-emoji\">👁️<\/span>\n        <h3 class=\"ancient-story-title\">The Third Eye Awakening<\/h3>\n        <p class=\"ancient-story-text\">\n          In Ayurvedic tradition, Haritaki is called \"Abhaya\" — meaning fearless. Ancient texts claim it decalcifies and activates the pineal gland (third eye), enhancing intuition, dreams, and inner vision.\n        <\/p>\n      <\/div>\n      \n      <div class=\"ancient-story-card\">\n        <span class=\"ancient-story-emoji\">🪷<\/span>\n        <h3 class=\"ancient-story-title\">The Medicine Buddha's Fruit<\/h3>\n        <p class=\"ancient-story-text\">\n          In Buddhist iconography, the Medicine Buddha is always depicted holding a Haritaki fruit in his hand. It represents the most sacred healing medicine in all of Buddhist tradition — the ultimate gift of wellness.\n        <\/p>\n      <\/div>\n    <\/div>\n    \n    <!-- Quote Block -->\n    <div class=\"ancient-quote-block\">\n      <span class=\"ancient-quote-emoji\">📜<\/span>\n      <p class=\"ancient-quote-text\">\n        \"Haritaki is like a mother who cares for her children. It removes all diseases, sharpens the intellect, and bestows liberation of the soul.\"\n      <\/p>\n      <span class=\"ancient-quote-source\">— Charaka Samhita, Ancient Ayurvedic Text (2,000+ years old)<\/span>\n    <\/div>\n    \n    <!-- Timeline -->\n    <div class=\"ancient-timeline\">\n      <div class=\"ancient-timeline-item\">\n        <div class=\"ancient-timeline-dot\"><\/div>\n        <div class=\"ancient-timeline-year\">3000 BCE<\/div>\n        <div class=\"ancient-timeline-text\">First recorded in Indian Vedic texts<\/div>\n      <\/div>\n      <div class=\"ancient-timeline-item\">\n        <div class=\"ancient-timeline-dot\"><\/div>\n        <div class=\"ancient-timeline-year\">500 BCE<\/div>\n        <div class=\"ancient-timeline-text\">Adopted by Buddhist monks<\/div>\n      <\/div>\n      <div class=\"ancient-timeline-item\">\n        <div class=\"ancient-timeline-dot\"><\/div>\n        <div class=\"ancient-timeline-year\">800 CE<\/div>\n        <div class=\"ancient-timeline-text\">Spread via Silk Road to Tibet & China<\/div>\n      <\/div>\n      <div class=\"ancient-timeline-item\">\n        <div class=\"ancient-timeline-dot\"><\/div>\n        <div class=\"ancient-timeline-year\">Today<\/div>\n        <div class=\"ancient-timeline-text\">Validated by modern neuroscience<\/div>\n      <\/div>\n    <\/div>\n    \n    <!-- Closing -->\n    <div class=\"ancient-closing-box\">\n      <p class=\"ancient-closing-text\">\n        For 5,000 years, seekers of truth have trusted this single fruit to unlock their highest potential. \n        Monks, healers, and spiritual masters have passed down this wisdom through generations. \n        <strong style=\"color: #fcd34d;\">Now, it's your turn.<\/strong>\n      <\/p>\n    <\/div>\n    \n  <\/div>\n<\/section>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 24
+      }
+    },
+    "slideshow_waMg7T": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_LjcnNV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/4afead43-1dda-4676-80d5-4ccb9753d42f.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/4afead43-1dda-4676-80d5-4ccb9753d42f.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Better Health Starts Here",
+            "title_highlight_color": "#000000",
+            "heading_size": "h2",
+            "subheading": "Daily essentials for a stronger, calmer, more energized you.",
+            "button_label": "Shop Our Himalayan Haritaki",
+            "link": "shopify:\/\/products\/haritaki",
+            "button_style_secondary": false,
+            "atc_button_label": "",
+            "atc_product": "",
+            "atc_skip_cart": false,
+            "box_align": "middle-center",
+            "show_text_box": true,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "custom_colors_background": "#ffffff",
+            "custom_gradient_background": "",
+            "custom_colors_text": "#2e2a39",
+            "custom_colors_solid_button_background": "#dd1d1d",
+            "custom_colors_solid_button_text": "#ffffff",
+            "custom_colors_outline_button": "#dd1d1d",
+            "transparent_container_color": "white",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_LjcnNV"
+      ],
+      "disabled": true,
+      "settings": {
+        "visibility": "always-display",
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "dots",
+        "desktop_pagination_position": "over",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": true,
+        "mobile_pagination_position": "under",
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "newsletter_dpJwtd": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_G8C9VA": {
+          "type": "heading",
+          "settings": {
+            "title": "<strong>Join the Inner Circle<\/strong>",
+            "title_highlight_color": "#268373",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_wf4bQg": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Early access, limited releases, and restock alerts only.<\/p>"
+          }
+        },
+        "email_form_gXbwGz": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_G8C9VA",
+        "paragraph_wf4bQg",
+        "email_form_gXbwGz"
+      ],
+      "disabled": true,
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "button_type": "solid",
+        "button_label": "Join Now",
+        "button_style_secondary": false,
+        "color_scheme": "background-1",
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "pattern_bg": "none",
+        "pattern_color": "#6d388b",
+        "pattern_size": 20,
+        "pattern_thickness": 2,
+        "pattern_angle": 45,
+        "pattern_opacity_mode": "low",
+        "pattern_opacity_low": 7,
+        "pattern_opacity_normal": 80,
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "17722899498dc89574": {
+      "type": "_blocks",
+      "settings": {}
+    }
+  },
+  "order": [
+    "cfca4268-6358-426c-98ab-d292aeef11e5",
+    "slideshow_dxyjpU",
+    "testimonials_rqYYmR",
+    "custom_liquid_Bnr8gz",
+    "slideshow_waMg7T",
+    "newsletter_dpJwtd",
+    "17722899498dc89574"
+  ]
+}
