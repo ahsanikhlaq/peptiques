@@ -245,7 +245,7 @@
         "products_mega_menu_links": "",
         "products_mega_menu_display_collection_products": false,
         "products_mega_menu_display_collection_images": true,
-        "enable_country_selector": false,
+        "enable_country_selector": true,
         "country_selector_visibility": "always-display",
         "country_images_ratio": "circle",
         "country_selector_selected_flags_desktop": true,
