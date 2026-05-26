@@ -1491,7 +1491,8 @@
           var bundleQty = parseInt(selectedBundle.getAttribute('data-all-qty'), 10) || 1;
 
           // Pull the selling plan id from the bundle option (set by bundle-selector.liquid).
-          // We save it as a hidden line item property so the subscription app can read it.
+          // We pass it as the NATIVE selling_plan field so Shopify actually attaches
+          // the subscription to the cart line item (not just a label/property).
           var bundleSellingPlanId =
             selectedBundle.getAttribute('data-selling-plan-id') ||
             (document.querySelector('.bundle-selector-block')
@@ -1504,10 +1505,8 @@
               quantity: bundleQty
             };
             if (bundleSellingPlanId && bundleSellingPlanId.trim() !== '') {
-              // Save as hidden line item property (attribute). Leading underscore = hidden in cart UI.
-              bundleItem.properties = {
-                '_selling_plan_id': bundleSellingPlanId
-              };
+              // Native Shopify selling plan field — applies the real subscription/discount.
+              bundleItem.selling_plan = parseInt(bundleSellingPlanId, 10);
             }
             items.push(bundleItem);
           }
