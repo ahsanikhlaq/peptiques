@@ -195,9 +195,9 @@
 
                     if mf_money != blank
                       if mf_money.value.amount != blank
-                        assign override_dollars = mf_money.value.amount | money
+                        assign override_dollars = mf_money.value.amount | times: 1.0
                       elsif mf_money.value != blank
-                        assign override_dollars = mf_money.value | money
+                        assign override_dollars = mf_money.value | times: 1.0
                       endif
 
                       if override_dollars > 0
