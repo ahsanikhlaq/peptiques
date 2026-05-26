@@ -193,21 +193,17 @@
                     assign has_price_override = false
                     assign override_dollars = 0
 
-                    assign has_price_override = false
-assign override_dollars = 0
+                    if mf_money != blank
+                      if mf_money.value.amount != blank
+                        assign override_dollars = mf_money.value.amount | times: 1.0
+                      elsif mf_money.value != blank
+                        assign override_dollars = mf_money.value | times: 1.0
+                      endif
 
-if mf_money != blank
-  comment
-    Money metafields expose .value as a Money drop with .amount
-    .amount is a Decimal — convert via | plus: 0.0 to force numeric
-  endcomment
-  assign raw_amount = mf_money.value.amount | plus: 0.0
-
-  if raw_amount > 0
-    assign override_dollars = raw_amount
-    assign has_price_override = true
-  endif
-endif
+                      if override_dollars > 0
+                        assign has_price_override = true
+                      endif
+                    endif
 
                     comment
                       ===== base_price is ALWAYS in CENTS =====
