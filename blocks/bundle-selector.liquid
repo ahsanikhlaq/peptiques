@@ -461,15 +461,18 @@
       var sellingPlanId = block.getAttribute('data-selling-plan-id') || '';
       var options = block.querySelectorAll('.bundle-option');
 
-      // Ensure the cart form has a selling_plan input we can update.
-      function ensureSellingPlanInput() {
+      // Ensure the cart form has a line item property input for the selling plan id.
+      // Shopify reads properties[Name] from the /cart/add form and attaches them
+      // to the cart line item as a custom attribute.
+      function ensureSellingPlanAttr() {
         var form = document.querySelector('form[action*="/cart/add"]');
         if (!form) return null;
-        var input = form.querySelector('input[name="selling_plan"]');
+        var input = form.querySelector('input[name="properties[_selling_plan_id]"]');
         if (!input) {
           input = document.createElement('input');
           input.type = 'hidden';
-          input.name = 'selling_plan';
+          // Leading underscore = hidden property (won't show in cart UI / order confirmation)
+          input.name = 'properties[_selling_plan_id]';
           form.appendChild(input);
         }
         return input;
@@ -499,10 +502,10 @@
           if (qtyInput) qtyInput.value = qty;
         }
 
-        // Always sync the selling plan input so it gets submitted with the form.
-        var spInput = ensureSellingPlanInput();
-        if (spInput) {
-          spInput.value = optionSellingPlan && optionSellingPlan !== '' ? optionSellingPlan : '';
+        // Save the selling plan id as a line item property (attribute).
+        var spAttr = ensureSellingPlanAttr();
+        if (spAttr) {
+          spAttr.value = optionSellingPlan && optionSellingPlan !== '' ? optionSellingPlan : '';
         }
       }
 
@@ -512,13 +515,13 @@
         });
       });
 
-      // Initialise selling plan on page load using the currently selected option.
+      // Initialise attribute on page load using the currently selected option.
       var preSelected = block.querySelector('.bundle-option.is-selected') || options[0];
       if (preSelected) {
         var optionSellingPlan = preSelected.getAttribute('data-selling-plan-id') || sellingPlanId;
-        var spInput = ensureSellingPlanInput();
-        if (spInput) {
-          spInput.value = optionSellingPlan && optionSellingPlan !== '' ? optionSellingPlan : '';
+        var spAttr = ensureSellingPlanAttr();
+        if (spAttr) {
+          spAttr.value = optionSellingPlan && optionSellingPlan !== '' ? optionSellingPlan : '';
         }
       }
     });
