@@ -8,13 +8,34 @@
   endcomment
   assign discount_percent = block.settings.discount_percent | default: 25
   assign discount_multiplier = 100 | minus: discount_percent
+
+  comment
+    Pull the selling plan id directly from the product. Shopify exposes selling
+    plans via product.selling_plan_groups (attached by the subscription app).
+    We grab the FIRST selling plan from the FIRST group as the default for this
+    product. If you need a specific plan, set it manually in the block setting
+    as a fallback override.
+  endcomment
+  assign product_selling_plan_id = ''
+  if product.selling_plan_groups.size > 0
+    assign first_group = product.selling_plan_groups[0]
+    if first_group.selling_plans.size > 0
+      assign product_selling_plan_id = first_group.selling_plans[0].id
+    endif
+  endif
+
+  comment
+    Manual override from block setting wins if provided, otherwise use the
+    selling plan pulled from the product itself.
+  endcomment
+  assign resolved_selling_plan_id = block.settings.selling_plan_id | default: product_selling_plan_id
 -%}
 
 <div
   id="main-ancher-btn"
   class="bundle-selector-block"
   data-discount-percent="{{ discount_percent }}"
-  data-selling-plan-id="{{ block.settings.selling_plan_id }}"
+  data-selling-plan-id="{{ resolved_selling_plan_id }}"
   {{ block.shopify_attributes }}
 >
   {% if block.settings.heading != blank %}
@@ -73,7 +94,7 @@
           class="bundle-option{% if is_selected %} is-selected{% endif %}{% if tag_label != blank %} has-tag{% endif %}"
           data-variant-id="{{ variant.id }}"
           data-qty="1"
-          data-selling-plan-id="{{ block.settings.selling_plan_id }}"
+          data-selling-plan-id="{{ resolved_selling_plan_id }}"
         >
           <input
             type="radio"
@@ -199,7 +220,7 @@
             class="bundle-option{% if is_selected %} is-selected{% endif %}{% if tag_label != blank %} has-tag{% endif %}"
             data-qty="{{ buy_qty }}"
             data-all-qty="{{ all_qty }}"
-            data-selling-plan-id="{{ block.settings.selling_plan_id }}"
+            data-selling-plan-id="{{ resolved_selling_plan_id }}"
           >
             <input
               type="radio"
@@ -572,8 +593,8 @@
     {
       "type": "text",
       "id": "selling_plan_id",
-      "label": "Selling Plan ID",
-      "info": "Paste the Shopify Selling Plan ID that applies this discount. Leave blank for one-time purchase."
+      "label": "Selling Plan ID (optional override)",
+      "info": "Leave blank to auto-pull the selling plan from the product (recommended). Only fill this in if you want to force a specific selling plan ID."
     },
 
     {
