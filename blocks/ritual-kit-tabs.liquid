@@ -175,31 +175,49 @@
                   {%- liquid
                     assign first_variant = kit_product.selected_or_first_available_variant
 
+                    comment
+                      ===== PRICE OVERRIDE per TAB (kit grid) =====
+                      All three are MONEY metafields:
+                        Tab 1 -> custom.price
+                        Tab 2 -> custom.price-tab2
+                        Tab 3 -> custom.price-tab3
+
+                      Money metafield exposes the number at:
+                        metafield.value.amount  (standard)
+                        metafield.amount        (fallback)
+                      We try both.
+                    endcomment
+
                     if i == 2
-                      assign price_override_raw = kit_product.metafields.custom["price-tab2"]
+                      assign mf_money = kit_product.metafields.custom["price-tab2"]
                     elsif i == 3
-                      assign price_override_raw = kit_product.metafields.custom["price-tab3"]
+                      assign mf_money = kit_product.metafields.custom["price-tab3"]
                     else
-                      assign price_override_raw = kit_product.metafields.custom.price
+                      assign mf_money = kit_product.metafields.custom.price
+                    endif
+
+                    assign has_price_override = false
+                    assign price_override_num_dollars = 0
+                    if mf_money != blank
+                      assign money_amount = mf_money.value.amount | default: mf_money.amount
+                      if money_amount != blank
+                        assign price_override_num_dollars = money_amount | times: 1.0
+                        assign has_price_override = true
+                      endif
+                    endif
+
+                    assign base_price = first_variant.price
+                    if has_price_override
+                      assign base_price = price_override_num_dollars | times: 100 | round
                     endif
 
                     comment
-                      Handle BOTH metafield types:
-                        - money type   -> object with .amount (e.g. 49.99)
-                        - single line  -> plain string/number (e.g. "49.99")
+                      refill_discountt -> SINGLE LINE TEXT (plain number string)
                     endcomment
-                    assign base_price = first_variant.price
-                    if price_override_raw != blank
-                      assign price_override_value = price_override_raw.amount | default: price_override_raw
-                      assign price_override_num = price_override_value | times: 1.0
-                      assign base_price = price_override_num | times: 100 | round
-                    endif
-
                     assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                     assign refill_discount_cents = 0
                     if refill_discount_raw != blank
-                      assign refill_discount_value = refill_discount_raw.amount | default: refill_discount_raw
-                      assign refill_discount_num = refill_discount_value | times: 1.0
+                      assign refill_discount_num = refill_discount_raw | times: 1.0
                       assign refill_discount_cents = refill_discount_num | times: 100 | round
                     endif
 
@@ -296,31 +314,44 @@
                           endif
                         endif
 
+                        comment
+                          ===== PRICE OVERRIDE per TAB (refills accordion) =====
+                          All three are MONEY metafields:
+                            Tab 1 -> custom.price
+                            Tab 2 -> custom.price-tab2
+                            Tab 3 -> custom.price-tab3
+                        endcomment
+
                         if i == 2
-                          assign price_override_raw = kit_product.metafields.custom["price-tab2"]
+                          assign mf_money = kit_product.metafields.custom["price-tab2"]
                         elsif i == 3
-                          assign price_override_raw = kit_product.metafields.custom["price-tab3"]
+                          assign mf_money = kit_product.metafields.custom["price-tab3"]
                         else
-                          assign price_override_raw = kit_product.metafields.custom.price
+                          assign mf_money = kit_product.metafields.custom.price
+                        endif
+
+                        assign has_price_override = false
+                        assign price_override_num_dollars = 0
+                        if mf_money != blank
+                          assign money_amount = mf_money.value.amount | default: mf_money.amount
+                          if money_amount != blank
+                            assign price_override_num_dollars = money_amount | times: 1.0
+                            assign has_price_override = true
+                          endif
+                        endif
+
+                        assign base_price = first_variant.price
+                        if has_price_override
+                          assign base_price = price_override_num_dollars | times: 100 | round
                         endif
 
                         comment
-                          Handle BOTH metafield types:
-                            - money type   -> object with .amount (e.g. 49.99)
-                            - single line  -> plain string/number (e.g. "49.99")
+                          refill_discountt -> SINGLE LINE TEXT
                         endcomment
-                        assign base_price = first_variant.price
-                        if price_override_raw != blank
-                          assign price_override_value = price_override_raw.amount | default: price_override_raw
-                          assign price_override_num = price_override_value | times: 1.0
-                          assign base_price = price_override_num | times: 100 | round
-                        endif
-
                         assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                         assign refill_discount_cents = 0
                         if refill_discount_raw != blank
-                          assign refill_discount_value = refill_discount_raw.amount | default: refill_discount_raw
-                          assign refill_discount_num = refill_discount_value | times: 1.0
+                          assign refill_discount_num = refill_discount_raw | times: 1.0
                           assign refill_discount_cents = refill_discount_num | times: 100 | round
                         endif
 
@@ -1193,7 +1224,7 @@
     },
     {
       "type": "paragraph",
-      "content": "3) Price override (per tab) — Namespace: custom · Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). Type can be Money OR Single line text — both work. Example value: 49.99. If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
+      "content": "3) Price override (per tab) — Namespace: custom · Type: Money. Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
     },
 
     {
