@@ -1483,22 +1483,37 @@
 
         var items = [];
 
-        // ===== 1) Selected bundle (unchanged) =====
+        // ===== 1) Selected bundle =====
         var selectedBundle = document.querySelector('.bundle-option.is-selected');
         if (selectedBundle) {
           var bundleRadio = selectedBundle.querySelector('input[type="radio"]');
           var bundleVariantId = bundleRadio ? bundleRadio.getAttribute('id') : null;
           var bundleQty = parseInt(selectedBundle.getAttribute('data-all-qty'), 10) || 1;
+
+          // Pull the selling plan id from the bundle option (set by bundle-selector.liquid).
+          // We save it as a hidden line item property so the subscription app can read it.
+          var bundleSellingPlanId =
+            selectedBundle.getAttribute('data-selling-plan-id') ||
+            (document.querySelector('.bundle-selector-block')
+              ? document.querySelector('.bundle-selector-block').getAttribute('data-selling-plan-id')
+              : '');
+
           if (bundleVariantId) {
-            items.push({ id: parseInt(bundleVariantId, 10), quantity: bundleQty });
+            var bundleItem = {
+              id: parseInt(bundleVariantId, 10),
+              quantity: bundleQty
+            };
+            if (bundleSellingPlanId && bundleSellingPlanId.trim() !== '') {
+              // Save as hidden line item property (attribute). Leading underscore = hidden in cart UI.
+              bundleItem.properties = {
+                '_selling_plan_id': bundleSellingPlanId
+              };
+            }
+            items.push(bundleItem);
           }
         }
 
         // ===== 2) HIDDEN MAIN PRODUCT (per tab) =====
-        // Replaces the old "loop through kit products" behavior.
-        // We read the data attributes set in ritual-kit-tabs.liquid:
-        //   data-main-variant-id
-        //   data-main-selling-plan (optional)
         var mainVariantId = btn.getAttribute('data-main-variant-id');
         var mainSellingPlan = btn.getAttribute('data-main-selling-plan');
 
@@ -1512,8 +1527,7 @@
           }
           items.push(mainItem);
         } else {
-          // Fallback: if no hidden main product is set on this tab,
-          // fall back to the old kit-products behavior so nothing breaks.
+          // Fallback: kit-products behavior
           var kitProductsRaw = btn.getAttribute('data-kit-products');
           if (kitProductsRaw) {
             try {
@@ -1538,8 +1552,7 @@
           return;
         }
 
-        var cartDrawer = document.querySelector('cart-drawer');
-
+        // Build FormData. Properties need to be flattened as items[i][properties][key].
         var formData = new FormData();
         items.forEach(function (item, index) {
           formData.append('items[' + index + '][id]', item.id);
@@ -1547,10 +1560,12 @@
           if (item.selling_plan) {
             formData.append('items[' + index + '][selling_plan]', item.selling_plan);
           }
+          if (item.properties) {
+            Object.keys(item.properties).forEach(function (key) {
+              formData.append('items[' + index + '][properties][' + key + ']', item.properties[key]);
+            });
+          }
         });
-
-        formData.append('sections', 'cart-drawer,cart-icon-bubble');
-        formData.append('sections_url', window.location.pathname);
 
         btn.disabled = true;
         var originalText = btn.textContent;
@@ -1575,54 +1590,9 @@
               return;
             }
 
-            // Update sections
-            if (response.sections) {
-              if (response.sections['cart-drawer']) {
-                var drawerContainer = document.getElementById('CartDrawer');
-                var parsedDrawer = new DOMParser().parseFromString(response.sections['cart-drawer'], 'text/html');
-                var newDrawerContent = parsedDrawer.querySelector('#CartDrawer');
-                if (drawerContainer && newDrawerContent) {
-                  drawerContainer.innerHTML = newDrawerContent.innerHTML;
-                }
-              }
-              if (response.sections['cart-icon-bubble']) {
-                var bubbleContainer = document.getElementById('cart-icon-bubble');
-                var parsedBubble = new DOMParser().parseFromString(response.sections['cart-icon-bubble'], 'text/html');
-                var newBubbleContent = parsedBubble.querySelector('.shopify-section') || parsedBubble.body;
-                if (bubbleContainer && newBubbleContent) {
-                  bubbleContainer.innerHTML = newBubbleContent.innerHTML;
-                }
-              }
-            }
-
-            // ===== Remove ALL empty-state classes so the new items show =====
-            var drawerEl = document.querySelector('cart-drawer');
-            if (drawerEl) {
-              drawerEl.classList.remove('is-empty');
-              drawerEl.classList.remove('cart-empty');
-              drawerEl.classList.remove('drawer--empty');
-            }
-            var cartItemsEl = document.querySelector('cart-drawer-items');
-            if (cartItemsEl) {
-              cartItemsEl.classList.remove('is-empty');
-            }
-            var cartDrawerInner = document.querySelector('.cart-drawer');
-            if (cartDrawerInner) {
-              cartDrawerInner.classList.remove('is-empty');
-              cartDrawerInner.classList.remove('cart-drawer--empty');
-            }
-            document.body.classList.remove('cart-empty');
-
-            // Open the drawer
-            if (cartDrawer && typeof cartDrawer.open === 'function') {
-              cartDrawer.open();
-            } else if (cartDrawer) {
-              cartDrawer.classList.add('animate', 'active');
-              document.body.classList.add('overflow-hidden');
-            }
-
-            btn.disabled = false;
-            btn.textContent = originalText;
+            // ===== Redirect directly to checkout =====
+            btn.textContent = 'Redirecting...';
+            window.location.href = '/checkout';
           })
           .catch(function (err) {
             console.error('[CTA] Error:', err);
