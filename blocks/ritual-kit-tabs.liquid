@@ -80,12 +80,6 @@
           assign cta_text_key = 'tab_' | append: i | append: '_cta_text'
           assign pack_dis_key = 'tab_' | append: i | append: '_pack_dis'
 
-          comment
-            =========== HIDDEN MAIN PRODUCT (per tab) ===========
-            This is selected in the theme editor but NOT rendered in the UI.
-            We only expose its IDs (variant_id + optional selling_plan) via
-            data-attributes on the CTA so JS / cart can use it.
-          endcomment
           assign main_product_key = 'tab_' | append: i | append: '_main_product'
           assign main_product = block.settings[main_product_key]
 
@@ -177,14 +171,10 @@
 
                     comment
                       ===== PRICE OVERRIDE per TAB (kit grid) =====
-                      All three are MONEY metafields:
+                      Money metafields:
                         Tab 1 -> custom.price
-                        Tab 2 -> custom.price-tab2
-                        Tab 3 -> custom.price-tab3
-
-                      Money metafield exposes the number at:
-                        mf_money.value.amount  (object form - most common)
-                        mf_money.value         (fallback - some themes return number directly)
+                        Tab 2 -> custom.price_tab2
+                        Tab 3 -> custom.price_tab3
                     endcomment
 
                     if i == 2
@@ -196,36 +186,37 @@
                     endif
 
                     comment
-                      ===== FIXED: Handle Money metafield correctly =====
-                      Money metafield .value is typically an object { amount, currency_code }
-                      We must read .value.amount to get the number.
-                      Fallback to .value in case theme returns it directly.
+                      ===== Money metafield reading =====
+                      A Money metafield's .value returns an object: { amount, currency_code }
+                      We use mf_money.value.amount which is the dollar amount (e.g. 49.99)
                     endcomment
                     assign has_price_override = false
-                    assign price_override_amount = 0
+                    assign override_dollars = 0
+
                     if mf_money != blank
                       if mf_money.value.amount != blank
-                        assign price_override_amount = mf_money.value.amount | times: 1.0
+                        assign override_dollars = mf_money.value.amount | times: 1.0
                       elsif mf_money.value != blank
-                        assign price_override_amount = mf_money.value | times: 1.0
+                        assign override_dollars = mf_money.value | times: 1.0
                       endif
 
-                      if price_override_amount > 0
+                      if override_dollars > 0
                         assign has_price_override = true
                       endif
                     endif
 
+                    comment
+                      ===== base_price is ALWAYS in CENTS =====
+                      - Variant price is already in cents (Shopify standard)
+                      - Override is in dollars, so multiply by 100 to get cents
+                    endcomment
                     assign base_price = first_variant.price
                     if has_price_override
-                      comment
-                        Convert dollars -> cents (Shopify prices internally are in cents)
-                        e.g. 49.99 dollars -> 4999 cents
-                      endcomment
-                      assign base_price = price_override_amount | times: 100 | round
+                      assign base_price = override_dollars | times: 100 | round
                     endif
 
                     comment
-                      refill_discountt -> SINGLE LINE TEXT (plain number string, e.g. "10")
+                      refill_discountt -> SINGLE LINE TEXT (plain number like "10" meaning $10)
                     endcomment
                     assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                     assign refill_discount_cents = 0
@@ -234,13 +225,6 @@
                       assign refill_discount_cents = refill_discount_num | times: 100 | round
                     endif
 
-                    comment
-                      Strike-through logic:
-                      - If a price override is set, the variant's REAL price (or compare_at_price
-                        if higher) is the "original" -> strike it out.
-                      - Else if compare_at_price is greater than base_price -> strike compare_at.
-                      - Else if refill_discount applied on top -> strike the pre-discount base.
-                    endcomment
                     assign variant_real_price = first_variant.price
                     assign variant_compare_at = first_variant.compare_at_price | default: 0
 
@@ -250,11 +234,7 @@
 
                     if has_price_override
                       comment
-                        ===== FIXED STRIKE LOGIC =====
-                        When an override is set, ALWAYS strike the compare-at price
-                        if it exists. No comparison needed - the compare-at IS the
-                        "was" price by definition.
-                        Fallback: if no compare-at, use variant's real price.
+                        When override is set: ALWAYS show compare-at as strike (if it exists)
                       endcomment
                       if variant_compare_at > 0
                         assign strike_price = variant_compare_at
@@ -283,26 +263,6 @@
                     assign gift_tag = kit_product.metafields.custom.gift_tag
                   -%}
 
-                  {%- comment -%}
-                    DEBUG: remove this block once prices work.
-                    View page source to see what the metafield contains.
-                  {%- endcomment -%}
-                  <!--
-                    DEBUG kit_product: {{ kit_product.title }}
-                    tab i: {{ i }}
-                    mf_money raw: {{ mf_money }}
-                    mf_money.value: {{ mf_money.value }}
-                    mf_money.value.amount: {{ mf_money.value.amount }}
-                    mf_money | json: {{ mf_money | json }}
-                    has_price_override: {{ has_price_override }}
-                    price_override_amount: {{ price_override_amount }}
-                    base_price (cents): {{ base_price }}
-                    variant_real_price: {{ variant_real_price }}
-                    variant_compare_at: {{ variant_compare_at }}
-                    strike_price: {{ strike_price }}
-                    display_price: {{ display_price }}
-                    has_strike: {{ has_strike }}
-                  -->
                   <div class="ritual-kit__product-card">
                     {% if kit_product.featured_image %}
                       <div class="ritual-kit__product-img">
@@ -342,7 +302,7 @@
                 {% endfor %}
               </div>
 
-              {% comment %} ----- Future Refills Accordion (only products WITH a selling plan) ----- {% endcomment %}
+              {% comment %} ----- Future Refills Accordion ----- {% endcomment %}
               {%- liquid
                 assign refill_count = 0
                 for kit_product in kit_products
@@ -380,43 +340,38 @@
 
                         comment
                           ===== PRICE OVERRIDE per TAB (refills accordion) =====
-                          All three are MONEY metafields:
+                          MUST use the SAME metafield keys as the grid above:
                             Tab 1 -> custom.price
-                            Tab 2 -> custom.price-tab2
-                            Tab 3 -> custom.price-tab3
+                            Tab 2 -> custom.price_tab2
+                            Tab 3 -> custom.price_tab3
                         endcomment
 
                         if i == 2
-                          assign mf_money = kit_product.metafields.custom["price-tab2"]
+                          assign mf_money = kit_product.metafields.custom.price_tab2
                         elsif i == 3
-                          assign mf_money = kit_product.metafields.custom["price-tab3"]
+                          assign mf_money = kit_product.metafields.custom.price_tab3
                         else
                           assign mf_money = kit_product.metafields.custom.price
                         endif
 
-                        comment
-                          ===== FIXED: Handle Money metafield correctly =====
-                          Money metafield .value is typically an object { amount, currency_code }
-                          We must read .value.amount to get the number.
-                          Fallback to .value in case theme returns it directly.
-                        endcomment
                         assign has_price_override = false
-                        assign price_override_amount = 0
+                        assign override_dollars = 0
+
                         if mf_money != blank
                           if mf_money.value.amount != blank
-                            assign price_override_amount = mf_money.value.amount | times: 1.0
+                            assign override_dollars = mf_money.value.amount | times: 1.0
                           elsif mf_money.value != blank
-                            assign price_override_amount = mf_money.value | times: 1.0
+                            assign override_dollars = mf_money.value | times: 1.0
                           endif
 
-                          if price_override_amount > 0
+                          if override_dollars > 0
                             assign has_price_override = true
                           endif
                         endif
 
                         assign base_price = first_variant.price
                         if has_price_override
-                          assign base_price = price_override_amount | times: 100 | round
+                          assign base_price = override_dollars | times: 100 | round
                         endif
 
                         assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
@@ -434,12 +389,6 @@
                         assign refill_has_strike = false
 
                         if has_price_override
-                          comment
-                            ===== FIXED STRIKE LOGIC =====
-                            When an override is set, ALWAYS strike the compare-at price
-                            if it exists. No comparison needed - the compare-at IS the
-                            "was" price by definition.
-                          endcomment
                           if variant_compare_at > 0
                             assign refill_strike = variant_compare_at
                             assign refill_has_strike = true
@@ -500,7 +449,6 @@
           {% endif %}
 
          {% if tab_cta_text != blank %}
-  {%- comment -%} Build a JSON array of products in this kit for JS to read {%- endcomment -%}
   {%- capture kit_products_json -%}
     [
     {%- for kit_product in kit_products -%}
@@ -522,15 +470,6 @@
     ]
   {%- endcapture -%}
 
-  {%- comment -%}
-    Build hidden MAIN product data for this tab.
-    We expose:
-      - data-main-product-id    -> product.id
-      - data-main-product-handle-> product.handle
-      - data-main-variant-id    -> first/selected variant id
-      - data-main-selling-plan  -> first selling plan id (if any) or empty
-    These are only on the CTA so JS can read them; nothing is rendered on screen.
-  {%- endcomment -%}
   {%- liquid
     assign main_variant_id = ''
     assign main_selling_plan_id = ''
@@ -1318,7 +1257,7 @@
     },
     {
       "type": "paragraph",
-      "content": "3) Price override (per tab) — Namespace: custom · Type: Money. Keys: 'price' (Tab 1), 'price-tab2' (Tab 2), 'price-tab3' (Tab 3). If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
+      "content": "3) Price override (per tab) — Namespace: custom · Type: Money. Keys: 'price' (Tab 1), 'price_tab2' (Tab 2), 'price_tab3' (Tab 3). If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
     },
 
     {
