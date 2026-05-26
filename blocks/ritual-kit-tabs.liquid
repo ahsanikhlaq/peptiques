@@ -169,14 +169,10 @@
                   {%- liquid
                     assign first_variant = kit_product.selected_or_first_available_variant
 
-                    comment
-                      ===== PRICE OVERRIDE per TAB (kit grid) =====
-                      Money metafields:
-                        Tab 1 -> custom.price
-                        Tab 2 -> custom.price_tab2
-                        Tab 3 -> custom.price_tab3
-                    endcomment
-
+                    # ===== Pick the right metafield based on TAB =====
+                    # Tab 1 -> custom.price
+                    # Tab 2 -> custom.price_tab2
+                    # Tab 3 -> custom.price_tab3
                     if i == 2
                       assign mf_money = kit_product.metafields.custom.price_tab2
                     elsif i == 3
@@ -185,79 +181,26 @@
                       assign mf_money = kit_product.metafields.custom.price
                     endif
 
-                    comment
-                      ===== Money metafield reading =====
-                      A Money metafield's .value returns an object: { amount, currency_code }
-                      We use mf_money.value.amount which is the dollar amount (e.g. 49.99)
-                    endcomment
-                    assign has_price_override = false
-                    assign override_dollars = 0
+                    # ===== Simple price logic =====
+                    # If metafield exists -> use it
+                    # Otherwise -> use variant price
+                    assign has_strike = false
+                    assign strike_price_formatted = ''
+                    assign display_price_formatted = ''
 
                     if mf_money != blank
-                      if mf_money.value.amount != blank
-                        assign override_dollars = mf_money.value.amount | times: 1.0
-                      elsif mf_money.value != blank
-                        assign override_dollars = mf_money.value | times: 1.0
-                      endif
-
-                      if override_dollars > 0
-                        assign has_price_override = true
-                      endif
-                    endif
-
-                    comment
-                      ===== base_price is ALWAYS in CENTS =====
-                      - Variant price is already in cents (Shopify standard)
-                      - Override is in dollars, so multiply by 100 to get cents
-                    endcomment
-                    assign base_price = first_variant.price
-                    if has_price_override
-                      assign base_price = override_dollars | times: 100 | round
-                    endif
-
-                    comment
-                      refill_discountt -> SINGLE LINE TEXT (plain number like "10" meaning $10)
-                    endcomment
-                    assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
-                    assign refill_discount_cents = 0
-                    if refill_discount_raw != blank
-                      assign refill_discount_num = refill_discount_raw | times: 1.0
-                      assign refill_discount_cents = refill_discount_num | times: 100 | round
-                    endif
-
-                    assign variant_real_price = first_variant.price
-                    assign variant_compare_at = first_variant.compare_at_price | default: 0
-
-                    assign display_price = base_price
-                    assign strike_price = 0
-                    assign has_strike = false
-
-                    if has_price_override
-                      comment
-                        When override is set: ALWAYS show compare-at as strike (if it exists)
-                      endcomment
-                      if variant_compare_at > 0
-                        assign strike_price = variant_compare_at
-                        assign has_strike = true
-                      elsif variant_real_price > base_price
-                        assign strike_price = variant_real_price
+                      assign display_price_formatted = mf_money | money_without_trailing_zeros
+                      # Show variant price as strike-through when override is set
+                      if first_variant.price > 0
+                        assign strike_price_formatted = first_variant.price | money_without_trailing_zeros
                         assign has_strike = true
                       endif
-
-                      if refill_discount_cents > 0
-                        assign display_price = base_price | minus: refill_discount_cents
-                        if has_strike == false
-                          assign strike_price = base_price
-                          assign has_strike = true
-                        endif
+                    else
+                      assign display_price_formatted = first_variant.price | money_without_trailing_zeros
+                      if first_variant.compare_at_price > first_variant.price
+                        assign strike_price_formatted = first_variant.compare_at_price | money_without_trailing_zeros
+                        assign has_strike = true
                       endif
-                    elsif refill_discount_cents > 0
-                      assign display_price = base_price | minus: refill_discount_cents
-                      assign strike_price = base_price
-                      assign has_strike = true
-                    elsif variant_compare_at > base_price
-                      assign strike_price = variant_compare_at
-                      assign has_strike = true
                     endif
 
                     assign gift_tag = kit_product.metafields.custom.gift_tag
@@ -280,9 +223,9 @@
                     {% if gift_tag == blank %}
                       <div class="ritual-kit__product-price">
                         {% if has_strike %}
-                          <span class="ritual-kit__product-price-compare">{{ strike_price | money_without_trailing_zeros }}</span>
+                          <span class="ritual-kit__product-price-compare">{{ strike_price_formatted }}</span>
                         {% endif %}
-                        <span class="ritual-kit__product-price-current">{{ display_price | money_without_trailing_zeros }}</span>
+                        <span class="ritual-kit__product-price-current">{{ display_price_formatted }}</span>
                       </div>
                     {% endif %}
 
@@ -315,7 +258,7 @@
                 endfor
               -%}
 
-              {% if refill_count > 10000 %}
+              {% if refill_count > 0 %}
                 <details class="ritual-kit__refills">
                   <summary class="ritual-kit__refills-summary">
                     <span>{{ block.settings.refills_label | default: 'Future refills' }}</span>
@@ -338,14 +281,7 @@
                           endif
                         endif
 
-                        comment
-                          ===== PRICE OVERRIDE per TAB (refills accordion) =====
-                          MUST use the SAME metafield keys as the grid above:
-                            Tab 1 -> custom.price
-                            Tab 2 -> custom.price_tab2
-                            Tab 3 -> custom.price_tab3
-                        endcomment
-
+                        # ===== Pick the right metafield based on TAB (SAME keys as grid) =====
                         if i == 2
                           assign mf_money = kit_product.metafields.custom.price_tab2
                         elsif i == 3
@@ -354,63 +290,23 @@
                           assign mf_money = kit_product.metafields.custom.price
                         endif
 
-                        assign has_price_override = false
-                        assign override_dollars = 0
+                        # ===== Simple price logic =====
+                        assign refill_has_strike = false
+                        assign refill_strike_formatted = ''
+                        assign refill_price_formatted = ''
 
                         if mf_money != blank
-                          if mf_money.value.amount != blank
-                            assign override_dollars = mf_money.value.amount | times: 1.0
-                          elsif mf_money.value != blank
-                            assign override_dollars = mf_money.value | times: 1.0
-                          endif
-
-                          if override_dollars > 0
-                            assign has_price_override = true
-                          endif
-                        endif
-
-                        assign base_price = first_variant.price
-                        if has_price_override
-                          assign base_price = override_dollars | times: 100 | round
-                        endif
-
-                        assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
-                        assign refill_discount_cents = 0
-                        if refill_discount_raw != blank
-                          assign refill_discount_num = refill_discount_raw | times: 1.0
-                          assign refill_discount_cents = refill_discount_num | times: 100 | round
-                        endif
-
-                        assign variant_real_price = first_variant.price
-                        assign variant_compare_at = first_variant.compare_at_price | default: 0
-
-                        assign refill_price = base_price
-                        assign refill_strike = 0
-                        assign refill_has_strike = false
-
-                        if has_price_override
-                          if variant_compare_at > 0
-                            assign refill_strike = variant_compare_at
-                            assign refill_has_strike = true
-                          elsif variant_real_price > base_price
-                            assign refill_strike = variant_real_price
+                          assign refill_price_formatted = mf_money | money_without_trailing_zeros
+                          if first_variant.price > 0
+                            assign refill_strike_formatted = first_variant.price | money_without_trailing_zeros
                             assign refill_has_strike = true
                           endif
-
-                          if refill_discount_cents > 0
-                            assign refill_price = base_price | minus: refill_discount_cents
-                            if refill_has_strike == false
-                              assign refill_strike = base_price
-                              assign refill_has_strike = true
-                            endif
+                        else
+                          assign refill_price_formatted = first_variant.price | money_without_trailing_zeros
+                          if first_variant.compare_at_price > first_variant.price
+                            assign refill_strike_formatted = first_variant.compare_at_price | money_without_trailing_zeros
+                            assign refill_has_strike = true
                           endif
-                        elsif refill_discount_cents > 0
-                          assign refill_price = base_price | minus: refill_discount_cents
-                          assign refill_strike = base_price
-                          assign refill_has_strike = true
-                        elsif variant_compare_at > base_price
-                          assign refill_strike = variant_compare_at
-                          assign refill_has_strike = true
                         endif
                       -%}
 
@@ -420,9 +316,9 @@
                           <div class='new-kit-wrapper'>
                             <div class="ritual-kit__refill-price">
                               {% if refill_has_strike %}
-                                <span class="ritual-kit__refill-compare">{{ refill_strike | money_without_trailing_zeros }}</span>
+                                <span class="ritual-kit__refill-compare">{{ refill_strike_formatted }}</span>
                               {% endif %}
-                              <span class="ritual-kit__refill-current">{{ refill_price | money_without_trailing_zeros }}</span>
+                              <span class="ritual-kit__refill-current">{{ refill_price_formatted }}</span>
                             </div>
                             <div class="ritual-kit__refill-freq">
                               {{ selling_plan.name }}
@@ -1255,11 +1151,7 @@
     },
     {
       "type": "paragraph",
-      "content": "2) Refill discount (fixed $) — Namespace: custom · Key: refill_discountt · Type: Single line text. Example value: 10 (means $10 off the base price)."
-    },
-    {
-      "type": "paragraph",
-      "content": "3) Price override (per tab) — Namespace: custom · Type: Money. Keys: 'price' (Tab 1), 'price_tab2' (Tab 2), 'price_tab3' (Tab 3). If set, the matching tab uses this as the base price instead of the product's variant price. Compare-at price still comes from the variant."
+      "content": "2) Price override (per tab) — Namespace: custom · Type: Money. Keys: 'price' (Tab 1), 'price_tab2' (Tab 2), 'price_tab3' (Tab 3). If set, the matching tab uses this as the price instead of the product's variant price."
     },
 
     {
