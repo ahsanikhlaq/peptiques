@@ -1445,7 +1445,6 @@
 {% endschema %}
 
 
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
@@ -1484,6 +1483,7 @@
 
         var items = [];
 
+        // ===== 1) Selected bundle (unchanged) =====
         var selectedBundle = document.querySelector('.bundle-option.is-selected');
         if (selectedBundle) {
           var bundleRadio = selectedBundle.querySelector('input[type="radio"]');
@@ -1494,21 +1494,42 @@
           }
         }
 
-        var kitProductsRaw = btn.getAttribute('data-kit-products');
-        if (kitProductsRaw) {
-          try {
-            var decoded = kitProductsRaw
-              .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-              .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-            var kitProducts = JSON.parse(decoded);
-            kitProducts.forEach(function (kp) {
-              if (!kp.variant_id) return;
-              var item = { id: parseInt(kp.variant_id, 10), quantity: 1 };
-              if (kp.selling_plan) item.selling_plan = parseInt(kp.selling_plan, 10);
-              items.push(item);
-            });
-          } catch (err) {
-            console.error('[CTA] Could not parse kit products', err);
+        // ===== 2) HIDDEN MAIN PRODUCT (per tab) =====
+        // Replaces the old "loop through kit products" behavior.
+        // We read the data attributes set in ritual-kit-tabs.liquid:
+        //   data-main-variant-id
+        //   data-main-selling-plan (optional)
+        var mainVariantId = btn.getAttribute('data-main-variant-id');
+        var mainSellingPlan = btn.getAttribute('data-main-selling-plan');
+
+        if (mainVariantId && mainVariantId.trim() !== '') {
+          var mainItem = {
+            id: parseInt(mainVariantId, 10),
+            quantity: 1
+          };
+          if (mainSellingPlan && mainSellingPlan.trim() !== '') {
+            mainItem.selling_plan = parseInt(mainSellingPlan, 10);
+          }
+          items.push(mainItem);
+        } else {
+          // Fallback: if no hidden main product is set on this tab,
+          // fall back to the old kit-products behavior so nothing breaks.
+          var kitProductsRaw = btn.getAttribute('data-kit-products');
+          if (kitProductsRaw) {
+            try {
+              var decoded = kitProductsRaw
+                .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+                .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+              var kitProducts = JSON.parse(decoded);
+              kitProducts.forEach(function (kp) {
+                if (!kp.variant_id) return;
+                var item = { id: parseInt(kp.variant_id, 10), quantity: 1 };
+                if (kp.selling_plan) item.selling_plan = parseInt(kp.selling_plan, 10);
+                items.push(item);
+              });
+            } catch (err) {
+              console.error('[CTA] Could not parse kit products', err);
+            }
           }
         }
 
