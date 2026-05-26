@@ -197,31 +197,15 @@
                     endif
 
                     comment
-                      Money metafield can expose its amount in different ways
-                      depending on Shopify version / theme setup. Try all known paths:
-                        mf.value.amount       (most common, structured)
-                        mf.amount             (some setups)
-                        mf.value              (when .value is already the number)
-                        mf                    (last resort)
+                      Money metafield in this theme is read as: mf.value
+                      That gives the dollar amount (e.g. 49.99). Multiply by 100 -> cents.
                     endcomment
                     assign has_price_override = false
                     assign price_override_num_dollars = 0
-                    if mf_money != blank
-                      assign money_amount = mf_money.value.amount
-                      if money_amount == blank
-                        assign money_amount = mf_money.amount
-                      endif
-                      if money_amount == blank
-                        assign money_amount = mf_money.value
-                      endif
-                      if money_amount == blank
-                        assign money_amount = mf_money
-                      endif
-                      if money_amount != blank
-                        assign price_override_num_dollars = money_amount | times: 1.0
-                        if price_override_num_dollars > 0
-                          assign has_price_override = true
-                        endif
+                    if mf_money != blank and mf_money.value != blank
+                      assign price_override_num_dollars = mf_money.value | times: 1.0
+                      if price_override_num_dollars > 0
+                        assign has_price_override = true
                       endif
                     endif
 
@@ -231,7 +215,7 @@
                     endif
 
                     comment
-                      refill_discountt -> SINGLE LINE TEXT (plain number string)
+                      refill_discountt -> SINGLE LINE TEXT (plain number string, e.g. "10")
                     endcomment
                     assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                     assign refill_discount_cents = 0
@@ -240,18 +224,45 @@
                       assign refill_discount_cents = refill_discount_num | times: 100 | round
                     endif
 
-                    assign compare_at = first_variant.compare_at_price | default: 0
+                    comment
+                      Strike-through logic:
+                      - If a price override is set, the variant's REAL price (or compare_at_price
+                        if higher) is the "original" -> strike it out.
+                      - Else if compare_at_price is greater than base_price -> strike compare_at.
+                      - Else if refill_discount applied on top -> strike the pre-discount base.
+                    endcomment
+                    assign variant_real_price = first_variant.price
+                    assign variant_compare_at = first_variant.compare_at_price | default: 0
 
                     assign display_price = base_price
                     assign strike_price = 0
                     assign has_strike = false
 
-                    if refill_discount_cents > 0
+                    if has_price_override
+                      comment
+                        Pick the higher of variant price vs compare_at as the "was" price
+                      endcomment
+                      assign was_price = variant_real_price
+                      if variant_compare_at > was_price
+                        assign was_price = variant_compare_at
+                      endif
+                      if was_price > base_price
+                        assign strike_price = was_price
+                        assign has_strike = true
+                      endif
+                      if refill_discount_cents > 0
+                        assign display_price = base_price | minus: refill_discount_cents
+                        if has_strike == false
+                          assign strike_price = base_price
+                          assign has_strike = true
+                        endif
+                      endif
+                    elsif refill_discount_cents > 0
                       assign display_price = base_price | minus: refill_discount_cents
                       assign strike_price = base_price
                       assign has_strike = true
-                    elsif compare_at > base_price
-                      assign strike_price = compare_at
+                    elsif variant_compare_at > base_price
+                      assign strike_price = variant_compare_at
                       assign has_strike = true
                     endif
 
@@ -267,12 +278,13 @@
                     tab i: {{ i }}
                     mf_money raw: {{ mf_money }}
                     mf_money.value: {{ mf_money.value }}
-                    mf_money.value.amount: {{ mf_money.value.amount }}
-                    mf_money.amount: {{ mf_money.amount }}
                     mf_money | json: {{ mf_money | json }}
                     has_price_override: {{ has_price_override }}
                     price_override_num_dollars: {{ price_override_num_dollars }}
                     base_price (cents): {{ base_price }}
+                    variant_compare_at: {{ variant_compare_at }}
+                    strike_price: {{ strike_price }}
+                    display_price: {{ display_price }}
                   -->
                   <div class="ritual-kit__product-card">
                     {% if kit_product.featured_image %}
@@ -367,22 +379,10 @@
 
                         assign has_price_override = false
                         assign price_override_num_dollars = 0
-                        if mf_money != blank
-                          assign money_amount = mf_money.value.amount
-                          if money_amount == blank
-                            assign money_amount = mf_money.amount
-                          endif
-                          if money_amount == blank
-                            assign money_amount = mf_money.value
-                          endif
-                          if money_amount == blank
-                            assign money_amount = mf_money
-                          endif
-                          if money_amount != blank
-                            assign price_override_num_dollars = money_amount | times: 1.0
-                            if price_override_num_dollars > 0
-                              assign has_price_override = true
-                            endif
+                        if mf_money != blank and mf_money.value != blank
+                          assign price_override_num_dollars = mf_money.value | times: 1.0
+                          if price_override_num_dollars > 0
+                            assign has_price_override = true
                           endif
                         endif
 
@@ -391,9 +391,6 @@
                           assign base_price = price_override_num_dollars | times: 100 | round
                         endif
 
-                        comment
-                          refill_discountt -> SINGLE LINE TEXT
-                        endcomment
                         assign refill_discount_raw = kit_product.metafields.custom.refill_discountt
                         assign refill_discount_cents = 0
                         if refill_discount_raw != blank
@@ -401,18 +398,35 @@
                           assign refill_discount_cents = refill_discount_num | times: 100 | round
                         endif
 
-                        assign compare_at = first_variant.compare_at_price | default: 0
+                        assign variant_real_price = first_variant.price
+                        assign variant_compare_at = first_variant.compare_at_price | default: 0
 
                         assign refill_price = base_price
                         assign refill_strike = 0
                         assign refill_has_strike = false
 
-                        if refill_discount_cents > 0
+                        if has_price_override
+                          assign was_price = variant_real_price
+                          if variant_compare_at > was_price
+                            assign was_price = variant_compare_at
+                          endif
+                          if was_price > base_price
+                            assign refill_strike = was_price
+                            assign refill_has_strike = true
+                          endif
+                          if refill_discount_cents > 0
+                            assign refill_price = base_price | minus: refill_discount_cents
+                            if refill_has_strike == false
+                              assign refill_strike = base_price
+                              assign refill_has_strike = true
+                            endif
+                          endif
+                        elsif refill_discount_cents > 0
                           assign refill_price = base_price | minus: refill_discount_cents
                           assign refill_strike = base_price
                           assign refill_has_strike = true
-                        elsif compare_at > base_price
-                          assign refill_strike = compare_at
+                        elsif variant_compare_at > base_price
+                          assign refill_strike = variant_compare_at
                           assign refill_has_strike = true
                         endif
                       -%}
