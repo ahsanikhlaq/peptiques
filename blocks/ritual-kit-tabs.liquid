@@ -188,9 +188,9 @@
                     endcomment
 
                     if i == 2
-                      assign mf_money = kit_product.metafields.custom.price_tab2
+                      assign mf_money = kit_product.metafields.custom["price-tab2"]
                     elsif i == 3
-                      assign mf_money = kit_product.metafields.custom.price_tab3
+                      assign mf_money = kit_product.metafields.custom["price-tab3"]
                     else
                       assign mf_money = kit_product.metafields.custom.price
                     endif
@@ -250,16 +250,20 @@
 
                     if has_price_override
                       comment
-                        Pick the higher of variant price vs compare_at as the "was" price
+                        ===== FIXED STRIKE LOGIC =====
+                        When an override is set, ALWAYS strike the compare-at price
+                        if it exists. No comparison needed - the compare-at IS the
+                        "was" price by definition.
+                        Fallback: if no compare-at, use variant's real price.
                       endcomment
-                      assign was_price = variant_real_price
-                      if variant_compare_at > was_price
-                        assign was_price = variant_compare_at
-                      endif
-                      if was_price > base_price
-                        assign strike_price = was_price
+                      if variant_compare_at > 0
+                        assign strike_price = variant_compare_at
+                        assign has_strike = true
+                      elsif variant_real_price > base_price
+                        assign strike_price = variant_real_price
                         assign has_strike = true
                       endif
+
                       if refill_discount_cents > 0
                         assign display_price = base_price | minus: refill_discount_cents
                         if has_strike == false
@@ -430,14 +434,20 @@
                         assign refill_has_strike = false
 
                         if has_price_override
-                          assign was_price = variant_real_price
-                          if variant_compare_at > was_price
-                            assign was_price = variant_compare_at
-                          endif
-                          if was_price > base_price
-                            assign refill_strike = was_price
+                          comment
+                            ===== FIXED STRIKE LOGIC =====
+                            When an override is set, ALWAYS strike the compare-at price
+                            if it exists. No comparison needed - the compare-at IS the
+                            "was" price by definition.
+                          endcomment
+                          if variant_compare_at > 0
+                            assign refill_strike = variant_compare_at
+                            assign refill_has_strike = true
+                          elsif variant_real_price > base_price
+                            assign refill_strike = variant_real_price
                             assign refill_has_strike = true
                           endif
+
                           if refill_discount_cents > 0
                             assign refill_price = base_price | minus: refill_discount_cents
                             if refill_has_strike == false
