@@ -196,13 +196,32 @@
                       assign mf_money = kit_product.metafields.custom.price
                     endif
 
+                    comment
+                      Money metafield can expose its amount in different ways
+                      depending on Shopify version / theme setup. Try all known paths:
+                        mf.value.amount       (most common, structured)
+                        mf.amount             (some setups)
+                        mf.value              (when .value is already the number)
+                        mf                    (last resort)
+                    endcomment
                     assign has_price_override = false
                     assign price_override_num_dollars = 0
                     if mf_money != blank
-                      assign money_amount = mf_money.value.amount | default: mf_money.amount
+                      assign money_amount = mf_money.value.amount
+                      if money_amount == blank
+                        assign money_amount = mf_money.amount
+                      endif
+                      if money_amount == blank
+                        assign money_amount = mf_money.value
+                      endif
+                      if money_amount == blank
+                        assign money_amount = mf_money
+                      endif
                       if money_amount != blank
                         assign price_override_num_dollars = money_amount | times: 1.0
-                        assign has_price_override = true
+                        if price_override_num_dollars > 0
+                          assign has_price_override = true
+                        endif
                       endif
                     endif
 
@@ -239,6 +258,22 @@
                     assign gift_tag = kit_product.metafields.custom.gift_tag
                   -%}
 
+                  {%- comment -%}
+                    DEBUG: remove this block once prices work.
+                    View page source to see what the metafield contains.
+                  {%- endcomment -%}
+                  <!--
+                    DEBUG kit_product: {{ kit_product.title }}
+                    tab i: {{ i }}
+                    mf_money raw: {{ mf_money }}
+                    mf_money.value: {{ mf_money.value }}
+                    mf_money.value.amount: {{ mf_money.value.amount }}
+                    mf_money.amount: {{ mf_money.amount }}
+                    mf_money | json: {{ mf_money | json }}
+                    has_price_override: {{ has_price_override }}
+                    price_override_num_dollars: {{ price_override_num_dollars }}
+                    base_price (cents): {{ base_price }}
+                  -->
                   <div class="ritual-kit__product-card">
                     {% if kit_product.featured_image %}
                       <div class="ritual-kit__product-img">
@@ -333,10 +368,21 @@
                         assign has_price_override = false
                         assign price_override_num_dollars = 0
                         if mf_money != blank
-                          assign money_amount = mf_money.value.amount | default: mf_money.amount
+                          assign money_amount = mf_money.value.amount
+                          if money_amount == blank
+                            assign money_amount = mf_money.amount
+                          endif
+                          if money_amount == blank
+                            assign money_amount = mf_money.value
+                          endif
+                          if money_amount == blank
+                            assign money_amount = mf_money
+                          endif
                           if money_amount != blank
                             assign price_override_num_dollars = money_amount | times: 1.0
-                            assign has_price_override = true
+                            if price_override_num_dollars > 0
+                              assign has_price_override = true
+                            endif
                           endif
                         endif
 
