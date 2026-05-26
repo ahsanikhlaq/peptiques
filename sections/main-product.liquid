@@ -1448,35 +1448,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
-    function updateCtaButtonsWithSaveText() {
-      var selectedBundle = document.querySelector('.bundle-option.is-selected');
-      if (!selectedBundle) return;
-      var saveEl = selectedBundle.querySelector('.bundle-option__save');
-      var saveText = saveEl ? saveEl.textContent.trim() : '';
-      var percentMatch = saveText.match(/(\d+)\s*%/);
-      var percent = percentMatch ? percentMatch[1] : null;
-
-      var ctaButtons = document.querySelectorAll('.ritual-kit__cta-btn');
-      ctaButtons.forEach(function (btn) {
-        if (!btn.dataset.originalText) {
-          btn.dataset.originalText = btn.textContent.trim();
-        }
-        if (percent) {
-          btn.textContent = 'SAVE ' + percent + '% + FREE GIFTS';
-        } else {
-          btn.textContent = btn.dataset.originalText;
-        }
-      });
-    }
-
-    updateCtaButtonsWithSaveText();
-
-    document.querySelectorAll('.bundle-option').forEach(function (option) {
-      option.addEventListener('click', function () {
-        setTimeout(updateCtaButtonsWithSaveText, 10);
-      });
-    });
-
     document.querySelectorAll('.ritual-kit__cta-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1624,7 +1595,6 @@
     });
   });
 </script>
-
 
 
 <script>
