@@ -440,10 +440,15 @@
       var badgeText = badgeEl ? badgeEl.textContent.trim() : '';
       if (!badgeText) return;
 
-      // Tab 1 -> "<badge> + FREE GIFTS", others -> just the badge text
+      // Strip a leading "SAVE " (case-insensitive) so badges like "SAVE 40%"
+      // become just "40%" — otherwise we'd get "SAVE ADDITIONAL SAVE 40%".
+      var amount = badgeText.replace(/^\s*save\s+/i, '').trim();
+
+      // Tab 1 -> "SAVE ADDITIONAL <amount> + FREE GIFTS"
+      // Others -> "SAVE ADDITIONAL <amount>"
       var ctaText = (tabIndex === '1')
-        ? badgeText + ' + FREE GIFTS'
-        : badgeText;
+        ? 'SAVE ADDITIONAL ' + amount + ' + FREE GIFTS'
+        : 'SAVE ADDITIONAL ' + amount;
 
       // Update the CTA button inside this panel
       var ctaBtn = panel.querySelector('.ritual-kit__cta-btn');
