@@ -194,6 +194,8 @@
           "settings": {
             "mode": "quantity",
             "heading": "CHOOSE YOUR HARITAKI SUPPLY:",
+            "discount_percent": 25,
+            "selling_plan_id": "",
             "variant_tag_2": "Most Popular",
             "variant_bonus_2": "",
             "variant_tag_3": "Best Value",
@@ -3437,7 +3439,7 @@
           "type": "badge",
           "settings": {
             "icon_image": "shopify://shop_images/Frame_2147243171.svg",
-            "label": "Plastic Free"
+            "label": "100% vegan"
           }
         },
         "badge_2": {
