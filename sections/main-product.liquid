@@ -213,7 +213,7 @@
   {% if section.settings.use_custom_gallery %}
     {% render 'custom-product-gallery' %}
   {% else %}
-    {% render 'product-media-gallery', variant_images: variant_images, has_filtering: has_filtering, section %}
+    {% render 'product-media-gallery', variant_images: variant_images, has_filtering: has_filtering %}
   {% endif %}
 
   {% comment %} Render benefits-list block(s) BELOW the gallery {% endcomment %}
@@ -1713,4 +1713,15 @@
       });
     });
   });
-</script>
+</script>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-media-gallery', variant_images: variant_images, has_filtering:
+    has_filtering, section %}"
+  to: "{% render 'product-media-gallery', variant_images: variant_images, has_filtering:
+    has_filtering %}"
+  position: 7005..7103
+{%- endcomment -%}
